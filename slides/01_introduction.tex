@@ -1,0 +1,214 @@
+\documentclass[lualatex,handout]{beamer}
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+
+\usepackage{tikz}
+
+%\usepackage[haranoaji]{luatexja-preset}
+\usepackage[ipaex]{luatexja-preset}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+%\setmainjfont{HaranoAjiGothic-Regular}
+
+\usepackage{unicode-math}
+%\setmathfont{Fira Math}
+%\setmathfont{STIX Two Math}
+%\setmathfont{STIX Two Math}[range={up,it,bb,bbit,scr,bfscr},StylisticSet=8]
+\setmathfont{XITS Math}
+%\setmathfont{XITS Math}[StylisticSet=8]
+\setmathrm{XITS Math}[StylisticSet=8]
+
+%\usefonttheme{professionalfonts}
+
+\usepackage{luacolor}
+
+\newcommand{\emm}[1]{\textcolor{red}{#1}}
+\newcommand{\expt}[1]{\mathbb{E}[#1]}
+\newcommand{\var}[1]{\mathbb{V}[#1]}
+\newcommand{\cov}[1]{\mathrm{Cov}[#1]}
+
+
+\usepackage{xspace}
+\newcommand\bm[1]{{\mathbf{#1}}}
+
+\theoremstyle{definition}
+
+\title{確率・統計基礎: 確率論の初歩のおさらい}
+\author{森 立平}
+\date{}
+
+
+
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+
+\begin{frame}{確率とは}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item 世の中のランダムな事象を数学的に記述したもの
+\item 統計・機械学習の基礎となっている
+\item 極限定理: 確率$p$で表が出るコインを$N$回投げた時に、表が出る回数$F$は
+\vspace{1em}
+\begin{itemize}
+\setlength{\itemsep}{1em}
+\item 大数の法則: $\frac{F}{N} \to p$
+\item 大偏差原理: $\Pr\left(\left|\frac{F}{N} - p\right| > \epsilon\right) = \mathrm{e}^{-\beta N}$
+\item 中心極限定理: $\frac{F-pN}{\sqrt{N}}\to$正規分布
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{統計とは}
+確率論は統計の基礎となる
+\vspace{1em}
+\begin{itemize}
+\item クラスタリング: この患者は病気ですか？
+\item a
+\end{itemize}
+\end{frame}
+
+\begin{frame}{確率論の数学モデルとは？}
+\begin{center}
+\large 測度論！
+\end{center}
+
+\vspace{1em}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item 確率は面積($=$測度)のようなもの。
+\item 数学的に\textbf{厳密}に様々な結果(大数の法則、大偏差原理、中心極限定理)が証明できる。
+\item とても重要だが勉強するのは3年生以降(解析学要論Ⅱ、確率論)。
+\item この授業では測度論を使わない代わりに制限された確率論をやる。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{離散的な確率分布}
+\begin{itemize}
+\item $p_1, p_2, \dotsc, p_n\ge 0$, $p_1+p_2+\dotsb+p_n=0$.
+\item $\mathrm{abc}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{確率変数}
+$X\colon $
+\begin{align*}
+\Pr(X\ge a)
+\end{align*}
+\end{frame}
+
+\begin{frame}{同時確率と条件付き確率}
+
+\end{frame}
+
+\begin{frame}{独立確率変数}
+
+\end{frame}
+
+\begin{frame}{平均}
+\begin{align*}
+\expt{X} &= \sum_i p_i x_i
+\end{align*}
+線形
+\begin{align*}
+\expt{aX + bY} &= a\expt{X} + b\expt{Y} 
+\end{align*}
+\end{frame}
+
+\begin{frame}{マルコフの不等式}
+\begin{theorem}[マルコフの不等式]
+任意の\emm{非負}の確率変数$X$と$a>0$について
+\begin{align*}
+\Pr(X\ge a) &\le \frac{\expt{X}}{a}
+\end{align*}
+\end{theorem}
+\begin{proof}
+\vspace{-2em}
+\begin{align*}
+\expt{X} &= \sum_i p_i x_i\\
+&= \sum_{i\colon x_i \ge a} p_i x_i
++ \sum_{i\colon x_i < a} p_i x_i\\
+&\ge \sum_{i\colon x_i \ge a} p_i x_i\hspace{8em}(x_i\ge 0)\\
+&\ge \sum_{i\colon x_i \ge a} p_i a\\
+&= a\Pr(X\ge a) \qedhere
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{例題}
+\end{frame}
+
+\begin{frame}{分散}
+\begin{align*}
+\var{X} &= \expt{(X-\expt{X})^2}\\
+&=\expt{X^2-2X\expt{X}+\expt{X}^2}\\
+&=\expt{X^2}-2\expt{X}\expt{X}+\expt{X}^2\\
+&=\emm{\expt{X^2}-\expt{X}^2}\\
+\end{align*}
+\begin{center}
+分散は\emm{非負}で\emm{平均からの広がり}を表す量。
+\end{center}
+\end{frame}
+
+\begin{frame}{分散の意味}
+\begin{align*}
+\var{X} &= \expt{(X-\expt{X})^2}
+\end{align*}
+
+$\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
+\end{frame}
+
+\begin{frame}{分散の性質}
+\begin{align*}
+\var{X} &= \expt{(X-\expt{X})^2}
+\end{align*}
+%\vspace{1em}
+\begin{align*}
+\var{aX} &= \expt{(aX-\expt{aX})^2}\\
+&= \expt{(aX-a\expt{X})^2}\\
+&= \expt{a^2(X-\expt{X})^2}\\
+&= a^2\expt{(X-\expt{X})^2}\\
+&= a^2\var{X}
+\end{align*}
+%
+\begin{align*}
+\var{X+Y} &= \expt{(X+Y-\expt{X+Y})^2}\\
+ &= \expt{(X-\expt{X}+Y-\expt{Y})^2}\\
+ &= \expt{(X-\expt{X})^2+(Y-\expt{Y})^2 + 2(X-\expt{X})(Y-\expt{Y})}\\
+ &= \expt{(X-\expt{X})^2}+\expt{(Y-\expt{Y})^2} + 2\expt{(X-\expt{X})(Y-\expt{Y})}\\
+ &= \var{X}+\var{Y}+ 2\emm{\expt{(X-\expt{X})(Y-\expt{Y})}}\\
+\end{align*}
+\end{frame}
+
+\begin{frame}{共分散}
+\begin{align*}
+\cov{X,Y} &= \expt{(X-\expt{X})(Y-\expt{Y})}
+\end{align*}
+
+\vspace{1em}
+直感的な意味
+\end{frame}
+
+\begin{frame}{無相関と独立}
+\begin{align*}
+\cov{X,Y} &= \expt{(X-\expt{X})(Y-\expt{Y})} = 0
+\end{align*}
+\end{frame}
+
+\begin{frame}{チェビシェフの不等式}
+\begin{lemma}[チェビシェフの不等式]
+任意の $a>0$について
+\begin{align*}
+\Pr(|X-\expt{X}|\ge a) &\le \frac{\var{X}}{a^2}
+\end{align*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\Pr(|X-\expt{X}|\ge a) &=\Pr((X-\expt{X})^2\ge a^2)\\
+&\le\frac{\expt{(X-\expt{X})^2}}{a^2}\hspace{3em}\text{(チェビシェフの不等式)}
+\end{align*}
+\end{proof}
+\end{frame}
+
+\end{document}
