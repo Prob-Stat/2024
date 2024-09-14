@@ -5,7 +5,7 @@
 \usepackage{tikz}
 
 %\usepackage[haranoaji]{luatexja-preset}
-\usepackage[ipaex]{luatexja-preset}
+\usepackage[deluxe,ipaex]{luatexja-preset}
 \renewcommand{\kanjifamilydefault}{\gtdefault}
 %\setmainjfont{HaranoAjiGothic-Regular}
 
@@ -14,17 +14,17 @@
 %\setmathfont{STIX Two Math}
 %\setmathfont{STIX Two Math}[range={up,it,bb,bbit,scr,bfscr},StylisticSet=8]
 \setmathfont{XITS Math}
-%\setmathfont{XITS Math}[StylisticSet=8]
 \setmathrm{XITS Math}[StylisticSet=8]
+%\setmathfont{XITS Math}[StylisticSet=8]
 
 %\usefonttheme{professionalfonts}
 
 \usepackage{luacolor}
 
 \newcommand{\emm}[1]{\textcolor{red}{#1}}
-\newcommand{\expt}[1]{\mathbb{E}[#1]}
-\newcommand{\var}[1]{\mathbb{V}[#1]}
-\newcommand{\cov}[1]{\mathrm{Cov}[#1]}
+\newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
+\newcommand{\cov}[1]{\mathrm{Cov}\left[#1\right]}
 
 
 \usepackage{xspace}
@@ -85,6 +85,7 @@
 \end{frame}
 
 \begin{frame}{離散的な確率分布}
+有限集合$\{1,2,\dotsc,n\}$上の確率分布
 \begin{itemize}
 \item $p_1, p_2, \dotsc, p_n\ge 0$, $p_1+p_2+\dotsb+p_n=0$.
 \item $\mathrm{abc}$
@@ -114,6 +115,9 @@ $X\colon $
 \begin{align*}
 \expt{aX + bY} &= a\expt{X} + b\expt{Y} 
 \end{align*}
+
+\begin{example}
+\end{example}
 \end{frame}
 
 \begin{frame}{マルコフの不等式}
@@ -210,5 +214,14 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 \end{align*}
 \end{proof}
 \end{frame}
+
+\begin{frame}{集中不等式}
+\begin{corollary}
+\begin{align*}
+\Pr\left(\left|\frac1N\sum_{t=1}^N X_t-\expt{X}\right|\ge a\right) &\le \frac{\var{X}}{a^2N}
+\end{align*}
+\end{corollary}
+\end{frame}
+
 
 \end{document}

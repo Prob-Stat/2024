@@ -1,0 +1,132 @@
+\documentclass[lualatex,handout]{beamer}
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+
+\usepackage{tikz}
+
+%\usepackage[haranoaji]{luatexja-preset}
+\usepackage[deluxe,ipaex]{luatexja-preset}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+%\setmainjfont{HaranoAjiGothic-Regular}
+
+\usepackage{unicode-math}
+%\setmathfont{Fira Math}
+%\setmathfont{STIX Two Math}
+%\setmathfont{STIX Two Math}[range={up,it,bb,bbit,scr,bfscr},StylisticSet=8]
+\setmathfont{XITS Math}
+\setmathrm{XITS Math}[StylisticSet=8]
+%\setmathfont{XITS Math}[StylisticSet=8]
+
+%\usefonttheme{professionalfonts}
+
+\usepackage{luacolor}
+
+\newcommand{\emm}[1]{\textcolor{red}{#1}}
+\newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
+\newcommand{\cov}[1]{\mathrm{Cov}\left[#1\right]}
+
+
+\usepackage{xspace}
+\newcommand\bm[1]{{\mathbf{#1}}}
+
+\theoremstyle{definition}
+
+\title{確率・統計基礎: 集中不等式}
+\author{森 立平}
+\date{}
+
+
+
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\begin{frame}{集中不等式}
+$N$個の独立な確率変数の期待値が平均周辺に集中するという
+\end{frame}
+
+
+\begin{frame}{集中不等式}
+\begin{theorem}[大数の弱法則]
+確率変数$X$が分散を持つとする。$(X_t)_{t=1,\dotsc,}$が$X$と独立同分布とする。
+このとき、任意の実数$\epsilon>0$について
+\begin{align*}
+\lim_{N\to\infty}\Pr\left(\left|\frac1N\sum_{t=1}^N X_t-\expt{X}\right|\ge \epsilon\right) &=0.
+\end{align*}
+\end{theorem}
+\begin{proof}
+チェビシェフの不等式より
+\begin{align*}
+\Pr\left(\left|\frac1N\sum_{t=1}^N X_t-\expt{X}\right|\ge \epsilon\right) &\le
+\frac{\var{\frac1N\sum_{t=1}^NX_t}}{\epsilon} = \frac{\var{X}}{\epsilon^2N}\stackrel{N\to\infty}{\longrightarrow} 0.
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{モーメント母関数}
+\begin{definition}
+確率変数$X$と実数$t$について
+\begin{align*}
+M_X(t) &= \expt{\exp(tX)}
+\end{align*}
+を\emm{モーメント母関数}(積率母関数)という。
+\end{definition}
+\begin{example}
+\end{example}
+\end{frame}
+
+\begin{frame}{チェルノフ上界}
+\begin{theorem}
+任意の実数$t>0$について
+\begin{align*}
+\Pr(X\ge a)&\le\frac{M_X(t)}{\exp(at)}.
+\end{align*}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\Pr(X\ge a)&\le\Pr(\exp(tX)\ge\exp(ta))\\
+&\le\frac{\expt{\exp(tX)}}{\exp(ta)}\\
+&\le\frac{M_X(t)}{\exp(at)}
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{チェルノフ上界の最適化}
+任意の実数$t>0$について
+\begin{align*}
+\Pr(X\ge a)&\le\frac{M_X(t)}{\exp(at)}
+\end{align*}
+が成り立つので上界の最小化
+\begin{align*}
+\inf_{t>0} \frac{M_X(t)}{\exp(at)}
+\end{align*}
+を考えたい。$\log$とってから最小化すると
+\begin{align*}
+\inf_{t>0} \emm{\log M_X(t)} - at.
+\end{align*}
+\emm{キュムラント母関数}($\log M_X(t)$)の\emm{ルジャンドル変換}
+\end{frame}
+
+\begin{frame}{チェルノフ上界}
+\begin{theorem}
+\begin{align*}
+\Pr\left(\frac1N\sum_{t=1}^N X_t-\expt{X}\ge a\right) &\le \frac{\var{X}}{a^2N}
+\end{align*}
+\end{theorem}
+\begin{proof}
+\small
+\begin{align*}
+\Pr\left(\frac1N\sum_{t=1}^N X_t\ge \expt{X}+ a\right) &=
+\Pr\left(\exp\left(t\sum_{t=1}^N X_t\right)\ge \exp\left(t(\expt{X} + a)N\right)\right)\\
+&\le\frac{M_X(t)^N}{\exp\left(t(\expt{X}+ a)N\right)}\\
+&=\left(\frac{M_X(t)}{\exp\left(t(\expt{X}+ a)\right)}\right)^N\qedhere
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{大偏差原理}
+\end{frame}
+
+\end{document}
