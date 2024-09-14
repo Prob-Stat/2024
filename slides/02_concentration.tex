@@ -45,6 +45,8 @@
 
 \begin{frame}{集中不等式}
 $N$個の独立な確率変数の期待値が平均周辺に集中するという
+
+独立同分布(independently and identically distributed (i.i.d.))
 \end{frame}
 
 
@@ -60,7 +62,7 @@ $N$個の独立な確率変数の期待値が平均周辺に集中するとい�
 チェビシェフの不等式より
 \begin{align*}
 \Pr\left(\left|\frac1N\sum_{t=1}^N X_t-\expt{X}\right|\ge \epsilon\right) &\le
-\frac{\var{\frac1N\sum_{t=1}^NX_t}}{\epsilon} = \frac{\var{X}}{\epsilon^2N}\stackrel{N\to\infty}{\longrightarrow} 0.
+\frac{\var{\frac1N\sum_{t=1}^NX_t}}{\epsilon} = \frac{\var{X}}{\epsilon^2\emm{N}}\stackrel{N\to\infty}{\longrightarrow} 0.
 \end{align*}
 \end{proof}
 \end{frame}
@@ -73,6 +75,9 @@ M_X(t) &= \expt{\exp(tX)}
 \end{align*}
 を\emm{モーメント母関数}(積率母関数)という。
 \end{definition}
+\begin{align*}
+M_X(t) &= \expt{\exp(tX)} = \expt{X} t + \frac{\expt{X^2}}2 t^2 + \frac{\expt{X^3}}{3!} t^3 + \dotsb
+\end{align*}
 \begin{example}
 \end{example}
 \end{frame}
@@ -86,7 +91,7 @@ M_X(t) &= \expt{\exp(tX)}
 \end{theorem}
 \begin{proof}
 \begin{align*}
-\Pr(X\ge a)&\le\Pr(\exp(tX)\ge\exp(ta))\\
+\Pr(X\ge a)&\le\Pr\bigl(\exp(tX)\ge\exp(ta)\bigr)\\
 &\le\frac{\expt{\exp(tX)}}{\exp(ta)}\\
 &\le\frac{M_X(t)}{\exp(at)}
 \end{align*}
@@ -104,29 +109,46 @@ M_X(t) &= \expt{\exp(tX)}
 \end{align*}
 を考えたい。$\log$とってから最小化すると
 \begin{align*}
-\inf_{t>0} \emm{\log M_X(t)} - at.
+\exp\left(\inf_{t>0} \{\emm{\log M_X(t)} - at\}\right)
+&=
+\exp\left(-\sup_{t>0} \{at - \emm{\log M_X(t)}\}\right)
+.
 \end{align*}
 \emm{キュムラント母関数}($\log M_X(t)$)の\emm{ルジャンドル変換}
 \end{frame}
 
-\begin{frame}{チェルノフ上界}
-\begin{theorem}
+\begin{frame}{ルジャンドル変換}
+実関数$f\colon\mathbb{R}\to\mathbb{R}$について
 \begin{align*}
-\Pr\left(\frac1N\sum_{t=1}^N X_t-\expt{X}\ge a\right) &\le \frac{\var{X}}{a^2N}
+f^*(y) &= \sup_x\{yx - f(x)\}
 \end{align*}
-\end{theorem}
+\end{frame}
+
+\begin{frame}{集中不等式 by チェルノフ上界}
+\begin{lemma}
+\begin{align*}
+\Pr\left(\frac1N\sum_{t=1}^N X_t-\expt{X}\ge a\right) &\le \left(\frac{M_X(t)}{\exp\left(t(\expt{X}+ a)\right)}\right)^N\qedhere
+\end{align*}
+\end{lemma}
 \begin{proof}
 \small
 \begin{align*}
 \Pr\left(\frac1N\sum_{t=1}^N X_t\ge \expt{X}+ a\right) &=
-\Pr\left(\exp\left(t\sum_{t=1}^N X_t\right)\ge \exp\left(t(\expt{X} + a)N\right)\right)\\
+%\Pr\left(\exp\left(t\sum_{t=1}^N X_t\right)\ge \exp\left(t(\expt{X} + a)N\right)\right)\\
+\Pr\left(\sum_{t=1}^N X_t\ge N(\expt{X}+ a)\right)\\
 &\le\frac{M_X(t)^N}{\exp\left(t(\expt{X}+ a)N\right)}\\
-&=\left(\frac{M_X(t)}{\exp\left(t(\expt{X}+ a)\right)}\right)^N\qedhere
+&=\left(\frac{M_X(t)}{\exp\left(t(\expt{X}+ a)\right)}\right)^N.\qedhere
 \end{align*}
 \end{proof}
 \end{frame}
 
-\begin{frame}{大偏差原理}
+\begin{frame}{大偏差原理 Lv1}
+\begin{theorem}[クラメールの定理]
+\end{theorem}
 \end{frame}
 
+\begin{frame}{大偏差原理 Lv2}
+\begin{theorem}[サノフの定理]
+\end{theorem}
+\end{frame}
 \end{document}
