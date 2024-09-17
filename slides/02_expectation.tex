@@ -1,0 +1,210 @@
+\documentclass[lualatex,handout]{beamer}
+\setbeamertemplate{footline}[frame number]
+%\useoutertheme{infolines}
+\usepackage{luatexja}
+\usepackage{xspace}
+\usepackage{amsmath,amssymb}
+\usepackage{mathtools}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+%\usepackage[haranoaji]{luatexja-preset}
+\usepackage[deluxe,ipaex]{luatexja-preset}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+%\setmainjfont{HaranoAjiGothic-Regular}
+
+\usepackage{unicode-math}
+%\setmathfont{Fira Math}
+\setmathfont{STIX Two Math}
+\setmathrm{STIX Two Math}[StylisticSet=8]
+%\setmathfont{STIX Two Math}[range={up,it,bb,bbit,scr,bfscr},StylisticSet=8]
+%\setmathfont{XITS Math}
+%\setmathrm{XITS Math}[StylisticSet=8]
+%\setmathfont{XITS Math}[StylisticSet=8]
+
+%\usefonttheme{professionalfonts}
+
+\usepackage{luacolor}
+
+%\newcommand{\emm}[1]{\textcolor{red}{#1}}
+%\newcommand{\emm}[1]{\color{red}#1\color{black}}
+\newcommand{\mycolor}[2]{%
+  \begingroup
+  \colorlet{currentcolor}{.}%
+  \color{#1}#2%
+  \color{currentcolor}%
+  \endgroup
+}
+\newcommand{\emm}[1]{\mycolor{red}{#1}}
+\newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
+\newcommand{\cov}[1]{\mathrm{Cov}\left[#1\right]}
+
+
+\newcommand\bm[1]{{\mathbf{#1}}}
+
+\theoremstyle{definition}
+
+\title{確率・統計基礎: 期待値、分散、不等式}
+\author{森 立平}
+\date{}
+
+
+
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+
+\begin{frame}{期待値}
+\begin{align*}
+\expt{X} &= \sum_k \Pr(X=k) k
+\end{align*}
+線形
+\begin{align*}
+\expt{aX + bY} &= \sum_k \Pr(aX+bY=k) k\\
+&= \sum_{x, y} \Pr(X=x, Y=y) (ax+by)\\
+&= \sum_{x, y} \Pr(X=x, Y=y) ax + \sum_{x, y} \Pr(X=x, Y=y) by\\
+&= \sum_{x} \Pr(X=x) ax + \sum_{y} \Pr(Y=y) by\\
+&= a\sum_{x} \Pr(X=x) x + b\sum_{y} \Pr(Y=y) y\\
+&=a\expt{X} + b\expt{Y} 
+\end{align*}
+\end{frame}
+
+\begin{frame}{期待値の例}
+
+\end{frame}
+
+
+\begin{frame}{マルコフの不等式}
+\begin{theorem}[マルコフの不等式]
+任意の\emm{非負}の確率変数$X$と$a>0$について
+\begin{align*}
+\Pr(X\ge a) &\le \frac{\expt{X}}{a}
+\end{align*}
+\end{theorem}
+\begin{proof}
+\vspace{-2em}
+\begin{align*}
+\expt{X} &= \sum_i p_i x_i\\
+&= \sum_{i\colon x_i \ge a} p_i x_i
++ \sum_{i\colon x_i < a} p_i x_i\\
+&\ge \sum_{i\colon x_i \ge a} p_i x_i\hspace{8em}(x_i\ge 0)\\
+&\ge \sum_{i\colon x_i \ge a} p_i a\\
+&= a\Pr(X\ge a) \qedhere
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{例題}
+\end{frame}
+
+\begin{frame}{分散}
+\begin{align*}
+\var{X} &= \expt{(X-\expt{X})^2}\\
+&=\expt{X^2-2X\expt{X}+\expt{X}^2}\\
+&=\expt{X^2}-2\expt{X}\expt{X}+\expt{X}^2\\
+&=\emm{\expt{X^2}-\expt{X}^2}\\
+\end{align*}
+\begin{center}
+分散は\emm{非負}で\emm{期待値からの広がり}を表す量。
+\end{center}
+\end{frame}
+
+\begin{frame}{分散の意味}
+\begin{align*}
+\var{X} &= \expt{(X-\expt{X})^2}
+\end{align*}
+
+$\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
+\end{frame}
+
+\begin{frame}{分散の性質}
+\small
+\begin{align*}
+\var{X} &= \expt{(X-\expt{X})^2}
+\end{align*}
+%\vspace{1em}
+\begin{align*}
+\var{aX} &= \expt{(aX-\expt{aX})^2}\\
+&= \expt{(aX-a\expt{X})^2}\\
+&= \expt{a^2(X-\expt{X})^2}\\
+&= a^2\expt{(X-\expt{X})^2}\\
+&= a^2\var{X}
+\end{align*}
+%
+\begin{align*}
+\var{X+Y} &= \expt{(X+Y-\expt{X+Y})^2}\\
+ &= \expt{(X-\expt{X}+Y-\expt{Y})^2}\\
+ &= \expt{(X-\expt{X})^2+(Y-\expt{Y})^2 + 2(X-\expt{X})(Y-\expt{Y})}\\
+ &= \expt{(X-\expt{X})^2}+\expt{(Y-\expt{Y})^2} + 2\expt{(X-\expt{X})(Y-\expt{Y})}\\
+ &= \var{X}+\var{Y}+ 2\emm{\expt{(X-\expt{X})(Y-\expt{Y})}}\\
+\end{align*}
+\end{frame}
+
+\begin{frame}{共分散}
+\begin{align*}
+\cov{X,Y} &= \expt{(X-\expt{X})(Y-\expt{Y})}
+\end{align*}
+
+\vspace{1em}
+
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item $X-\expt{X}$と$Y-\expt{Y}$の符号が一緒 $\Rightarrow$ $\cov{X,Y}\ge 0$。
+\item $X-\expt{X}$と$Y-\expt{Y}$の符号が逆 $\Rightarrow$ $\cov{X,Y}\le 0$。
+\end{itemize}
+
+\vspace{1em}
+直感的な意味
+
+\vspace{1em}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item $X$が大きいとき$Y$が大きい $\Rightarrow$ $\cov{X,Y}\ge 0$。
+\item $X$が大きいとき$Y$が小さい $\Rightarrow$ $\cov{X,Y}\ge 0$。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{無相関と独立}
+\begin{align*}
+\cov{X,Y} &= \expt{(X-\expt{X})(Y-\expt{Y})} = 0
+\end{align*}
+\end{frame}
+
+\begin{frame}{チェビシェフの不等式}
+\begin{lemma}[チェビシェフの不等式]
+確率変数$X$が分散を持つと仮定する。任意の $a>0$について
+\begin{align*}
+\Pr(|X-\expt{X}|\ge a) &\le \frac{\var{X}}{a^2}
+\end{align*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\Pr(|X-\expt{X}|\ge a) &=\Pr((X-\expt{X})^2\ge a^2)\\
+&\le\frac{\expt{(X-\expt{X})^2}}{a^2}\hspace{3em}\text{(マルコフの不等式)}
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{コーシー・シュワルツの不等式}
+\begin{theorem}
+\begin{align*}
+\expt{XY}^2 \le \expt{X^2}\expt{Y^2}
+\end{align*}
+\end{theorem}
+\end{frame}
+
+\begin{frame}{イェンセンの不等式}
+\begin{theorem}
+凸関数$f\colon\mathbb{R}\to\mathbb{R}$について
+\begin{align*}
+\expt{f(X)} \ge f(\expt{X})
+\end{align*}
+\end{theorem}
+
+\end{frame}
+
+\end{document}

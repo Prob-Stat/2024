@@ -2,6 +2,7 @@
 \setbeamertemplate{footline}[frame number]
 %\useoutertheme{infolines}
 \usepackage{luatexja}
+\usepackage{xspace}
 \usepackage{amsmath,amssymb}
 \usepackage{mathtools}
 
@@ -26,18 +27,26 @@
 
 \usepackage{luacolor}
 
-\newcommand{\emm}[1]{\textcolor{red}{#1}}
+%\newcommand{\emm}[1]{\textcolor{red}{#1}}
+%\newcommand{\emm}[1]{\color{red}#1\color{black}}
+\newcommand{\mycolor}[2]{%
+  \begingroup
+  \colorlet{currentcolor}{.}%
+  \color{#1}#2%
+  \color{currentcolor}%
+  \endgroup
+}
+\newcommand{\emm}[1]{\mycolor{red}{#1}}
 \newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
 \newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
 \newcommand{\cov}[1]{\mathrm{Cov}\left[#1\right]}
 
 
-\usepackage{xspace}
 \newcommand\bm[1]{{\mathbf{#1}}}
 
 \theoremstyle{definition}
 
-\title{確率・統計基礎: 確率論の初歩のおさらい}
+\title{確率・統計基礎: 確率論の初歩}
 \author{森 立平}
 \date{}
 
@@ -85,7 +94,7 @@
 \item 確率は面積($=$測度)のようなもの。
 \item 数学的に\textbf{厳密}に様々な結果(大数の法則、大偏差原理、中心極限定理)が証明できる。
 \item とても重要だが勉強するのは3年生以降(解析学要論Ⅱ、確率論)。
-\item この授業では測度論を使わない代わりに\emm{制限された確率論}をやる。
+\item この授業では\emm{測度論には深入りせず、基礎的な部分はごまかしながら確率・統計の重要な理論について学ぶ}。
 \end{itemize}
 \end{frame}
 
@@ -103,21 +112,38 @@
 可測集合の公理($\sigma$-加法族、完全加法族)
 \begin{enumerate}
 \item $\emptyset\in\mathcal{F}$.
-\item $A\in\mathcal{F}\Longrightarrow A^c\in\mathcal{F}$.
-\item $A,\,B\in\mathcal{F}\Longrightarrow A\cup B\in\mathcal{F}$ (有限加法性).
-\item[3'.] $(A_n\in\mathcal{F})_{n=1,\dotsc}\Longrightarrow \bigcup_{n=1}^\infty A_n\in\mathcal{F}$ (完全加法性).
+\item $A\in\mathcal{F}\implies A^c\in\mathcal{F}$.
+\item $A,\,B\in\mathcal{F}\implies A\cup B\in\mathcal{F}$ (有限加法性).
+\item[3'.] $(A_n\in\mathcal{F})_{n=1,\dotsc}\implies \bigcup_{n=1}^\infty A_n\in\mathcal{F}$ (完全加法性, $\sigma$-加法性).
 \end{enumerate}
 
 \vspace{.5em}
 確率の公理
 \begin{enumerate}
 \item $P(\Omega)=1$.
-\item $\forall A, B\in\mathcal{F}$, $A\cup B=\emptyset\Longrightarrow P(A\cup B)=P(A)+P(B)$\\ (有限加法性).
-\item[2'.] $\forall (A_n\in\mathcal{F})_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\Longrightarrow P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (完全加法性).
+\item $\forall A, B\in\mathcal{F}$, $A\cup B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).
+\item[2'.] $\forall (A_n\in\mathcal{F})_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (完全加法性, $\sigma$-加法性).
 \end{enumerate}
 \end{frame}
 
 \begin{frame}{無限個の集合の操作}
+\small
+集合族$(A_i\subseteq\Omega)_{i=1,2,\dotsc}$について、
+\begin{align*}
+\bigcup_{i=1}^\infty A_i &= \left\{\omega\in\Omega\mid \exists i\in\{1,2,\dotsc\}\quad \omega\in A_i\right\}\\
+\bigcap_{i=1}^\infty A_i &= \left\{\omega\in\Omega\mid \forall i\in\{1,2,\dotsc\}\quad \omega\in A_i\right\}
+\end{align*}
+\begin{lemma}[ド・モルガンの法則]
+\begin{align*}
+\left(\bigcap_{i=1}^\infty A_i\right)^c &= \bigcup_{i=1}^\infty A_i^c,&
+\left(\bigcup_{i=1}^\infty A_i\right)^c &= \bigcap_{i=1}^\infty A_i^c
+\end{align*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\left(\bigcup_{i=1}^\infty A_i\right)^c &= \left\{\omega\in\Omega\mid \forall i\in\{1,2,\dotsc\}\quad \omega\in \Omega\setminus A_i\right\} = \bigcap_{i=1}^\infty A_i^c.\qedhere
+\end{align*}
+\end{proof}
 \end{frame}
 
 \begin{frame}{なぜ有限加法性じゃ駄目なの？$\leftarrow$駄目じゃないけど$\dotsc$}
@@ -130,15 +156,28 @@ P\left(\bigcup_{i=1}^\infty A_i\right) = \lim_{n\to\infty} P(A_n).
 \end{theorem}
 \begin{proof}
 $B_1\coloneq A_1$, $i\ge 2$について$B_i\coloneq A_i\setminus A_{i-1}$とおく。
-このとき、$i\ne j$について $B_i\cap B_j=\emptyset$。また、$\bigcup_{i=1}^n B_i = \bigcup_{i=1}^nA_i$.
+このとき、$i\ne j$について $B_i\cap B_j=\emptyset$。また、$\bigcup_{i=1}^n B_i = \bigcup_{i=1}^nA_i = A_n$.
 \begin{align*}
-P\left(\bigcup_{i=1}^\infty A_i\right)&= P\left(\bigcup_{i=1}^\infty B_i\right) =\sum_{i=1}^\infty P(B_i)\\
+P\left(\bigcup_{i=1}^\infty A_i\right)&= P\left(\bigcup_{i=1}^\infty B_i\right) \emm{=}\sum_{i=1}^\infty P(B_i)\\
 &=\lim_{n\to\infty} \sum_{i=1}^n P(B_i)
 =\lim_{n\to\infty} P\left(\bigcup_{i=1}^n B_i\right)
 =\lim_{n\to\infty} P(A_n).\qedhere
 \end{align*}
 \end{proof}
 \end{frame}
+
+\if0
+\begin{frame}{完全加法性$\iff$連続性}
+\begin{theorem}[確率測度の連続性]
+$P$を\emm{有限加法}確率測度とする。
+事象$A_1\subseteq A_2\subseteq \dotsb$について
+\begin{align*}
+P\left(\bigcup_{i=1}^\infty A_i\right) = \lim_{n\to\infty} P(A_n).
+\end{align*}
+ならば$P$は完全加法測度である。
+\end{theorem}
+\end{frame}
+\fi
 
 \begin{frame}{確率空間の例}
 離散的な分布
@@ -179,7 +218,7 @@ $\Omega$の上の同値類から一つずつ要素を選んで集合$V$を作る
 &= \sum_{x\in\mathbb{Q}} P\left(V + x\right)\qquad\text{(完全加法性)}\\
 &= \sum_{x\in\mathbb{Q}} P\left(V\right)
 \end{align*}
-同じ値を無限回足して1にはできない。
+\emm{同じ値を無限回足して1にはできない}。
 \end{frame}
 
 \if0
@@ -192,12 +231,173 @@ $\Omega$の上の同値類から一つずつ要素を選んで集合$V$を作る
 \end{frame}
 \fi
 
-\begin{frame}{確率変数}
-$X\colon $
-\begin{align*}
-\Pr(X\ge a)
-\end{align*}
+\begin{frame}{確率の性質}
+任意の $A,B\in\mathcal{F}$ について,
+\begin{itemize}
+\setlength{\itemsep}{1em}
+\item $P(\Omega)=1,\,P(\emptyset)=0$.
+\item $P(A^c) = 1 - P(A) \quad\because\ 1 = P(\Omega) = P(A\cup A^c) = P(A) + P(A^c)$.
+\item $B\subseteq A\implies P(B) \le P(A)$\\
+$\qquad \because\ P(A) = P(B\cup (A\setminus B)) = P(B) + P(A\setminus B)\ge P(B)$.
+\item $P(A\cup B) = P(A) + P(B) - P(A\cap B)$\\
+$\qquad \because\ P(A\cup B) = P(B) + P(A\setminus B),\, P(A) = P(A\setminus B) + P(A\cap B)$
+\item $P(A\cup B) \le P(A) + P(B)$ (ブールの不等式, union bound).
+\end{itemize}
 \end{frame}
+
+\begin{frame}{ブールの不等式(union bound)}
+\begin{theorem}
+\begin{align*}
+P\left(\bigcup_{i=1}^\infty A_i\right) &\le \sum_{i=1}^\infty P(A_i)
+\end{align*}
+\end{theorem}
+\begin{proof}
+$B_1\coloneq A_1$, $i\ge 2$について $B_i\coloneq A_i\setminus \bigcup_{j=1}^{i-1} A_j$とおく。
+\begin{align*}
+P\left(\bigcup_{i=1}^\infty A_i\right) &= P\left(\bigcup_{i=1}^\infty B_i\right)\\
+&= \sum_{i=1}^\infty P\left(B_i\right)\\
+&\le \sum_{i=1}^\infty P\left(A_i\right).\qedhere
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{条件付き確率}
+事象$B\in\mathcal{F}$が起きる条件下で事象$A\in\mathcal{F}$の条件付き確率
+\begin{align*}
+\emm{P(A\mid B)} &\coloneq \frac{P(A\cap B)}{P(B)}
+\end{align*}
+ただし、$P(B)=0$となる$B\in\mathcal{F}$については定義されない。
+
+\vspace{1em}
+$(\Omega, \mathcal{F}, \emm{P(\cdot\mid B)})$は確率空間となる。
+
+\begin{enumerate}
+\item $P(\Omega\mid B) = \frac{P(\Omega\, \cap\, B)}{P(B)} = \frac{P(B)}{P(B)} = 1$.
+\item[2'.] $\forall (A_n\in\mathcal{F})_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\implies$
+\begin{align*}
+ P\left(\bigcup_{n=1}^\infty A_n\mid B\right)&=
+\frac{P\left(\left(\bigcup_{n=1}^\infty A_n\right)\cap B\right)}{P(B)}\\
+&= \frac{P\left(\bigcup_{n=1}^\infty \left(A_n\cap B\right)\right)}{P(B)}\\
+&= \frac{\sum_{n=1}^\infty P\left(A_n\cap B\right)}{P(B)} = \sum_{n=1}^\infty P(A_n\mid B)
+\end{align*}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{確率変数}
+確率空間$(\Omega,\mathcal{F},P)$について、標本空間$\Omega$から位相空間$T$(例えば$\mathbb{R}$)への写像$X\colon\Omega\to T$で\emm{任意の開集合の逆像が可測集合}となるものを\emm{確率変数}という。
+
+\vspace{1em}
+$T$の部分集合$S\subseteq T$が$X^{-1}(S)\in\mathcal{F}$を満たすとき、
+\begin{align*}
+\Pr(X\in S) &\coloneq P(X^{-1}(S)) = P(\{\omega\in\Omega\mid X(\omega)\in S\})
+\end{align*}
+と定義する($P$の引数は可測集合である)。
+
+%実際$S$は開集合でなくても確率は定義可能である。
+%\begin{align*}
+%\Pr(X\in S^c) &= P(\{\omega\in\Omega\mid X(\omega)\in S^c\})\\
+%&= P(\Omega\setminus \emm{\{\omega\in\Omega\mid X(\omega)\in S\}})\\
+%%&= 1-P(\{\omega\in\Omega\mid X(\omega)\in O\})\\
+%%\Pr(X\in S^c) &= 1 - \Pr(X\in S)\qquad\forall \\
+%\Pr\left(X\in \bigcup_{i=1}^\infty S_i\right) &= P\left(\left\{\omega\in\Omega\mid X(\omega)\in \bigcup_{i=1}^\infty S_i\right\}\right)\\
+%&=P\left(\bigcup_{i=1}^\infty \left\{\omega\in\Omega\mid X(\omega)\in S_i\right\}\right)\\
+%%&=\sum_{i=1}^\infty P\left(\left\{\omega\in\Omega\mid X(\omega)\in S_i\right\}\right)\\
+%\end{align*}
+\vspace{1em}
+そのような$S$の集合は開集合から生成される$\sigma$-加法族(ボレル集合族)を含む。
+
+\vspace{2em}
+\begin{center}
+さしあたり$X\colon\Omega\to\mathbb{R}$はすべて確率変数と思っておいて実用上は問題ない(正しくないけど)
+\end{center}
+\end{frame}
+
+\begin{frame}{よく使う記法}
+その他によく使う記法として、任意の$a\in\mathbb{R}$について
+\begin{align*}
+\Pr(X\ge a) &\coloneq \Pr(X\in \{x\in\mathbb{R}\mid x\ge a\})
+\end{align*}
+同様に$\Pr(X > a), \Pr(X\le a), \Pr(X < a), \Pr(X = a)$なども定義される。
+
+\vspace{2em}
+特に$X$の象が高々可算のとき、$X$を\emm{離散型確率変数}といい、$f_X(a)\coloneq\Pr(X=a)$を\emm{確率質量関数}という。
+離散型確率変数でない確率変数を\emm{連続型確率変数}という。
+
+\vspace{1em}
+一般に$F_X(a)\coloneq \Pr(X\le a)$を\emm{累積分布関数}という。
+\end{frame}
+
+\begin{frame}{離散型確率変数の例(有限の場合)}
+\begin{itemize}
+\item $\Omega = \{\mathrm{H},\mathrm{T}\}$.
+\item $\mathcal{F} = 2^\Omega = \{\emptyset,\{\mathrm{H}\},\{\mathrm{T}\},\{\mathrm{H},\mathrm{T}\}\}$.
+\item $P(\{\mathrm{H}\})=P(\{\mathrm{T}\})=1/2$.
+\end{itemize}
+
+\vspace{1em}
+確率変数$X\colon\Omega\to\mathbb{R}$を$X(\mathrm{H})=1$, $X(\mathrm{T})=0$と定義する。
+
+このとき、$\Pr(X = 1) = P(X^{-1}(1)) = P(\{\mathrm{H}\}) = 1/2$である。
+
+\vspace{2em}
+\begin{itemize}
+\item $\Omega = \{\mathrm{H},\mathrm{T}\}^2 = \{\mathrm{HH},\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$.
+\item $\mathcal{F} = 2^\Omega$.
+\item $P(\{\mathrm{HH}\})=P(\{\mathrm{HT}\})=P(\{\mathrm{TH}\})=P(\{\mathrm{TT}\})=1/4$.
+\end{itemize}
+
+\vspace{1em}
+確率変数$X\colon\Omega\to\mathbb{R}$を$X(\mathrm{HH})=2$, $X(\mathrm{HT})=X(\mathrm{TH})=1$, $X(\mathrm{TT})=0$と定義する。
+
+このとき、$\Pr(X \ge 1) = P(\{\omega\in\Omega\mid X(\omega)\ge 1) = P(\{\mathrm{HH},\mathrm{HT},\mathrm{TH}\}) = 3/4$である。
+\end{frame}
+
+\begin{frame}{離散型確率変数の例(可算無限の場合)}
+\begin{itemize}
+\item $\Omega = \{\mathrm{H},\mathrm{T}\}^{\mathbb{N}} = \{f\colon\mathbb{N}\to\{\mathrm{H},\mathrm{T}\}\}$.
+\item $\mathcal{F} = $.
+\item $P(\{\mathrm{HH}\})=P(\{\mathrm{HT}\})=P(\{\mathrm{TH}\})=P(\{\mathrm{TT}\})=1/4$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{連続関数との合成}
+確率変数$X\colon\Omega\to\mathbb{R}$と
+$\mathbb{R}$上の連続関数$f\colon\mathbb{R}\to\mathbb{R}$について合成 $f\circ X\colon\Omega\to\mathbb{R}$も確率変数となる。
+
+\vspace{1em}
+このとき$\Pr(f\circ X \in O)$と書く代わりに$\Pr(f(X)\in O)$と書く。
+
+\vspace{1em}
+例えば $\Pr(2X \ge 1.7),\,\Pr(X+1\ge 3),\, \Pr(X^2 < 2)$のように書く。
+
+\vspace{2em}
+また確率変数 $X\colon \Omega\to \mathbb{R}$と$Y\colon \Omega\to \mathbb{R}$の和$X+Y$もまた確率変数である。
+
+\end{frame}
+
+\begin{frame}{二項分布}
+\begin{itemize}
+\item $\Omega = \{\mathrm{H},\mathrm{T}\}^n$.
+\item $\mathcal{F} = 2^\Omega$.
+\item $P(\{\omega\})=1/2^n\quad\forall \omega\in\Omega$.
+\end{itemize}
+
+\vspace{1em}
+確率変数$X\colon\Omega\to\mathbb{R}$を
+$X(\omega)=\text{「$\omega$に含まれる$\mathrm{H}$の数」}$と定義する。
+このとき、
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} \frac1{2^n}.
+\end{align*}
+
+\vspace{1em}
+ここで$P$の定義だけ変更して、$X(\omega)=k$となる$\omega$について$P(\{\omega\})=p^k(1-p)^{n-k}$とすると、
+\begin{align*}
+\Pr(X = k) &= \sum_{\omega\in X^{-1}(k)} P(\{\omega\}) =\binom{n}{k} p^k(1-p)^{n-k}
+\end{align*}
+となる。
+\end{frame}
+
 
 \begin{frame}{離散確率分布の例}
 \begin{itemize}
@@ -374,156 +574,25 @@ declare function={poisson(\k,\l)=\l^\k/\k!*exp(-\l);}]
 \vspace{2em}
 任意の写像$f$と$g$について、
 
-確率変数$X$と$Y$が独立$\Longrightarrow$ $f(X)$と$g(Y)$は独立。
+確率変数$X$と$Y$が独立$\implies$ $f(X)$と$g(Y)$は独立。
 \end{frame}
 
-\begin{frame}{期待値}
+\begin{frame}{少数の法則}
+\begin{theorem}[少数の法則]
+非負実数$\lambda\ge 0$とする。
+非負整数$n$について$p_n=\lambda/n$とする。
+任意に固定した非負整数$k$について、
 \begin{align*}
-\expt{X} &= \sum_k \Pr(X=k) k
-\end{align*}
-線形
-\begin{align*}
-\expt{aX + bY} &= \sum_k \Pr(aX+bY=k) k\\
-&= \sum_{x, y} \Pr(X=x, Y=y) (ax+by)\\
-&= \sum_{x, y} \Pr(X=x, Y=y) ax + \sum_{x, y} \Pr(X=x, Y=y) by\\
-&= \sum_{x} \Pr(X=x) ax + \sum_{y} \Pr(Y=y) by\\
-&= a\sum_{x} \Pr(X=x) x + b\sum_{y} \Pr(Y=y) y\\
-&=a\expt{X} + b\expt{Y} 
-\end{align*}
-\end{frame}
-
-\begin{frame}{期待値の例}
-
-\end{frame}
-
-
-\begin{frame}{マルコフの不等式}
-\begin{theorem}[マルコフの不等式]
-任意の\emm{非負}の確率変数$X$と$a>0$について
-\begin{align*}
-\Pr(X\ge a) &\le \frac{\expt{X}}{a}
+\lim_{n\to\infty} \binom{n}{k} p_n^k(1-p_n)^{n-k} &= \frac{\lambda^k}{k!}\mathrm{e}^{-\lambda}.
 \end{align*}
 \end{theorem}
 \begin{proof}
-\vspace{-2em}
 \begin{align*}
-\expt{X} &= \sum_i p_i x_i\\
-&= \sum_{i\colon x_i \ge a} p_i x_i
-+ \sum_{i\colon x_i < a} p_i x_i\\
-&\ge \sum_{i\colon x_i \ge a} p_i x_i\hspace{8em}(x_i\ge 0)\\
-&\ge \sum_{i\colon x_i \ge a} p_i a\\
-&= a\Pr(X\ge a) \qedhere
+\lim_{n\to\infty} \binom{n}{k} p_n^k(1-p_n)^{n-k} &= \lim_{n\to\infty} \binom{n}{k} \left(\frac{\lambda}{n}\right)^k\left(1-\frac{\lambda}{n}\right)^{n-k}\\
+&= \lim_{n\to\infty} \binom{n}{k} \left(\frac{\lambda}{n}\right)^k\left(1-\frac{\lambda}{n}\right)^{-k}\left(1-\frac{\lambda}{n}\right)^{\frac{n}{\lambda}\lambda}\\
+&= \frac{\lambda^k}{k!} \mathrm{e}^{-\lambda}.\qedhere
 \end{align*}
 \end{proof}
-\end{frame}
-
-\begin{frame}{例題}
-\end{frame}
-
-\begin{frame}{分散}
-\begin{align*}
-\var{X} &= \expt{(X-\expt{X})^2}\\
-&=\expt{X^2-2X\expt{X}+\expt{X}^2}\\
-&=\expt{X^2}-2\expt{X}\expt{X}+\expt{X}^2\\
-&=\emm{\expt{X^2}-\expt{X}^2}\\
-\end{align*}
-\begin{center}
-分散は\emm{非負}で\emm{期待値からの広がり}を表す量。
-\end{center}
-\end{frame}
-
-\begin{frame}{分散の意味}
-\begin{align*}
-\var{X} &= \expt{(X-\expt{X})^2}
-\end{align*}
-
-$\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
-\end{frame}
-
-\begin{frame}{分散の性質}
-\small
-\begin{align*}
-\var{X} &= \expt{(X-\expt{X})^2}
-\end{align*}
-%\vspace{1em}
-\begin{align*}
-\var{aX} &= \expt{(aX-\expt{aX})^2}\\
-&= \expt{(aX-a\expt{X})^2}\\
-&= \expt{a^2(X-\expt{X})^2}\\
-&= a^2\expt{(X-\expt{X})^2}\\
-&= a^2\var{X}
-\end{align*}
-%
-\begin{align*}
-\var{X+Y} &= \expt{(X+Y-\expt{X+Y})^2}\\
- &= \expt{(X-\expt{X}+Y-\expt{Y})^2}\\
- &= \expt{(X-\expt{X})^2+(Y-\expt{Y})^2 + 2(X-\expt{X})(Y-\expt{Y})}\\
- &= \expt{(X-\expt{X})^2}+\expt{(Y-\expt{Y})^2} + 2\expt{(X-\expt{X})(Y-\expt{Y})}\\
- &= \var{X}+\var{Y}+ 2\emm{\expt{(X-\expt{X})(Y-\expt{Y})}}\\
-\end{align*}
-\end{frame}
-
-\begin{frame}{共分散}
-\begin{align*}
-\cov{X,Y} &= \expt{(X-\expt{X})(Y-\expt{Y})}
-\end{align*}
-
-\vspace{1em}
-
-\begin{itemize}
-\setlength{\itemsep}{2em}
-\item $X-\expt{X}$と$Y-\expt{Y}$の符号が一緒 $\Rightarrow$ $\cov{X,Y}\ge 0$。
-\item $X-\expt{X}$と$Y-\expt{Y}$の符号が逆 $\Rightarrow$ $\cov{X,Y}\le 0$。
-\end{itemize}
-
-\vspace{1em}
-直感的な意味
-
-\vspace{1em}
-\begin{itemize}
-\setlength{\itemsep}{2em}
-\item $X$が大きいとき$Y$が大きい $\Rightarrow$ $\cov{X,Y}\ge 0$。
-\item $X$が大きいとき$Y$が小さい $\Rightarrow$ $\cov{X,Y}\ge 0$。
-\end{itemize}
-\end{frame}
-
-\begin{frame}{無相関と独立}
-\begin{align*}
-\cov{X,Y} &= \expt{(X-\expt{X})(Y-\expt{Y})} = 0
-\end{align*}
-\end{frame}
-
-\begin{frame}{チェビシェフの不等式}
-\begin{lemma}[チェビシェフの不等式]
-確率変数$X$が分散を持つと仮定する。任意の $a>0$について
-\begin{align*}
-\Pr(|X-\expt{X}|\ge a) &\le \frac{\var{X}}{a^2}
-\end{align*}
-\end{lemma}
-\begin{proof}
-\begin{align*}
-\Pr(|X-\expt{X}|\ge a) &=\Pr((X-\expt{X})^2\ge a^2)\\
-&\le\frac{\expt{(X-\expt{X})^2}}{a^2}\hspace{3em}\text{(マルコフの不等式)}
-\end{align*}
-\end{proof}
-\end{frame}
-
-\begin{frame}{コーシー・シュワルツの不等式}
-\begin{theorem}
-\begin{align*}
-\expt{XY}^2 \le \expt{X^2}\expt{Y^2}
-\end{align*}
-\end{theorem}
-\end{frame}
-
-\begin{frame}{イェンセンの不等式}
-\begin{theorem}
-凸関数$f\colon\mathbb{R}\to\mathbb{R}$について
-\begin{align*}
-\expt{f(X)} \ge f(\expt{X})
-\end{align*}
-\end{theorem}
-
 \end{frame}
 
 \end{document}
