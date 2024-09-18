@@ -98,52 +98,73 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{確率論の公理}
-\emm{確率空間} $(\Omega, \mathcal{F}, P)$
-
-\vspace{.5em}
+\begin{frame}{標本空間と確率}
 \begin{itemize}
-\item $\Omega\colon$ 集合(\emm{標本空間})
-\item $\mathcal{F}\subseteq 2^\Omega$ (\emm{事象の集合}、可測集合)
-\item $P\colon\mathcal{F}\to[0,1]$ (\emm{確率測度})
+\setlength{\itemsep}{1em}
+\item $\Omega\colon$ 集合。標本空間
+\item $P\colon 2^\Omega\to[0,1].$ 確率を与える関数
+\end{itemize}
+\begin{example}
+\small
+\begin{itemize}
+\setlength{\itemsep}{.51em}
+\item $\Omega=\{表,裏\}$.
+\item $P(\emptyset)= 0,\, P(\{\mathrm{表}\})=P(\{\mathrm{裏}\})=\frac12,\,P(\{\mathrm{表},\mathrm{裏}\})=1$.
 \end{itemize}
 
-\vspace{.5em}
-可測集合の公理($\sigma$-加法族、完全加法族)
-\begin{enumerate}
-\item $\emptyset\in\mathcal{F}$.
-\item $A\in\mathcal{F}\implies A^c\in\mathcal{F}$.
-\item $A,\,B\in\mathcal{F}\implies A\cup B\in\mathcal{F}$ (有限加法性).
-\item[3'.] $(A_n\in\mathcal{F})_{n=1,\dotsc}\implies \bigcup_{n=1}^\infty A_n\in\mathcal{F}$ (完全加法性, $\sigma$-加法性).
-\end{enumerate}
+\vspace{1.0em}
+\begin{itemize}
+\setlength{\itemsep}{.51em}
+\item $\Omega=\{1,2,3,4,5,6\}$.
+\item $P(A) = \frac{|A|}6\quad\forall A\subseteq\Omega$.
+\end{itemize}
 
-\vspace{.5em}
+\vspace{1.0em}
+\begin{itemize}
+\setlength{\itemsep}{.5em}
+\item $\Omega=\{晴,雨,雪\}$.
+\item $P(\emptyset)= 0,\, P(\{晴\})=0.7,\, P(\{雨\})=0.2,\,P(\{雪\})=0.1$,\\
+$P(\{晴,雨\})=0.9,\, P(\{雨,雪\})=0.3,\, P(\{雪,晴\})=0.8$\\
+$P(\{晴,雨,雪\})=1$.
+\end{itemize}
+\end{example}
+\end{frame}
+
+\begin{frame}{確率論の公理有限版}
+\begin{itemize}
+\item $\Omega\colon$ \emm{有限}集合(\emm{標本空間})
+\item $P\colon 2^\Omega\to[0,1]$ (\emm{確率測度})
+\end{itemize}
+\vspace{1em}
 確率の公理
 \begin{enumerate}
 \item $P(\Omega)=1$.
-\item $\forall A, B\in\mathcal{F}$, $A\cup B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).
-\item[2'.] $\forall (A_n\in\mathcal{F})_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (完全加法性, $\sigma$-加法性).
+\item $\forall A, B\subseteq\Omega$, $A\cup B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (\emm{有限加法性}).
 \end{enumerate}
+
+\vspace{2em}
+\begin{center}
+$\Omega$を無限集合にしたい場合はどうする？
+\end{center}
 \end{frame}
 
-\begin{frame}{無限個の集合の操作}
-\small
-集合族$(A_i\subseteq\Omega)_{i=1,2,\dotsc}$について、
-\begin{align*}
-\bigcup_{i=1}^\infty A_i &= \left\{\omega\in\Omega\mid \exists i\in\{1,2,\dotsc\}\quad \omega\in A_i\right\}\\
-\bigcap_{i=1}^\infty A_i &= \left\{\omega\in\Omega\mid \forall i\in\{1,2,\dotsc\}\quad \omega\in A_i\right\}
-\end{align*}
-\begin{lemma}[ド・モルガンの法則]
-\begin{align*}
-\left(\bigcap_{i=1}^\infty A_i\right)^c &= \bigcup_{i=1}^\infty A_i^c,&
-\left(\bigcup_{i=1}^\infty A_i\right)^c &= \bigcap_{i=1}^\infty A_i^c
-\end{align*}
-\end{lemma}
-\begin{proof}
-\begin{align*}
-\left(\bigcup_{i=1}^\infty A_i\right)^c &= \left\{\omega\in\Omega\mid \forall i\in\{1,2,\dotsc\}\quad \omega\in \Omega\setminus A_i\right\} = \bigcap_{i=1}^\infty A_i^c.\qedhere
-\end{align*}
-\end{proof}
+\begin{frame}{確率論の公理可算版}
+\begin{itemize}
+\item $\Omega\colon$ 高々\emm{可算}集合(\emm{標本空間})
+\item $P\colon 2^\Omega\to[0,1]$ (\emm{確率測度})
+\end{itemize}
+\vspace{1em}
+確率の公理
+\begin{enumerate}
+\item $P(\Omega)=1$.
+\item {\color{lightgray}$\forall A, B\subseteq\Omega$, $A\cup B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).}\\
+\item[2'.] $\forall (A_n\subseteq\Omega)_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (\emm{完全加法性, $\sigma$-加法性}).
+\end{enumerate}
+
+%\vspace{2em}
+%\begin{center}
+%$\Omega$を非可算無限集合にしたい場合はどうする？
+%\end{center}
 \end{frame}
 
 \begin{frame}{なぜ有限加法性じゃ駄目なの？$\leftarrow$駄目じゃないけど$\dotsc$}
@@ -166,43 +187,60 @@ P\left(\bigcup_{i=1}^\infty A_i\right)&= P\left(\bigcup_{i=1}^\infty B_i\right) 
 \end{proof}
 \end{frame}
 
-\if0
-\begin{frame}{完全加法性$\iff$連続性}
-\begin{theorem}[確率測度の連続性]
-$P$を\emm{有限加法}確率測度とする。
-事象$A_1\subseteq A_2\subseteq \dotsb$について
-\begin{align*}
-P\left(\bigcup_{i=1}^\infty A_i\right) = \lim_{n\to\infty} P(A_n).
-\end{align*}
-ならば$P$は完全加法測度である。
-\end{theorem}
-\end{frame}
-\fi
-
-\begin{frame}{確率空間の例}
-離散的な分布
+\begin{frame}{実数上の測度}
 \begin{itemize}
-\item $\Omega\colon$ 有限集合 or 可算無限集合.
-\item $\mathcal{F} = 2^\Omega$.
-\item $P(A) = \sum_{k\in A} P(\{k\})$ ここで $\sum_{k\in\Omega} P(\{k\})=1$.
+\item $\Omega=[0,1)$.
+\item $P\colon 2^\Omega\to[0,1]$
 \end{itemize}
+ここで
+\begin{align*}
+P([a, b]) = b-a
+\end{align*}
+となるようにしたい。
+すると$P([a, a+\epsilon])=\epsilon$なので$P(\{a\})\le\epsilon$である。
+任意の$\epsilon>0$について成り立つので$P(\{a\})=0$である。
 
 \vspace{1em}
-\begin{itemize}
-\item $\Omega=[0,1)\subseteq\mathbb{R}$
-\item $\mathcal{F} = $すべての閉区間を含む
-\item $P([a,b]) = b-a$.
-\end{itemize}
+任意の1点の確率は0だけど全体の確率は1になるようにする。
+
+なので\emm{加法性は非可算には一般化しない}。
 
 \end{frame}
 
-\begin{frame}{$\mathcal{F} = 2^\Omega$にしたいです$\leftarrow$無理です(完全加法性+選択公理)}
-\small
-確率空間$(\Omega,\mathcal{F},P)$が以下を満たすとする
+\begin{frame}{確率論の公理最終版?}
+これでよいのか？
 \begin{itemize}
-\item $\Omega=[0,1)$, $\mathcal{F} = 2^\Omega$.
+\item $\Omega\colon$ (\emm{非可算}でもよい)集合(\emm{標本空間})
+\item $P\colon 2^\Omega\to[0,1]$ (\emm{確率測度})
+\end{itemize}
+\vspace{1em}
+確率の公理
+\begin{enumerate}
+\item $P(\Omega)=1$.
+\item {\color{lightgray}$\forall A, B\subseteq\Omega$, $A\cup B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).}\\
+\item[2'.] $\forall (A_n\subseteq\Omega)_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (\emm{完全加法性, $\sigma$-加法性}).
+\end{enumerate}
+
+\vspace{2em}
+\begin{center}
+これで大丈夫？
+\end{center}
+%\vspace{2em}
+%\begin{center}
+%$\Omega$を非可算無限集合にしたい場合はどうする？
+%\end{center}
+\end{frame}
+
+%\begin{frame}{$\mathcal{F} = 2^\Omega$にしたいです$\leftarrow$無理です(完全加法性+選択公理)}
+\begin{frame}{ダメー(完全加法性+選択公理)}
+\small
+%確率空間$(\Omega,\mathcal{F},P)$が以下を満たすとする
+\begin{itemize}
+%\item $\Omega=[0,1)$, $\mathcal{F} = 2^\Omega$.
+\item $\Omega=[0,1)$.
 %\item $P([a,b]) = b-a$.
-\item $\forall c\in\Omega,\, A\in\mathcal{F},\, P(A+c) = P(A)$ where $A+c\coloneq\{a+c-\lfloor a+c\rfloor\mid a\in A\}$.
+%\item $\forall c\in\Omega,\, A\in\mathcal{F},\, P(A+c) = P(A)$ where $A+c\coloneq\{a+c-\lfloor a+c\rfloor\mid a\in A\}$.
+\item $\forall c\in\Omega,\, A\subseteq\Omega,\, P(A+c) = P(A)$ where $A+c\coloneq\{a+c-\lfloor a+c\rfloor\mid a\in A\}$.
 \end{itemize}
 \emm{選択公理を仮定するとそのような確率空間は存在しない}。
 
@@ -220,6 +258,124 @@ $\Omega$の上の同値類から一つずつ要素を選んで集合$V$を作る
 \end{align*}
 \emm{同じ値を無限回足して1にはできない}。
 \end{frame}
+
+
+\begin{frame}{ちゃんとした確率論の公理}
+\emm{確率空間} $(\Omega, \mathcal{F}, P)$
+
+\vspace{.5em}
+\begin{itemize}
+\item $\Omega\colon$ 集合(\emm{標本空間})
+\item $\mathcal{F}\subseteq 2^\Omega$ (\emm{事象の集合}、可測集合)
+\item $P\colon\emm{\mathcal{F}}\to[0,1]$ (\emm{確率測度}、\emm{\small 確率は$\mathcal{F}$の要素にのみ定義される！})
+\end{itemize}
+
+\vspace{.5em}
+可測集合の公理($\sigma$-加法族、完全加法族)
+\begin{enumerate}
+\item $\emptyset\in\mathcal{F}$.
+\item $A\in\mathcal{F}\implies A^c\in\mathcal{F}$.
+\item $A,\,B\in\mathcal{F}\implies A\cup B\in\mathcal{F}$ (有限加法性).
+\item[3'.] $(A_n\in\mathcal{F})_{n=1,\dotsc}\implies \bigcup_{n=1}^\infty A_n\in\mathcal{F}$ (完全加法性, $\sigma$-加法性).
+\end{enumerate}
+
+\vspace{.5em}
+確率の公理
+\begin{enumerate}
+\item $P(\Omega)=1$.
+\item $\forall A, B\in\mathcal{F}$, $A\cup B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).
+\item[2'.] $\forall (A_n\in\mathcal{F})_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (完全加法性, $\sigma$-加法性).
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{この授業の方針}
+ここまでのまとめ
+\begin{itemize}
+\item $\Omega$が高々可算の場合は$\mathcal{F}=2^\Omega$とできる。
+\item $\Omega$が非可算の場合は(平行移動で不変などの条件を課すと)すべての部分集合を可測とできない場合がある。
+\emm{選択公理}を使えば。
+\end{itemize}
+
+\vspace{2em}
+\begin{center}
+この授業では\emm{$\mathcal{F}=2^\Omega$のつもり}ですすめる。
+
+\vspace{1em}
+実際に考えるような確率空間では非可測な集合$A\notin\mathcal{F}$は\emm{選択公理}を使わないと構成できない。
+
+\vspace{1em}
+普通に考える集合は\emm{全部可測}。
+
+\vspace{1em}
+この授業は測度論の授業じゃないので、\emm{非可測な集合については考えないことにする}。
+
+\vspace{1em}
+今後、確率空間は$(\Omega,\mathcal{F},P)$じゃなくて$\emm{(\Omega,P)}$とする。
+\end{center}
+\end{frame}
+
+\begin{frame}{無限個の集合の操作}
+\small
+集合族$(A_i\subseteq\Omega)_{i=1,2,\dotsc}$について、
+\begin{align*}
+\bigcup_{i=1}^\infty A_i &= \left\{\omega\in\Omega\mid \exists i\in\{1,2,\dotsc\}\quad \omega\in A_i\right\}\\
+\bigcap_{i=1}^\infty A_i &= \left\{\omega\in\Omega\mid \forall i\in\{1,2,\dotsc\}\quad \omega\in A_i\right\}
+\end{align*}
+\begin{lemma}[ド・モルガンの法則]
+\begin{align*}
+\left(\bigcap_{i=1}^\infty A_i\right)^c &= \bigcup_{i=1}^\infty A_i^c,&
+\left(\bigcup_{i=1}^\infty A_i\right)^c &= \bigcap_{i=1}^\infty A_i^c
+\end{align*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\left(\bigcup_{i=1}^\infty A_i\right)^c &= \left\{\omega\in\Omega\mid \forall i\in\{1,2,\dotsc\}\quad \omega\in \Omega\setminus A_i\right\} = \bigcap_{i=1}^\infty A_i^c.\qedhere
+\end{align*}
+\end{proof}
+\end{frame}
+
+
+\if0
+\begin{frame}{完全加法性$\iff$連続性}
+\begin{theorem}[確率測度の連続性]
+$P$を\emm{有限加法}確率測度とする。
+事象$A_1\subseteq A_2\subseteq \dotsb$について
+\begin{align*}
+P\left(\bigcup_{i=1}^\infty A_i\right) = \lim_{n\to\infty} P(A_n).
+\end{align*}
+ならば$P$は完全加法測度である。
+\end{theorem}
+\end{frame}
+\fi
+
+\if0
+\begin{frame}{確率空間の例}
+離散的な確率空間
+\begin{itemize}
+\item $\Omega\colon$ 有限集合 or 可算無限集合.
+%\item $\mathcal{F} = 2^\Omega$.
+\item $P(A) = \sum_{k\in A} P(\{k\})$ ここで $\sum_{k\in\Omega} P(\{k\})=1$.
+\end{itemize}
+
+\vspace{1em}
+連続的な確率空間
+\begin{itemize}
+\item $\Omega=[0,1)\subseteq\mathbb{R}$
+%\item $\mathcal{F} = $すべての閉区間を含む
+\item $P([a,b]) = b-a$ から定まる.
+\end{itemize}
+
+\vspace{1em}
+連続的な確率空間
+\begin{itemize}
+\item $\Omega=\{\mathrm{H},\mathrm{T}\}^{\mathbb{N}}$.
+%\item $\mathcal{F} = $すべての閉区間を含む
+\item $P(\{\omega\in\Omega\mid \text{$\omega$の最初の$n$個が}\}) = \text{最初の}$.
+\end{itemize}
+
+\end{frame}
+\fi
+
 
 \if0
 \begin{frame}{離散的な確率分布}
@@ -262,11 +418,12 @@ P\left(\bigcup_{i=1}^\infty A_i\right) &= P\left(\bigcup_{i=1}^\infty B_i\right)
 \end{frame}
 
 \begin{frame}{条件付き確率}
-事象$B\in\mathcal{F}$が起きる条件下で事象$A\in\mathcal{F}$の条件付き確率
+\small
+事象$B\in\mathcal{F}$が起きる条件下で事象$A\in\mathcal{F}$の\emm{条件付き確率}を
 \begin{align*}
 \emm{P(A\mid B)} &\coloneq \frac{P(A\cap B)}{P(B)}
 \end{align*}
-ただし、$P(B)=0$となる$B\in\mathcal{F}$については定義されない。
+と定義する。ただし、$P(B)=0$となる$B\in\mathcal{F}$については定義されない。
 
 \vspace{1em}
 $(\Omega, \mathcal{F}, \emm{P(\cdot\mid B)})$は確率空間となる。
@@ -281,8 +438,29 @@ $(\Omega, \mathcal{F}, \emm{P(\cdot\mid B)})$は確率空間となる。
 &= \frac{\sum_{n=1}^\infty P\left(A_n\cap B\right)}{P(B)} = \sum_{n=1}^\infty P(A_n\mid B)
 \end{align*}
 \end{enumerate}
+また、$P(A\cap B) = P(A)P(B)$ もしくは等価である $P(A\mid B)=P(A)$のとき、事象$A$と$B$は\emm{独立}であるという。
 \end{frame}
 
+\begin{frame}{確率変数}
+確率空間$(\Omega,P)$について、標本空間$\Omega$から$\mathbb{R}$への写像$X\colon\Omega\to \mathbb{R}$を\emm{確率変数}という。
+
+\vspace{1em}
+任意の$S\subseteq\mathbb{R}$について
+\begin{align*}
+\Pr(X\in S) &\coloneq P(X^{-1}(S)) = P(\{\omega\in\Omega\mid X(\omega)\in S\})
+\end{align*}
+と定義する。
+
+\vspace{2em}
+その他によく使う記法として、任意の$a\in\mathbb{R}$について
+\begin{align*}
+\Pr(X\ge a) &\coloneq \Pr(X\in \{x\in\mathbb{R}\mid x\ge a\})
+\end{align*}
+同様に$\Pr(X > a), \Pr(X\le a), \Pr(X < a), \Pr(X = a)$なども定義される。
+
+\end{frame}
+
+\if0
 \begin{frame}{確率変数}
 確率空間$(\Omega,\mathcal{F},P)$について、標本空間$\Omega$から位相空間$T$(例えば$\mathbb{R}$)への写像$X\colon\Omega\to T$で\emm{任意の開集合の逆像が可測集合}となるものを\emm{確率変数}という。
 
@@ -311,13 +489,9 @@ $T$の部分集合$S\subseteq T$が$X^{-1}(S)\in\mathcal{F}$を満たすとき�
 さしあたり$X\colon\Omega\to\mathbb{R}$はすべて確率変数と思っておいて実用上は問題ない(正しくないけど)
 \end{center}
 \end{frame}
+\fi
 
 \begin{frame}{よく使う記法}
-その他によく使う記法として、任意の$a\in\mathbb{R}$について
-\begin{align*}
-\Pr(X\ge a) &\coloneq \Pr(X\in \{x\in\mathbb{R}\mid x\ge a\})
-\end{align*}
-同様に$\Pr(X > a), \Pr(X\le a), \Pr(X < a), \Pr(X = a)$なども定義される。
 
 \vspace{2em}
 特に$X$の象が高々可算のとき、$X$を\emm{離散型確率変数}といい、$f_X(a)\coloneq\Pr(X=a)$を\emm{確率質量関数}という。
