@@ -101,7 +101,7 @@
 \begin{frame}{標本空間と確率}
 \begin{itemize}
 \setlength{\itemsep}{1em}
-\item $\Omega\colon$ 集合。標本空間
+\item $\Omega\colon$ 集合。これの部分集合に確率が与えられる
 \item $P\colon 2^\Omega\to[0,1].$ 確率を与える関数
 \end{itemize}
 \begin{example}
@@ -139,7 +139,7 @@ $P(\{晴,雨,雪\})=1$.
 確率の公理
 \begin{enumerate}
 \item $P(\Omega)=1$.
-\item $\forall A, B\subseteq\Omega$, $A\cup B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (\emm{有限加法性}).
+\item $\forall A, B\subseteq\Omega$, $A\cap B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (\emm{有限加法性}).
 \end{enumerate}
 
 \vspace{2em}
@@ -157,8 +157,8 @@ $\Omega$を無限集合にしたい場合はどうする？
 確率の公理
 \begin{enumerate}
 \item $P(\Omega)=1$.
-\item {\color{lightgray}$\forall A, B\subseteq\Omega$, $A\cup B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).}\\
-\item[2'.] $\forall (A_n\subseteq\Omega)_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (\emm{完全加法性, $\sigma$-加法性}).
+\item {\color{lightgray}$\forall A, B\subseteq\Omega$, $A\cap B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).}\\
+\item[2'.] $\forall (A_n\subseteq\Omega)_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cap A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (\emm{完全加法性, $\sigma$-加法性}).
 \end{enumerate}
 
 %\vspace{2em}
@@ -217,8 +217,8 @@ P([a, b]) = b-a
 確率の公理
 \begin{enumerate}
 \item $P(\Omega)=1$.
-\item {\color{lightgray}$\forall A, B\subseteq\Omega$, $A\cup B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).}\\
-\item[2'.] $\forall (A_n\subseteq\Omega)_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (\emm{完全加法性, $\sigma$-加法性}).
+\item {\color{lightgray}$\forall A, B\subseteq\Omega$, $A\cap B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).}\\
+\item[2'.] $\forall (A_n\subseteq\Omega)_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cap A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (\emm{完全加法性, $\sigma$-加法性}).
 \end{enumerate}
 
 \vspace{2em}
@@ -275,7 +275,7 @@ $\Omega$の上の同値類から一つずつ要素を選んで集合$V$を作る
 \begin{enumerate}
 \item $\emptyset\in\mathcal{F}$.
 \item $A\in\mathcal{F}\implies A^c\in\mathcal{F}$.
-\item $A,\,B\in\mathcal{F}\implies A\cup B\in\mathcal{F}$ (有限加法性).
+%\item $A,\,B\in\mathcal{F}\implies A\cup B\in\mathcal{F}$ (有限加法性).
 \item[3'.] $(A_n\in\mathcal{F})_{n=1,\dotsc}\implies \bigcup_{n=1}^\infty A_n\in\mathcal{F}$ (完全加法性, $\sigma$-加法性).
 \end{enumerate}
 
@@ -283,8 +283,8 @@ $\Omega$の上の同値類から一つずつ要素を選んで集合$V$を作る
 確率の公理
 \begin{enumerate}
 \item $P(\Omega)=1$.
-\item $\forall A, B\in\mathcal{F}$, $A\cup B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).
-\item[2'.] $\forall (A_n\in\mathcal{F})_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (完全加法性, $\sigma$-加法性).
+%\item $\forall A, B\in\mathcal{F}$, $A\cap B=\emptyset\implies P(A\cup B)=P(A)+P(B)$\\ (有限加法性).
+\item[2'.] $\forall (A_n\in\mathcal{F})_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cap A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (完全加法性, $\sigma$-加法性).
 \end{enumerate}
 \end{frame}
 
@@ -292,8 +292,8 @@ $\Omega$の上の同値類から一つずつ要素を選んで集合$V$を作る
 ここまでのまとめ
 \begin{itemize}
 \item $\Omega$が高々可算の場合は$\mathcal{F}=2^\Omega$とできる。
-\item $\Omega$が非可算の場合は(平行移動で不変などの条件を課すと)すべての部分集合を可測とできない場合がある。
-\emm{選択公理}を使えば。
+\item $\Omega$が非可算の場合は(平行移動で不変などの条件を課すと)すべての部分集合を可測とできない場合がある
+(要\emm{選択公理})。
 \end{itemize}
 
 \vspace{2em}
@@ -430,7 +430,7 @@ $(\Omega, \mathcal{F}, \emm{P(\cdot\mid B)})$は確率空間となる。
 
 \begin{enumerate}
 \item $P(\Omega\mid B) = \frac{P(\Omega\, \cap\, B)}{P(B)} = \frac{P(B)}{P(B)} = 1$.
-\item[2'.] $\forall (A_n\in\mathcal{F})_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cup A_j=\emptyset\implies$
+\item[2'.] $\forall (A_n\in\mathcal{F})_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cap A_j=\emptyset\implies$
 \begin{align*}
  P\left(\bigcup_{n=1}^\infty A_n\mid B\right)&=
 \frac{P\left(\left(\bigcup_{n=1}^\infty A_n\right)\cap B\right)}{P(B)}\\
@@ -454,7 +454,7 @@ $(\Omega, \mathcal{F}, \emm{P(\cdot\mid B)})$は確率空間となる。
 \vspace{2em}
 その他によく使う記法として、任意の$a\in\mathbb{R}$について
 \begin{align*}
-\Pr(X\ge a) &\coloneq \Pr(X\in \{x\in\mathbb{R}\mid x\ge a\})
+\Pr(X\ge a) &\coloneq \Pr(X\in \{x\in\mathbb{R}\mid x\ge a\}) = \Pr(\{\omega\in\Omega\mid X(\omega)\ge a)
 \end{align*}
 同様に$\Pr(X > a), \Pr(X\le a), \Pr(X < a), \Pr(X = a)$なども定義される。
 
@@ -491,20 +491,24 @@ $T$の部分集合$S\subseteq T$が$X^{-1}(S)\in\mathcal{F}$を満たすとき�
 \end{frame}
 \fi
 
-\begin{frame}{よく使う記法}
+\begin{frame}{確率質量関数}
 
-\vspace{2em}
-特に$X$の象が高々可算のとき、$X$を\emm{離散型確率変数}といい、$f_X(a)\coloneq\Pr(X=a)$を\emm{確率質量関数}という。
-離散型確率変数でない確率変数を\emm{連続型確率変数}という。
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item 特に$X$の像が高々可算のとき、$X$を\emm{離散型確率変数}という。
+\item 離散型確率変数でない確率変数を\emm{連続型確率変数}という。
+\item 離散型確率変数$X$について$f_X(a)\coloneq\Pr(X=a)$を\emm{確率質量関数}という。
+\item 確率変数$X$について$F_X(a)\coloneq \Pr(X\le a)$を\emm{累積分布関数}という。
+\end{itemize}
 
 \vspace{1em}
-一般に$F_X(a)\coloneq \Pr(X\le a)$を\emm{累積分布関数}という。
 \end{frame}
 
 \begin{frame}{離散型確率変数の例(有限の場合)}
+\begin{example}
 \begin{itemize}
 \item $\Omega = \{\mathrm{H},\mathrm{T}\}$.
-\item $\mathcal{F} = 2^\Omega = \{\emptyset,\{\mathrm{H}\},\{\mathrm{T}\},\{\mathrm{H},\mathrm{T}\}\}$.
+%\item $\mathcal{F} = 2^\Omega = \{\emptyset,\{\mathrm{H}\},\{\mathrm{T}\},\{\mathrm{H},\mathrm{T}\}\}$.
 \item $P(\{\mathrm{H}\})=P(\{\mathrm{T}\})=1/2$.
 \end{itemize}
 
@@ -512,11 +516,12 @@ $T$の部分集合$S\subseteq T$が$X^{-1}(S)\in\mathcal{F}$を満たすとき�
 確率変数$X\colon\Omega\to\mathbb{R}$を$X(\mathrm{H})=1$, $X(\mathrm{T})=0$と定義する。
 
 このとき、$\Pr(X = 1) = P(X^{-1}(1)) = P(\{\mathrm{H}\}) = 1/2$である。
+\end{example}
 
-\vspace{2em}
+\begin{example}
 \begin{itemize}
 \item $\Omega = \{\mathrm{H},\mathrm{T}\}^2 = \{\mathrm{HH},\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$.
-\item $\mathcal{F} = 2^\Omega$.
+%\item $\mathcal{F} = 2^\Omega$.
 \item $P(\{\mathrm{HH}\})=P(\{\mathrm{HT}\})=P(\{\mathrm{TH}\})=P(\{\mathrm{TT}\})=1/4$.
 \end{itemize}
 
@@ -524,14 +529,37 @@ $T$の部分集合$S\subseteq T$が$X^{-1}(S)\in\mathcal{F}$を満たすとき�
 確率変数$X\colon\Omega\to\mathbb{R}$を$X(\mathrm{HH})=2$, $X(\mathrm{HT})=X(\mathrm{TH})=1$, $X(\mathrm{TT})=0$と定義する。
 
 このとき、$\Pr(X \ge 1) = P(\{\omega\in\Omega\mid X(\omega)\ge 1) = P(\{\mathrm{HH},\mathrm{HT},\mathrm{TH}\}) = 3/4$である。
+\end{example}
 \end{frame}
 
 \begin{frame}{離散型確率変数の例(可算無限の場合)}
+\begin{example}
 \begin{itemize}
-\item $\Omega = \{\mathrm{H},\mathrm{T}\}^{\mathbb{N}} = \{f\colon\mathbb{N}\to\{\mathrm{H},\mathrm{T}\}\}$.
-\item $\mathcal{F} = $.
-\item $P(\{\mathrm{HH}\})=P(\{\mathrm{HT}\})=P(\{\mathrm{TH}\})=P(\{\mathrm{TT}\})=1/4$.
+\item $\Omega = \mathbb{N}=\{1,2,\dotsc\}$.
+\item $P(\{n\})=1/2^n\quad\forall n\in\Omega$.
 \end{itemize}
+確率変数を$X(n)=n$と定義すると$\Pr(X=n)=P(\{n\})=1/2^n$.
+\end{example}
+
+\begin{example}
+\begin{itemize}
+\item $\Omega =
+% \{\mathrm{H}\}^* \times\{\mathrm{T}\} \coloneq \left(\bigcup_{n\ge0} \{\mathrm{H}\}^n\right)\times\{\mathrm{T}\}
+\{\mathrm{T},\mathrm{HT},\mathrm{HHT},\mathrm{HHHT},\mathrm{HHHHT},\dotsc\}$.
+\item $P(\{H^nT\})=p^n(1-p)\quad\forall n\in\Omega$.
+\end{itemize}
+確率変数を$X(H^nT)=n$と定義すると$\Pr(X=n)=P(\{H^nT\})=p^n(1-p)$.
+\end{example}
+\end{frame}
+
+\begin{frame}{連続型確率変数の例}
+\begin{example}
+\begin{itemize}
+\item $\Omega = [0,1)$.
+\item $P([a, b])=b-a$から定まる.
+\end{itemize}
+$X(\omega) = \omega$とおくと、$\Pr(X\le a) = P(\{\omega\in\Omega\mid\omega\le a\}) = a$である。
+\end{example}
 \end{frame}
 
 \begin{frame}{連続関数との合成}
