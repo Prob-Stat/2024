@@ -78,8 +78,9 @@
 確率論は統計の基礎となる
 \vspace{1em}
 \begin{itemize}
-\item クラスタリング: この患者は病気ですか？
-\item a
+\setlength{\itemsep}{2em}
+\item この患者は病気ですか？
+\item 明日の降水量はいくつですか？
 \end{itemize}
 \end{frame}
 
@@ -300,6 +301,8 @@ $\Omega$の上の同値類から一つずつ要素を選んで集合$V$を作る
 \begin{center}
 この授業では\emm{$\mathcal{F}=2^\Omega$のつもり}ですすめる。
 
+$\Omega$の部分集合を\emm{事象}と呼ぶ。
+
 \vspace{1em}
 実際に考えるような確率空間では非可測な集合$A\notin\mathcal{F}$は\emm{選択公理}を使わないと構成できない。
 
@@ -388,7 +391,7 @@ P\left(\bigcup_{i=1}^\infty A_i\right) = \lim_{n\to\infty} P(A_n).
 \fi
 
 \begin{frame}{確率の性質}
-任意の $A,B\in\mathcal{F}$ について,
+任意の $A,B\in 2^\Omega$ について,
 \begin{itemize}
 \setlength{\itemsep}{1em}
 \item $P(\Omega)=1,\,P(\emptyset)=0$.
@@ -401,6 +404,7 @@ $\qquad \because\ P(A\cup B) = P(B) + P(A\setminus B),\, P(A) = P(A\setminus B) 
 \end{itemize}
 \end{frame}
 
+\if0
 \begin{frame}{ブールの不等式(union bound)}
 \begin{theorem}
 \begin{align*}
@@ -416,21 +420,22 @@ P\left(\bigcup_{i=1}^\infty A_i\right) &= P\left(\bigcup_{i=1}^\infty B_i\right)
 \end{align*}
 \end{proof}
 \end{frame}
+\fi
 
 \begin{frame}{条件付き確率}
 \small
-事象$B\in\mathcal{F}$が起きる条件下で事象$A\in\mathcal{F}$の\emm{条件付き確率}を
+事象$B\in 2^\Omega$が起きる条件下で事象$A\in 2^\Omega$の\emm{条件付き確率}を
 \begin{align*}
 \emm{P(A\mid B)} &\coloneq \frac{P(A\cap B)}{P(B)}
 \end{align*}
-と定義する。ただし、$P(B)=0$となる$B\in\mathcal{F}$については定義されない。
+と定義する。ただし、$P(B)=0$となる$B\in 2^\Omega$については定義されない。
 
 \vspace{1em}
-$(\Omega, \mathcal{F}, \emm{P(\cdot\mid B)})$は確率空間となる。
+$(\Omega, \emm{P(\cdot\mid B)})$は確率空間となる。
 
 \begin{enumerate}
 \item $P(\Omega\mid B) = \frac{P(\Omega\, \cap\, B)}{P(B)} = \frac{P(B)}{P(B)} = 1$.
-\item[2'.] $\forall (A_n\in\mathcal{F})_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cap A_j=\emptyset\implies$
+\item[2'.] $\forall (A_n\in 2^\Omega)_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cap A_j=\emptyset\implies$
 \begin{align*}
  P\left(\bigcup_{n=1}^\infty A_n\mid B\right)&=
 \frac{P\left(\left(\bigcup_{n=1}^\infty A_n\right)\cap B\right)}{P(B)}\\
@@ -753,7 +758,7 @@ declare function={poisson(\k,\l)=\l^\k/\k!*exp(-\l);}]
 
 
 \begin{frame}{同時確率と条件付き確率}
-確率変数$X$と$Y$の同時確率
+\emm{離散}確率変数$X$と$Y$の同時確率
 \begin{align*}
 \Pr(X=x, Y=y)
 \end{align*}
@@ -771,12 +776,26 @@ declare function={poisson(\k,\l)=\l^\k/\k!*exp(-\l);}]
 \end{frame}
 
 \begin{frame}{独立確率変数}
-確率変数$X$と$Y$が独立$\stackrel{\mathrm{def}}{\iff}\Pr(X=x,Y=y)=\Pr(X=x)\Pr(Y=y)$.
+離散確率変数$X$と$Y$が独立$\stackrel{\mathrm{def}}{\iff}\Pr(X= x,Y= y)=\Pr(X= x)\Pr(Y= y)$.
 
-\vspace{2em}
-任意の写像$f$と$g$について、
+\vspace{.5em}
+離散確率変数$X$と$Y$が独立のとき
+\begin{align*}
+\Pr(X\in A,Y\in B)&=
+\sum_{x\in A, y\in B} \Pr(X=x,Y=y)\\
+&= \sum_{x\in A, y\in B} \Pr(X=x)\Pr(Y=y)\\
+&= \Pr(X\in A)\Pr(Y\in B)
+\end{align*}
+
+任意の連続関数$f$と$g$について、
 
 確率変数$X$と$Y$が独立$\implies$ $f(X)$と$g(Y)$は独立。
+\begin{align*}
+\Pr(f(X) = x, g(Y) = y) &= 
+\Pr(X \in f^{-1}(x), Y \in g^{-1}(y))\\
+&=\Pr(X \in f^{-1}(x))\Pr(Y \in g^{-1}(y))\\
+&=\Pr(f(X) = x)\Pr(g(Y) = y)
+\end{align*}
 \end{frame}
 
 \begin{frame}{少数の法則}
