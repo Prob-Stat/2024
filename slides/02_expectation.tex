@@ -8,6 +8,8 @@
 
 \usepackage{tikz}
 \usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{gnuplot-lua-tikz}
 
 %\usepackage[haranoaji]{luatexja-preset}
 \usepackage[deluxe,ipaex]{luatexja-preset}
@@ -43,6 +45,8 @@
 
 
 \newcommand\bm[1]{{\mathbf{#1}}}
+\newcommand\dx{{\,\mathrm{d}x}}
+
 
 \theoremstyle{definition}
 
@@ -57,6 +61,231 @@
 \maketitle
 \end{frame}
 
+\begin{frame}{確率空間と確率変数}
+確率空間$(\Omega,\, P)$
+\begin{itemize}
+\item $\Omega\colon$ (\emm{非可算}でもよい)集合(\emm{標本空間})
+\item $P\colon 2^\Omega\to[0,1]$ (\emm{確率測度})
+\end{itemize}
+\vspace{1em}
+確率の公理
+\begin{enumerate}
+\setlength{\itemsep}{1em}
+\item $P(\Omega)=1$.
+\item $\forall (A_n\subseteq\Omega)_{n=1,\dotsc}$, $\forall i\ne j,\, A_i\cap A_j=\emptyset\implies P\left(\bigcup_{n=1}^\infty A_n\right)=\sum_{n=1}^\infty P(A_n)$\\ (\emm{完全加法性, $\sigma$-加法性}).
+\end{enumerate}
+\vspace{2em}
+確率変数(確率空間$(\Omega,\, P)$に付随する)
+
+$X\colon \Omega\to\mathbb{R}$.
+
+\begin{align*}
+\Pr(X\in A) := P(X^{-1}(A))
+\end{align*}
+\end{frame}
+
+\begin{frame}{確率変数から定まる確率空間}
+\begin{example}
+\begin{itemize}
+\item $\Omega = \{\mathrm{H},\mathrm{T}\}^2 = \{\mathrm{HH},\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$.
+%\item $\mathcal{F} = 2^\Omega$.
+\item $P(\{\mathrm{HH}\})=P(\{\mathrm{HT}\})=P(\{\mathrm{TH}\})=P(\{\mathrm{TT}\})=1/4$.
+\item $X(\mathrm{HH})=2$, $X(\mathrm{HT})=X(\mathrm{TH})=1$, $X(\mathrm{TT})=0$.
+\end{itemize}
+
+このとき、
+\begin{align*}
+\Pr(X = 0) &= P(\{\mathrm{TT}\}) = 1/4\\
+\Pr(X = 1) &= P(\{\mathrm{HT,\,TH}\}) = 1/2\\
+\Pr(X = 2) &= P(\{\mathrm{HH}\}) = 1/4
+\end{align*}
+である
+\end{example}
+\begin{center}
+そもそも最初から確率空間
+\begin{itemize}
+\item $\Omega = \{0,1,2\}$.
+\item $P(\{0\}) = 1/4, P(\{1\}) = 1/2, P(\{2\}) = 1/4$
+\end{itemize}
+
+を考えればよいのでは？
+%一般に$(\mathbb{R},\, Q(A) := P(X \in A))$
+\end{center}
+\end{frame}
+
+\begin{frame}{複数の確率変数}
+\begin{example}
+\begin{itemize}
+\item $\Omega = \{\mathrm{H},\mathrm{T}\}^2 = \{\mathrm{HH},\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$.
+%\item $\mathcal{F} = 2^\Omega$.
+\item $P(\{\mathrm{HH}\})=P(\{\mathrm{HT}\})=P(\{\mathrm{TH}\})=P(\{\mathrm{TT}\})=1/4$.
+\item $X(\mathrm{HH})=2$, $X(\mathrm{HT})=X(\mathrm{TH})=1$, $X(\mathrm{TT})=0$.
+\item $Y(\mathrm{HH})=Y(\mathrm{HT})=1$, $Y(\mathrm{TH})=Y(\mathrm{TT})=0$.
+\end{itemize}
+
+このとき、
+\begin{align*}
+\Pr(X = 0,\, Y = 0) &= P(X^{-1}(0)\cap Y^{-1}(0)) = P(\{\mathrm{TT}\}) = 1/4\\
+\Pr(X = 0,\, Y = 1) &= P(X^{-1}(0)\cap Y^{-1}(1)) =P(\emptyset) = 0\\
+\Pr(X = 1,\, Y = 0) &= P(X^{-1}(1)\cap Y^{-1}(0)) =P(\{\mathrm{TH}\}) = 1/4\\
+\Pr(X = 1,\, Y = 1) &= P(X^{-1}(1)\cap Y^{-1}(1)) =P(\{\mathrm{HT}\}) = 1/4\\
+\Pr(X = 2,\, Y = 0) &= P(X^{-1}(2)\cap Y^{-1}(0)) =P(\emptyset) = 0\\
+\Pr(X = 2,\, Y = 1) &= P(X^{-1}(2)\cap Y^{-1}(1)) =P(\{\mathrm{HH}\}) = 1/4
+\end{align*}
+である。複数の確率変数を考えるときには確率空間は必要。
+\end{example}
+\end{frame}
+
+\begin{frame}{連続確率空間}
+$\Omega = \mathbb{R}$の場合の確率空間$(\mathbb{R},\, P)$について考える。
+
+\vspace{1em}
+ある積分できる関数$p\colon\mathbb{R}\to\mathbb{R}$が存在して
+\begin{align*}
+P([a,b]) &= \int_a^{b} p(x)\dx
+\end{align*}
+であるとき、$p$を\emm{確率密度関数}という。
+
+\vspace{1em}
+確率密度関数は常に存在するとは限らないが累積分布関数$F_X(a) = \Pr(X\le a)$は常に存在する。
+\end{frame}
+
+\begin{frame}{一様分布}
+\begin{align*}
+\Omega &= [0,\, 1]\\
+p(x) &= 1,& \Pr(X\le x) = x
+\end{align*}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.45\textwidth,
+    xlabel=$x$,
+    ylabel=$p(x)$,
+    xmin=0, xmax=1,
+    ymin=0, ymax=1.2,
+    xtick={0,0.5,1},
+    ytick={0,0.5,1}
+]
+    \addplot[domain=0:1, samples=100, color=blue, thick] {1};
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.45\textwidth,
+    xlabel=$x$,
+    ylabel=$F_X(x)$,
+    xmin=0, xmax=1,
+    ymin=0, ymax=1.2,
+    xtick={0,0.5,1},
+    ytick={0,0.5,1}
+]
+    \addplot[domain=0:1, samples=100, color=blue, thick] {x};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{標準正規分布}
+\begin{align*}
+\Omega &= \mathbb{R}\\
+p(x) &= \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{x^2}{2}},& \Pr(X\le x) = \Phi(x) := \frac1{\sqrt{2\pi}}\int_{-\infty}^x \mathrm{e}^{-\frac{t^2}2} \,\mathrm{d}t
+\end{align*}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.45\textwidth,
+    xlabel=$x$,
+    ylabel=$p(x)$,
+    xmin=-5, xmax=5,
+    ymin=0, ymax=0.5,
+    xtick={-5,0,5},
+    ytick={0,0.5,1}
+]
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {exp(-x^2/2)/sqrt(2*pi)};
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.45\textwidth,
+    xlabel=$x$,
+    ylabel=$F_X(x)$,
+    xmin=-5, xmax=5,
+    ymin=0, ymax=1,
+    xtick={-5,0,5},
+    ytick={0,0.5,1}
+]
+    %%\addplot[domain=-5:5, samples=100, color=blue, thick] {0.5*(1 + erf(x/sqrt(2)))};
+ \addplot[samples=100, color=blue, no markers, thick] gnuplot {0.5*(1 + erf(x/sqrt(2)))};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{指数分布}
+\begin{align*}
+\Omega &= [0,\, 1]\\
+p(x) &= 1,& \Pr(X\le x) = x
+\end{align*}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.45\textwidth,
+    xlabel=$x$,
+    ylabel=$p(x)$,
+    xmin=0, xmax=1,
+    ymin=0, ymax=1.2,
+    xtick={0,0.5,1},
+    ytick={0,0.5,1}
+]
+    \addplot[domain=0:1, samples=100, color=blue, thick] {1};
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.45\textwidth,
+    xlabel=$x$,
+    ylabel=$F_X(x)$,
+    xmin=0, xmax=1,
+    ymin=0, ymax=1.2,
+    xtick={0,0.5,1},
+    ytick={0,0.5,1}
+]
+    \addplot[domain=0:1, samples=100, color=blue, thick] {x};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{標準コーシー分布}
+\begin{align*}
+\Omega &= \mathbb{R}\\
+p(x) &= \frac1{\pi(1+x^2)},& \Pr(X\le x) = \frac1\pi\arctan(x) + \frac12
+\end{align*}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.45\textwidth,
+    xlabel=$x$,
+    ylabel=$p(x)$,
+    xmin=-5, xmax=5,
+    ymin=0, ymax=0.4,
+    xtick={-5,5},
+    ytick={0,0.4}
+]
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {1/(pi*(1+x^2)};
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.45\textwidth,
+    xlabel=$x$,
+    ylabel=$F_X(x)$,
+    xmin=-5, xmax=5,
+    ymin=0, ymax=1,
+    xtick={-5,0,5},
+    ytick={0,1}
+]
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {atan(x)/180 + 0.5};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
 
 \begin{frame}{期待値}
 \begin{align*}
