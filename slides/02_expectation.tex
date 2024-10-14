@@ -499,7 +499,7 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 \begin{itemize}
 \setlength{\itemsep}{2em}
 \item $X$が大きいとき$Y$が大きい $\Rightarrow$ $\cov{X,Y}\ge 0$。
-\item $X$が大きいとき$Y$が小さい $\Rightarrow$ $\cov{X,Y}\ge 0$。
+\item $X$が大きいとき$Y$が小さい $\Rightarrow$ $\cov{X,Y}\le 0$。
 \end{itemize}
 \end{frame}
 
@@ -545,11 +545,11 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 \vspace{1em}
 確率変数$X$の\emm{モーメント母関数(積率母関数)}: $M_X(t):=\expt{\mathrm{e}^{tX}}$.
 
-モーメント母関数が\emm{$t\in(-\epsilon,\epsilon)$で存在}するとき、
+モーメント母関数が\emm{$t\in(-\epsilon,\epsilon)$で存在}するとき、この範囲で
 \begin{align*}
 M_X(t)&=\expt{\mathrm{e}^{tX}}\\
 &= \expt{\sum_{n\ge 0} \frac{(tX)^n}{n!}}\\
-&= \sum_{n\ge 0} \expt{\frac{(tX)^n}{n!}}\\
+&= \sum_{n\ge 0} \expt{\frac{(tX)^n}{n!}}\qquad(\text{極限と積分の交換})\\
 &= \sum_{n\ge 0} \frac{\expt{X^n}}{n!} t^n\\
 &= 1 + \expt{X}t + \frac{\expt{X^2}}2t^2 + \dotsb
 \end{align*}
@@ -641,8 +641,8 @@ K_{X+Y}(t) &= K_X(t) + K_Y(t).
 \begin{itemize}
 \setlength{\itemsep}{2em}
 \item 標準正規分布のモーメント母関数、期待値、分散をもとめよ。
-\item $\lambda>0$について、ポアソン分布$\Pr(X=k)=\frac{\lambda^k}{k!}\mathrm{e}^{-\lambda}$のモーメント母関数、期待値、分散をもとめよ。
-\item $\lambda>0$について、指数分布$p(x)=\lambda\mathrm{e}^{-\lambda x}$のモーメント母関数、期待値、分散をもとめよ。
+\item $\lambda>0$について、非負整数上の分布であるポアソン分布$\Pr(X=k)=\frac{\lambda^k}{k!}\mathrm{e}^{-\lambda}$のモーメント母関数、期待値、分散をもとめよ。
+\item $\lambda>0$について、非負実数上の分布である指数分布$p(x)=\lambda\mathrm{e}^{-\lambda x}$のモーメント母関数、期待値、分散をもとめよ。
 モーメント母関数が存在する$t$の範囲も示すこと。
 %\item 幾何分布$\Pr(X=k)=(1-p)^{k-1}p$のモーメント母関数、期待値、分散をもとめよ
 %\item 
