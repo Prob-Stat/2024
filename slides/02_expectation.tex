@@ -50,7 +50,7 @@
 
 \theoremstyle{definition}
 
-\title{確率・統計基礎: 期待値、分散、不等式}
+\title{確率・統計基礎: 期待値、分散、モーメント}
 \author{森 立平}
 \date{}
 
@@ -184,7 +184,7 @@ p(x) &= 1,& \Pr(X\le x) = x
 \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{標準正規分布}
+\begin{frame}{標準正規分布(標準ガウス分布)}
 \begin{align*}
 \Omega &= \mathbb{R}\\
 p(x) &= \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{x^2}{2}},& \Pr(X\le x) = \Phi(x) := \frac1{\sqrt{2\pi}}\int_{-\infty}^x \mathrm{e}^{-\frac{t^2}2} \,\mathrm{d}t
@@ -221,20 +221,20 @@ p(x) &= \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{x^2}{2}},& \Pr(X\le x) = \Phi(x) 
 
 \begin{frame}{指数分布}
 \begin{align*}
-\Omega &= [0,\, 1]\\
-p(x) &= 1,& \Pr(X\le x) = x
+\Omega &= [0,\, \infty)\\
+p(x) &= \lambda\mathrm{e}^{-\lambda x},& \Pr(X\le x) = 1-\mathrm{e}^{-\lambda x}
 \end{align*}
 \begin{tikzpicture}
 \begin{axis}[
     width=0.45\textwidth,
     xlabel=$x$,
     ylabel=$p(x)$,
-    xmin=0, xmax=1,
+    xmin=0, xmax=5,
     ymin=0, ymax=1.2,
-    xtick={0,0.5,1},
+    xtick={0,1,2,3,4,5},
     ytick={0,0.5,1}
 ]
-    \addplot[domain=0:1, samples=100, color=blue, thick] {1};
+    \addplot[domain=0:5, samples=100, color=blue, thick] {exp(-x)};
 \end{axis}
 \end{tikzpicture}
 \hfill
@@ -243,12 +243,12 @@ p(x) &= 1,& \Pr(X\le x) = x
     width=0.45\textwidth,
     xlabel=$x$,
     ylabel=$F_X(x)$,
-    xmin=0, xmax=1,
+    xmin=0, xmax=5,
     ymin=0, ymax=1.2,
-    xtick={0,0.5,1},
+    xtick={0,1,2,3,4,5},
     ytick={0,0.5,1}
 ]
-    \addplot[domain=0:1, samples=100, color=blue, thick] {x};
+    \addplot[domain=0:5, samples=100, color=blue, thick] {1-exp(-x)};
 \end{axis}
 \end{tikzpicture}
 \end{frame}
@@ -545,6 +545,7 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 \vspace{1em}
 確率変数$X$の\emm{モーメント母関数(積率母関数)}: $M_X(t):=\expt{\mathrm{e}^{tX}}$.
 
+モーメント母関数が\emm{$t\in(-\epsilon,\epsilon)$で存在}するとき、
 \begin{align*}
 M_X(t)&=\expt{\mathrm{e}^{tX}}\\
 &= \expt{\sum_{n\ge 0} \frac{(tX)^n}{n!}}\\
@@ -553,8 +554,9 @@ M_X(t)&=\expt{\mathrm{e}^{tX}}\\
 &= 1 + \expt{X}t + \frac{\expt{X^2}}2t^2 + \dotsb
 \end{align*}
 \begin{align*}
-\left.\frac{\mathrm{d} M_X(t)}{\mathrm{d}t}\right|_{t=0} &= \expt{X},&
-\left.\frac{\mathrm{d}^2 M_X(t)}{\mathrm{d}t^2}\right|_{t=0} &= \expt{X^2}
+%\left.\frac{\mathrm{d} M_X(t)}{\mathrm{d}t}\right|_{t=0} &= \expt{X},&
+%\left.\frac{\mathrm{d}^2 M_X(t)}{\mathrm{d}t^2}\right|_{t=0} &= \expt{X^2}
+\left.\frac{\mathrm{d}^n M_X(t)}{\mathrm{d}t^n}\right|_{t=0} &= \expt{X^n}\qquad n\ge 0
 \end{align*}
 \end{frame}
 
@@ -575,6 +577,43 @@ M_X(t)&=\mathbb{E}[\mathrm{e}^{tX}]\\
 \left.\frac{\mathrm{d} M_X(t)}{\mathrm{d}t}\right|_{t=0} &= \left.n(p\mathrm{e}^t + (1-p))^{n-1}p\mathrm{e}^t\right|_{t=0}=np
 \end{align*}
 \end{example}
+\end{frame}
+
+\begin{frame}{独立確率変数の和のモーメント母関数}
+\emm{独立}確率変数$X$と$Y$について
+\begin{align*}
+M_{X+Y}(t) &= \expt{\mathrm{e}^{t(X+Y)}}\\
+&= \expt{\mathrm{e}^{tX}}\expt{\mathrm{e}^{tY}}\\
+&=M_X(t)M_Y(t)
+\end{align*}
+
+ベルヌーイ分布のモーメント母関数は
+\begin{align*}
+M_{X}(t) &= \expt{\mathrm{e}^{tX}}\\
+&=p\mathrm{e}^t + (1-p)
+\end{align*}
+
+二項分布に従う確率変数はベルヌーイ分布に従う$n$個の独立確率変数の和なので、そのモーメント母関数は
+\begin{align*}
+(p\mathrm{e}^t + (1-p))^n
+\end{align*}
+\end{frame}
+
+\begin{frame}{キュムラント母関数}
+\emm{キュムラント母関数 $K_X(t)$}は以下で定義される。
+\begin{align*}
+K_X(t) &:= \log(M_X(t)) = \log\expt{\mathrm{e}^{tX}}
+\end{align*}
+\begin{align*}
+\left.\frac{\mathrm{d} K_X(t)}{\mathrm{d}t}\right|_{t=0} &= \expt{X},&
+\left.\frac{\mathrm{d}^2 K_X(t)}{\mathrm{d}t^2}\right|_{t=0} &= \expt{X^2} - \expt{X}^2 = \var{X}
+\end{align*}
+
+\vspace{2em}
+\emm{独立}確率変数$X$と$Y$について
+\begin{align*}
+K_{X+Y}(t) &= K_X(t) + K_Y(t).
+\end{align*}
 \end{frame}
 
 \if0
@@ -598,5 +637,16 @@ M_X(t)&=\mathbb{E}[\mathrm{e}^{tX}]\\
 \fi
 
 %モーメント母関数、畳み込み
+\begin{frame}{課題}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item 標準正規分布のモーメント母関数、期待値、分散をもとめよ。
+\item $\lambda>0$について、ポアソン分布$\Pr(X=k)=\frac{\lambda^k}{k!}\mathrm{e}^{-\lambda}$のモーメント母関数、期待値、分散をもとめよ。
+\item $\lambda>0$について、指数分布$p(x)=\lambda\mathrm{e}^{-\lambda x}$のモーメント母関数、期待値、分散をもとめよ。
+モーメント母関数が存在する$t$の範囲も示すこと。
+%\item 幾何分布$\Pr(X=k)=(1-p)^{k-1}p$のモーメント母関数、期待値、分散をもとめよ
+%\item 
+\end{itemize}
+\end{frame}
 
 \end{document}
