@@ -80,7 +80,7 @@
 $X\colon \Omega\to\mathbb{R}$.
 
 \begin{align*}
-\Pr(X\in A) := P(X^{-1}(A))
+\Pr(X\in A) &:= P(X^{-1}(A))\qquad \forall A\subseteq\mathbb{R}
 \end{align*}
 \end{frame}
 
@@ -287,11 +287,33 @@ p(x) &= \frac1{\pi(1+x^2)},& \Pr(X\le x) = \frac1\pi\arctan(x) + \frac12
 \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{期待値}
+\begin{frame}{期待値(平均)}
+非負離散確率変数$X$について
 \begin{align*}
-\expt{X} &= \sum_k \Pr(X=k) k
+\expt{X} &:= \sum_k \Pr(X=k) k\qquad\text{(収束するとき)}
 \end{align*}
-線形
+
+\vspace{1em}
+離散確率変数$X$について$\expt{|X|}=\sum_k \Pr(X=k)|k|$が存在するとき、
+\begin{align*}
+\expt{X} &:= \sum_k \Pr(X=k) k
+\end{align*}
+
+\vspace{1em}
+連続確率変数$X$について
+\begin{align*}
+\expt{X} &:= \int p(x) x \dx
+\end{align*}
+\end{frame}
+
+\begin{frame}{期待値の線形性}
+\small
+\begin{align*}
+\expt{f(X)} &= \sum_k \Pr(f(X) = k) k\\
+&= \sum_k \Pr(X \in f^{-1}(k)) k\\
+&= \sum_k \sum_{t\in f^{-1}(k)} \Pr(X = t) k\\
+&= \sum_t \Pr(X = t) f(t)
+\end{align*}
 \begin{align*}
 \expt{aX + bY} &= \sum_k \Pr(aX+bY=k) k\\
 &= \sum_{x, y} \Pr(X=x, Y=y) (ax+by)\\
@@ -302,10 +324,92 @@ p(x) &= \frac1{\pi(1+x^2)},& \Pr(X\le x) = \frac1\pi\arctan(x) + \frac12
 \end{align*}
 \end{frame}
 
+\begin{frame}{積の期待値}
+\emm{独立な}確率変数$X$と$Y$について
+\begin{align*}
+\expt{XY} &= \sum_{k} \Pr(XY = k)\, k\\
+&= \sum_{x,y}\Pr(X=x,Y=y)\, xy\\
+&= \sum_{x,y}\Pr(X=x)\Pr(Y=y)\, xy\\
+&= \left(\sum_{x}\Pr(X=x)\right)\left(\sum_y \Pr(Y=y)y\right)\\
+&= \expt{X}\expt{Y}
+\end{align*}
+\end{frame}
+
 \begin{frame}{期待値の例}
+\begin{example}[ベルヌーイ分布]
+\begin{align*}
+\Pr(X = 0) &= 1-p\\
+\Pr(X = 1) &= p\\
+\end{align*}
+のとき、
+\begin{align*}
+\expt{X} &= \Pr(X = 0)\cdot 0 + \Pr(X = 1)\cdot 1\\
+&= p
+\end{align*}
+\end{example}
 
 \end{frame}
 
+\begin{frame}{期待値の例}
+\begin{example}[二項分布]
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} p^k(1-p)^{n-k}
+\end{align*}
+のとき、
+\begin{align*}
+\expt{X} &= \sum_k \Pr(X = k) k\\
+&= \binom{n}{k} p^k(1-p)^{n-k} k
+\end{align*}
+一方で$t$回目のコイン投げで表が出たら1、裏が出たら0という確率変数を$X_t$とおくと、
+$X=X_1+X_2+\dotsb+X_n$なので
+\begin{align*}
+\expt{X} &= \expt{X_1+\dotsb+X_n} = \expt{X_1}+\dotsb+\expt{X_n} = np.
+\end{align*}
+\end{example}
+\end{frame}
+
+\begin{frame}{期待値の例}
+\begin{example}[標準正規分布]
+\begin{align*}
+p(x) &= \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{x^2}{2}}
+\end{align*}
+のとき、
+\begin{align*}
+\expt{X} &= \int_{-\infty}^{\infty} p(x) x\dx\\
+&= \int_{-\infty}^\infty \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{x^2}{2}} x\dx\\
+&=\left[-\frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{x^2}2}\right]_{-\infty}^\infty = 0
+\end{align*}
+\end{example}
+\end{frame}
+
+\begin{frame}{期待値の例}
+\begin{example}[正規分布]
+\begin{align*}
+p(x) &= \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{(x-\emm{m})^2}{2}}
+\end{align*}
+のとき、
+\begin{align*}
+\expt{X} &= \int_{-\infty}^{\infty} p(x) x\dx\\
+&= \int_{-\infty}^\infty \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{(x-\emm{m})^2}{2}} x\dx\\
+&= \int_{-\infty}^\infty \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{x^2}{2}} (x+\emm{m})\dx\\
+&= \int_{-\infty}^\infty \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{x^2}{2}} \emm{m}\dx = \emm{m}
+\end{align*}
+\end{example}
+\end{frame}
+
+\begin{frame}{期待値の例}
+\begin{example}[コーシー分布]
+\begin{align*}
+p(x) &= \frac1{\pi(1+x^2)}
+\end{align*}
+のとき、
+\begin{align*}
+\expt{X} &= \int_{-\infty}^{\infty} p(x) x\dx\\
+&= \int_{-\infty}^\infty \frac1{\pi(1+x^2)} x\dx\\
+&= \frac1{2\pi} \int_{-\infty}^\infty \left(\frac{1}{x+i} + \frac{1}{x-i}\right)\dx\\
+\end{align*}
+\end{example}
+\end{frame}
 
 \begin{frame}{マルコフの不等式}
 \begin{theorem}[マルコフの不等式]
@@ -317,22 +421,22 @@ p(x) &= \frac1{\pi(1+x^2)},& \Pr(X\le x) = \frac1\pi\arctan(x) + \frac12
 \begin{proof}
 \vspace{-2em}
 \begin{align*}
-\expt{X} &= \sum_i p_i x_i\\
-&= \sum_{i\colon x_i \ge a} p_i x_i
-+ \sum_{i\colon x_i < a} p_i x_i\\
-&\ge \sum_{i\colon x_i \ge a} p_i x_i\hspace{8em}(x_i\ge 0)\\
-&\ge \sum_{i\colon x_i \ge a} p_i a\\
-&= a\Pr(X\ge a) \qedhere
+\expt{X} &= \sum_k \Pr(X=k)k\\
+&= \sum_{k \ge a} \Pr(X=k)k
++ \sum_{k < a} \Pr(X=k)k\\
+&\ge \sum_{k \ge a} \Pr(X=k)k\hspace{8em}(k\ge 0)\\
+&\ge \sum_{k \ge a} \Pr(X=k)a\\
+&= a\Pr(X\ge a). \qedhere
 \end{align*}
 \end{proof}
 \end{frame}
 
-\begin{frame}{例題}
-\end{frame}
+%\begin{frame}{例題}
+%\end{frame}
 
 \begin{frame}{分散}
 \begin{align*}
-\var{X} &= \expt{(X-\expt{X})^2}\\
+\var{X} &:= \expt{(X-\expt{X})^2}\\
 &=\expt{X^2-2X\expt{X}+\expt{X}^2}\\
 &=\expt{X^2}-2\expt{X}\expt{X}+\expt{X}^2\\
 &=\emm{\expt{X^2}-\expt{X}^2}\\
@@ -340,15 +444,17 @@ p(x) &= \frac1{\pi(1+x^2)},& \Pr(X\le x) = \frac1\pi\arctan(x) + \frac12
 \begin{center}
 分散は\emm{非負}で\emm{期待値からの広がり}を表す量。
 \end{center}
-\end{frame}
 
-\begin{frame}{分散の意味}
-\begin{align*}
-\var{X} &= \expt{(X-\expt{X})^2}
-\end{align*}
-
+\vspace{1em}
 $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 \end{frame}
+
+%\begin{frame}{分散の意味}
+%\begin{align*}
+%\var{X} &= \expt{(X-\expt{X})^2}
+%\end{align*}
+%
+%\end{frame}
 
 \begin{frame}{分散の性質}
 \small
@@ -375,7 +481,7 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 
 \begin{frame}{共分散}
 \begin{align*}
-\cov{X,Y} &= \expt{(X-\expt{X})(Y-\expt{Y})}
+\cov{X,Y} &:= \expt{(X-\expt{X})(Y-\expt{Y})}
 \end{align*}
 
 \vspace{1em}
@@ -399,7 +505,22 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 
 \begin{frame}{無相関と独立}
 \begin{align*}
-\cov{X,Y} &= \expt{(X-\expt{X})(Y-\expt{Y})} = 0
+\cov{X,Y} &= \expt{(X-\expt{X})(Y-\expt{Y})}
+\end{align*}
+\vspace{1em}
+確率変数$X$と$Y$が\emm{無相関} $\stackrel{\mathrm{def}}{\iff} \cov{X,Y}=0$
+
+\vspace{1em}
+確率変数$X$と$Y$が独立 $\Longrightarrow \cov{X,Y} = \expt{(X-\expt{X})(Y-\expt{Y})} = \expt{X-\expt{X}}\expt{Y-\expt{Y}} = 0\iff$
+確率変数$X$と$Y$が\emm{無相関}
+
+\vspace{1em}
+無相関だけど独立でない例
+
+\begin{align*}
+\Pr(X=1, Y=0) &= \frac12\\
+\Pr(X=-1, Y=1) &= \frac14\\
+\Pr(X=-1, Y=-1) &= \frac14
 \end{align*}
 \end{frame}
 
@@ -418,6 +539,45 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 \end{proof}
 \end{frame}
 
+\begin{frame}{モーメント母関数}
+確率変数$X$の\emm{$n$次モーメント}: $\expt{X^n}$.
+
+\vspace{1em}
+確率変数$X$の\emm{モーメント母関数(積率母関数)}: $M_X(t):=\expt{\mathrm{e}^{tX}}$.
+
+\begin{align*}
+M_X(t)&=\expt{\mathrm{e}^{tX}}\\
+&= \expt{\sum_{n\ge 0} \frac{(tX)^n}{n!}}\\
+&= \sum_{n\ge 0} \expt{\frac{(tX)^n}{n!}}\\
+&= \sum_{n\ge 0} \frac{\expt{X^n}}{n!} t^n\\
+&= 1 + \expt{X}t + \frac{\expt{X^2}}2t^2 + \dotsb
+\end{align*}
+\begin{align*}
+\left.\frac{\mathrm{d} M_X(t)}{\mathrm{d}t}\right|_{t=0} &= \expt{X},&
+\left.\frac{\mathrm{d}^2 M_X(t)}{\mathrm{d}t^2}\right|_{t=0} &= \expt{X^2}
+\end{align*}
+\end{frame}
+
+\begin{frame}{モーメント母関数の例}
+\small
+\begin{example}[二項分布]
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} p^k(1-p)^{n-k}
+\end{align*}
+のとき、
+\begin{align*}
+M_X(t)&=\mathbb{E}[\mathrm{e}^{tX}]\\
+&=\sum_k \Pr(X=k)\mathrm{e}^{tk}\\
+&=\sum_k \binom{n}{k}p^k(1-p)^{n-k}\mathrm{e}^{tk}\\
+&=(p\mathrm{e}^t + (1-p))^n
+\end{align*}
+\begin{align*}
+\left.\frac{\mathrm{d} M_X(t)}{\mathrm{d}t}\right|_{t=0} &= \left.n(p\mathrm{e}^t + (1-p))^{n-1}p\mathrm{e}^t\right|_{t=0}=np
+\end{align*}
+\end{example}
+\end{frame}
+
+\if0
 \begin{frame}{コーシー・シュワルツの不等式}
 \begin{theorem}
 \begin{align*}
@@ -435,5 +595,8 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 \end{theorem}
 
 \end{frame}
+\fi
+
+%モーメント母関数、畳み込み
 
 \end{document}
