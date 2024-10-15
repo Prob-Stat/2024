@@ -28,6 +28,7 @@
 
 \usepackage{xspace}
 \newcommand\bm[1]{{\mathbf{#1}}}
+\newcommand\dx{{\,\mathrm{d}x}}
 
 \theoremstyle{definition}
 
@@ -301,9 +302,9 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 \begin{proof}
 任意の実数$t>0$について
 \begin{align*}
-\Pr(X\ge a)&\le\Pr\bigl(\mathrm{e}^{tX}\ge\mathrm{e}^{ta}\bigr)\\
+\Pr(X\ge a)&=\Pr\bigl(\mathrm{e}^{tX}\ge\mathrm{e}^{ta}\bigr)\\
 &\le\frac{\expt{\mathrm{e}^{tX}}}{\mathrm{e}^{ta}}\qquad\text{(Markovの不等式)}\\
-&\le\frac{M_X(t)}{\mathrm{e}^{ta}}.\qedhere
+&=\frac{M_X(t)}{\mathrm{e}^{ta}}.\qedhere
 \end{align*}
 \end{proof}
 \end{frame}
@@ -340,7 +341,7 @@ K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 \end{frame}
 
 \begin{frame}{ルジャンドル変換}
-$I\subseteq\mathbb{R}$を区間とし、関数$f\colon I\to\mathbb{R}$を凸関数とする。
+$I\subseteq\mathbb{R}$を区間とし、関数$f\colon I\to\mathbb{R}$を\emm{凸関数}とする。
 $f$のルジャンドル変換$f^*\colon I^*\to\mathbb{R}$を以下で定義する。
 \begin{align*}
 f^*(y) &= \sup_{x\in I}\{yx - f(x)\}\\
@@ -361,8 +362,8 @@ I^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=0:5, samples=100, color=blue, thick] {x^2/2};
-    \addplot[domain=0:5, samples=100, color=red, thick] {3*(x-3) + 9/2};
+    \addplot[domain=0:5, samples=100, color=blue, thick] {-2*x+x^2};
+    \addplot[domain=0:5, samples=100, color=red, thick] {2*(x-2) + 0};
     \legend{$f(x)$, $a(x-x^*)+f(x^*)$}
 \end{axis}
 \end{tikzpicture}
@@ -383,7 +384,7 @@ I^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
 %\Pr\left(\exp\left(t\sum_{t=1}^N X_t\right)\ge \exp\left(t(\expt{X} + a)N\right)\right)\\
 \Pr\left(\sum_{k=1}^N X_k\ge Na\right)\\
 &\le\mathrm{e}^{K_{\sum_t X_t}(t) - Nat}\qquad\text{(チェルノフ上界)}\\
-&\le\mathrm{e}^{N(K_X(t) - at)}
+&=\mathrm{e}^{N(K_X(t) - at)}
 \end{align*}
 $t>0$を最適化することで補題を得る。
 \end{proof}
@@ -423,6 +424,135 @@ K_X(t) &= \log \expt{\mathrm{e}^{tX}}
     \legend{$K_X(t)$, $\expt{X}t$}
 \end{axis}
 \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{例(正規分布)}
+%\small
+\begin{align*}
+p(x) &= \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\end{align*}
+\begin{align*}
+M_X(t) &= \int_{-\infty}^\infty\frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}} \mathrm{e}^{tx}\dx\\
+ &= \int_{-\infty}^\infty\frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{(x-\mu -\sigma^2t)^2}{2\sigma^2}} \mathrm{e}^{\frac{(\mu+\sigma^2t)^2-\mu^2}{2\sigma^2}}\dx\\
+&=\mathrm{e}^{\frac{(\mu+\sigma^2t)^2-\mu^2}{2\sigma^2}}
+=\mathrm{e}^{\mu t + \frac{\sigma^2t^2}2}.
+\end{align*}
+\begin{align*}
+K_X(t) &= \emm{\mu t + \frac{\sigma^2t^2}2}.\\
+\end{align*}
+\end{frame}
+
+\begin{frame}{例(正規分布)}
+\begin{align*}
+K_X(t) &= \emm{\mu t + \frac{\sigma^2t^2}2}.\\
+\sup_{t>0} \left\{at - \left(\mu t + \frac{\sigma^2t^2}2\right)\right\} &= 
+\sup_{t>0} \left\{-\frac{\sigma^2}2 t\left(t-\frac{2(a-\mu)}{\sigma^2}\right) \right\}\\
+ &= 
+\begin{cases}
+\emm{\frac{(a-\mu)^2}{2\sigma^2}}& a \ge \mu\\
+0&\text{otherwise.}
+\end{cases}
+\end{align*}
+
+\vspace{1em}
+任意の$\epsilon>0$について
+\begin{align*}
+\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \mu + \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2\sigma^2}}N}.
+\end{align*}
+\end{frame}
+
+\begin{frame}{例(ポアソン分布)}
+\begin{align*}
+\Pr(X=k) &= \frac{\lambda^k\mathrm{e}^{-\lambda}}{k!}.
+\end{align*}
+\begin{align*}
+M_X(t) &= \sum_{k\ge 0}\frac{\lambda^k\mathrm{e}^{-\lambda}}{k!} \mathrm{e}^{tk}\\
+&= \mathrm{e}^{\lambda\mathrm{e}^t - \lambda}\\
+K_X(t) &= \lambda(\mathrm{e}^t-1)
+\end{align*}
+\end{frame}
+
+\begin{frame}{例(ポアソン分布)}
+\begin{align*}
+K_X(t) &= \lambda(\mathrm{e}^t-1)
+\end{align*}
+\begin{align*}
+\sup_{t>0}\left\{at - \lambda(\mathrm{e}^t-1)\right\}
+\end{align*}
+\begin{align*}
+a-\lambda\mathrm{e}^{t^*} &= 0\iff t^* = \log \frac{a}{\lambda}
+\end{align*}
+\begin{align*}
+\sup_{t>0}\left\{at - \lambda(\mathrm{e}^t-1)\right\} &=
+\begin{cases}
+a\log\frac{a}{\lambda} -a + \lambda& a \ge \lambda\\
+0&\text{otherwise.}
+\end{cases}
+\end{align*}
+
+\vspace{1em}
+%任意の$\epsilon>0$について
+任意の$c > 1$について
+\begin{align*}
+%\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \lambda+\epsilon\right) &\le \mathrm{e}^{-\emm{((\lambda+\epsilon) \log\frac{\lambda+\epsilon}{\lambda} - \epsilon)}N}.
+\Pr\left(\frac1N\sum_{k=1}^N X_k \ge c\lambda\right) &\le \mathrm{e}^{-\emm{\lambda\left(c\log c -c + 1 \right)}N}.
+\end{align*}
+\end{frame}
+
+\begin{frame}{例(指数分布)}
+%\small
+\begin{align*}
+p(x) &= \lambda\mathrm{e}^{-\lambda x}
+\end{align*}
+\begin{align*}
+M_X(t) &= \int_{0}^\infty \lambda\mathrm{e}^{-\lambda x} \mathrm{e}^{tx}\dx\\
+&=\left[\frac{\lambda}{t-\lambda}\mathrm{e}^{(t-\lambda)x}\right]_0^{\infty}\\
+&=\begin{cases}
+\frac{\lambda}{\lambda-t}& t < \lambda\\
++\infty&\text{otherwise.}
+\end{cases}
+\end{align*}
+\begin{align*}
+K_X(t) &=
+\begin{cases}
+\log\frac{\lambda}{\lambda-t}& t < \lambda\\
++\infty&\text{otherwise.}
+\end{cases}
+\end{align*}
+\end{frame}
+
+\begin{frame}{例(指数分布)}
+\begin{align*}
+K_X(t) &=
+\begin{cases}
+\log\frac{\lambda}{\lambda-t}& t < \lambda\\
++\infty&\text{otherwise.}
+\end{cases}
+\end{align*}
+\begin{align*}
+\sup_{t\in(0,\,\lambda)} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}
+\end{align*}
+\begin{align*}
+a - \frac1{\lambda-t^*} &=0 \iff  t^* = \lambda-\frac1a
+\end{align*}
+\begin{align*}
+\sup_{t\in(0,\,\lambda)} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}
+&=\begin{cases}
+a\lambda - 1 - \log(a\lambda)& a > \frac1\lambda\\
+0 & \text{otherwise.}
+\end{cases}
+\end{align*}
+
+\vspace{1em}
+%任意の$\epsilon>0$について
+任意の$c > 1$について
+\begin{align*}
+%\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \lambda+\epsilon\right) &\le \mathrm{e}^{-\emm{((\lambda+\epsilon) \log\frac{\lambda+\epsilon}{\lambda} - \epsilon)}N}.
+\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \frac{c}{\lambda}\right) &\le \mathrm{e}^{-\emm{(c-1-\log c)}N}.
+\end{align*}
+\end{frame}
+
+\begin{frame}{サブガウシアン}
 \end{frame}
 
 \begin{frame}{大偏差原理 Lv1}
