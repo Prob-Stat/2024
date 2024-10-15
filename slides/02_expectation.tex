@@ -288,13 +288,13 @@ p(x) &= \frac1{\pi(1+x^2)},& \Pr(X\le x) = \frac1\pi\arctan(x) + \frac12
 \end{frame}
 
 \begin{frame}{期待値(平均)}
-非負離散確率変数$X$について
+非負離散確率変数$X$について\emm{期待値}を以下で定義する。
 \begin{align*}
-\expt{X} &:= \sum_k \Pr(X=k) k\qquad\text{(収束するとき)}
+\expt{X} &:= \sum_k \Pr(X=k) k%\qquad\text{(収束するとき)}
 \end{align*}
 
 \vspace{1em}
-離散確率変数$X$について$\expt{|X|}=\sum_k \Pr(X=k)|k|$が存在するとき、
+離散確率変数$X$について$\expt{|X|}=\sum_k \Pr(X=k)|k|$が\emm{存在するとき}、
 \begin{align*}
 \expt{X} &:= \sum_k \Pr(X=k) k
 \end{align*}
@@ -304,10 +304,12 @@ p(x) &= \frac1{\pi(1+x^2)},& \Pr(X\le x) = \frac1\pi\arctan(x) + \frac12
 \begin{align*}
 \expt{X} &:= \int p(x) x \dx
 \end{align*}
+(上記の積分が広義リーマン積分のときは条件に$\int p(x)|x|\dx<\infty$が必要)
 \end{frame}
 
 \begin{frame}{期待値の線形性}
 \small
+絶対収束するので和の順番は自由に変えてよい
 \begin{align*}
 \expt{f(X)} &= \sum_k \Pr(f(X) = k) k\\
 &= \sum_k \Pr(X \in f^{-1}(k)) k\\
@@ -319,8 +321,8 @@ p(x) &= \frac1{\pi(1+x^2)},& \Pr(X\le x) = \frac1\pi\arctan(x) + \frac12
 &= \sum_{x, y} \Pr(X=x, Y=y) (ax+by)\\
 &= \sum_{x, y} \Pr(X=x, Y=y) ax + \sum_{x, y} \Pr(X=x, Y=y) by\\
 &= \sum_{x} \Pr(X=x) ax + \sum_{y} \Pr(Y=y) by\\
-&= a\sum_{x} \Pr(X=x) x + b\sum_{y} \Pr(Y=y) y\\
-&=a\expt{X} + b\expt{Y} 
+&= a\sum_{x} \Pr(X=x) x + b\sum_{y} \Pr(Y=y) y
+=a\expt{X} + b\expt{Y}
 \end{align*}
 \end{frame}
 
