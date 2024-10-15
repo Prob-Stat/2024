@@ -332,7 +332,7 @@ p(x) &= \frac1{\pi(1+x^2)},& \Pr(X\le x) = \frac1\pi\arctan(x) + \frac12
 \expt{XY} &= \sum_{k} \Pr(XY = k)\, k\\
 &= \sum_{x,y}\Pr(X=x,Y=y)\, xy\\
 &= \sum_{x,y}\Pr(X=x)\Pr(Y=y)\, xy\\
-&= \left(\sum_{x}\Pr(X=x)\right)\left(\sum_y \Pr(Y=y)y\right)\\
+&= \left(\sum_{x}\Pr(X=x)x\right)\left(\sum_y \Pr(Y=y)y\right)\\
 &= \expt{X}\expt{Y}
 \end{align*}
 \end{frame}
@@ -483,7 +483,8 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 
 \begin{frame}{共分散}
 \begin{align*}
-\cov{X,Y} &:= \expt{(X-\expt{X})(Y-\expt{Y})}
+\cov{X,Y} &:= \expt{(X-\expt{X})(Y-\expt{Y})}\\
+&=\expt{XY}-\expt{X}\expt{Y}
 \end{align*}
 
 \vspace{1em}
@@ -510,10 +511,10 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 \cov{X,Y} &= \expt{(X-\expt{X})(Y-\expt{Y})}
 \end{align*}
 \vspace{1em}
-確率変数$X$と$Y$が\emm{無相関} $\stackrel{\mathrm{def}}{\iff} \cov{X,Y}=0$
+確率変数$X$と$Y$が\emm{無相関} $\stackrel{\mathrm{def}}{\iff} \cov{X,Y}=0 \iff \expt{XY}=\expt{X}\expt{Y}$
 
 \vspace{1em}
-確率変数$X$と$Y$が独立 $\Longrightarrow \cov{X,Y} = \expt{(X-\expt{X})(Y-\expt{Y})} = \expt{X-\expt{X}}\expt{Y-\expt{Y}} = 0\iff$
+確率変数$X$と$Y$が独立 $\Longrightarrow \expt{XY}=\expt{X}\expt{Y}\iff$
 確率変数$X$と$Y$が\emm{無相関}
 
 \vspace{1em}
@@ -524,6 +525,22 @@ $\var{X} = 0 \iff \Pr(X = \expt{X})=1$.
 \Pr(X=-1, Y=1) &= \frac14\\
 \Pr(X=-1, Y=-1) &= \frac14
 \end{align*}
+\end{frame}
+
+\begin{frame}{$n$個の確率変数の和の分散}
+\small
+\begin{align*}
+\var{\sum_{k=1}^nX_k} &= 
+\expt{\left(\sum_{k=1}^nX_k - \expt{\sum_{k=1}^nX_k}\right)^2}\\
+&= \expt{\left(\sum_{k=1}^n (X_k - \expt{X_k}) \right)^2}\\
+&= \expt{\sum_{k=1}^n (X_k - \expt{X_k})^2 + 2\sum_{1\le k < \ell \le n} (X_k - \expt{X_k})(X_\ell - \expt{X_\ell})}\\
+&= \sum_{k=1}^n \var{X_k} + 2\sum_{1\le k < \ell \le n}\cov{X_k, X_\ell}
+\end{align*}
+任意の$1\le k<\ell\le n$について$X_k$と$X_\ell$が独立$\implies \cov{X_k,X_\ell}=0, \forall k < \ell$
+
+\vspace{1em}
+$X_1,\dotsc,X_n$が\emm{ペア独立(pairwise independent)} $\stackrel{\mathrm{def}}{\iff}$
+任意の$1\le k<\ell\le n$について $X_k$と$X_\ell$が独立
 \end{frame}
 
 \begin{frame}{チェビシェフの不等式}
