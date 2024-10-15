@@ -3,6 +3,8 @@
 \usepackage{amsmath,amssymb}
 
 \usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
 %\usepackage[haranoaji]{luatexja-preset}
 \usepackage[deluxe,ipaex]{luatexja-preset}
@@ -11,11 +13,8 @@
 
 \usepackage{unicode-math}
 %\setmathfont{Fira Math}
-%\setmathfont{STIX Two Math}
-%\setmathfont{STIX Two Math}[range={up,it,bb,bbit,scr,bfscr},StylisticSet=8]
-\setmathfont{XITS Math}
-\setmathrm{XITS Math}[StylisticSet=8]
-%\setmathfont{XITS Math}[StylisticSet=8]
+\setmathfont{STIX Two Math}
+\setmathrm{STIX Two Math}[StylisticSet=8]
 
 %\usefonttheme{professionalfonts}
 
@@ -44,10 +43,234 @@
 \end{frame}
 
 \begin{frame}{集中不等式}
-$N$個の独立な確率変数の期待値が平均周辺に集中するという
+$N$個の独立な確率変数の和が期待値周辺に集中するという
 
 独立同分布(independently and identically distributed (i.i.d.))
 \end{frame}
+
+\begin{frame}{二項分布}
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} p^k(1-p)^{n-k},\quad \emm{n=30},\, p=0.3.
+\end{align*}
+\begin{tikzpicture}[%
+declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
+\pgfmathsetmacro{\binomN}{30}
+\begin{axis}[
+    width=\textwidth, height=\axisdefaultheight,
+    ylabel={$\Pr(X=k)$},
+    xlabel={$k$},
+    xmin=0, xmax=\binomN,
+    ymin=0,
+    scaled ticks = false,
+    tick label style={/pgf/number format/assume math mode=true, font=\footnotesize\sffamily},
+    yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=2},
+        domain=0:\binomN,samples at={0,1,...,\binomN},
+    mark options={scale=0.75, blue},
+    ybar, bar width = 6pt
+        ]
+%\addplot[ycomb] {binom(x,\binomN,0.3)};
+\addplot {binom(x,\binomN,0.3)};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{二項分布}
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} p^k(1-p)^{n-k},\quad \emm{n=60},\, p=0.3.
+\end{align*}
+\begin{tikzpicture}[%
+declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
+\pgfmathsetmacro{\binomN}{60}
+\begin{axis}[
+    width=\textwidth, height=\axisdefaultheight,
+    ylabel={$\Pr(X=k)$},
+    xlabel={$k$},
+    xmin=0, xmax=\binomN,
+    ymin=0,
+    scaled ticks = false,
+    tick label style={/pgf/number format/assume math mode=true, font=\footnotesize\sffamily},
+    yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=2},
+        domain=0:\binomN,samples at={0,1,...,\binomN},
+    mark options={scale=0.75, blue},
+    ybar, bar width = 3pt
+        ]
+%\addplot[ycomb] {binom(x,\binomN,0.3)};
+\addplot {binom(x,\binomN,0.3)};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{二項分布}
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} p^k(1-p)^{n-k},\quad \emm{n=120},\, p=0.3.
+\end{align*}
+\begin{tikzpicture}[%
+declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
+\pgfmathsetmacro{\binomN}{120}
+\begin{axis}[
+    width=\textwidth, height=\axisdefaultheight,
+    ylabel={$\Pr(X=k)$},
+    xlabel={$k$},
+    xmin=0, xmax=\binomN,
+    ymin=0,
+    scaled ticks = false,
+    tick label style={/pgf/number format/assume math mode=true, font=\footnotesize\sffamily},
+    yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=2},
+        domain=0:\binomN,samples at={0,1,...,\binomN},
+    mark options={scale=0.75, blue},
+    ybar, bar width = 1.5pt
+        ]
+%\addplot[ycomb] {binom(x,\binomN,0.3)};
+\addplot {binom(x,\binomN,0.3)};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{二項分布}
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} p^k(1-p)^{n-k},\quad \emm{n=240},\, p=0.3.
+\end{align*}
+\begin{tikzpicture}[%
+declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
+\pgfmathsetmacro{\binomN}{240}
+\pgfmathsetmacro{\p}{0.3}
+\begin{axis}[
+    width=\textwidth, height=\axisdefaultheight,
+    ylabel={$\Pr(X=k)$},
+    xlabel={$k$},
+    xmin=0, xmax=\binomN,
+    ymin=0,
+    scaled ticks = false,
+    tick label style={/pgf/number format/assume math mode=true, font=\footnotesize\sffamily},
+    yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=2},
+        domain=0:\binomN,samples at={0,1,...,\binomN},
+    mark options={scale=0.75, blue},
+    ybar, bar width = .75pt
+        ]
+%\addplot[ycomb] {binom(x,\binomN,0.3)};
+%\addplot {binom(x,\binomN,0.3)};
+\addplot[domain=0:\binomN, color=blue, samples={\binomN+1}, thick] gnuplot { exp(lgamma(\binomN+1) - lgamma(x+1) - lgamma(\binomN-x+1) + x*log(\p) + (\binomN-x)*log(1-\p)) with impulses};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{二項分布}
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} p^k(1-p)^{n-k},\quad \emm{n=480},\, p=0.3.
+\end{align*}
+\begin{tikzpicture}[%
+declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
+\pgfmathsetmacro{\binomN}{480}
+\pgfmathsetmacro{\p}{0.3}
+\begin{axis}[
+    width=\textwidth, height=\axisdefaultheight,
+    ylabel={$\Pr(X=k)$},
+    xlabel={$k$},
+    xmin=0, xmax=\binomN,
+    ymin=0,
+    scaled ticks = false,
+    tick label style={/pgf/number format/assume math mode=true, font=\footnotesize\sffamily},
+    yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=2},
+        domain=0:\binomN,samples at={0,1,...,\binomN},
+    mark options={scale=0.75, blue},
+    ybar, bar width = .375pt
+        ]
+%\addplot[ycomb] {binom(x,\binomN,0.3)};
+%\addplot {binom(x,\binomN,0.3)};
+\addplot[domain=0:\binomN, color=blue, samples={\binomN+1}, thick] gnuplot { exp(lgamma(\binomN+1) - lgamma(x+1) - lgamma(\binomN-x+1) + x*log(\p) + (\binomN-x)*log(1-\p)) with impulses};
+%\addplot[domain=0:\binomN, thick] gnuplot {x};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{二項分布}
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} p^k(1-p)^{n-k},\quad \emm{n=1000},\, p=0.3.
+\end{align*}
+\begin{tikzpicture}[%
+declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
+\pgfmathsetmacro{\binomN}{1000}
+\pgfmathsetmacro{\p}{0.3}
+\begin{axis}[
+    width=\textwidth, height=\axisdefaultheight,
+    ylabel={$\Pr(X=k)$},
+    xlabel={$k$},
+    xmin=0, xmax=\binomN,
+    ymin=0,
+    scaled ticks = false,
+    tick label style={/pgf/number format/assume math mode=true, font=\footnotesize\sffamily},
+    yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=2},
+        domain=0:\binomN,samples at={0,1,...,\binomN},
+    mark options={scale=0.75, blue},
+    ybar, bar width = .375pt
+        ]
+%\addplot[ycomb] {binom(x,\binomN,0.3)};
+%\addplot {binom(x,\binomN,0.3)};
+\addplot[domain=0:\binomN, color=blue, samples={\binomN+1}, thick] gnuplot { exp(lgamma(\binomN+1) - lgamma(x+1) - lgamma(\binomN-x+1) + x*log(\p) + (\binomN-x)*log(1-\p)) with impulses};
+%\addplot[domain=0:\binomN, thick] gnuplot {x};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{二項分布}
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} p^k(1-p)^{n-k},\quad \emm{n=10000},\, p=0.3.
+\end{align*}
+\begin{tikzpicture}[%
+declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
+\pgfmathsetmacro{\binomN}{10000}
+\pgfmathsetmacro{\p}{0.3}
+\begin{axis}[
+    width=\textwidth, height=\axisdefaultheight,
+    ylabel={$\Pr(X=k)$},
+    xlabel={$k$},
+    xmin=0, xmax=\binomN,
+    ymin=0,
+    scaled ticks = false,
+    tick label style={/pgf/number format/assume math mode=true, font=\footnotesize\sffamily},
+    yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=3},
+        domain=0:\binomN,samples at={0,1,...,\binomN},
+    mark options={scale=0.75, blue},
+    ybar, bar width = .375pt
+        ]
+%\addplot[ycomb] {binom(x,\binomN,0.3)};
+%\addplot {binom(x,\binomN,0.3)};
+\addplot[domain=0:\binomN, color=blue, samples={\binomN+1}, thick] gnuplot { exp(lgamma(\binomN+1) - lgamma(x+1) - lgamma(\binomN-x+1) + x*log(\p) + (\binomN-x)*log(1-\p)) with impulses};
+%\addplot[domain=0:\binomN, thick] gnuplot {x};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\if0
+\begin{frame}{二項分布}
+\begin{align*}
+\Pr(X = k) &= \binom{n}{k} p^k(1-p)^{n-k},\quad \emm{n=20000},\, p=0.3.
+\end{align*}
+\begin{tikzpicture}[%
+declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
+\pgfmathsetmacro{\binomN}{20000}
+\pgfmathsetmacro{\p}{0.3}
+\begin{axis}[
+    width=\textwidth, height=\axisdefaultheight,
+    ylabel={$\Pr(X=k)$},
+    xlabel={$k$},
+    xmin=0, xmax=\binomN,
+    ymin=0,
+    scaled ticks = false,
+    tick label style={/pgf/number format/assume math mode=true, font=\footnotesize\sffamily},
+    yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=2},
+        domain=0:\binomN,samples at={0,1,...,\binomN},
+    mark options={scale=0.75, blue},
+    ybar, bar width = .375pt
+        ]
+%\addplot[ycomb] {binom(x,\binomN,0.3)};
+%\addplot {binom(x,\binomN,0.3)};
+\addplot[domain=0:\binomN, color=blue, samples={\binomN+1}, thick] gnuplot { exp(lgamma(\binomN+1) - lgamma(x+1) - lgamma(\binomN-x+1) + x*log(\p) + (\binomN-x)*log(1-\p)) with impulses};
+%\addplot[domain=0:\binomN, thick] gnuplot {x};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+\fi
 
 
 \begin{frame}{集中不等式}
@@ -62,38 +285,25 @@ $N$個の独立な確率変数の期待値が平均周辺に集中するとい�
 チェビシェフの不等式より
 \begin{align*}
 \Pr\left(\left|\frac1N\sum_{t=1}^N X_t-\expt{X}\right|\ge \epsilon\right) &\le
-\frac{\var{\frac1N\sum_{t=1}^NX_t}}{\epsilon} = \frac{\var{X}}{\epsilon^2\emm{N}}\stackrel{N\to\infty}{\longrightarrow} 0.
+\frac{\var{\frac1N\sum_{t=1}^NX_t}}{\epsilon^2} = \frac{\var{X}}{\epsilon^2\emm{N}}\stackrel{N\to\infty}{\longrightarrow} 0.
 \end{align*}
 \end{proof}
 \end{frame}
 
-\begin{frame}{モーメント母関数}
-\begin{definition}
-確率変数$X$と実数$t$について
-\begin{align*}
-M_X(t) &= \expt{\exp(tX)}
-\end{align*}
-を\emm{モーメント母関数}(積率母関数)という。
-\end{definition}
-\begin{align*}
-M_X(t) &= \expt{\exp(tX)} = \expt{X} t + \frac{\expt{X^2}}2 t^2 + \frac{\expt{X^3}}{3!} t^3 + \dotsb
-\end{align*}
-\begin{example}
-\end{example}
-\end{frame}
 
 \begin{frame}{チェルノフ上界}
 \begin{theorem}
 任意の実数$t>0$について
 \begin{align*}
-\Pr(X\ge a)&\le\frac{M_X(t)}{\exp(at)}.
+\Pr(X\ge a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{K_X(t) - at}.
 \end{align*}
 \end{theorem}
 \begin{proof}
+任意の実数$t>0$について
 \begin{align*}
-\Pr(X\ge a)&\le\Pr\bigl(\exp(tX)\ge\exp(ta)\bigr)\\
-&\le\frac{\expt{\exp(tX)}}{\exp(ta)}\\
-&\le\frac{M_X(t)}{\exp(at)}
+\Pr(X\ge a)&\le\Pr\bigl(\mathrm{e}^{tX}\ge\mathrm{e}^{ta}\bigr)\\
+&\le\frac{\expt{\mathrm{e}^{tX}}}{\mathrm{e}^{ta}}\qquad\text{(Markovの不等式)}\\
+&\le\frac{M_X(t)}{\mathrm{e}^{ta}}.\qedhere
 \end{align*}
 \end{proof}
 \end{frame}
@@ -101,45 +311,118 @@ M_X(t) &= \expt{\exp(tX)} = \expt{X} t + \frac{\expt{X^2}}2 t^2 + \frac{\expt{X^
 \begin{frame}{チェルノフ上界の最適化}
 任意の実数$t>0$について
 \begin{align*}
-\Pr(X\ge a)&\le\frac{M_X(t)}{\exp(at)}
+\Pr(X\ge a)&\le\mathrm{e}^{K_X(t)-at}
 \end{align*}
 が成り立つので上界の最小化
 \begin{align*}
-\inf_{t>0} \frac{M_X(t)}{\exp(at)}
+\inf_{t>0} \mathrm{e}^{K_X(t)-at}
 \end{align*}
 を考えたい。$\log$とってから最小化すると
 \begin{align*}
-\exp\left(\inf_{t>0} \{\emm{\log M_X(t)} - at\}\right)
+\inf_{t>0} \{K_X(t) - at\}
 &=
-\exp\left(-\sup_{t>0} \{at - \emm{\log M_X(t)}\}\right)
+-\sup_{t>0} \{at - K_X(t)\}
 .
 \end{align*}
-\emm{キュムラント母関数}($\log M_X(t)$)の\emm{ルジャンドル変換}
+\emm{キュムラント母関数}$K_X(t)$の\emm{ルジャンドル変換}
+\end{frame}
+
+\begin{frame}{キュムラント母関数の凸性}
+\begin{align*}
+K_X(t) &= \log \expt{\mathrm{e}^{tX}}
+\end{align*}
+\begin{align*}
+\frac{\mathrm{d} K_X(t)}{\mathrm{d}x} &= \frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\\
+\frac{\mathrm{d}^2 K_X(t)}{\mathrm{d}x^2} &= \frac{\expt{X^2\mathrm{e}^{tX}}\expt{\mathrm{e}^{tX}}-\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}^2}\\
+&= \frac{\expt{X^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}-\left(\frac{\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}}\right)^2\\
+&= \frac{\expt{\left(X-\frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\right)^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\ge 0
+\end{align*}
 \end{frame}
 
 \begin{frame}{ルジャンドル変換}
-実関数$f\colon\mathbb{R}\to\mathbb{R}$について
+$I\subseteq\mathbb{R}$を区間とし、関数$f\colon I\to\mathbb{R}$を凸関数とする。
+$f$のルジャンドル変換$f^*\colon I^*\to\mathbb{R}$を以下で定義する。
 \begin{align*}
-f^*(y) &= \sup_x\{yx - f(x)\}
+f^*(y) &= \sup_{x\in I}\{yx - f(x)\}\\
+I^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
 \end{align*}
+\end{frame}
+
+\begin{frame}{ルジャンドル変換}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.9\textwidth,
+    xlabel=$x$,
+    %ylabel=$K_X(x)$,
+    xmin=0, xmax=5,
+    ymin=-13, ymax=13,
+    xtick={0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=0:5, samples=100, color=blue, thick] {x^2/2};
+    \addplot[domain=0:5, samples=100, color=red, thick] {3*(x-3) + 9/2};
+    \legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+\end{axis}
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{集中不等式 by チェルノフ上界}
 \begin{lemma}
 \begin{align*}
-\Pr\left(\frac1N\sum_{t=1}^N X_t-\expt{X}\ge a\right) &\le \left(\frac{M_X(t)}{\exp\left(t(\expt{X}+ a)\right)}\right)^N\qedhere
+\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-K_X^*(a)N}.
+% \mathrm{e}^{N(K_X(t) - at)}
 \end{align*}
 \end{lemma}
 \begin{proof}
 \small
+任意の$t>0$について
 \begin{align*}
-\Pr\left(\frac1N\sum_{t=1}^N X_t\ge \expt{X}+ a\right) &=
+\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &=
 %\Pr\left(\exp\left(t\sum_{t=1}^N X_t\right)\ge \exp\left(t(\expt{X} + a)N\right)\right)\\
-\Pr\left(\sum_{t=1}^N X_t\ge N(\expt{X}+ a)\right)\\
-&\le\frac{M_X(t)^N}{\exp\left(t(\expt{X}+ a)N\right)}\\
-&=\left(\frac{M_X(t)}{\exp\left(t(\expt{X}+ a)\right)}\right)^N.\qedhere
+\Pr\left(\sum_{k=1}^N X_k\ge Na\right)\\
+&\le\mathrm{e}^{K_{\sum_t X_t}(t) - Nat}\qquad\text{(チェルノフ上界)}\\
+&\le\mathrm{e}^{N(K_X(t) - at)}
 \end{align*}
+$t>0$を最適化することで補題を得る。
 \end{proof}
+\end{frame}
+
+\begin{frame}{キュムラント母関数の性質}
+$t\in(-R, R)$でキュムラント母関数が存在すると仮定する。
+\begin{align*}
+K_X(t) &= \log \expt{\mathrm{e}^{tX}}
+\end{align*}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item $K_X(0) = 0$.
+\item $\left.\frac{\mathrm{d}K_X(t)}{\mathrm{d} t}\right|_{t=0} = \expt{X}$.
+\item $a \le \expt{X}$ のとき $K_X^*(a) = 0$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ルジャンドル変換}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.9\textwidth,
+    xlabel=$t$,
+    %ylabel=$K_X(x)$,
+    xmin=0, xmax=5,
+    ymin=-13, ymax=13,
+    xtick={0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=0:5, samples=100, color=blue, thick] {-2*x+x^2};
+    \addplot[domain=0:5, samples=100, color=red, thick] {-2*x};
+    \addplot[domain=0:5, samples=100, color=orange, thick] {-1};
+    \addplot[domain=0:5, samples=100, color=orange, thick] {2*(x-2) + 0};
+    \addplot[domain=0:5, samples=100, color=orange, thick] {3*(x-5/2) - 5 + 25/4};
+    \legend{$K_X(t)$, $\expt{X}t$}
+\end{axis}
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{大偏差原理 Lv1}
