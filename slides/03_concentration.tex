@@ -391,18 +391,20 @@ J^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
 \begin{theorem}
 %任意の実数$t>0$について
 \begin{align*}
-I_+(a) &:= \sup_{t > 0}\left\{at - K_X(t)\right\}\\
-I_-(a) &:= \sup_{t < 0}\left\{at - K_X(t)\right\}
+%I_+(a) &:= \sup_{t > 0}\left\{at - K_X(t)\right\}\\
+%I_-(a) &:= \sup_{t < 0}\left\{at - K_X(t)\right\}
+I(a) &:= \sup_{t \in\mathbb{R}}\left\{at - K_X(t)\right\}\\
 \end{align*}
-とおくと、
+%とおくと、
+とおく。
+%\begin{align*}
+%I_+(a) &= 0\qquad\forall a\le\expt{X}\\
+%I_-(a) &= 0\qquad\forall a\ge\expt{X}
+%\end{align*}
+%である。このとき任意の$a\in\mathbb{R}$について
 \begin{align*}
-I_+(a) &= 0\qquad\forall a\le\expt{X}\\
-I_-(a) &= 0\qquad\forall a\ge\expt{X}
-\end{align*}
-である。このとき任意の$a\in\mathbb{R}$について
-\begin{align*}
-\Pr(X\ge a)&\le \mathrm{e}^{-I_+(a)}\\
-\Pr(X\le a)&\le \mathrm{e}^{-I_-(a)}.
+\Pr(X\ge a)&\le \mathrm{e}^{-I(a)}\qquad\forall a>\expt{X}\\
+\Pr(X\le a)&\le \mathrm{e}^{-I(a)}\qquad\forall a<\expt{X}.
 \end{align*}
 \end{theorem}
 \end{frame}
@@ -412,8 +414,8 @@ I_-(a) &= 0\qquad\forall a\ge\expt{X}
 \begin{align*}
 %\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-K_X^*(a)N}.
 % \mathrm{e}^{N(K_X(t) - at)}
-\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-I_+(a)N}\\
-\Pr\left(\frac1N\sum_{k=1}^N X_k\le a\right) &\le \mathrm{e}^{-I_-(a)N}.
+\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-I(a)N}\qquad\forall a>\expt{X}\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k\le a\right) &\le \mathrm{e}^{-I(a)N}\qquad\forall a<\expt{X}.
 \end{align*}
 \end{lemma}
 \begin{proof}
@@ -423,7 +425,7 @@ I_-(a) &= 0\qquad\forall a\ge\expt{X}
 \Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &=
 %\Pr\left(\exp\left(t\sum_{t=1}^N X_t\right)\ge \exp\left(t(\expt{X} + a)N\right)\right)\\
 \Pr\left(\sum_{k=1}^N X_k\ge Na\right)\\
-&\le\mathrm{e}^{K_{\sum_t X_t}(t) - Nat}\qquad\text{(チェルノフ上界)}\\
+&\le\mathrm{e}^{K_{\sum_k X_k}(t) - Nat}\qquad\text{(チェルノフ上界)}\\
 &=\mathrm{e}^{N(K_X(t) - at)}
 \end{align*}
 $t>0$を最適化することで補題を得る。
@@ -473,13 +475,16 @@ K_X(t) &= \emm{\mu t + \frac{\sigma^2t^2}2}.\\
 \begin{frame}{例(正規分布)}
 \begin{align*}
 K_X(t) &= \emm{\mu t + \frac{\sigma^2t^2}2}.\\
-\sup_{t>0} \left\{at - \left(\mu t + \frac{\sigma^2t^2}2\right)\right\} &= 
-\sup_{t>0} \left\{-\frac{\sigma^2}2 t\left(t-\frac{2(a-\mu)}{\sigma^2}\right) \right\}\\
- &= 
-\begin{cases}
-\emm{\frac{(a-\mu)^2}{2\sigma^2}}& a \ge \mu\\
-0&\text{otherwise.}
-\end{cases}
+%\sup_{t>0} \left\{at - \left(\mu t + \frac{\sigma^2t^2}2\right)\right\} &= 
+%\sup_{t>0} \left\{-\frac{\sigma^2}2 t\left(t-\frac{2(a-\mu)}{\sigma^2}\right) \right\}\\
+% &= 
+%\begin{cases}
+%\emm{\frac{(a-\mu)^2}{2\sigma^2}}& a \ge \mu\\
+%0&\text{otherwise.}
+%\end{cases}
+I(a)&=\sup_{t\in\mathbb{R}} \left\{at - \left(\mu t + \frac{\sigma^2t^2}2\right)\right\}\\
+&= \sup_{t\in\mathbb{R}} \left\{-\frac{\sigma^2}2 t\left(t-\frac{2(a-\mu)}{\sigma^2}\right) \right\}\\
+&=\emm{\frac{(a-\mu)^2}{2\sigma^2}}.
 \end{align*}
 
 \vspace{1em}
@@ -506,20 +511,23 @@ K_X(t) &= \lambda(\mathrm{e}^t-1)
 K_X(t) &= \lambda(\mathrm{e}^t-1)
 \end{align*}
 \begin{align*}
-\sup_{t>0}\left\{at - \lambda(\mathrm{e}^t-1)\right\}
+%\sup_{t>0}\left\{at - \lambda(\mathrm{e}^t-1)\right\}
+I(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}
 \end{align*}
 \begin{align*}
 a-\lambda\mathrm{e}^{t^*} &= 0\iff t^* = \log \frac{a}{\lambda}
 \end{align*}
 \begin{align*}
-\sup_{t>0}\left\{at - \lambda(\mathrm{e}^t-1)\right\} &=
-\begin{cases}
-a\log\frac{a}{\lambda} -a + \lambda& a \ge \lambda\\
-0&\text{otherwise.}
-\end{cases}
+%\sup_{t>0}\left\{at - \lambda(\mathrm{e}^t-1)\right\} &=
+%\begin{cases}
+%a\log\frac{a}{\lambda} -a + \lambda& a \ge \lambda\\
+%0&\text{otherwise.}
+%\end{cases}
+I(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}\\
+ &= a\log\frac{a}{\lambda} -a + \lambda.
 \end{align*}
 
-\vspace{1em}
+\vspace{.5em}
 %任意の$\epsilon>0$について
 %任意の$c > 1$について
 \begin{align*}
@@ -532,7 +540,7 @@ a\log\frac{a}{\lambda} -a + \lambda& a \ge \lambda\\
 \begin{frame}{例(指数分布)}
 %\small
 \begin{align*}
-p(x) &= \lambda\mathrm{e}^{-\lambda x}
+p(x) &= \lambda\mathrm{e}^{-\lambda x}\qquad\text{for}\quad x\ge 0
 \end{align*}
 \begin{align*}
 M_X(t) &= \int_{0}^\infty \lambda\mathrm{e}^{-\lambda x} \mathrm{e}^{tx}\dx\\
@@ -552,6 +560,7 @@ K_X(t) &=
 \end{frame}
 
 \begin{frame}{例(指数分布)}
+\small
 \begin{align*}
 K_X(t) &=
 \begin{cases}
@@ -560,31 +569,38 @@ K_X(t) &=
 \end{cases}
 \end{align*}
 \begin{align*}
-\sup_{t\in(0,\,\lambda)} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}
+I(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}
 \end{align*}
 \begin{align*}
 a - \frac1{\lambda-t^*} &=0 \iff  t^* = \lambda-\frac1a
 \end{align*}
 \begin{align*}
-\sup_{t\in(0,\,\lambda)} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}
-&=\begin{cases}
-a\lambda - 1 - \log(a\lambda)& a > \frac1\lambda\\
-0 & \text{otherwise.}
-\end{cases}
+I(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}\\
+&=
+%\begin{cases}
+a\lambda - 1 - \log(a\lambda)
+%& a > \frac1\lambda\\
+%0 & \text{otherwise.}
+%\end{cases}
 \end{align*}
 
-\vspace{1em}
+%\vspace{.5em}
 %任意の$\epsilon>0$について
-任意の$c > 1$について
+%任意の$c > 1$について
 \begin{align*}
 %\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \lambda+\epsilon\right) &\le \mathrm{e}^{-\emm{((\lambda+\epsilon) \log\frac{\lambda+\epsilon}{\lambda} - \epsilon)}N}.
-\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \frac{c}{\lambda}\right) &\le \mathrm{e}^{-\emm{(c-1-\log c)}N}.
+\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \frac{c}{\lambda}\right) &\le \mathrm{e}^{-\emm{(c-1-\log c)}N} \qquad\forall c>1\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \frac{c}{\lambda}\right) &\ge \mathrm{e}^{-\emm{(c-1-\log c)}N} \qquad\forall c<1.
 \end{align*}
 \end{frame}
 
 
 \begin{frame}{大偏差原理 Lv1}
 \begin{theorem}[クラメールの定理]
+\begin{align*}
+\lim_{n\to\infty}\frac1N \log \Pr\left(\frac1N\sum_{k=1}^N X_k \ge a\right) &= -I(a) \qquad\forall a>\expt{X}\\
+\lim_{n\to\infty}\frac1N \log \Pr\left(\frac1N\sum_{k=1}^N X_k \le a\right) &= -I(a) \qquad\forall a<\expt{X}
+\end{align*}
 \end{theorem}
 \end{frame}
 
