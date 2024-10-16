@@ -1,4 +1,5 @@
 \documentclass[lualatex,handout]{beamer}
+\setbeamertemplate{footline}[frame number]
 \usepackage{luatexja}
 \usepackage{amsmath,amssymb}
 
@@ -293,10 +294,12 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 
 
 \begin{frame}{チェルノフ上界}
+\small
 \begin{theorem}
-任意の実数$t>0$について
+%任意の実数$t>0$について
 \begin{align*}
-\Pr(X\ge a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{K_X(t) - at}.
+\Pr(X\ge a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{K_X(t) - at} \qquad\forall t>0\\
+\Pr(X\le a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{K_X(t) - at} \qquad\forall t<0.
 \end{align*}
 \end{theorem}
 \begin{proof}
@@ -306,6 +309,7 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 &\le\frac{\expt{\mathrm{e}^{tX}}}{\mathrm{e}^{ta}}\qquad\text{(Markovの不等式)}\\
 &=\frac{M_X(t)}{\mathrm{e}^{ta}}.\qedhere
 \end{align*}
+任意の実数$t<0$について$\Pr(X\le a) = \Pr(\mathrm{e}^{tX}\ge \mathrm{e}^{ta})\le\frac{M_X(t)}{\mathrm{e}^{ta}}$.
 \end{proof}
 \end{frame}
 
@@ -328,6 +332,20 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 \emm{キュムラント母関数}$K_X(t)$の\emm{ルジャンドル変換}
 \end{frame}
 
+\begin{frame}{キュムラント母関数の性質}
+$t\in(-R, R)$でキュムラント母関数が存在すると仮定する。
+\begin{align*}
+K_X(t) &= \log \expt{\mathrm{e}^{tX}}
+\end{align*}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item $K_X(0) = 0$.
+\item $\left.\frac{\mathrm{d}K_X(t)}{\mathrm{d} t}\right|_{t=0} = \expt{X}$.
+%\item $a \le \expt{X}$ のとき $K_X^*(a) = 0$.
+\item $K_X(t)$は凸関数。
+\end{itemize}
+\end{frame}
+
 \begin{frame}{キュムラント母関数の凸性}
 \begin{align*}
 K_X(t) &= \log \expt{\mathrm{e}^{tX}}
@@ -341,11 +359,11 @@ K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 \end{frame}
 
 \begin{frame}{ルジャンドル変換}
-$I\subseteq\mathbb{R}$を区間とし、関数$f\colon I\to\mathbb{R}$を\emm{凸関数}とする。
-$f$のルジャンドル変換$f^*\colon I^*\to\mathbb{R}$を以下で定義する。
+$J\subseteq\mathbb{R}$を区間とし、関数$f\colon J\to\mathbb{R}$を\emm{凸関数}とする。
+$f$のルジャンドル変換$f^*\colon J^*\to\mathbb{R}$を以下で定義する。
 \begin{align*}
-f^*(y) &= \sup_{x\in I}\{yx - f(x)\}\\
-I^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
+f^*(y) &= \sup_{x\in J}\{yx - f(x)\}\\
+J^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
 \end{align*}
 \end{frame}
 
@@ -369,11 +387,33 @@ I^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
 \end{tikzpicture}
 \end{frame}
 
+\begin{frame}{チェルノフ上界の最適化}
+\begin{theorem}
+%任意の実数$t>0$について
+\begin{align*}
+I_+(a) &:= \sup_{t > 0}\left\{at - K_X(t)\right\}\\
+I_-(a) &:= \sup_{t < 0}\left\{at - K_X(t)\right\}
+\end{align*}
+とおくと、
+\begin{align*}
+I_+(a) &= 0\qquad\forall a\le\expt{X}\\
+I_-(a) &= 0\qquad\forall a\ge\expt{X}
+\end{align*}
+である。このとき任意の$a\in\mathbb{R}$について
+\begin{align*}
+\Pr(X\ge a)&\le \mathrm{e}^{-I_+(a)}\\
+\Pr(X\le a)&\le \mathrm{e}^{-I_-(a)}.
+\end{align*}
+\end{theorem}
+\end{frame}
+
 \begin{frame}{集中不等式 by チェルノフ上界}
 \begin{lemma}
 \begin{align*}
-\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-K_X^*(a)N}.
+%\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-K_X^*(a)N}.
 % \mathrm{e}^{N(K_X(t) - at)}
+\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-I_+(a)N}\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k\le a\right) &\le \mathrm{e}^{-I_-(a)N}.
 \end{align*}
 \end{lemma}
 \begin{proof}
@@ -390,18 +430,6 @@ $t>0$を最適化することで補題を得る。
 \end{proof}
 \end{frame}
 
-\begin{frame}{キュムラント母関数の性質}
-$t\in(-R, R)$でキュムラント母関数が存在すると仮定する。
-\begin{align*}
-K_X(t) &= \log \expt{\mathrm{e}^{tX}}
-\end{align*}
-\begin{itemize}
-\setlength{\itemsep}{2em}
-\item $K_X(0) = 0$.
-\item $\left.\frac{\mathrm{d}K_X(t)}{\mathrm{d} t}\right|_{t=0} = \expt{X}$.
-\item $a \le \expt{X}$ のとき $K_X^*(a) = 0$.
-\end{itemize}
-\end{frame}
 
 \begin{frame}{ルジャンドル変換}
 \centering
@@ -457,7 +485,8 @@ K_X(t) &= \emm{\mu t + \frac{\sigma^2t^2}2}.\\
 \vspace{1em}
 任意の$\epsilon>0$について
 \begin{align*}
-\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \mu + \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2\sigma^2}}N}.
+\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \mu + \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2\sigma^2}}N}\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k \le \mu - \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2\sigma^2}}N}.
 \end{align*}
 \end{frame}
 
@@ -492,10 +521,11 @@ a\log\frac{a}{\lambda} -a + \lambda& a \ge \lambda\\
 
 \vspace{1em}
 %任意の$\epsilon>0$について
-任意の$c > 1$について
+%任意の$c > 1$について
 \begin{align*}
 %\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \lambda+\epsilon\right) &\le \mathrm{e}^{-\emm{((\lambda+\epsilon) \log\frac{\lambda+\epsilon}{\lambda} - \epsilon)}N}.
-\Pr\left(\frac1N\sum_{k=1}^N X_k \ge c\lambda\right) &\le \mathrm{e}^{-\emm{\lambda\left(c\log c -c + 1 \right)}N}.
+\Pr\left(\frac1N\sum_{k=1}^N X_k \ge c\lambda\right) &\le \mathrm{e}^{-\emm{\lambda\left(c\log c -c + 1 \right)}N}\qquad\forall c > 1\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k \le c\lambda\right) &\le \mathrm{e}^{-\emm{\lambda\left(c\log c -c + 1 \right)}N}\qquad\forall c < 1\\
 \end{align*}
 \end{frame}
 
@@ -552,12 +582,19 @@ a\lambda - 1 - \log(a\lambda)& a > \frac1\lambda\\
 \end{align*}
 \end{frame}
 
-\begin{frame}{サブガウシアン}
-\end{frame}
 
 \begin{frame}{大偏差原理 Lv1}
 \begin{theorem}[クラメールの定理]
 \end{theorem}
+\end{frame}
+
+\begin{frame}{サブガウシアン}
+$X$が\emm{サブガウシアン} $\stackrel{\mathrm{def}}{\iff}$ ある $s\ge0$が存在して
+\begin{align*}
+\expt{\mathrm{e}^{t(X-\expt{X})}} &\le \mathrm{e}^{\frac{s^2t^2}2}\qquad\forall t\in\mathbb{R}\\
+\iff\expt{\mathrm{e}^{tX}} &\le \mathrm{e}^{\expt{E}t+\frac{s^2t^2}2\qquad\forall t\in\mathbb{R}}\\
+\iff K_X(t) &\le {\expt{E}t+\frac{s^2t^2}2\qquad\forall t\in\mathbb{R}}\\
+\end{align*}
 \end{frame}
 
 \begin{frame}{大偏差原理 Lv2}
