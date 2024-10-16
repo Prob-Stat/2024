@@ -387,24 +387,57 @@ J^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
 \end{frame}
 
 \begin{frame}{ルジャンドル変換}
-\centering
+$f(0)=0$のときのルジャンドル変換$f^*(y) = \sup_{x\in\mathbb{R}} \{yx - f(x)\}$.
+$\sup$は$f'(x^*)=y$を満たす$x^*(y)$で達成される。
+
+\vspace{1em}
+\begin{center}
 \begin{tikzpicture}
 \begin{axis}[
-    width=0.9\textwidth,
+    width=0.49\textwidth,
     xlabel=$x$,
-    %ylabel=$K_X(x)$,
+    ylabel=$f(x)$,
     xmin=-5, xmax=5,
     ymin=-13, ymax=13,
-    xtick={0,5},
+    xtick={-5,0,5},
     ytick={0},
     legend pos = south east
 ]
     \addplot[domain=-5:5, samples=100, color=blue, thick] {-2*x+x^2};
+    %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
+    \draw[dashed, black] (axis cs:0, -13) -- (axis cs:0, 13);
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
     \addplot[domain=-5:5, samples=100, color=red, thick] {2*(x-2) + 0};
-    \legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+    \addplot[black, mark=*, only marks] coordinates {(0, -4)};
+    \node[below right] at (axis cs:0, -4) {\small $-f^*(y)$};
+    %\node[left] at (axis cs:0, -4) {\tiny $y(x-x^*) + f(x^*)$};
+    %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
 \end{axis}
 \end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.49\textwidth,
+    xlabel=$y$,
+    ylabel=$f^*(y)$,
+    xmin=-5, xmax=5,
+    ymin=0, ymax=13,
+    xtick={-5,0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {(x+2)^2/4};
+    \addplot[black, mark=*, only marks] coordinates {(-2, 0)};
+    \node[above] at (axis cs:-2, 0) {$f'(0)$};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {2*(x-2) + 0};
+    %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+$f^*(y)$ は$f$の傾きが$y$のところの接線$y(x-x^*) + f(x^*)$の$x=0$での値の$-1$倍。
+
+$f^*(y)$は$y=f'(0)$のとき0で$y>f'(0)$のとき、$x^*(y)>0$
 \end{frame}
 
 \begin{frame}{チェルノフ上界の最適化}
@@ -467,6 +500,7 @@ $t>0$を最適化することで補題を得る。
 \end{frame}
 
 
+\if0
 \begin{frame}{ルジャンドル変換}
 \centering
 \begin{tikzpicture}
@@ -489,6 +523,7 @@ $t>0$を最適化することで補題を得る。
 \end{axis}
 \end{tikzpicture}
 \end{frame}
+\fi
 
 \begin{frame}{例: ベルヌーイ分布}
 \begin{align*}
@@ -673,16 +708,16 @@ $X$が代理分散$s^2>0$について\emm{サブガウシアン} $\stackrel{\mat
 \end{align*}
 
 \vspace{1em}
-$X$が代理分散$s^2$について\emm{サブガウシアン}のとき、任意の$\epsilon>0$について
+$X$が代理分散$s^2>0$について\emm{サブガウシアン}のとき、任意の$\epsilon>0$について
 \begin{align*}
 \Pr\left(\frac1N\sum_{k=1}^N X_k \ge \expt{X} + \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2s^2}}N}\\
 \Pr\left(\frac1N\sum_{k=1}^N X_k \le \expt{X} - \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2s^2}}N}.
 \end{align*}
 \end{frame}
 
-\begin{frame}{Hoeffiding's lemma}
+\begin{frame}{有界な確率変数}
 \small
-\begin{lemma}
+\begin{lemma}[Hoeffiding's lemma]
 確率変数$X$が
 \begin{align*}
 \Pr(X\in[a,b])&=1
