@@ -277,17 +277,17 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 
 \begin{frame}{集中不等式}
 \begin{theorem}[大数の弱法則]
-確率変数$X$が分散を持つとする。$(X_t)_{t=1,\dotsc,}$が$X$と独立同分布とする。
+確率変数$X$が\emm{分散を持つ}とする。$(X_k)_{k=1,\dotsc,}$が$X$と独立同分布とする。
 このとき、任意の実数$\epsilon>0$について
 \begin{align*}
-\lim_{N\to\infty}\Pr\left(\left|\frac1N\sum_{t=1}^N X_t-\expt{X}\right|\ge \epsilon\right) &=0.
+\lim_{N\to\infty}\Pr\left(\left|\frac1N\sum_{k=1}^N X_k-\expt{X}\right|\ge \epsilon\right) &=0.
 \end{align*}
 \end{theorem}
 \begin{proof}
 チェビシェフの不等式より
 \begin{align*}
-\Pr\left(\left|\frac1N\sum_{t=1}^N X_t-\expt{X}\right|\ge \epsilon\right) &\le
-\frac{\var{\frac1N\sum_{t=1}^NX_t}}{\epsilon^2} = \frac{\var{X}}{\epsilon^2\emm{N}}\stackrel{N\to\infty}{\longrightarrow} 0.
+\Pr\left(\left|\frac1N\sum_{k=1}^N X_k-\expt{X}\right|\ge \epsilon\right) &\le
+\frac{\var{\frac1N\sum_{k=1}^NX_k}}{\epsilon^2} = \frac{\var{X}}{\epsilon^2\emm{N}}\stackrel{N\to\infty}{\longrightarrow} 0.
 \end{align*}
 \end{proof}
 \end{frame}
@@ -351,8 +351,8 @@ K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 \end{align*}
 \begin{align*}
-\frac{\mathrm{d} K_X(t)}{\mathrm{d}x} &= \frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\\
-\frac{\mathrm{d}^2 K_X(t)}{\mathrm{d}x^2} &= \frac{\expt{X^2\mathrm{e}^{tX}}\expt{\mathrm{e}^{tX}}-\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}^2}\\
+\frac{\mathrm{d} K_X(t)}{\mathrm{d}t} &= \frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\\
+\frac{\mathrm{d}^2 K_X(t)}{\mathrm{d}t^2} &= \frac{\expt{X^2\mathrm{e}^{tX}}\expt{\mathrm{e}^{tX}}-\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}^2}\\
 &= \frac{\expt{X^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}-\left(\frac{\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}}\right)^2\\
 &= \frac{\expt{\left(X-\frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\right)^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\ge 0
 \end{align*}
@@ -456,10 +456,28 @@ $t>0$を最適化することで補題を得る。
 \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{例(ベルヌーイ分布)}
+\begin{frame}{例: ベルヌーイ分布}
+\begin{align*}
+\Pr(X=0) &= 1-p,&\Pr(X=1)=p
+\end{align*}
+\begin{align*}
+K_X(t) &= \log(p\mathrm{e}^t + (1-p))
+\end{align*}
+\begin{align*}
+I(a) &= \sup_{t\in\mathbb{R}} \left\{ at - \log(p\mathrm{e}^t+(1-p))\right\}
+\end{align*}
+\begin{align*}
+a - \frac{p\mathrm{e}^{t^*}}{p\mathrm{e}^{t^*}+1-p} = 0
+\iff \mathrm{e}^{t^*} = \frac{a(1-p)}{p(1-a)}
+\end{align*}
+\begin{align*}
+I(a) &= a\log\frac{a(1-p)}{p(1-a)} - \log\left(\frac{a(1-p)}{1-a} + (1-p)\right)\\
+ %&= (a-1)\log\frac{1-p}{1-a} + a\log\frac{a}{p}
+ &= a\log\frac{a}{p} + (1-a)\log\frac{1-a}{1-p}
+\end{align*}
 \end{frame}
 
-\begin{frame}{例(正規分布)}
+\begin{frame}{例: 正規分布}
 %\small
 \begin{align*}
 p(x) &= \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}}
@@ -475,7 +493,7 @@ K_X(t) &= \emm{\mu t + \frac{\sigma^2t^2}2}.\\
 \end{align*}
 \end{frame}
 
-\begin{frame}{例(正規分布)}
+\begin{frame}{例: 正規分布}
 \begin{align*}
 K_X(t) &= \emm{\mu t + \frac{\sigma^2t^2}2}.\\
 %\sup_{t>0} \left\{at - \left(\mu t + \frac{\sigma^2t^2}2\right)\right\} &= 
@@ -498,7 +516,7 @@ I(a)&=\sup_{t\in\mathbb{R}} \left\{at - \left(\mu t + \frac{\sigma^2t^2}2\right)
 \end{align*}
 \end{frame}
 
-\begin{frame}{例(ポアソン分布)}
+\begin{frame}{例: ポアソン分布}
 \begin{align*}
 \Pr(X=k) &= \frac{\lambda^k\mathrm{e}^{-\lambda}}{k!}.
 \end{align*}
@@ -509,7 +527,7 @@ K_X(t) &= \lambda(\mathrm{e}^t-1)
 \end{align*}
 \end{frame}
 
-\begin{frame}{例(ポアソン分布)}
+\begin{frame}{例: ポアソン分布}
 \begin{align*}
 K_X(t) &= \lambda(\mathrm{e}^t-1)
 \end{align*}
@@ -540,7 +558,7 @@ I(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}\\
 \end{align*}
 \end{frame}
 
-\begin{frame}{例(指数分布)}
+\begin{frame}{例: 指数分布}
 %\small
 \begin{align*}
 p(x) &= \lambda\mathrm{e}^{-\lambda x}\qquad\text{for}\quad x\ge 0
@@ -562,7 +580,7 @@ K_X(t) &=
 \end{align*}
 \end{frame}
 
-\begin{frame}{例(指数分布)}
+\begin{frame}{例: 指数分布}
 \small
 \begin{align*}
 K_X(t) &=
@@ -609,15 +627,97 @@ a\lambda - 1 - \log(a\lambda)
 \end{frame}
 
 \begin{frame}{サブガウシアン}
-キュムラントやレート関数が計算できればよいのだが、必ずしもそうとは限らない。
+\small
+キュムラントやレート関数が綺麗に計算できればよいのだが、必ずしもそうとは限らない。
 
 \vspace{1em}
-$X$が\emm{サブガウシアン} $\stackrel{\mathrm{def}}{\iff}$ ある $s\ge0$が存在して
+$X$が代理分散$s^2>0$について\emm{サブガウシアン} $\stackrel{\mathrm{def}}{\iff}$ 任意の$t\in\mathbb{R}$について
 \begin{align*}
-\expt{\mathrm{e}^{t(X-\expt{X})}} &\le \mathrm{e}^{\frac{s^2t^2}2}\qquad\forall t\in\mathbb{R}\\
-\iff\expt{\mathrm{e}^{tX}} &\le \mathrm{e}^{\expt{E}t+\frac{s^2t^2}2\qquad\forall t\in\mathbb{R}}\\
-\iff K_X(t) &\le {\expt{E}t+\frac{s^2t^2}2\qquad\forall t\in\mathbb{R}}\\
+&\expt{\mathrm{e}^{t(X-\expt{X})}} \le \mathrm{e}^{\frac{s^2t^2}2}\\
+\iff&\expt{\mathrm{e}^{tX}} \le \mathrm{e}^{\expt{X}t+\frac{s^2t^2}2}\\
+\iff& K_X(t) \le {\expt{X}t+\frac{s^2t^2}2}
 \end{align*}
+
+\vspace{1em}
+$X$が代理分散$s^2$について\emm{サブガウシアン}のとき、任意の$\epsilon>0$について
+\begin{align*}
+\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \expt{X} + \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2s^2}}N}\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k \le \expt{X} - \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2s^2}}N}.
+\end{align*}
+\end{frame}
+
+\begin{frame}{Hoeffiding's lemma}
+\small
+\begin{lemma}
+確率変数$X$が
+\begin{align*}
+\Pr(X\in[a,b])&=1
+\end{align*}
+を満たすとする。このとき$X$は\emm{代理分散$\frac{(b-a)^2}4$}についてサブガウシアンである。
+つまり、
+\begin{align*}
+K_X(t)=\log\expt{\mathrm{e}^{tX}} &\le \expt{X}t + \frac{(b-a)^2t^2}8.
+\end{align*}
+\end{lemma}
+\begin{proof}
+$X$が有界であることから、$K_X(t)$は任意の$t\in\mathbb{R}$について存在する。
+テイラーの定理よりある$\theta\in[0,t]$が存在して、
+\begin{align*}
+K_X(t) &= \expt{X}t + K_X''(\theta)\frac{t^2}2
+\end{align*}
+ここで、$K_X''(\theta)$はある確率変数$Z\in[a,b]$の分散$\var{Z}$である。
+\end{proof}
+%\vspace{1em}
+%実際$\Pr(X=a)=\Pr(X=b)=1/2$のとき、$\var{X} = \frac{(b-a)^2}4$である。
+\end{frame}
+
+\begin{frame}{Hoeffiding's lemma の証明}
+\small
+\begin{align*}
+K''_X(t) 
+%&= \frac{\expt{X^2\mathrm{e}^{tX}}\expt{\mathrm{e}^{tX}}-\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}^2}\\
+%&= \frac{\expt{X^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}-\left(\frac{\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}}\right)^2\\
+&= \frac{\expt{\left(X-\frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\right)^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}.
+\end{align*}
+具体的には
+\begin{align*}
+\Pr(Z\in A) &= \frac{\expt{\mathbb{I}_A(X)\mathrm{e}^{\theta X}}}{\expt{\mathrm{e}^{\theta X}}}
+\end{align*}
+という確率変数$Z$について、$K_X''(\theta) = \var{Z}$である。
+
+例えば$X$の確率密度関数が$p(x)$のとき、$Z$の確率密度関数は$p(x)\frac{\mathrm{e}^{\theta x}}{\int_{-\infty}^\infty p(x)\mathrm{e}^{\theta x}\dx}$である。
+$\Pr(Z\in[a,b])=1$である。
+任意の$x\in\mathbb{R}$について
+\begin{align*}
+\expt{(Z-x)^2} &= x^2 - 2\expt{Z}x + \expt{Z^2}\ge \var{Z}
+%\var{Z} &= \expt{(Z-\expt{Z})^2}
+\end{align*}
+よって、$x=\frac{a+b}2$を代入すると、
+\begin{align*}
+\var{Z} &\le \expt{\left(Z-\frac{a+b}2\right)^2}\le \left(\frac{b-a}2\right)^2
+\end{align*}
+\end{frame}
+
+\begin{frame}{Hoeffiding 不等式}
+\begin{theorem}[Hoeffiding 不等式]
+確率変数$X$が
+\begin{align*}
+\Pr(X\in[a,b])&=1
+\end{align*}
+を満たすとする。
+任意の$\epsilon>0$について
+\begin{align*}
+\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \expt{X} + \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{2\epsilon^2}{(b-a)^2}}N}\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k \le \expt{X} - \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{2\epsilon^2}{(b-a)^2}}N}.
+\end{align*}
+\end{theorem}
+\end{frame}
+
+\begin{frame}{課題}
+\begin{enumerate}
+\setlength{\itemsep}{2em}
+\item 表が出る確率が$1/2$のコインを$N=10^{10}$回投げて$6\cdot 10^9$回以上表が出る確率のチェルノフ上界を$\mathrm{e}^{-cN}$という形で表すときの$c>0$をもとめよ。
+\end{enumerate}
 \end{frame}
 
 %\begin{frame}{大偏差原理 Lv2}
