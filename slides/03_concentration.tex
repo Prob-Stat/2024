@@ -3,6 +3,9 @@
 \usepackage{luatexja}
 \usepackage{amsmath,amssymb}
 
+%\usetheme{Berlin}
+\usecolortheme{rose}
+
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
@@ -33,7 +36,7 @@
 
 \theoremstyle{definition}
 
-\title{確率・統計基礎: 集中不等式}
+\title{確率・統計基礎: 大数の法則と集中不等式}
 \author{森 立平}
 \date{}
 
@@ -45,9 +48,15 @@
 \end{frame}
 
 \begin{frame}{集中不等式}
-$N$個の独立な確率変数の和が期待値周辺に集中するという
 
-独立同分布(independently and identically distributed (i.i.d.))
+確率変数$X_1,X_2,\dotsc,X_N$が\emm{独立}で\emm{同一の分布}に従うとき、
+独立同分布(independently and identically distributed (i.i.d.))であるという。
+
+\vspace{1em}
+このスライドでは$X_1,\dotsc,X_N$は i.i.d.で確率変数$X$と同分布であると仮定する。
+
+\vspace{1em}
+\emm{$N$個のi.i.d.確率変数の平均$\frac{\sum_{k=1}^NX_k}{N}$が期待値$\expt{X}$周辺に集中}するというのが大数の法則や集中不等式が示すことである。
 \end{frame}
 
 \begin{frame}{二項分布}
@@ -277,7 +286,8 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 
 \begin{frame}{集中不等式}
 \begin{theorem}[大数の弱法則]
-確率変数$X$が\emm{分散を持つ}とする。$(X_k)_{k=1,\dotsc,}$が$X$と独立同分布とする。
+確率変数$X$が\emm{分散を持つ}とする。
+%$(X_k)_{k=1,\dotsc,}$が$X$と独立同分布とする。
 このとき、任意の実数$\epsilon>0$について
 \begin{align*}
 \lim_{N\to\infty}\Pr\left(\left|\frac1N\sum_{k=1}^N X_k-\expt{X}\right|\ge \epsilon\right) &=0.
@@ -295,11 +305,11 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 
 \begin{frame}{チェルノフ上界}
 \small
-\begin{theorem}
+\begin{theorem}[チェルノフ上界]
 %任意の実数$t>0$について
 \begin{align*}
-\Pr(X\ge a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{K_X(t) - at} \qquad\forall t>0\\
-\Pr(X\le a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{K_X(t) - at} \qquad\forall t<0.
+\Pr(X\ge a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{\emm{K_X(t) - at}} \qquad\forall t>0\\
+\Pr(X\le a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{\emm{K_X(t) - at}} \qquad\forall t<0.
 \end{align*}
 \end{theorem}
 \begin{proof}
@@ -333,16 +343,15 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 \end{frame}
 
 \begin{frame}{キュムラント母関数の性質}
-$t\in(-R, R)$でキュムラント母関数が存在すると仮定する。
 \begin{align*}
 K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 \end{align*}
 \begin{itemize}
 \setlength{\itemsep}{2em}
 \item $K_X(0) = 0$.
-\item $\left.\frac{\mathrm{d}K_X(t)}{\mathrm{d} t}\right|_{t=0} = \expt{X}$.
+\item $t\in(-\epsilon,\epsilon)$でキュムラント母関数が存在すると仮定すると、$\left.\frac{\mathrm{d}K_X(t)}{\mathrm{d} t}\right|_{t=0} = \expt{X}$.
 %\item $a \le \expt{X}$ のとき $K_X^*(a) = 0$.
-\item $K_X(t)$は凸関数。
+\item $t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、この範囲で$K_X(t)$は凸関数。
 \end{itemize}
 \end{frame}
 
@@ -350,6 +359,7 @@ K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 \begin{align*}
 K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 \end{align*}
+$t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、この範囲で\emm{微分と期待値を交換できる}。
 \begin{align*}
 \frac{\mathrm{d} K_X(t)}{\mathrm{d}t} &= \frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\\
 \frac{\mathrm{d}^2 K_X(t)}{\mathrm{d}t^2} &= \frac{\expt{X^2\mathrm{e}^{tX}}\expt{\mathrm{e}^{tX}}-\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}^2}\\
@@ -360,11 +370,20 @@ K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 
 \begin{frame}{ルジャンドル変換}
 $J\subseteq\mathbb{R}$を区間とし、関数$f\colon J\to\mathbb{R}$を\emm{凸関数}とする。
-$f$のルジャンドル変換$f^*\colon J^*\to\mathbb{R}$を以下で定義する。
+$f$の\emm{ルジャンドル変換}$f^*\colon J^*\to\mathbb{R}$を以下で定義する。
 \begin{align*}
-f^*(y) &= \sup_{x\in J}\{yx - f(x)\}\\
+f^*(y) &= \emm{\sup_{x\in J}\{yx - f(x)\}}\\
 J^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
 \end{align*}
+
+\vspace{1em}
+特に$f$が狭義凸のとき、$yx-f(x)$は$x$の関数として狭義凹となる。
+このとき、
+\begin{itemize}
+\setlength{\itemsep}{1em}
+\item $f'(x^*) = y$ を満たす$x^*\in J$が存在するとき、これは唯一で$f^*(y) = yx^* - f(x^*)$である。
+\item $f'(x^*) = y$ を満たす$x^*$が存在しないとき、$\sup$は区間の端への極限で得られる。
+\end{itemize}
 \end{frame}
 
 \begin{frame}{ルジャンドル変換}
@@ -374,52 +393,67 @@ J^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
     width=0.9\textwidth,
     xlabel=$x$,
     %ylabel=$K_X(x)$,
-    xmin=0, xmax=5,
+    xmin=-5, xmax=5,
     ymin=-13, ymax=13,
     xtick={0,5},
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=0:5, samples=100, color=blue, thick] {-2*x+x^2};
-    \addplot[domain=0:5, samples=100, color=red, thick] {2*(x-2) + 0};
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {-2*x+x^2};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
+    \addplot[domain=-5:5, samples=100, color=red, thick] {2*(x-2) + 0};
     \legend{$f(x)$, $a(x-x^*)+f(x^*)$}
 \end{axis}
 \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{チェルノフ上界の最適化}
-\begin{theorem}
+\begin{lemma}
 %任意の実数$t>0$について
+\emm{レート関数}$I_X\colon\mathbb{R}\to\mathbb{R}_{\ge 0}$を
 \begin{align*}
 %I_+(a) &:= \sup_{t > 0}\left\{at - K_X(t)\right\}\\
 %I_-(a) &:= \sup_{t < 0}\left\{at - K_X(t)\right\}
-I(a) &:= \sup_{t \in\mathbb{R}}\left\{at - K_X(t)\right\}\\
+I_X(a) &:= \sup_{t \in\mathbb{R}}\left\{at - K_X(t)\right\}
 \end{align*}
 %とおくと、
-とおく。
-%\begin{align*}
-%I_+(a) &= 0\qquad\forall a\le\expt{X}\\
-%I_-(a) &= 0\qquad\forall a\ge\expt{X}
-%\end{align*}
-%である。このとき任意の$a\in\mathbb{R}$について
+と定義する。
+このとき、
 \begin{align*}
-\Pr(X\ge a)&\le \mathrm{e}^{-I(a)}\qquad\forall a>\expt{X}\\
-\Pr(X\le a)&\le \mathrm{e}^{-I(a)}\qquad\forall a<\expt{X}.
+\sup_{t>0}\left\{at-K_X(t)\right\}&=\begin{cases}
+I_X(a)&\text{if } a > \expt{X}\\
+0&\text{otherwise.}
+\end{cases}\\
+\sup_{t<0}\left\{at-K_X(t)\right\}&=\begin{cases}
+I_X(a)&\text{if } a < \expt{X}\\
+0&\text{otherwise.}
+\end{cases}
 \end{align*}
-\end{theorem}
+%である。このとき任意の$a\in\mathbb{R}$について
+%\begin{align*}
+%\Pr(X\ge a)&\le \mathrm{e}^{-I(a)}\qquad\forall a>\expt{X}\\
+%\Pr(X\le a)&\le \mathrm{e}^{-I(a)}\qquad\forall a<\expt{X}.
+%\end{align*}
+\end{lemma}
+よってチェルノフ上界を最適化することで以下を得る。
+\begin{align*}
+\Pr\left(X\ge a\right) &\le \mathrm{e}^{-I_X(a)}\qquad\forall a>\expt{X}\\
+\Pr\left(X\le a\right) &\le \mathrm{e}^{-I_X(a)}\qquad\forall a<\expt{X}.
+\end{align*}
 \end{frame}
 
 \begin{frame}{集中不等式 by チェルノフ上界}
-\begin{lemma}
+\small
+\begin{theorem}[集中不等式]
+\vspace{-1em}
 \begin{align*}
 %\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-K_X^*(a)N}.
 % \mathrm{e}^{N(K_X(t) - at)}
-\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-I(a)N}\qquad\forall a>\expt{X}\\
-\Pr\left(\frac1N\sum_{k=1}^N X_k\le a\right) &\le \mathrm{e}^{-I(a)N}\qquad\forall a<\expt{X}.
+\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-\emm{I_X(a)}N}\qquad\forall a>\expt{X}\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k\le a\right) &\le \mathrm{e}^{-\emm{I_X(a)}N}\qquad\forall a<\expt{X}.
 \end{align*}
-\end{lemma}
+\end{theorem}
 \begin{proof}
-\small
 任意の$t>0$について
 \begin{align*}
 \Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &=
@@ -464,16 +498,16 @@ $t>0$を最適化することで補題を得る。
 K_X(t) &= \log(p\mathrm{e}^t + (1-p))
 \end{align*}
 \begin{align*}
-I(a) &= \sup_{t\in\mathbb{R}} \left\{ at - \log(p\mathrm{e}^t+(1-p))\right\}
+I_X(a) &= \sup_{t\in\mathbb{R}} \left\{ at - \log(p\mathrm{e}^t+(1-p))\right\}
 \end{align*}
 \begin{align*}
 a - \frac{p\mathrm{e}^{t^*}}{p\mathrm{e}^{t^*}+1-p} = 0
 \iff \mathrm{e}^{t^*} = \frac{a(1-p)}{p(1-a)}
 \end{align*}
 \begin{align*}
-I(a) &= a\log\frac{a(1-p)}{p(1-a)} - \log\left(\frac{a(1-p)}{1-a} + (1-p)\right)\\
+I_X(a) &= a\log\frac{a(1-p)}{p(1-a)} - \log\left(\frac{a(1-p)}{1-a} + (1-p)\right)\\
  %&= (a-1)\log\frac{1-p}{1-a} + a\log\frac{a}{p}
- &= a\log\frac{a}{p} + (1-a)\log\frac{1-a}{1-p}
+ &= \emm{a\log\frac{a}{p} + (1-a)\log\frac{1-a}{1-p}}
 \end{align*}
 \end{frame}
 
@@ -503,7 +537,7 @@ K_X(t) &= \emm{\mu t + \frac{\sigma^2t^2}2}.\\
 %\emm{\frac{(a-\mu)^2}{2\sigma^2}}& a \ge \mu\\
 %0&\text{otherwise.}
 %\end{cases}
-I(a)&=\sup_{t\in\mathbb{R}} \left\{at - \left(\mu t + \frac{\sigma^2t^2}2\right)\right\}\\
+I_X(a)&=\sup_{t\in\mathbb{R}} \left\{at - \left(\mu t + \frac{\sigma^2t^2}2\right)\right\}\\
 &= \sup_{t\in\mathbb{R}} \left\{-\frac{\sigma^2}2 t\left(t-\frac{2(a-\mu)}{\sigma^2}\right) \right\}\\
 &=\emm{\frac{(a-\mu)^2}{2\sigma^2}}.
 \end{align*}
@@ -533,7 +567,7 @@ K_X(t) &= \lambda(\mathrm{e}^t-1)
 \end{align*}
 \begin{align*}
 %\sup_{t>0}\left\{at - \lambda(\mathrm{e}^t-1)\right\}
-I(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}
+I_X(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}
 \end{align*}
 \begin{align*}
 a-\lambda\mathrm{e}^{t^*} &= 0\iff t^* = \log \frac{a}{\lambda}
@@ -544,7 +578,7 @@ a-\lambda\mathrm{e}^{t^*} &= 0\iff t^* = \log \frac{a}{\lambda}
 %a\log\frac{a}{\lambda} -a + \lambda& a \ge \lambda\\
 %0&\text{otherwise.}
 %\end{cases}
-I(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}\\
+I_X(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}\\
  &= a\log\frac{a}{\lambda} -a + \lambda.
 \end{align*}
 
@@ -590,13 +624,13 @@ K_X(t) &=
 \end{cases}
 \end{align*}
 \begin{align*}
-I(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}
+I_X(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}
 \end{align*}
 \begin{align*}
 a - \frac1{\lambda-t^*} &=0 \iff  t^* = \lambda-\frac1a
 \end{align*}
 \begin{align*}
-I(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}\\
+I_X(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}\\
 &=
 %\begin{cases}
 a\lambda - 1 - \log(a\lambda)
@@ -617,11 +651,11 @@ a\lambda - 1 - \log(a\lambda)
 
 
 \begin{frame}{大偏差原理 Lv1}
-レート関数$I(a)$は\emm{最適な指数}であり、これ以上改善することはできない。証明は難しいので紹介しない。
+レート関数$I_X(a)$は\emm{最適な指数}であり、これ以上改善することはできない。証明は難しいので紹介しない。
 \begin{theorem}[クラメールの定理]
 \begin{align*}
-\lim_{N\to\infty}\frac1N \log \Pr\left(\frac1N\sum_{k=1}^N X_k \ge a\right) &= -I(a) \qquad\forall a>\expt{X}\\
-\lim_{N\to\infty}\frac1N \log \Pr\left(\frac1N\sum_{k=1}^N X_k \le a\right) &= -I(a) \qquad\forall a<\expt{X}
+\lim_{N\to\infty}\frac1N \log \Pr\left(\frac1N\sum_{k=1}^N X_k \ge a\right) &= -I_X(a) \qquad\forall a>\expt{X}\\
+\lim_{N\to\infty}\frac1N \log \Pr\left(\frac1N\sum_{k=1}^N X_k \le a\right) &= -I_X(a) \qquad\forall a<\expt{X}
 \end{align*}
 \end{theorem}
 \end{frame}
@@ -716,7 +750,7 @@ $\Pr(Z\in[a,b])=1$である。
 \begin{frame}{課題}
 \begin{enumerate}
 \setlength{\itemsep}{2em}
-\item 表が出る確率が$1/2$のコインを$N=10^{10}$回投げて$6\cdot 10^9$回以上表が出る確率のチェルノフ上界を$\mathrm{e}^{-cN}$という形で表すときの$c>0$をもとめよ。
+\item 表が出る確率が$1/2$のコインを$N=10^{10}$回投げて$6\cdot 10^9$回以上表が出る確率の集中不等式(チェルノフ上界)を$\mathrm{e}^{-cN}$という形で表すときの$c>0$をもとめよ。
 \end{enumerate}
 \end{frame}
 
