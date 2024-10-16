@@ -456,6 +456,9 @@ $t>0$を最適化することで補題を得る。
 \end{tikzpicture}
 \end{frame}
 
+\begin{frame}{例(ベルヌーイ分布)}
+\end{frame}
+
 \begin{frame}{例(正規分布)}
 %\small
 \begin{align*}
@@ -596,15 +599,19 @@ a\lambda - 1 - \log(a\lambda)
 
 
 \begin{frame}{大偏差原理 Lv1}
+レート関数$I(a)$は\emm{最適な指数}であり、これ以上改善することはできない。証明は難しいので紹介しない。
 \begin{theorem}[クラメールの定理]
 \begin{align*}
-\lim_{n\to\infty}\frac1N \log \Pr\left(\frac1N\sum_{k=1}^N X_k \ge a\right) &= -I(a) \qquad\forall a>\expt{X}\\
-\lim_{n\to\infty}\frac1N \log \Pr\left(\frac1N\sum_{k=1}^N X_k \le a\right) &= -I(a) \qquad\forall a<\expt{X}
+\lim_{N\to\infty}\frac1N \log \Pr\left(\frac1N\sum_{k=1}^N X_k \ge a\right) &= -I(a) \qquad\forall a>\expt{X}\\
+\lim_{N\to\infty}\frac1N \log \Pr\left(\frac1N\sum_{k=1}^N X_k \le a\right) &= -I(a) \qquad\forall a<\expt{X}
 \end{align*}
 \end{theorem}
 \end{frame}
 
 \begin{frame}{サブガウシアン}
+キュムラントやレート関数が計算できればよいのだが、必ずしもそうとは限らない。
+
+\vspace{1em}
 $X$が\emm{サブガウシアン} $\stackrel{\mathrm{def}}{\iff}$ ある $s\ge0$が存在して
 \begin{align*}
 \expt{\mathrm{e}^{t(X-\expt{X})}} &\le \mathrm{e}^{\frac{s^2t^2}2}\qquad\forall t\in\mathbb{R}\\
@@ -613,8 +620,8 @@ $X$が\emm{サブガウシアン} $\stackrel{\mathrm{def}}{\iff}$ ある $s\ge0$
 \end{align*}
 \end{frame}
 
-\begin{frame}{大偏差原理 Lv2}
-\begin{theorem}[サノフの定理]
-\end{theorem}
-\end{frame}
+%\begin{frame}{大偏差原理 Lv2}
+%\begin{theorem}[サノフの定理]
+%\end{theorem}
+%\end{frame}
 \end{document}
