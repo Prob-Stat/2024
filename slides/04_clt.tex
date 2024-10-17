@@ -596,13 +596,13 @@ H_X(t) &:= \log\expt{\mathrm{e}^{itX}}
 \begin{align*}
 \lim_{N\to\infty} H_{\frac{\sum_kY_k}{\sqrt{N}}}(t) &= \varphi_Z(t) = -\frac{t^2}2
 \end{align*}
-を示せばよい。$Y$は分散を持つので$H_Y$は0で二階微分できる。
+を示せばよい。$Y$は分散を持つので$H_Y$は0で二回微分できる。テイラーの定理($H_Y$は$\mathbb{R}\to\mathbb{C}$の関数だけど)より
 \begin{align*}
 H_{\frac{\sum_kY_k}{\sqrt{N}}}(t) &= 
-H_{\sum_kY_k}\left(\frac{t}{\sqrt{N}}\right)\\
-&= NH_Y\left(\frac{t}{\sqrt{N}}\right)\\
+H_{\sum_kY_k}\left(\frac{t}{\sqrt{N}}\right)
+= NH_Y\left(\frac{t}{\sqrt{N}}\right)\\
 &= N\left(H_Y(0) + H_Y'(0)\frac{t}{\sqrt{N}} + \frac{H_Y''(0)}2\left(\frac{t}{\sqrt{N}}\right)^2 + o\left(\frac{1}{N}\right)\right)
-= -\frac{t^2}2
+\stackrel{N\to\infty}{\longrightarrow} -\frac{t^2}2
 \end{align*}
 \end{frame}
 
@@ -619,6 +619,129 @@ H_{\sum_kY_k}\left(\frac{t}{\sqrt{N}}\right)\\
 \begin{align*}
 I_X\left(\expt{X}+\frac{a}{\sqrt{N}}\right)&=I_X(\expt{X}) + I_X'(\expt{X})\frac{a}{\sqrt{N}} + \frac{I_X''(\expt{X})}2\frac{a^2}N + o\left(\frac1N\right)\\
 &= \frac1{2\var{X}}\frac{a^2}N + o\left(\frac1N\right)
+\end{align*}
+\end{frame}
+
+\begin{frame}{中心極限定理の収束のスピード}
+\begin{align*}
+H_{\frac{\sum_kY_k}{\sqrt{N}}}(t) &= 
+NH_Y\left(\frac{t}{\sqrt{N}}\right)\\
+&=N\left(H_Y(0) + H_Y'(0)\frac{t}{\sqrt{N}} + \frac{H_Y''(0)}2\left(\frac{t}{\sqrt{N}}\right)^2 + o\left(\frac{1}{N}\right)\right)
+= -\frac{t^2}2
+\end{align*}
+ここで$Y$が三次のキュムラントを持つとすると、テイラーの定理(ラグランジュ剰余項)よりある$\theta\in(0,t)$が存在して
+\begin{align*}
+H_{\frac{\sum_kY_k}{\sqrt{N}}}(t) &= 
+N\left(H_Y(0) + H_Y'(0)\frac{t}{\sqrt{N}} + \frac{H_Y''(0)}2\left(\frac{t}{\sqrt{N}}\right)^2 + \frac{H_Y'''(\theta)}{3!} \left(\frac{t}{\sqrt{N}}\right)^3\right)\\
+&=N\left(-\frac{t^2}2\frac1N - i\frac{\kappa_3(\theta)}{3!} \left(\frac{t}{\sqrt{N}}\right)^3\right)
+=-\frac{t^2}2 - i\frac{\kappa_3(\theta)t^3}{3!\sqrt{N}}
+\end{align*}
+\end{frame}
+
+\begin{frame}{特性関数と密度関数}
+
+\begin{align*}
+\varphi_{\frac{\sum_kY_k}{\sqrt{N}}}(t)
+% &= \mathrm{e}^{-\frac{t^2}2 - i\frac{\kappa_3(\theta)t^3}{3!\sqrt{N}}}\\
+ &= \mathrm{e}^{-\frac{t^2}2}\mathrm{e}^{-i\frac{\kappa_3(\theta)t^3}{3!\sqrt{N}}}\\
+ &= \mathrm{e}^{-\frac{t^2}2}\left(1 {-i\frac{\kappa_3(\theta)t^3}{3!\sqrt{N}}}\right)\\
+\end{align*}
+\begin{align*}
+q(x) &= \frac1{2\pi}\int_{-\infty}^\infty \mathrm{e}^{-ixt} \varphi_{\frac{\sum_kY_k}{\sqrt{N}}}(t)\mathrm{d}t\\
+&= \frac1{2\pi}\int_{-\infty}^\infty \mathrm{e}^{-ixt} \mathrm{e}^{-\frac{t^2}2 - i\frac{\kappa_3(\theta)t^3}{3!\sqrt{N}}}\mathrm{d}t
+\end{align*}
+\end{frame}
+
+\begin{frame}{正規分布の性質}
+平均$\mu$、分散$\sigma^2$の正規分布の確率密度関数は
+\begin{align*}
+p(x) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\end{align*}
+$X$が平均$\mu$、分散$\sigma^2$の正規分布に従うことを、$X\sim N(\mu,\sigma^2)$と表す。
+
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item 任意の$a\in\mathbb{R}$について$X\sim N(\mu,\sigma^2)$のとき$X+a\sim N(\mu+a,\sigma^2)$である。
+\item 任意の$a\in\mathbb{R}$について$X\sim N(\mu,\sigma^2)$のとき$aX\sim N(a\mu,a^2\sigma^2)$である。
+\item 独立な確率変数$X_1\sim N(\mu_1, \sigma_1^2)$と$X_2\sim N(\mu_2, \sigma_2^2)$について
+$X_1+X_2\sim N(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)$である。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{$X+a$の確率密度関数}
+\small
+確率変数$X$が確率密度関数$p(x)$を持つとする。
+
+このとき、$a\in\mathbb{R}$について確率変数$X+a$の確率密度関数は
+\begin{align*}
+\Pr(X+a \le x)&= \Pr(X\le x-a)\\
+&=\int_{-\infty}^{x-a} p(t) \mathrm{d}t\\
+&=\int_{-\infty}^{x} p(u-a) \mathrm{d}u\qquad(u = t+a)
+\end{align*}
+より$\emm{p(x-a)}$である。
+\end{frame}
+
+\begin{frame}{$aX$の確率密度関数}
+\scriptsize
+
+また、$a>0$について確率変数$aX$の確率密度関数は
+\begin{align*}
+\Pr(aX \le x)&= \Pr\left(X\le \frac{x}{a}\right)\\
+&=\int_{-\infty}^{\frac{x}{a}} p(t) \mathrm{d}t\\
+&=\int_{-\infty}^{x} p\left(\frac{u}{a}\right) \frac1a\mathrm{d}u\qquad(u = ta)
+\end{align*}
+より$\emm{\frac1a p\left(\frac{x}{a}\right)}$である。
+%
+また、$a<0$について確率変数$aX$の確率密度関数は
+\begin{align*}
+\Pr(aX \le x)&= \Pr\left(X\ge \frac{x}{a}\right)
+=\int_{\frac{x}{a}}^\infty p(t) \mathrm{d}t\\
+&=\int_{x}^{-\infty} p\left(\frac{u}{a}\right) \frac1a\mathrm{d}u\qquad(u = ta)\\
+&=-\int_{-\infty}^x p\left(\frac{u}{a}\right) \frac1a\mathrm{d}u
+\end{align*}
+より$\emm{-\frac1a p\left(\frac{x}{a}\right)}$である。
+よって一般の$a\in\mathbb{R}\setminus\{0\}$について$aX$の確率密度関数は$\emm{\frac1{|a|}p\left(\frac{x}{a}\right)}$である。
+\end{frame}
+
+\begin{frame}{$X+Y$の確率密度関数}
+独立確率変数$X$と$Y$がそれぞれ確率密度関数$p_X$と$p_Y$を持つとする。
+このとき、$X+Y$の確率密度関数は
+\begin{align*}
+\Pr(X+Y\le z) &= \int_{-\infty}^\infty p_Y(y) \Pr(X+y\le z) \mathrm{d}y\\
+&= \int_{-\infty}^\infty  p_Y(y)  \left(\int_{-\infty}^{z-y}p_X(x) \mathrm{d}x\right)\mathrm{d}y\\
+&= \int_{-\infty}^\infty  p_Y(y)  \left(\int_{-\infty}^{z}p_X(x'-y) \mathrm{d}x'\right)\mathrm{d}y\qquad(x'=x+y)\\
+&= \int_{-\infty}^{z}\left(\int_{-\infty}^\infty  p_Y(y)  p_X(x'-y) \mathrm{d}y\right)\mathrm{d}x'\\
+\end{align*}
+より$\emm{\int_{-\infty}^{\infty} p_Y(y)p_X(x-y)\mathrm{d}y}$である。
+\end{frame}
+
+\begin{frame}{正規分布の密度関数}
+\begin{align*}
+p(x\emm{-a}) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x\emm{-a}-\mu)^2}{2\sigma^2}}\\
+\frac1{|a|}p(\emm{a}x) &= \frac1{\sqrt{2\pi\emm{a^2}\sigma^2}} \mathrm{e}^{-\frac{(x/\emm{a}-\mu)^2}{2\sigma^2}}\\
+&= \frac1{\sqrt{2\pi\emm{a^2}\sigma^2}} \mathrm{e}^{-\frac{(x-\emm{a}\mu)^2}{2\emm{a^2}\sigma^2}}\\
+\int_{-\infty}^{\infty} p_{X_2}(y)p_{X_1}(x-y) \mathrm{d}y &=
+\int_{-\infty}^{\infty} \frac1{\sqrt{2\pi\sigma_2^2}}\mathrm{e}^{-\frac{(y-\mu_2)^2}{2\sigma_2^2}} \frac1{\sqrt{2\pi\sigma_1^2}}\mathrm{e}^{-\frac{(x-y-\mu_1)^2}{2\sigma_1^2}} \mathrm{d}y\\
+ &=
+\int_{-\infty}^{\infty} \frac1{2\pi\sqrt{\sigma_1^2\sigma_2^2}}\mathrm{e}^{-\frac{\sigma_1^2(y-\mu_2)^2 - \sigma_2^2(x-y-\mu_1)^2}{2\sigma_1^2\sigma_2^2}}  \mathrm{d}y\\
+\end{align*}
+\end{frame}
+
+\begin{frame}{キュムラントを使った証明}
+\begin{align*}
+H_{X+a}(t) &= \log\expt{\mathrm{e}^{it(X+a)}} = \log\left(\expt{\mathrm{e}^{itX}}\cdot \mathrm{e}^{ita}\right) = \emm{H_X(t) + iat}\\
+H_{aX}(t) &= \log\expt{\mathrm{e}^{it(aX)}} = \emm{H_X(at)}\\
+H_{X+Y}(t) &= \log\expt{\mathrm{e}^{it(X+Y)}} =\log\left(\expt{\mathrm{e}^{itX}}\expt{\mathrm{e}^{itY}}\right) = \emm{H_X(t) + H_Y(t)}
+\end{align*}
+$X\sim N(\mu,\sigma^2)$について
+\begin{align*}
+H_X(t) &= i\mu t - \frac{\sigma^2t^2}2
+\end{align*}
+より、
+\begin{align*}
+H_{X\emm{+a}}(t) &= i(\mu\emm{+a}) t - \frac{\sigma^2t^2}2\qquad\text{\small ($N(\mu+a,\sigma^2)$のキュムラント母関数)}\\
+H_{\emm{a}X}(t) &= i\mu \emm{a}t - \frac{\emm{a^2}\sigma^2t^2}2\qquad\text{\small ($N(a\mu,a^2\sigma^2)$のキュムラント母関数)}\\
+H_{X_1\emm{+}X_2}(t) &= i(\mu_1\emm{+}\mu_2)t - \frac{(\sigma_1^2\emm{+}\sigma_2^2)t^2}2\qquad\text{\small ($N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)$のキュムラント母関数)}
 \end{align*}
 \end{frame}
 

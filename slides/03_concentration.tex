@@ -369,26 +369,30 @@ $t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、�
 \end{frame}
 
 \begin{frame}{ルジャンドル変換}
+\begin{definition}
 $J\subseteq\mathbb{R}$を区間とし、関数$f\colon J\to\mathbb{R}$を\emm{凸関数}とする。
 $f$の\emm{ルジャンドル変換}$f^*\colon J^*\to\mathbb{R}$を以下で定義する。
 \begin{align*}
 f^*(y) &= \emm{\sup_{x\in J}\{yx - f(x)\}}\\
 J^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
 \end{align*}
+\end{definition}
 
 \vspace{1em}
-特に$f$が狭義凸のとき、$yx-f(x)$は$x$の関数として狭義凹となる。
+$f$は凸なので、$yx-f(x)$は$x$の関数として凹(上に凸)となる。
 このとき、
 \begin{itemize}
 \setlength{\itemsep}{1em}
-\item $f'(x^*) = y$ を満たす$x^*\in J$が存在するとき、これは唯一で$f^*(y) = yx^* - f(x^*)$である。
-\item $f'(x^*) = y$ を満たす$x^*$が存在しないとき、$\sup$は区間の端への極限で得られる。
+\item $f'(x^*) = y$ を満たす$x^*\in J$が存在するとき、$f^*(y) = yx^* - f(x^*)$である。
+$f'$が単調非減少であることから、$x^*$は$y$について単調非減少である。
+\item $f'(x^*) = y$ を満たす$x^*\in J$が存在しないとき、$\sup$は区間の端への極限で得られる。
 \end{itemize}
 \end{frame}
 
 \begin{frame}{ルジャンドル変換}
-$f(0)=0$のときのルジャンドル変換$f^*(y) = \sup_{x\in\mathbb{R}} \{yx - f(x)\}$.
-$\sup$は$f'(x^*)=y$を満たす$x^*(y)$で達成される。
+%$f(0)=0$のときのルジャンドル変換$f^*(y) = \sup_{x\in\mathbb{R}} \{yx - f(x)\}$.
+%$\sup$は$f'(x^*)=y$を満たす$x^*(y)$で達成される。
+$f'(x^*) = y$より、$y=f'(0)$のとき、$x^*=0$である。特に$f(0)=0$のとき以下の図のようになる。
 
 \vspace{1em}
 \begin{center}
@@ -409,7 +413,10 @@ $\sup$は$f'(x^*)=y$を満たす$x^*(y)$で達成される。
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
     \addplot[domain=-5:5, samples=100, color=red, thick] {2*(x-2) + 0};
     \addplot[black, mark=*, only marks] coordinates {(0, -4)};
-    \node[below right] at (axis cs:0, -4) {\small $-f^*(y)$};
+    \node[left] at (axis cs:0, -4) {\small $-f^*(y)$};
+    \addplot[black, mark=*, only marks] coordinates {(2, 0)};
+    \draw[dashed, black] (axis cs:2, 0) -- (axis cs:2, -13);
+    \node[above right] at (axis cs:2, -13) {$x^*$};
     %\node[left] at (axis cs:0, -4) {\tiny $y(x-x^*) + f(x^*)$};
     %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
 \end{axis}
@@ -437,7 +444,7 @@ $\sup$は$f'(x^*)=y$を満たす$x^*(y)$で達成される。
 \end{center}
 $f^*(y)$ は$f$の傾きが$y$のところの接線$y(x-x^*) + f(x^*)$の$x=0$での値の$-1$倍。
 
-$f^*(y)$は$y=f'(0)$のとき0で$y>f'(0)$のとき、$x^*(y)>0$
+$x^*$は$y=f'(0)$のとき0で$y>f'(0)$のとき、$x^*>0$、$y<f'(0)$のとき$x^*<0)$。
 \end{frame}
 
 \begin{frame}{チェルノフ上界の最適化}
@@ -549,11 +556,11 @@ I_X(a) &= a\log\frac{a(1-p)}{p(1-a)} - \log\left(\frac{a(1-p)}{1-a} + (1-p)\righ
 \begin{frame}{例: 正規分布}
 %\small
 \begin{align*}
-p(x) &= \frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}}
+p(x) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}}
 \end{align*}
 \begin{align*}
-M_X(t) &= \int_{-\infty}^\infty\frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}} \mathrm{e}^{tx}\dx\\
- &= \int_{-\infty}^\infty\frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac{(x-\mu -\sigma^2t)^2}{2\sigma^2}} \mathrm{e}^{\frac{(\mu+\sigma^2t)^2-\mu^2}{2\sigma^2}}\dx\\
+M_X(t) &= \int_{-\infty}^\infty\frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}} \mathrm{e}^{tx}\dx\\
+ &= \int_{-\infty}^\infty\frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\mu -\sigma^2t)^2}{2\sigma^2}} \mathrm{e}^{\frac{(\mu+\sigma^2t)^2-\mu^2}{2\sigma^2}}\dx\\
 &=\mathrm{e}^{\frac{(\mu+\sigma^2t)^2-\mu^2}{2\sigma^2}}
 =\mathrm{e}^{\mu t + \frac{\sigma^2t^2}2}.
 \end{align*}
@@ -697,20 +704,25 @@ a\lambda - 1 - \log(a\lambda)
 
 \begin{frame}{サブガウシアン}
 \small
-キュムラントやレート関数が綺麗に計算できればよいのだが、必ずしもそうとは限らない。
+キュムラント母関数やレート関数が綺麗に計算できればよいのだが、必ずしもそうとは限らない。
 
 \vspace{1em}
+\begin{definition}
 $X$が代理分散$s^2>0$について\emm{サブガウシアン} $\stackrel{\mathrm{def}}{\iff}$ 任意の$t\in\mathbb{R}$について
 \begin{align*}
-&\expt{\mathrm{e}^{t(X-\expt{X})}} \le \mathrm{e}^{\frac{s^2t^2}2}\\
-\iff&\expt{\mathrm{e}^{tX}} \le \mathrm{e}^{\expt{X}t+\frac{s^2t^2}2}\\
-\iff& K_X(t) \le {\expt{X}t+\frac{s^2t^2}2}
+%&\expt{\mathrm{e}^{t(X-\expt{X})}} \le \mathrm{e}^{\frac{s^2t^2}2}\\
+%\iff&\expt{\mathrm{e}^{tX}} \le \mathrm{e}^{\expt{X}t+\frac{s^2t^2}2}\\
+%\iff& 
+K_X(t) &\le {\expt{X}t+\frac{s^2t^2}2}.
 \end{align*}
+\end{definition}
 
 \vspace{1em}
+キュムラント母関数を正規分布のキュムラント母関数で上から抑えることで、正規分布の場合と同じ形の不等式が得られる。
+
 $X$が代理分散$s^2>0$について\emm{サブガウシアン}のとき、任意の$\epsilon>0$について
 \begin{align*}
-\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \expt{X} + \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2s^2}}N}\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \expt{X} + \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2s^2}}N},&
 \Pr\left(\frac1N\sum_{k=1}^N X_k \le \expt{X} - \epsilon\right) &\le \mathrm{e}^{-\emm{\frac{\epsilon^2}{2s^2}}N}.
 \end{align*}
 \end{frame}
@@ -730,7 +742,7 @@ K_X(t)=\log\expt{\mathrm{e}^{tX}} &\le \expt{X}t + \frac{(b-a)^2t^2}8.
 \end{lemma}
 \begin{proof}
 $X$が有界であることから、$K_X(t)$は任意の$t\in\mathbb{R}$について存在する。
-テイラーの定理よりある$\theta\in[0,t]$が存在して、
+テイラーの定理よりある$\theta\in(0,t)$が存在して、($t<0$のときは$\theta\in(t, 0)$)
 \begin{align*}
 K_X(t) &= \expt{X}t + K_X''(\theta)\frac{t^2}2
 \end{align*}
@@ -742,11 +754,12 @@ K_X(t) &= \expt{X}t + K_X''(\theta)\frac{t^2}2
 
 \begin{frame}{Hoeffiding's lemma の証明}
 \small
+\begin{proof}[証明の続き]
 \begin{align*}
 K''_X(t) 
 %&= \frac{\expt{X^2\mathrm{e}^{tX}}\expt{\mathrm{e}^{tX}}-\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}^2}\\
 %&= \frac{\expt{X^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}-\left(\frac{\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}}\right)^2\\
-&= \frac{\expt{\left(X-\frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\right)^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}.
+&= {\expt{\left(X-\frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\right)^2\mathrm{e}^{tX}}}/{\expt{\mathrm{e}^{tX}}}.
 \end{align*}
 具体的には
 \begin{align*}
@@ -756,15 +769,16 @@ K''_X(t)
 
 例えば$X$の確率密度関数が$p(x)$のとき、$Z$の確率密度関数は$p(x)\frac{\mathrm{e}^{\theta x}}{\int_{-\infty}^\infty p(x)\mathrm{e}^{\theta x}\dx}$である。
 $\Pr(Z\in[a,b])=1$である。
-任意の$x\in\mathbb{R}$について
+%任意の$x\in\mathbb{R}$について
 \begin{align*}
-\expt{(Z-x)^2} &= x^2 - 2\expt{Z}x + \expt{Z^2}\ge \var{Z}
+\expt{(Z-x)^2} &= x^2 - 2\expt{Z}x + \expt{Z^2}\ge \var{Z}\qquad\forall x\in\mathbb{R}
 %\var{Z} &= \expt{(Z-\expt{Z})^2}
 \end{align*}
-よって、$x=\frac{a+b}2$を代入すると、
-\begin{align*}
-\var{Z} &\le \expt{\left(Z-\frac{a+b}2\right)^2}\le \left(\frac{b-a}2\right)^2
-\end{align*}
+より、$x=\frac{a+b}2$を代入すると、
+%\begin{align*}
+$\var{Z} \le \expt{\left(Z-\frac{a+b}2\right)^2}\le \left(\frac{b-a}2\right)^2$.
+%\end{align*}
+\end{proof}
 \end{frame}
 
 \begin{frame}{Hoeffiding 不等式}
@@ -783,6 +797,18 @@ $\Pr(Z\in[a,b])=1$である。
 \end{frame}
 
 \begin{frame}{おまけ: テイラーの定理}
+\begin{theorem}[テイラーの定理]
+実関数$f\colon\mathbb{R}\to\mathbb{R}$が$a\in\mathbb{R}$で$k\ge 1$回微分可能なとき、
+ある関数$h_k\colon\mathbb{R}\to\mathbb{R}$で$\lim_{x\to a}h_k(x)=0$であるものが存在し、
+\begin{align*}
+f(x) &= \sum_{s=0}^k \frac{f^{(s)}(a)}{s!}(x-a)^s + h_k(x)(x-a)^k.
+\end{align*}
+
+また、$f\colon\mathbb{R}\to\mathbb{R}$が$[a, x]$上 で$k+1$回微分可能であるとすると、ある$c\in(a, x)$が存在し、
+\begin{align*}
+f(x) &= \sum_{s=0}^k \frac{f^{(s)}(a)}{s!}(x-a)^s + \frac{f^{(k+1)}(c)}{(k+1)!}(x-a)^{k+1}.
+\end{align*}
+\end{theorem}
 \end{frame}
 
 \begin{frame}{課題}
