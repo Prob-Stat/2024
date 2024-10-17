@@ -553,6 +553,7 @@ Y_k&:= \frac{X_k-\expt{X}}{\sqrt{\var{X}}}\qquad \text{for } k=1,2,\dotsc,N
 \begin{align*}
 \varphi_X(t) &:= \expt{\mathrm{e}^{itX}}.
 \end{align*}
+\end{definition}
 モーメント母関数は存在するとは限らないが特性関数は(定義域を$\mathbb{R}$として)常に存在する。
 
 \vspace{.5em}
@@ -561,12 +562,24 @@ $X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分でき�
 \left.\frac{\mathrm{d}^k\varphi_X(t)}{\mathrm{d}t^k}\right|_{t=0} &= i^k \expt{X^k}.
 \end{align*}
 
-\vspace{1em}
-第二特性関数
+%\vspace{1em}
+%第二特性関数
+%\begin{align*}
+%H_X(t) &:= \log\expt{\mathrm{e}^{itX}}
+%\end{align*}
+\end{frame}
+
+\begin{frame}{特性関数と確率質量関数}
+確率変数の像が有限集合のとき、
 \begin{align*}
-H_X(t) &:= \log\expt{\mathrm{e}^{itX}}
+\varphi_X(t) &= \sum_{k\in \mathrm{Im}(X)} \Pr(X = k) \mathrm{e}^{itk}
 \end{align*}
-\end{definition}
+このとき、
+\begin{align*}
+&\sum_{t} \varphi_X(t) \mathrm{e}^{-itu}\\
+=&\sum_{t} \sum_{k\in \mathrm{Im}(X)} \Pr(X = k) \mathrm{e}^{itk} \mathrm{e}^{-itu}\\
+=& \sum_{k\in \mathrm{Im}(X)} \Pr(X = k)\left(\sum_{t} \mathrm{e}^{it(k-u)}\right)
+\end{align*}
 \end{frame}
 
 \begin{frame}{コーシー分布の特性関数}

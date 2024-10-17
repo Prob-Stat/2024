@@ -360,6 +360,10 @@ K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 \end{align*}
 $t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、この範囲で\emm{微分と期待値を交換できる}。
+% \sum_{k=0}^n |(x^k)/k! t^k| <= exp(|tx|) <= exp(tx) + exp(-tx)
+% E[\sum_{k=0}^n |(x^k)/k! t^k|] <= M_X(t) + M_X(-t)
+%
+% \sum_{k=0}^n |f^{(k)}(s)/k! (tx-s)^k| <= exp(|tx-s|+s) <= exp(tx) + exp(2s-tx) ???
 \begin{align*}
 \frac{\mathrm{d} K_X(t)}{\mathrm{d}t} &= \frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\\
 \frac{\mathrm{d}^2 K_X(t)}{\mathrm{d}t^2} &= \frac{\expt{X^2\mathrm{e}^{tX}}\expt{\mathrm{e}^{tX}}-\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}^2}\\
@@ -373,34 +377,69 @@ $t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、�
 $J\subseteq\mathbb{R}$を区間とし、関数$f\colon J\to\mathbb{R}$を\emm{凸関数}とする。
 $f$の\emm{ルジャンドル変換}$f^*\colon J^*\to\mathbb{R}$を以下で定義する。
 \begin{align*}
-f^*(y) &= \emm{\sup_{x\in J}\{yx - f(x)\}}\\
-J^*&=\{y\in\mathbb{R}\mid f^*(y)<\infty\}
+f^*(a) &= \emm{\sup_{t\in J}\{at - f(t)\}}\\
+J^*&=\{a\in\mathbb{R}\mid f^*(a)<\infty\}
 \end{align*}
 \end{definition}
 
 \vspace{1em}
-$f$は凸なので、$yx-f(x)$は$x$の関数として凹(上に凸)となる。
+$f$は凸なので、$at-f(t)$は$t$の関数として凹(上に凸)となる。
 このとき、
 \begin{itemize}
 \setlength{\itemsep}{1em}
-\item $f'(x^*) = y$ を満たす$x^*\in J$が存在するとき、$f^*(y) = yx^* - f(x^*)$である。
-$f'$が単調非減少であることから、$x^*$は$y$について単調非減少である。
-\item $f'(x^*) = y$ を満たす$x^*\in J$が存在しないとき、$\sup$は区間の端への極限で得られる。
+\item $f'(t^*) = a$ を満たす$t^*\in J$が存在するとき、$f^*(a) = at^* - f(t^*)$である。
+$f'$が単調非減少であることから、$t^*$は$a$について単調非減少である。
+%\item $\lim_{t\to\inf(J)} f'(t) > a$ のときや$\lim_{t\to\sup(J)} f'(t) < a$のとき、$f^*(a)=\infty$である。
 \end{itemize}
+\end{frame}
+
+\begin{frame}{凸関数と接線}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.8\textwidth,
+    xlabel=$t$,
+    ylabel=$f(t)$,
+    xmin=-3, xmax=5,
+    ymin=-2, ymax=13,
+    xtick={0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {-2*x+x^2};
+    \addplot[domain=-5:5, samples=100, color=orange, thick] {-2*x};
+    \addplot[domain=-5:5, samples=100, color=orange, thick] {-1};
+    \addplot[domain=-5:5, samples=100, color=orange, thick] {2*(x-2) + 0};
+    \addplot[domain=-5:5, samples=100, color=orange, thick] {4*(x-3) + 3};
+    \addplot[domain=-5:5, samples=100, color=orange, thick] {6*(x-4) + 8};
+    \addplot[domain=-5:5, samples=100, color=orange, thick] {(-4)*(x+1) + 3};
+    \addplot[domain=-5:5, samples=100, color=orange, thick] {(-6)*(x+2) + 8};
+    \addplot[domain=-5:5, samples=100, color=orange, thick] {(-8)*(x+3) + 15};
+    %\addplot[domain=-5:5, samples=100, color=orange, thick] {3*(x-5/2) - 5 + 25/4};
+    \draw[dashed, black] (axis cs:0, -2) -- (axis cs:0, 13);
+    %\legend{$K_X(t)$, $\expt{X}t$}
+\end{axis}
+\end{tikzpicture}
+
+\small
+凸関数は接線の集合で表すことができる。
+接線$at+b$は傾き$a$と切片$b$で表せる。
+凸関数は同じ傾きを持つ接線が一つしかないので、\emm{傾きから切片が一意に定まる}。
+この傾きから切片(の$-1$倍)への関数がルジャンドル変換$f^*$に他ならない。
 \end{frame}
 
 \begin{frame}{ルジャンドル変換}
 %$f(0)=0$のときのルジャンドル変換$f^*(y) = \sup_{x\in\mathbb{R}} \{yx - f(x)\}$.
 %$\sup$は$f'(x^*)=y$を満たす$x^*(y)$で達成される。
-$f'(x^*) = y$より、$y=f'(0)$のとき、$x^*=0$である。特に$f(0)=0$のとき以下の図のようになる。
+$f'(t^*) = a$より、$a=f'(0)$のとき、$t^*=0$である。特に$f(0)=0$のとき以下の図のようになる。
 
 \vspace{1em}
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
     width=0.49\textwidth,
-    xlabel=$x$,
-    ylabel=$f(x)$,
+    xlabel=$t$,
+    ylabel=$f(t)$,
     xmin=-5, xmax=5,
     ymin=-13, ymax=13,
     xtick={-5,0,5},
@@ -413,10 +452,10 @@ $f'(x^*) = y$より、$y=f'(0)$のとき、$x^*=0$である。特に$f(0)=0$の�
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
     \addplot[domain=-5:5, samples=100, color=red, thick] {2*(x-2) + 0};
     \addplot[black, mark=*, only marks] coordinates {(0, -4)};
-    \node[left] at (axis cs:0, -4) {\small $-f^*(y)$};
+    \node[left] at (axis cs:0, -4) {\small $-f^*(a)$};
     \addplot[black, mark=*, only marks] coordinates {(2, 0)};
     \draw[dashed, black] (axis cs:2, 0) -- (axis cs:2, -13);
-    \node[above right] at (axis cs:2, -13) {$x^*$};
+    \node[above right] at (axis cs:2, -13) {$t^*$};
     %\node[left] at (axis cs:0, -4) {\tiny $y(x-x^*) + f(x^*)$};
     %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
 \end{axis}
@@ -425,8 +464,8 @@ $f'(x^*) = y$より、$y=f'(0)$のとき、$x^*=0$である。特に$f(0)=0$の�
 \begin{tikzpicture}
 \begin{axis}[
     width=0.49\textwidth,
-    xlabel=$y$,
-    ylabel=$f^*(y)$,
+    xlabel=$a$,
+    ylabel=$f^*(a)$,
     xmin=-5, xmax=5,
     ymin=0, ymax=13,
     xtick={-5,0,5},
@@ -442,9 +481,9 @@ $f'(x^*) = y$より、$y=f'(0)$のとき、$x^*=0$である。特に$f(0)=0$の�
 \end{axis}
 \end{tikzpicture}
 \end{center}
-$f^*(y)$ は$f$の傾きが$y$のところの接線$y(x-x^*) + f(x^*)$の$x=0$での値の$-1$倍。
+$f^*(a)$ は$f$の傾きが$a$のところの接線$a(t-t^*) + f(t^*)$の$t=0$での値の$-1$倍。
 
-$x^*$は$y=f'(0)$のとき0で$y>f'(0)$のとき、$x^*>0$、$y<f'(0)$のとき$x^*<0)$。
+$t^*$は$a=f'(0)$のとき0で$a>f'(0)$のとき、$t^*>0$、$a<f'(0)$のとき$t^*<0)$。
 \end{frame}
 
 \begin{frame}{チェルノフ上界の最適化}
@@ -454,7 +493,7 @@ $x^*$は$y=f'(0)$のとき0で$y>f'(0)$のとき、$x^*>0$、$y<f'(0)$のとき$
 \begin{align*}
 %I_+(a) &:= \sup_{t > 0}\left\{at - K_X(t)\right\}\\
 %I_-(a) &:= \sup_{t < 0}\left\{at - K_X(t)\right\}
-I_X(a) &:= \sup_{t \in\mathbb{R}}\left\{at - K_X(t)\right\}
+I_X(a) &:= \sup_{t \in\mathrm{dom}(K_X)}\left\{at - K_X(t)\right\}
 \end{align*}
 %とおくと、
 と定義する。
@@ -507,30 +546,6 @@ $t>0$を最適化することで補題を得る。
 \end{frame}
 
 
-\if0
-\begin{frame}{ルジャンドル変換}
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-    width=0.9\textwidth,
-    xlabel=$t$,
-    %ylabel=$K_X(x)$,
-    xmin=0, xmax=5,
-    ymin=-13, ymax=13,
-    xtick={0,5},
-    ytick={0},
-    legend pos = south east
-]
-    \addplot[domain=0:5, samples=100, color=blue, thick] {-2*x+x^2};
-    \addplot[domain=0:5, samples=100, color=red, thick] {-2*x};
-    \addplot[domain=0:5, samples=100, color=orange, thick] {-1};
-    \addplot[domain=0:5, samples=100, color=orange, thick] {2*(x-2) + 0};
-    \addplot[domain=0:5, samples=100, color=orange, thick] {3*(x-5/2) - 5 + 25/4};
-    \legend{$K_X(t)$, $\expt{X}t$}
-\end{axis}
-\end{tikzpicture}
-\end{frame}
-\fi
 
 \begin{frame}{例: ベルヌーイ分布}
 \begin{align*}
@@ -556,7 +571,7 @@ I_X(a) &= a\log\frac{a(1-p)}{p(1-a)} - \log\left(\frac{a(1-p)}{1-a} + (1-p)\righ
 \begin{frame}{例: 正規分布}
 %\small
 \begin{align*}
-p(x) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}}
+p(x) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}}\qquad\text{for}\quad x\in\mathbb{R}.
 \end{align*}
 \begin{align*}
 M_X(t) &= \int_{-\infty}^\infty\frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}} \mathrm{e}^{tx}\dx\\
@@ -594,18 +609,18 @@ I_X(a)&=\sup_{t\in\mathbb{R}} \left\{at - \left(\mu t + \frac{\sigma^2t^2}2\righ
 
 \begin{frame}{例: ポアソン分布}
 \begin{align*}
-\Pr(X=k) &= \frac{\lambda^k\mathrm{e}^{-\lambda}}{k!}.
+\Pr(X=k) &= \frac{\lambda^k\mathrm{e}^{-\lambda}}{k!}\qquad\text{for}\quad k\in\mathbb{Z}_{\ge 0}.
 \end{align*}
 \begin{align*}
 M_X(t) &= \sum_{k\ge 0}\frac{\lambda^k\mathrm{e}^{-\lambda}}{k!} \mathrm{e}^{tk}\\
 &= \mathrm{e}^{\lambda\mathrm{e}^t - \lambda}\\
-K_X(t) &= \lambda(\mathrm{e}^t-1)
+K_X(t) &= \emm{\lambda(\mathrm{e}^t-1)}
 \end{align*}
 \end{frame}
 
 \begin{frame}{例: ポアソン分布}
 \begin{align*}
-K_X(t) &= \lambda(\mathrm{e}^t-1)
+K_X(t) &= \emm{\lambda(\mathrm{e}^t-1)}
 \end{align*}
 \begin{align*}
 %\sup_{t>0}\left\{at - \lambda(\mathrm{e}^t-1)\right\}
@@ -621,7 +636,7 @@ a-\lambda\mathrm{e}^{t^*} &= 0\iff t^* = \log \frac{a}{\lambda}
 %0&\text{otherwise.}
 %\end{cases}
 I_X(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}\\
- &= a\log\frac{a}{\lambda} -a + \lambda.
+ &= \emm{a\log\frac{a}{\lambda} -a + \lambda}.
 \end{align*}
 
 \vspace{.5em}
@@ -637,7 +652,7 @@ I_X(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}\\
 \begin{frame}{例: 指数分布}
 %\small
 \begin{align*}
-p(x) &= \lambda\mathrm{e}^{-\lambda x}\qquad\text{for}\quad x\ge 0
+p(x) &= \lambda\mathrm{e}^{-\lambda x}\qquad\text{for}\quad x\ge 0.
 \end{align*}
 \begin{align*}
 M_X(t) &= \int_{0}^\infty \lambda\mathrm{e}^{-\lambda x} \mathrm{e}^{tx}\dx\\
@@ -650,7 +665,7 @@ M_X(t) &= \int_{0}^\infty \lambda\mathrm{e}^{-\lambda x} \mathrm{e}^{tx}\dx\\
 \begin{align*}
 K_X(t) &=
 \begin{cases}
-\log\frac{\lambda}{\lambda-t}& t < \lambda\\
+\emm{\log\frac{\lambda}{\lambda-t}}& t < \lambda\\
 +\infty&\text{otherwise.}
 \end{cases}
 \end{align*}
@@ -661,7 +676,7 @@ K_X(t) &=
 \begin{align*}
 K_X(t) &=
 \begin{cases}
-\log\frac{\lambda}{\lambda-t}& t < \lambda\\
+\emm{\log\frac{\lambda}{\lambda-t}}& t < \lambda\\
 +\infty&\text{otherwise.}
 \end{cases}
 \end{align*}
@@ -675,7 +690,7 @@ a - \frac1{\lambda-t^*} &=0 \iff  t^* = \lambda-\frac1a
 I_X(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}\\
 &=
 %\begin{cases}
-a\lambda - 1 - \log(a\lambda)
+\emm{a\lambda - 1 - \log(a\lambda)}
 %& a > \frac1\lambda\\
 %0 & \text{otherwise.}
 %\end{cases}
@@ -814,7 +829,8 @@ f(x) &= \sum_{s=0}^k \frac{f^{(s)}(a)}{s!}(x-a)^s + \frac{f^{(k+1)}(c)}{(k+1)!}(
 \begin{frame}{課題}
 \begin{enumerate}
 \setlength{\itemsep}{2em}
-\item 表が出る確率が$1/2$のコインを$N$回投げて$0.6N$回以上表が出る確率を$\mathrm{e}^{-cN}$という形で上から抑えるときの最小の$c>0$をもとめよ。
+\item 表が出る確率が$1/2$のコインを$N$回投げて$0.6N$回以上表が出る確率を$\mathrm{e}^{-cN}$という形で上から抑えるときの最大の$c>0$をもとめよ。
+\item 1から6の目を持つ偏りのないサイコロを$N$回投げて和の合計が$4N$以上になる確率$\mathrm{e}^{-cN}$という形で上から抑えるときの最大の$c>0$をもとめよ。
 \end{enumerate}
 \end{frame}
 
