@@ -351,7 +351,7 @@ K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 \item $K_X(0) = 0$.
 \item $t\in(-\epsilon,\epsilon)$でキュムラント母関数が存在すると仮定すると、$\left.\frac{\mathrm{d}K_X(t)}{\mathrm{d} t}\right|_{t=0} = \expt{X}$.
 %\item $a \le \expt{X}$ のとき $K_X^*(a) = 0$.
-\item $t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、この範囲で$K_X(t)$は凸関数。
+\item ある$R>0$について$t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、この範囲で$K_X(t)$は凸関数。
 \end{itemize}
 \end{frame}
 
@@ -782,10 +782,13 @@ $\Pr(Z\in[a,b])=1$である。
 \end{theorem}
 \end{frame}
 
+\begin{frame}{おまけ: テイラーの定理}
+\end{frame}
+
 \begin{frame}{課題}
 \begin{enumerate}
 \setlength{\itemsep}{2em}
-\item 表が出る確率が$1/2$のコインを$N=10^{10}$回投げて$6\cdot 10^9$回以上表が出る確率の集中不等式(チェルノフ上界)を$\mathrm{e}^{-cN}$という形で表すときの$c>0$をもとめよ。
+\item 表が出る確率が$1/2$のコインを$N$回投げて$0.6N$回以上表が出る確率を$\mathrm{e}^{-cN}$という形で上から抑えるときの最小の$c>0$をもとめよ。
 \end{enumerate}
 \end{frame}
 
