@@ -549,12 +549,12 @@ Y_k&:= \frac{X_k-\expt{X}}{\sqrt{\var{X}}}\qquad \text{for } k=1,2,\dotsc,N
 
 \begin{frame}{特性関数}
 \begin{definition}[特性関数]
-確率変数$X$の\emm{特性関数}を以下で定義する。
+確率変数$X$の\emm{特性関数}$\varphi_X\colon\mathbb{R}\to\mathbb{C}$を以下で定義する。
 \begin{align*}
 \varphi_X(t) &:= \expt{\mathrm{e}^{itX}}.
 \end{align*}
 \end{definition}
-モーメント母関数は存在するとは限らないが特性関数は(定義域を$\mathbb{R}$として)常に存在する。
+モーメント母関数は存在するとは限らないが特性関数は(定義域を$\mathbb{R}$として)\emm{常に存在}する。
 
 \vspace{.5em}
 $X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分できる。
@@ -605,20 +605,22 @@ $X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分でき�
 \lim_{N\to\infty}\Pr\left(\frac{\sum_{k=1}^N Y_k}{\sqrt{N}} \le x\right) &= \Pr(Z\le x)
 \end{align*}
 を示す。
-
+%
 \begin{align*}
-\lim_{N\to\infty} H_{\frac{\sum_kY_k}{\sqrt{N}}}(t) &= \varphi_Z(t) = -\frac{t^2}2
+\lim_{N\to\infty} \varphi_{\frac{\sum_kY_k}{\sqrt{N}}}(t) &= \varphi_Z(t) = -\frac{t^2}2
 \end{align*}
-を示せばよい。$Y$は分散を持つので$H_Y$は0で二回微分できる。テイラーの定理($H_Y$は$\mathbb{R}\to\mathbb{C}$の関数だけど)より
+を示せばよい。$Y$は分散を持つので$\varphi_Y$は0で二回微分できる。テイラーの定理($\varphi_Y$は$\mathbb{R}\to\mathbb{C}$の関数だけど)より
 \begin{align*}
-H_{\frac{\sum_kY_k}{\sqrt{N}}}(t) &= 
-H_{\sum_kY_k}\left(\frac{t}{\sqrt{N}}\right)
-= NH_Y\left(\frac{t}{\sqrt{N}}\right)\\
-&= N\left(H_Y(0) + H_Y'(0)\frac{t}{\sqrt{N}} + \frac{H_Y''(0)}2\left(\frac{t}{\sqrt{N}}\right)^2 + o\left(\frac{1}{N}\right)\right)
-\stackrel{N\to\infty}{\longrightarrow} -\frac{t^2}2
+\varphi_{\frac{\sum_kY_k}{\sqrt{N}}}(t) &= 
+\varphi_{\sum_kY_k}\left(\frac{t}{\sqrt{N}}\right)
+= \varphi_Y\left(\frac{t}{\sqrt{N}}\right)^N\\
+&= \left(\varphi_Y(0) + \varphi_Y'(0)\frac{t}{\sqrt{N}} + \frac{\varphi_Y''(0)}2\left(\frac{t}{\sqrt{N}}\right)^2 + o\left(\frac{1}{N}\right)\right)^N\\
+&= \left(1 + \frac{1}2\frac{t^2}{N} + o\left(\frac{1}{N}\right)\right)^N
+\stackrel{N\to\infty}{\longrightarrow} \mathrm{e}^{-\frac{t^2}2}
 \end{align*}
 \end{frame}
 
+\if0
 \begin{frame}{集中不等式との比較}
 \begin{align*}
 %\Pr\left(\frac1N\sum_{k=1}^N X_k\ge \expt{X} + \frac{a}{\sqrt{N}}\right) &\le \mathrm{e}^{-\frac{\left(a/\sqrt{N}\right)^2}{2s^2}N}
@@ -634,6 +636,7 @@ I_X\left(\expt{X}+\frac{a}{\sqrt{N}}\right)&=I_X(\expt{X}) + I_X'(\expt{X})\frac
 &= \frac1{2\var{X}}\frac{a^2}N + o\left(\frac1N\right)
 \end{align*}
 \end{frame}
+\fi
 
 \begin{frame}{中心極限定理の収束のスピード}
 \begin{align*}
@@ -726,6 +729,7 @@ $X_1+X_2\sim N(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)$である。
 &= \int_{-\infty}^{z}\left(\int_{-\infty}^\infty  p_Y(y)  p_X(x'-y) \mathrm{d}y\right)\mathrm{d}x'\\
 \end{align*}
 より$\emm{\int_{-\infty}^{\infty} p_Y(y)p_X(x-y)\mathrm{d}y}$である。
+これを確率密度関数$p_X$と$p_Y$の\emm{畳み込み}という。
 \end{frame}
 
 \begin{frame}{正規分布の密度関数}
@@ -740,21 +744,30 @@ p(x\emm{-a}) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x\emm{-a}-\mu)^2
 \end{align*}
 \end{frame}
 
-\begin{frame}{キュムラントを使った証明}
+\begin{frame}{特性関数を使った証明}
+任意の独立確率変数$X$と$Y$と$a\in\mathbb{R}$について
 \begin{align*}
-H_{X+a}(t) &= \log\expt{\mathrm{e}^{it(X+a)}} = \log\left(\expt{\mathrm{e}^{itX}}\cdot \mathrm{e}^{ita}\right) = \emm{H_X(t) + iat}\\
-H_{aX}(t) &= \log\expt{\mathrm{e}^{it(aX)}} = \emm{H_X(at)}\\
-H_{X+Y}(t) &= \log\expt{\mathrm{e}^{it(X+Y)}} =\log\left(\expt{\mathrm{e}^{itX}}\expt{\mathrm{e}^{itY}}\right) = \emm{H_X(t) + H_Y(t)}
+\varphi_{X+a}(t) &= \expt{\mathrm{e}^{it(X+a)}} = \left(\expt{\mathrm{e}^{itX}}\cdot \mathrm{e}^{ita}\right) = \emm{\varphi_X(t) \mathrm{e}^{iat}}\\
+\varphi_{aX}(t) &= \expt{\mathrm{e}^{it(aX)}} = \emm{\varphi_X(at)}\\
+\varphi_{X+Y}(t) &= \expt{\mathrm{e}^{it(X+Y)}} =\expt{\mathrm{e}^{itX}}\expt{\mathrm{e}^{itY}} = \emm{\varphi_X(t) \varphi_Y(t)}
 \end{align*}
 $X\sim N(\mu,\sigma^2)$について
 \begin{align*}
-H_X(t) &= i\mu t - \frac{\sigma^2t^2}2
+\varphi_X(t) &= \mathrm{e}^{i\mu t - \frac{\sigma^2t^2}2}
 \end{align*}
 より、
 \begin{align*}
-H_{X\emm{+a}}(t) &= i(\mu\emm{+a}) t - \frac{\sigma^2t^2}2\qquad\text{\small ($N(\mu+a,\sigma^2)$のキュムラント母関数)}\\
-H_{\emm{a}X}(t) &= i\mu \emm{a}t - \frac{\emm{a^2}\sigma^2t^2}2\qquad\text{\small ($N(a\mu,a^2\sigma^2)$のキュムラント母関数)}\\
-H_{X_1\emm{+}X_2}(t) &= i(\mu_1\emm{+}\mu_2)t - \frac{(\sigma_1^2\emm{+}\sigma_2^2)t^2}2\qquad\text{\small ($N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)$のキュムラント母関数)}
+\varphi_{X\emm{+a}}(t) &= \mathrm{e}^{i(\mu\emm{+a}) t - \frac{\sigma^2t^2}2}\qquad\text{\small ($N(\mu+a,\sigma^2)$の特性関数)}\\
+\varphi_{\emm{a}X}(t) &= \mathrm{e}^{i\mu \emm{a}t - \frac{\emm{a^2}\sigma^2t^2}2}\qquad\text{\small ($N(a\mu,a^2\sigma^2)$の特性関数)}\\
+\varphi_{X_1\emm{+}X_2}(t) &= \mathrm{e}^{i(\mu_1\emm{+}\mu_2)t - \frac{(\sigma_1^2\emm{+}\sigma_2^2)t^2}2}\qquad\text{\small ($N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)$の特性関数)}
+\end{align*}
+\end{frame}
+
+\begin{frame}{独立だけど同分布じゃない場合}
+$X_k$が分散を持つと仮定する。
+\begin{align*}
+\lim_{N\to\infty}\Pr\left(\frac{\left(\sum_{k=1}^N (X_k-\expt{X_k}\right)}{\sqrt{\sum_{k=1}^N\var{X_k}}} \le x\right) &\stackrel{\large ?}{=} \Phi(x)
+%=\frac1{\sqrt{2\pi}}\int_{-\infty}^x\mathrm{e}^{-\frac{t^2}2}\mathrm{d}t
 \end{align*}
 \end{frame}
 
