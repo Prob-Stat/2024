@@ -343,23 +343,43 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 \end{frame}
 
 \begin{frame}{キュムラント母関数の性質}
+\small
 \begin{align*}
-K_X(t) &= \log \expt{\mathrm{e}^{tX}}
+K_X(t) &= \log M_X(t) = \log \expt{\mathrm{e}^{tX}}
 \end{align*}
 \begin{itemize}
-\setlength{\itemsep}{2em}
+\setlength{\itemsep}{1em}
 \item $K_X(0) = 0$.
-\item $t\in(-\epsilon,\epsilon)$でキュムラント母関数が存在すると仮定すると、$\left.\frac{\mathrm{d}K_X(t)}{\mathrm{d} t}\right|_{t=0} = \expt{X}$.
+\item ある$t>0$について$M_X(t)$が存在すると仮定すると、$s\in(0, t)$について
+\begin{align*}
+M_X(s) &= \expt{\mathrm{e}^{sX}}
+= \expt{\mathrm{e}^{sX}\mathbb{1}_{\{X\ge 0\}}}+\expt{\mathrm{e}^{sX}\mathbb{1}_{\{X< 0\}}}\\
+&\le \expt{\mathrm{e}^{tX}\mathbb{1}_{\{X\ge 0\}}}+1
+\le M_X(t)+1<\infty
+\end{align*}
+であるので、$M_X(s)$も存在する。同様にある$t<0$について$M_X(t)$が存在すると仮定すると$s\in(t,0)$について$M_X(s)$も存在する。
+よって、\emm{$M_X$や$K_X$が存在する範囲は0を含む区間}となる。
+この区間を\emm{$\mathrm{dom}(K_X)$}と表す。
+%\item ある$t_1<0<t_2$について$K_X(t)$ が $t\in(t_1,t_2)$で存在するとき、この範囲で無限回微分できる(微分と期待値の順番を交換できる)。
+\item ある$t_1<t_2$について$K_X(t)$ が $t\in(t_1,\,t_2)$で存在するとき、この範囲で\emm{無限回微分}できる(微分と期待値の順番を交換できる)。\emm{ルベーグ積分の知識が必要}。
+%また、狭義凸である。
+%\begin{align*}
+%M_X(t) &= \sum_{k= 0}^\infty \frac{\expt{X^k}}{k!} t^k
+%\end{align*}
+%であり、無限回微分できる。
+\item $K_X(t)$は存在する範囲で\emm{凸関数}である。
 %\item $a \le \expt{X}$ のとき $K_X^*(a) = 0$.
-\item ある$R>0$について$t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、この範囲で$K_X(t)$は凸関数。
+%\item ある$R>0$について$t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、この範囲で$K_X(t)$は凸関数。
 \end{itemize}
 \end{frame}
 
-\begin{frame}{キュムラント母関数の凸性}
+
+\begin{frame}{キュムラント母関数の微分と凸性}
+\small
 \begin{align*}
 K_X(t) &= \log \expt{\mathrm{e}^{tX}}
 \end{align*}
-$t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、この範囲で\emm{微分と期待値を交換できる}。
+$t\in(-t_1,\, t_2)$でキュムラント母関数が存在すると仮定すると、この範囲で\emm{微分と期待値を交換できる}。
 % \sum_{k=0}^n |(x^k)/k! t^k| <= exp(|tx|) <= exp(tx) + exp(-tx)
 % E[\sum_{k=0}^n |(x^k)/k! t^k|] <= M_X(t) + M_X(-t)
 %
@@ -369,6 +389,38 @@ $t\in(-R, R)$でキュムラント母関数が存在すると仮定すると、�
 \frac{\mathrm{d}^2 K_X(t)}{\mathrm{d}t^2} &= \frac{\expt{X^2\mathrm{e}^{tX}}\expt{\mathrm{e}^{tX}}-\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}^2}\\
 &= \frac{\expt{X^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}-\left(\frac{\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}}\right)^2\\
 &= \frac{\expt{\left(X-\frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\right)^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\ge 0
+\end{align*}
+\emm{ある確率変数$Z$の平均と分散になっている}。
+また、$X$が決定的($\Pr(X=\expt{X})=1$)でない限り、$K_X$は$\mathrm{dom}(K_X)$で狭義凸である。
+\end{frame}
+
+\begin{frame}{キュムラント}
+$t\in(-\epsilon,\epsilon)$でキュムラント母関数$K_X(t)$が存在するとき、
+\emm{$n$次キュムラント}を以下で定義する。
+\begin{align*}
+\kappa_n &:=\left.\frac{\mathrm{d}^nK_X(t)}{\mathrm{d} t^n}\right|_{t=0}.
+\end{align*}
+
+\begin{itemize}
+\item \emm{$\kappa_1 = \expt{X}$}.
+\item \emm{$\kappa_2 = \var{X}$}.
+\item $\kappa_3 = \expt{(X-\expt{X})^3}$.
+\item $\kappa_4 = \expt{(X-\expt{X})^4}-3\kappa_2^2$.
+\item $\kappa_5 = \expt{(X-\expt{X})^5}-10\kappa_3\kappa_2$.
+\end{itemize}
+
+\vspace{2em}
+\begin{center}
+最初の二つだけ覚えておけば大体OK。
+\end{center}
+\end{frame}
+
+\begin{frame}{キュムラント母関数のその他の簡単な性質}
+独立確率変数$X$と$Y$と$a\in\mathbb{R}$について
+\begin{align*}
+K_{X+a}(t) &= \log\expt{\mathrm{e}^{t(X+a)}} = \log\left(\expt{\mathrm{e}^{tX}}\cdot \mathrm{e}^{ta}\right) = \emm{K_X(t) + at}\\
+K_{aX}(t) &= \log\expt{\mathrm{e}^{t(aX)}} = \emm{K_X(at)}\\
+K_{X+Y}(t) &= \log\expt{\mathrm{e}^{t(X+Y)}} =\log\left(\expt{\mathrm{e}^{tX}}\expt{\mathrm{e}^{tY}}\right) = \emm{K_X(t) + K_Y(t)}
 \end{align*}
 \end{frame}
 
@@ -387,8 +439,8 @@ $f$は凸なので、$at-f(t)$は$t$の関数として凹(上に凸)となる。
 このとき、
 \begin{itemize}
 \setlength{\itemsep}{1em}
-\item $f'(t^*) = a$ を満たす$t^*\in J$が存在するとき、$f^*(a) = at^* - f(t^*)$である。
-$f'$が単調非減少であることから、$t^*$は$a$について単調非減少である。
+\item $f'(t_a) = a$ を満たす$t_a\in J$が存在するとき、$f^*(a) = at_a - f(t_a)$である。
+$f'$が単調非減少であることから、$t_a$は$a$について単調非減少である。
 %\item $\lim_{t\to\inf(J)} f'(t) > a$ のときや$\lim_{t\to\sup(J)} f'(t) < a$のとき、$f^*(a)=\infty$である。
 \end{itemize}
 \end{frame}
@@ -406,7 +458,7 @@ $f'$が単調非減少であることから、$t^*$は$a$について単調非�
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=-5:5, samples=100, color=blue, thick] {-2*x+x^2};
+    \draw[dashed, black] (axis cs:0, -2) -- (axis cs:0, 13);
     \addplot[domain=-5:5, samples=100, color=orange, thick] {-2*x};
     \addplot[domain=-5:5, samples=100, color=orange, thick] {-1};
     \addplot[domain=-5:5, samples=100, color=orange, thick] {2*(x-2) + 0};
@@ -416,7 +468,7 @@ $f'$が単調非減少であることから、$t^*$は$a$について単調非�
     \addplot[domain=-5:5, samples=100, color=orange, thick] {(-6)*(x+2) + 8};
     \addplot[domain=-5:5, samples=100, color=orange, thick] {(-8)*(x+3) + 15};
     %\addplot[domain=-5:5, samples=100, color=orange, thick] {3*(x-5/2) - 5 + 25/4};
-    \draw[dashed, black] (axis cs:0, -2) -- (axis cs:0, 13);
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {-2*x+x^2};
     %\legend{$K_X(t)$, $\expt{X}t$}
 \end{axis}
 \end{tikzpicture}
@@ -431,7 +483,7 @@ $f'$が単調非減少であることから、$t^*$は$a$について単調非�
 \begin{frame}{ルジャンドル変換}
 %$f(0)=0$のときのルジャンドル変換$f^*(y) = \sup_{x\in\mathbb{R}} \{yx - f(x)\}$.
 %$\sup$は$f'(x^*)=y$を満たす$x^*(y)$で達成される。
-$f'(t^*) = a$より、$a=f'(0)$のとき、$t^*=0$である。特に$f(0)=0$のとき以下の図のようになる。
+$f'(t_a) = a$より、$a=f'(0)$のとき、$t_a=0$である。特に$f(0)=0$のとき以下の図のようになる。
 
 \vspace{1em}
 \begin{center}
@@ -455,7 +507,7 @@ $f'(t^*) = a$より、$a=f'(0)$のとき、$t^*=0$である。特に$f(0)=0$の�
     \node[left] at (axis cs:0, -4) {\small $-f^*(a)$};
     \addplot[black, mark=*, only marks] coordinates {(2, 0)};
     \draw[dashed, black] (axis cs:2, 0) -- (axis cs:2, -13);
-    \node[above right] at (axis cs:2, -13) {$t^*$};
+    \node[above right] at (axis cs:2, -13) {$t_a$};
     %\node[left] at (axis cs:0, -4) {\tiny $y(x-x^*) + f(x^*)$};
     %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
 \end{axis}
@@ -481,9 +533,9 @@ $f'(t^*) = a$より、$a=f'(0)$のとき、$t^*=0$である。特に$f(0)=0$の�
 \end{axis}
 \end{tikzpicture}
 \end{center}
-$f^*(a)$ は$f$の傾きが$a$のところの接線$a(t-t^*) + f(t^*)$の$t=0$での値の$-1$倍。
+$f^*(a)$ は$f$の傾きが$a$のところの接線$a(t-t_a) + f(t_a)$の$t=0$での値の$-1$倍。
 
-$t^*$は$a=f'(0)$のとき0で$a>f'(0)$のとき、$t^*>0$、$a<f'(0)$のとき$t^*<0)$。
+$t_a$は$a=f'(0)$のとき0で$a>f'(0)$のとき、$t_a>0$、$a<f'(0)$のとき$t_a<0)$。
 \end{frame}
 
 \begin{frame}{チェルノフ上界の最適化}
@@ -493,7 +545,7 @@ $t^*$は$a=f'(0)$のとき0で$a>f'(0)$のとき、$t^*>0$、$a<f'(0)$のとき$
 \begin{align*}
 %I_+(a) &:= \sup_{t > 0}\left\{at - K_X(t)\right\}\\
 %I_-(a) &:= \sup_{t < 0}\left\{at - K_X(t)\right\}
-I_X(a) &:= \sup_{t \in\mathrm{dom}(K_X)}\left\{at - K_X(t)\right\}
+I_X(a) &:= \sup_{\emm{t \in\mathrm{dom}(K_X)}}\left\{at - K_X(t)\right\}
 \end{align*}
 %とおくと、
 と定義する。
@@ -552,19 +604,69 @@ $t>0$を最適化することで補題を得る。
 \Pr(X=0) &= 1-p,&\Pr(X=1)=p
 \end{align*}
 \begin{align*}
-K_X(t) &= \log(p\mathrm{e}^t + (1-p))
+K_X(t) &= \emm{\log(p\mathrm{e}^t + (1-p))}
 \end{align*}
 \begin{align*}
 I_X(a) &= \sup_{t\in\mathbb{R}} \left\{ at - \log(p\mathrm{e}^t+(1-p))\right\}
 \end{align*}
 \begin{align*}
-a - \frac{p\mathrm{e}^{t^*}}{p\mathrm{e}^{t^*}+1-p} = 0
-\iff \mathrm{e}^{t^*} = \frac{a(1-p)}{p(1-a)}
+a - \frac{p\mathrm{e}^{t_a}}{p\mathrm{e}^{t_a}+1-p} = 0
+\iff \mathrm{e}^{t_a} = \frac{a(1-p)}{p(1-a)}
 \end{align*}
 \begin{align*}
 I_X(a) &= a\log\frac{a(1-p)}{p(1-a)} - \log\left(\frac{a(1-p)}{1-a} + (1-p)\right)\\
  %&= (a-1)\log\frac{1-p}{1-a} + a\log\frac{a}{p}
- &= \emm{a\log\frac{a}{p} + (1-a)\log\frac{1-a}{1-p}}
+ &= \emm{a\log\frac{a}{p} + (1-a)\log\frac{1-a}{1-p}} \qquad\text{for } a\in(0,1)
+\end{align*}
+\end{frame}
+
+\begin{frame}{キュムラント母関数とレート関数}
+$p=1/2$の場合
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.49\textwidth,
+    xlabel=$t$,
+    ylabel=$K_X(t)$,
+    xmin=-5, xmax=5,
+    ymin={ln(1/2)}, ymax=5,
+    xtick={5,0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {ln(exp(x)/2 + 1/2)};
+    %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
+    \draw[dashed, black] (axis cs:0, 5) -- (axis cs:0, {ln(1/2)});
+    \draw[dashed, black] (axis cs:-5, 0) -- (axis cs:5, 0);
+    %\node[left] at (axis cs:0, -4) {\tiny $y(x-x^*) + f(x^*)$};
+    %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.49\textwidth,
+    xlabel=$a$,
+    ylabel=$I(a)$,
+    xmin=0, xmax=1,
+    ymin=0, ymax={ln(2)},
+    xtick={0,1},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=0:1, samples=100, color=blue, thick] {x*ln(2*x) + (1-x)*ln(2*(1-x))};
+    \addplot[black, mark=*, only marks] coordinates {(0.5, 0)};
+    \node[above] at (axis cs:0.5, 0) {$p$};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {2*(x-2) + 0};
+    %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\begin{align*}
+K_X(t) &= \log(p\mathrm{e}^t + (1-p))\\
+I_X(a) &= a\log\frac{a}{p} + (1-a)\log\frac{1-a}{1-p} \qquad\text{for } a\in(0,1)\\
 \end{align*}
 \end{frame}
 
@@ -607,6 +709,59 @@ I_X(a)&=\sup_{t\in\mathbb{R}} \left\{at - \left(\mu t + \frac{\sigma^2t^2}2\righ
 \end{align*}
 \end{frame}
 
+\begin{frame}{キュムラント母関数とレート関数}
+$\mu=0$, $\sigma^2=1$の場合
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.49\textwidth,
+    xlabel=$t$,
+    ylabel=$K_X(t)$,
+    xmin=-5, xmax=5,
+    ymin=0, ymax=5,
+    xtick={5,0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {x^2/2};
+    %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
+    \draw[dashed, black] (axis cs:0, 0) -- (axis cs:0, 5);
+    \draw[dashed, black] (axis cs:-5, 0) -- (axis cs:5, 0);
+    %\node[left] at (axis cs:0, -4) {\tiny $y(x-x^*) + f(x^*)$};
+    %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.49\textwidth,
+    xlabel=$a$,
+    ylabel=$I_X(a)$,
+    xmin=-5, xmax=5,
+    ymin=0, ymax=5,
+    xtick={5,0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {x^2/2};
+    %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
+    \draw[dashed, black] (axis cs:0, 1) -- (axis cs:0, 5);
+    \draw[dashed, black] (axis cs:-5, 0) -- (axis cs:5, 0);
+    \addplot[black, mark=*, only marks] coordinates {(0, 0)};
+    \node[above] at (axis cs:0, 0) {$\mu$};
+    %\node[left] at (axis cs:0, -4) {\tiny $y(x-x^*) + f(x^*)$};
+    %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\begin{align*}
+K_X(t) &= \mu t + \frac{\sigma^2t^2}2\\
+I_X(a) &= \frac{(a-\mu)^2}{2\sigma^2}
+\end{align*}
+\end{frame}
+
 \begin{frame}{例: ポアソン分布}
 \begin{align*}
 \Pr(X=k) &= \frac{\lambda^k\mathrm{e}^{-\lambda}}{k!}\qquad\text{for}\quad k\in\mathbb{Z}_{\ge 0}.
@@ -627,7 +782,7 @@ K_X(t) &= \emm{\lambda(\mathrm{e}^t-1)}
 I_X(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}
 \end{align*}
 \begin{align*}
-a-\lambda\mathrm{e}^{t^*} &= 0\iff t^* = \log \frac{a}{\lambda}
+a-\lambda\mathrm{e}^{t_a} &= 0\iff t_a = \log \frac{a}{\lambda}
 \end{align*}
 \begin{align*}
 %\sup_{t>0}\left\{at - \lambda(\mathrm{e}^t-1)\right\} &=
@@ -636,7 +791,7 @@ a-\lambda\mathrm{e}^{t^*} &= 0\iff t^* = \log \frac{a}{\lambda}
 %0&\text{otherwise.}
 %\end{cases}
 I_X(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}\\
- &= \emm{a\log\frac{a}{\lambda} -a + \lambda}.
+ &= \emm{a\log\frac{a}{\lambda} -a + \lambda} \qquad\text{for } a > 0.
 \end{align*}
 
 \vspace{.5em}
@@ -646,6 +801,59 @@ I_X(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}\\
 %\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \lambda+\epsilon\right) &\le \mathrm{e}^{-\emm{((\lambda+\epsilon) \log\frac{\lambda+\epsilon}{\lambda} - \epsilon)}N}.
 \Pr\left(\frac1N\sum_{k=1}^N X_k \ge c\lambda\right) &\le \mathrm{e}^{-\emm{\lambda\left(c\log c -c + 1 \right)}N}\qquad\forall c > 1\\
 \Pr\left(\frac1N\sum_{k=1}^N X_k \le c\lambda\right) &\le \mathrm{e}^{-\emm{\lambda\left(c\log c -c + 1 \right)}N}\qquad\forall c < 1\\
+\end{align*}
+\end{frame}
+
+\begin{frame}{キュムラント母関数とレート関数}
+$\lambda=1$の場合
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.49\textwidth,
+    xlabel=$t$,
+    ylabel=$K_X(t)$,
+    xmin=-5, xmax=5,
+    ymin=-1, ymax=5,
+    xtick={5,0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {exp(x) - 1};
+    %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
+    \draw[dashed, black] (axis cs:0, -1) -- (axis cs:0, 5);
+    \draw[dashed, black] (axis cs:-5, 0) -- (axis cs:5, 0);
+    %\node[left] at (axis cs:0, -4) {\tiny $y(x-x^*) + f(x^*)$};
+    %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.49\textwidth,
+    xlabel=$a$,
+    ylabel=$I_X(a)$,
+    xmin=0, xmax=5,
+    ymin=0, ymax=5,
+    xtick={5,0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=0:5, samples=100, color=blue, thick] {x*ln(x)-x+1};
+    %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
+    \draw[dashed, black] (axis cs:0, 0) -- (axis cs:0, 5);
+    \draw[dashed, black] (axis cs:0, 0) -- (axis cs:5, 0);
+    \addplot[black, mark=*, only marks] coordinates {(1, 0)};
+    \node[above] at (axis cs:1, 0) {$\lambda$};
+    %\node[left] at (axis cs:0, -4) {\tiny $y(x-x^*) + f(x^*)$};
+    %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\begin{align*}
+K_X(t) &= \lambda(\mathrm{e}^t-1)\\
+I_X(a) &= a\log\frac{a}{\lambda} - a + \lambda\qquad\text{for } a > 0.
 \end{align*}
 \end{frame}
 
@@ -684,7 +892,7 @@ K_X(t) &=
 I_X(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}
 \end{align*}
 \begin{align*}
-a - \frac1{\lambda-t^*} &=0 \iff  t^* = \lambda-\frac1a
+a - \frac1{\lambda-t_a} &=0 \iff  t_a = \lambda-\frac1a
 \end{align*}
 \begin{align*}
 I_X(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}\\
@@ -703,6 +911,61 @@ I_X(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}\\
 %\Pr\left(\frac1N\sum_{k=1}^N X_k \ge \lambda+\epsilon\right) &\le \mathrm{e}^{-\emm{((\lambda+\epsilon) \log\frac{\lambda+\epsilon}{\lambda} - \epsilon)}N}.
 \Pr\left(\frac1N\sum_{k=1}^N X_k \ge \frac{c}{\lambda}\right) &\le \mathrm{e}^{-\emm{(c-1-\log c)}N} \qquad\forall c>1\\
 \Pr\left(\frac1N\sum_{k=1}^N X_k \ge \frac{c}{\lambda}\right) &\ge \mathrm{e}^{-\emm{(c-1-\log c)}N} \qquad\forall c<1.
+\end{align*}
+\end{frame}
+
+\begin{frame}{キュムラント母関数とレート関数}
+$\lambda=1$の場合
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.49\textwidth,
+    xlabel=$t$,
+    ylabel=$K_X(t)$,
+    xmin=-5, xmax=1,
+    ymin=-3, ymax=4,
+    xtick={5,0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=-5:5, samples=100, color=blue, thick] {ln(1/(1-x))};
+    %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
+    \draw[dashed, black] (axis cs:0, -3) -- (axis cs:0, 4);
+    \draw[dashed, black] (axis cs:-5, 0) -- (axis cs:1, 0);
+    %\node[left] at (axis cs:0, -4) {\tiny $y(x-x^*) + f(x^*)$};
+    %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.49\textwidth,
+    xlabel=$a$,
+    ylabel=$I_X(a)$,
+    xmin=0, xmax=5,
+    ymin=0, ymax=5,
+    xtick={5,0,5},
+    ytick={0},
+    legend pos = south east
+]
+    \addplot[domain=0:5, samples=100, color=blue, thick] {x-1-ln(x)};
+    %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
+    \draw[dashed, black] (axis cs:0, 0) -- (axis cs:0, 5);
+    \draw[dashed, black] (axis cs:0, 0) -- (axis cs:5, 0);
+    \addplot[black, mark=*, only marks] coordinates {(1, 0)};
+    \node[above] at (axis cs:1, 0) {$\frac1\lambda$};
+    %\legend{$f(x)$, $a(x-x^*)+f(x^*)$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\begin{align*}
+K_X(t) &=
+\begin{cases}
+\log\frac{\lambda}{\lambda-t}& t < \lambda\\
++\infty&\text{otherwise.}
+\end{cases}\\
+I_X(a) &= a\lambda-1-\log(a\lambda)
 \end{align*}
 \end{frame}
 
@@ -757,9 +1020,9 @@ K_X(t)=\log\expt{\mathrm{e}^{tX}} &\le \expt{X}t + \frac{(b-a)^2t^2}8.
 \end{lemma}
 \begin{proof}
 $X$が有界であることから、$K_X(t)$は任意の$t\in\mathbb{R}$について存在する。
-テイラーの定理よりある$\theta\in(0,t)$が存在して、($t<0$のときは$\theta\in(t, 0)$)
+\emm{テイラーの定理}よりある$\theta\in(0,t)$が存在して、($t<0$のときは$\theta\in(t, 0)$)
 \begin{align*}
-K_X(t) &= \expt{X}t + K_X''(\theta)\frac{t^2}2
+K_X(t) &= \expt{X}t + \emm{K_X''(\theta)\frac{t^2}2}
 \end{align*}
 ここで、$K_X''(\theta)$はある確率変数$Z\in[a,b]$の分散$\var{Z}$である。
 \end{proof}
@@ -776,14 +1039,15 @@ K''_X(t)
 %&= \frac{\expt{X^2\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}-\left(\frac{\expt{X\mathrm{e}^{tX}}^2}{\expt{\mathrm{e}^{tX}}}\right)^2\\
 &= {\expt{\left(X-\frac{\expt{X\mathrm{e}^{tX}}}{\expt{\mathrm{e}^{tX}}}\right)^2\mathrm{e}^{tX}}}/{\expt{\mathrm{e}^{tX}}}.
 \end{align*}
-具体的には
+具体的には任意の$f\colon\mathbb{R}\to\mathbb{R}$について
 \begin{align*}
-\Pr(Z\in A) &= \frac{\expt{\mathbb{I}_A(X)\mathrm{e}^{\theta X}}}{\expt{\mathrm{e}^{\theta X}}}
+%\Pr(Z\in A) &= \frac{\expt{\mathbb{I}_A(X)\mathrm{e}^{\theta X}}}{\expt{\mathrm{e}^{\theta X}}}
+\expt{f(Z)} &= \frac{\expt{f(X)\mathrm{e}^{\theta X}}}{\expt{\mathrm{e}^{\theta X}}}
 \end{align*}
-という確率変数$Z$について、$K_X''(\theta) = \var{Z}$である。
+という確率変数$Z$について、\emm{$K_X''(\theta) = \var{Z}$}である。
 
 例えば$X$の確率密度関数が$p(x)$のとき、$Z$の確率密度関数は$p(x)\frac{\mathrm{e}^{\theta x}}{\int_{-\infty}^\infty p(x)\mathrm{e}^{\theta x}\dx}$である。
-$\Pr(Z\in[a,b])=1$である。
+\emm{$\Pr(Z\in[a,b])=1$}である。
 %任意の$x\in\mathbb{R}$について
 \begin{align*}
 \expt{(Z-x)^2} &= x^2 - 2\expt{Z}x + \expt{Z^2}\ge \var{Z}\qquad\forall x\in\mathbb{R}
@@ -791,7 +1055,7 @@ $\Pr(Z\in[a,b])=1$である。
 \end{align*}
 より、$x=\frac{a+b}2$を代入すると、
 %\begin{align*}
-$\var{Z} \le \expt{\left(Z-\frac{a+b}2\right)^2}\le \left(\frac{b-a}2\right)^2$.
+$\var{Z} \le \expt{\left(Z-\frac{a+b}2\right)^2}\le \emm{\left(\frac{b-a}2\right)^2}$.
 %\end{align*}
 \end{proof}
 \end{frame}
@@ -830,7 +1094,8 @@ f(x) &= \sum_{s=0}^k \frac{f^{(s)}(a)}{s!}(x-a)^s + \frac{f^{(k+1)}(c)}{(k+1)!}(
 \begin{enumerate}
 \setlength{\itemsep}{2em}
 \item 表が出る確率が$1/2$のコインを$N$回投げて$0.6N$回以上表が出る確率を$\mathrm{e}^{-cN}$という形で上から抑えるときの最大の$c>0$をもとめよ。
-\item 1から6の目を持つ偏りのないサイコロを$N$回投げて和の合計が$4N$以上になる確率$\mathrm{e}^{-cN}$という形で上から抑えるときの最大の$c>0$をもとめよ。
+%\item 1から6の目を持つ偏りのないサイコロを$N$回投げて和の合計が$4N$以上になる確率$\mathrm{e}^{-cN}$という形で上から抑えるときの最大の$c>0$をもとめよ。
+\item $n> 1$ について $f(t) = \frac1n t^n \quad\forall t\in\mathbb{R}$ のルジャンドル変換 $f^*(a)$を求めよ。
 \end{enumerate}
 \end{frame}
 
