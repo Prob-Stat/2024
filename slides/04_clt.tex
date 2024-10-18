@@ -18,6 +18,9 @@
 \usepackage{unicode-math}
 %\setmathfont{Fira Math}
 \setmathfont{STIX Two Math}
+\setmathfont{STIX Two Math}[range=bfup/{Latin,latin,num,Greek,greek}]
+\setmathfont{STIX Two Math}[range=bfit/{Latin,latin}]
+\setmathfont{STIX Two Math}[range={"0000-"FFFF}]
 \setmathrm{STIX Two Math}[StylisticSet=8]
 
 %\usefonttheme{professionalfonts}
@@ -31,12 +34,13 @@
 
 
 \usepackage{xspace}
-\newcommand\bm[1]{{\mathbf{#1}}}
+%\usepackage{bm}
+%\newcommand\bm[1]{{\mathbf{#1}}}
 \newcommand\dx{{\,\mathrm{d}x}}
 
 \theoremstyle{definition}
 
-\title{確率・統計基礎: 中心極限定理}
+\title{確率・統計基礎: 中心極限定理、正規分布}
 \author{森 立平}
 \date{}
 
@@ -763,12 +767,87 @@ $X\sim N(\mu,\sigma^2)$について
 \end{align*}
 \end{frame}
 
+\if0
 \begin{frame}{独立だけど同分布じゃない場合}
 $X_k$が分散を持つと仮定する。
 \begin{align*}
 \lim_{N\to\infty}\Pr\left(\frac{\left(\sum_{k=1}^N (X_k-\expt{X_k}\right)}{\sqrt{\sum_{k=1}^N\var{X_k}}} \le x\right) &\stackrel{\large ?}{=} \Phi(x)
 %=\frac1{\sqrt{2\pi}}\int_{-\infty}^x\mathrm{e}^{-\frac{t^2}2}\mathrm{d}t
 \end{align*}
+\end{frame}
+\fi
+
+\begin{frame}{複数の確率変数の確率密度関数}
+\small
+\begin{definition}
+$p_{Z_1,\dotsc,Z_n}\colon \mathbb{R}\to\mathbb{R}$が
+確率変数$Z_1,\dotsc,Z_n$の確率密度関数$\stackrel{\mathrm{def}}{\iff}$
+\begin{align*}
+\Pr(Z_1\le z_1, Z_2\le z_2,\dotsm Z_n\le z_n)&=
+\int_{\substack{-\infty< x_1 \le z_1\\ -\infty< x_2\le z_2\\\vdots\\-\infty<x_n\le z_n}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_1^n}
+\end{align*}
+\end{definition}
+%確率変数$Z_1,\dotsc,Z_n$が\emm{独立}のとき、
+%\begin{align*}
+%p_{Z_1,\dotsc,Z_n}(x_1,\dotsc,x_n)&=p_{Z_1}(x_1)p_{Z_2}(x_2)\dotsm p_{Z_n}(x_n)
+%\end{align*}
+%である。
+一つの確率変数$Z_1$の確率密度関数は$\Pr(Z_1\le z_1) = \Pr(Z_1\le z_1, Z_2 <\infty,\dotsc, Z_n<\infty)$より
+\begin{align*}
+p_{Z_1}(x_1)&=
+\int_{\substack{-\infty< x_s <\infty \;\forall s\ne 1}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_2^n}.
+\end{align*}
+他の$Z_k$の確率密度関数についても同様。
+\end{frame}
+
+\begin{frame}{独立確率変数}
+\begin{align*}
+\Pr(Z_1\le z_1, Z_2\le z_2,\dotsm Z_n\le z_n)&=
+\Pr(Z_1\le z_1)\Pr(Z_2\le z_2)\dotsm \Pr(Z_n\le z_n)
+\end{align*}
+\begin{align*}
+\int_{\substack{-\infty< x_1 \le z_1\\ -\infty< x_2\le z_2\\\vdots\\-\infty<x_n\le z_n}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_1^n}
+&=
+\end{align*}
+\end{frame}
+
+\begin{frame}{分散共分散行列}
+\small
+確率変数$Z_1,\dotsc,Z_n$の\emm{分散共分散行列}(もしくは\emm{共分散行列})$\symbf{\Sigma}\in\mathbb{R}^{n\times n}$は
+$(i,\,j)$成分に$\cov{Z_i,\,Z_j}=\expt{Z_iZ_j}-\expt{Z_i}\expt{Z_j}$を持つ行列である。
+\begin{align*}
+\symbf{\Sigma}&=
+\begin{bmatrix}
+\var{Z_1}&\cov{Z_1,Z_2}&\cov{Z_1,Z_3}\\
+\cov{Z_2,Z_1}&\var{Z_2}&\cov{Z_2,Z_3}\\
+\cov{Z_3,Z_1}&\cov{Z_3,Z_2}&\var{Z_3}\\
+\end{bmatrix}
+\end{align*}
+確率変数のベクトルや行列に対する$\expt{\cdot}$は成分毎に期待値を取ることを表す。
+\begin{align*}
+\symbf{Z} &= \begin{bmatrix}Z_1\\Z_2\\\vdots\\Z_n\end{bmatrix}&\text{とすると}\qquad
+\expt{\symbf{Z}} &= \begin{bmatrix}\expt{Z_1}\\\expt{Z_2}\\\vdots\\\expt{Z_n}\end{bmatrix}
+\end{align*}
+である。
+分散共分散行列は
+\begin{align*}
+\symbf{\Sigma}&=\expt{\symbf{Z} \symbf{Z}^T} - \expt{\symbf{Z}}\expt{\symbf{Z}}^T
+\end{align*}
+である。
+\end{frame}
+
+\begin{frame}{分散共分散行列の性質}
+行列$A\in\mathbb{R}^{m\times n}$と$n\times k$の確率変数行列$\symbf{Z}$について$\expt{A\symbf{Z}}=A\expt{\symbf{Z}}$である。
+\begin{align*}
+\symbf{\Sigma}&=\expt{\symbf{AZ} \symbf{AZ}^T} - \expt{\symbf{AZ}}\expt{\symbf{AZ}}^T\\
+&=A\expt{\symbf{Z} \symbf{Z}^T}A^T - A\expt{\symbf{Z}}\expt{\symbf{Z}}^TA^T\\
+\end{align*}
+\end{frame}
+
+\begin{frame}{多変量正規分布}
+\begin{definition}
+確率変数$Z_1,\dotsc,Z_n$が平均$\symbf{\mu}\in\mathbb{R}^n$、分散共分散行列$\Sigma\in\mathbb{R}^{n\times n}$の多変量正規分布
+\end{definition}
 \end{frame}
 
 \end{document}
