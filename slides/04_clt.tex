@@ -37,8 +37,8 @@
 \newcommand{\emm}[1]{\mycolor{red}{#1}}
 \newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
 \newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
-\newcommand{\cov}[1]{\mathrm{Cov}\left[#1\right]}
-\newcommand{\vc}[1]{\mathrm{Var}\left[#1\right]}
+\newcommand{\cov}[1]{\mathsf{Cov}\left[#1\right]}
+\newcommand{\vc}[1]{\mathsf{Var}\left[#1\right]}
 
 
 \usepackage{xspace}
@@ -860,6 +860,7 @@ $(i,\,j)$成分に$\cov{Z_i,\,Z_j}=\expt{Z_iZ_j}-\expt{Z_i}\expt{Z_j}$を持つ�
 
 \begin{frame}{分散共分散行列の性質}
 \begin{itemize}
+\setlength{\itemsep}{2em}
 \item $\vc{\symbf{Z}}$は対称行列である。
 \item $\vc{\symbf{Z}}$は半正定値である。
 \item $\vc{\symbf{Z}+\symbf{b}}=\vc{\symbf{Z}}$.
@@ -867,7 +868,8 @@ $(i,\,j)$成分に$\cov{Z_i,\,Z_j}=\expt{Z_iZ_j}-\expt{Z_i}\expt{Z_j}$を持つ�
 %\item $\vc{\symbf{Z}+\symbf{Y}}=\vc{\symbf{Z}} + \vc{\symbf{Y}} + $.
 \end{itemize}
 \end{frame}
-\begin{frame}{分散共分散行列の性質}
+
+\begin{frame}{線形変換の分散共分散行列}
 行列$A\in\mathbb{R}^{m\times n}$と$n\times k$の確率変数行列$\symbf{Z}$について$\expt{A\symbf{Z}}=A\expt{\symbf{Z}}$である。
 よって、$N$次元確率変数ベクトル$\symbf{Z}$について
 \begin{align*}
@@ -886,9 +888,93 @@ $(i,\,j)$成分に$\cov{Z_i,\,Z_j}=\expt{Z_iZ_j}-\expt{Z_i}\expt{Z_j}$を持つ�
 \end{align*}
 \end{frame}
 
+\begin{frame}{分散共分散行列の半正定値性 I}
+\small
+\begin{align*}
+&
+\begin{bmatrix}
+1&\expt{Z_1}&\expt{Z_2}&\expt{Z_3}\\
+\expt{Z_1}&\expt{Z_1^2}&\expt{Z_1Z_2}&\expt{Z_1Z_3}\\
+\expt{Z_2}&\expt{Z_2Z_1}&\expt{Z_2^2}&\expt{Z_2Z_3}\\
+\expt{Z_3}&\expt{Z_3Z_1}&\expt{Z_3Z_2}&\expt{Z_3^2}\\
+\end{bmatrix}\\
+=&
+\expt{
+\begin{bmatrix}
+1&Z_1&Z_2&Z_3\\
+Z_1&Z_1^2&Z_1Z_2&Z_1Z_3\\
+Z_2&Z_2Z_1&Z_2^2&Z_2Z_3\\
+Z_3&Z_3Z_1&Z_3Z_2&Z_3^2\\
+\end{bmatrix}}\\
+=&
+\expt{
+\begin{bmatrix}
+1\\
+Z_1\\
+Z_2\\
+Z_3\\
+\end{bmatrix}
+\begin{bmatrix}
+1&
+Z_1&
+Z_2&
+Z_3
+\end{bmatrix}}\ge 0\qquad (\text{半正定値行列の期待値は半正定値})
+\end{align*}
+
+任意の$\symbf{a}\in\mathbb{R}^n$ と$n\times n$半正定値ランダム行列$R$について
+$\symbf{a}^T \expt{R}\symbf{a} = \expt{\symbf{a}^TR\symbf{a}}\ge 0$
+なので$\expt{R}\ge0$.
+\end{frame}
+
+\begin{frame}{分散共分散行列の半正定値性 II}
+\scriptsize
+\begin{align*}
+&
+\begin{bmatrix}
+-\expt{Z_1}&1&0&0\\
+-\expt{Z_2}&0&1&0\\
+-\expt{Z_3}&0&0&1\\
+\end{bmatrix}
+\begin{bmatrix}
+1&\expt{Z_1}&\expt{Z_2}&\expt{Z_3}\\
+\expt{Z_1}&\expt{Z_1^2}&\expt{Z_1Z_2}&\expt{Z_1Z_3}\\
+\expt{Z_2}&\expt{Z_2Z_1}&\expt{Z_2^2}&\expt{Z_2Z_3}\\
+\expt{Z_3}&\expt{Z_3Z_1}&\expt{Z_3Z_2}&\expt{Z_3^2}\\
+\end{bmatrix}\\
+=&
+\begin{bmatrix}
+0&\expt{Z_1^2}-\expt{Z_1}^2&\expt{Z_1Z_2}-\expt{Z_1}\expt{Z_2}&\expt{Z_1Z_3}-\expt{Z_1}\expt{Z_3}\\
+0&\expt{Z_2Z_1}-\expt{Z_2}\expt{Z_1}&\expt{Z_2^2}-\expt{Z_2}^2&\expt{Z_2Z_3}-\expt{Z_2}\expt{Z_3}\\
+0&\expt{Z_3Z_1}-\expt{Z_3}\expt{Z_1}&\expt{Z_3Z_2}-\expt{Z_3}\expt{Z_2}&\expt{Z_3^2}-\expt{Z_3}^2\\
+\end{bmatrix}\\
+\end{align*}
+\begin{align*}
+&
+\begin{bmatrix}
+0&\var{Z_1}&\cov{Z_1, Z_2}&\cov{Z_1, Z_3}\\
+0&\cov{Z_2, Z_1}&\var{Z_2}&\cov{Z_2, Z_3}\\
+0&\cov{Z_3, Z_1}&\cov{Z_3, Z_2}&\var{Z_3}
+\end{bmatrix}
+\begin{bmatrix}
+-\expt{Z_1}& -\expt{Z_2}& -\expt{Z_3}\\
+1&0&0\\
+0&1&0\\
+0&0&1\\
+\end{bmatrix}\\
+&=\vc{\symbf{Z}}
+\end{align*}
+
+$A\ge 0$のとき任意の行列$B$について$BAB^T\ge 0$なので$\vc{\symbf{Z}}\ge 0$である。
+\end{frame}
+
 \begin{frame}{多変量正規分布}
-\begin{definition}
-確率変数$Z_1,\dotsc,Z_n$が平均$\symbf{\mu}\in\mathbb{R}^n$、分散共分散行列$\Sigma\in\mathbb{R}^{n\times n}$の多変量正規分布
+\begin{definition}[多変量正規分布]
+確率変数$Z_1,\dotsc,Z_n$が平均$\symbf{\mu}\in\mathbb{R}^n$、分散共分散行列$\Sigma\in\mathbb{R}^{n\times n}$の多変量正規分布は確率密度関数
+\begin{align*}
+p_{\symbf{Z}}(\symbf{x}) &= \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}
+\end{align*}
+で定義される。
 \end{definition}
 \end{frame}
 
