@@ -350,7 +350,7 @@ K_X(t) &= \log M_X(t) = \log \expt{\mathrm{e}^{tX}}
 \begin{itemize}
 \setlength{\itemsep}{1em}
 \item $K_X(0) = 0$.
-\item ある$t>0$について$M_X(t)$が存在すると仮定すると、$s\in(0, t)$について
+\item ある$t>0$について$M_X(t)$が存在する($\iff$有限になる)と仮定すると、$s\in(0, t)$について
 \begin{align*}
 M_X(s) &= \expt{\mathrm{e}^{sX}}
 = \expt{\mathrm{e}^{sX}\mathbb{1}_{\{X\ge 0\}}}+\expt{\mathrm{e}^{sX}\mathbb{1}_{\{X< 0\}}}\\
@@ -416,11 +416,13 @@ $t\in(-\epsilon,\epsilon)$でキュムラント母関数$K_X(t)$が存在する�
 \end{frame}
 
 \begin{frame}{キュムラント母関数のその他の簡単な性質}
-独立確率変数$X$と$Y$と$a\in\mathbb{R}$について
+\small
+任意の独立確率変数$X$と$Y$と$a\in\mathbb{R}$について
 \begin{align*}
-K_{X+a}(t) &= \log\expt{\mathrm{e}^{t(X+a)}} = \log\left(\expt{\mathrm{e}^{tX}}\cdot \mathrm{e}^{ta}\right) = \emm{K_X(t) + at}\\
-K_{aX}(t) &= \log\expt{\mathrm{e}^{t(aX)}} = \emm{K_X(at)}\\
+K_{X+a}(t) &= \log\expt{\mathrm{e}^{t(X+a)}} = \log\left(\expt{\mathrm{e}^{tX}}\cdot \mathrm{e}^{ta}\right) = \emm{K_X(t) + at}\\%\quad\text{for } t\in\mathrm{dom}(K_X)\\
+K_{aX}(t) &= \log\expt{\mathrm{e}^{t(aX)}} = \emm{K_X(at)}\\%\qquad\text{if } at\in\mathrm{dom}(K_X)\\
 K_{X+Y}(t) &= \log\expt{\mathrm{e}^{t(X+Y)}} =\log\left(\expt{\mathrm{e}^{tX}}\expt{\mathrm{e}^{tY}}\right) = \emm{K_X(t) + K_Y(t)}
+%&\hspace{17em}\text{for } t\in\mathrm{dom}(K_X)\cap\mathrm{dom}(K_Y)
 \end{align*}
 \end{frame}
 
@@ -524,7 +526,7 @@ $f'(t_a) = a$より、$a=f'(0)$のとき、$t_a=0$である。特に$f(0)=0$の�
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=-5:5, samples=100, color=blue, thick] {(x+2)^2/4};
+    \addplot[domain=-5:5, samples=1000, color=blue, thick] {(x+2)^2/4};
     \addplot[black, mark=*, only marks] coordinates {(-2, 0)};
     \node[above] at (axis cs:-2, 0) {$f'(0)$};
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
@@ -618,6 +620,7 @@ I_X(a) &= a\log\frac{a(1-p)}{p(1-a)} - \log\left(\frac{a(1-p)}{1-a} + (1-p)\righ
  %&= (a-1)\log\frac{1-p}{1-a} + a\log\frac{a}{p}
  &= \emm{a\log\frac{a}{p} + (1-a)\log\frac{1-a}{1-p}} \qquad\text{for } a\in(0,1)
 \end{align*}
+$I_X(0) = -\log(1-p)$, $I_X(1) = -\log p$.
 \end{frame}
 
 \begin{frame}{キュムラント母関数とレート関数}
@@ -634,7 +637,7 @@ $p=1/2$の場合
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=-5:5, samples=100, color=blue, thick] {ln(exp(x)/2 + 1/2)};
+    \addplot[domain=-5:5, samples=1000, color=blue, thick] {ln(exp(x)/2 + 1/2)};
     %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
     \draw[dashed, black] (axis cs:0, 5) -- (axis cs:0, {ln(1/2)});
@@ -648,14 +651,14 @@ $p=1/2$の場合
 \begin{axis}[
     width=0.49\textwidth,
     xlabel=$a$,
-    ylabel=$I(a)$,
+    ylabel=$I_X(a)$,
     xmin=0, xmax=1,
     ymin=0, ymax={ln(2)},
     xtick={0,1},
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=0:1, samples=100, color=blue, thick] {x*ln(2*x) + (1-x)*ln(2*(1-x))};
+    \addplot[domain=0:1, samples=1000, color=blue, thick] {x*ln(2*x) + (1-x)*ln(2*(1-x))};
     \addplot[black, mark=*, only marks] coordinates {(0.5, 0)};
     \node[above] at (axis cs:0.5, 0) {$p$};
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
@@ -666,8 +669,9 @@ $p=1/2$の場合
 \end{center}
 \begin{align*}
 K_X(t) &= \log(p\mathrm{e}^t + (1-p))\\
-I_X(a) &= a\log\frac{a}{p} + (1-a)\log\frac{1-a}{1-p} \qquad\text{for } a\in(0,1)\\
+I_X(a) &= a\log\frac{a}{p} + (1-a)\log\frac{1-a}{1-p} \qquad\text{for } a\in[0,1]
 \end{align*}
+$0\log 0$は$0$とみなす。
 \end{frame}
 
 \begin{frame}{例: 正規分布}
@@ -723,7 +727,7 @@ $\mu=0$, $\sigma^2=1$の場合
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=-5:5, samples=100, color=blue, thick] {x^2/2};
+    \addplot[domain=-5:5, samples=1000, color=blue, thick] {x^2/2};
     %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
     \draw[dashed, black] (axis cs:0, 0) -- (axis cs:0, 5);
@@ -744,7 +748,7 @@ $\mu=0$, $\sigma^2=1$の場合
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=-5:5, samples=100, color=blue, thick] {x^2/2};
+    \addplot[domain=-5:5, samples=1000, color=blue, thick] {x^2/2};
     %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
     \draw[dashed, black] (axis cs:0, 1) -- (axis cs:0, 5);
@@ -791,7 +795,7 @@ a-\lambda\mathrm{e}^{t_a} &= 0\iff t_a = \log \frac{a}{\lambda}
 %0&\text{otherwise.}
 %\end{cases}
 I_X(a)&=\sup_{t\in\mathbb{R}}\left\{at - \lambda(\mathrm{e}^t-1)\right\}\\
- &= \emm{a\log\frac{a}{\lambda} -a + \lambda} \qquad\text{for } a > 0.
+ &= \emm{a\log\frac{a}{\lambda} -a + \lambda} \qquad\text{for } a \ge 0.
 \end{align*}
 
 \vspace{.5em}
@@ -818,7 +822,7 @@ $\lambda=1$の場合
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=-5:5, samples=100, color=blue, thick] {exp(x) - 1};
+    \addplot[domain=-5:5, samples=1000, color=blue, thick] {exp(x) - 1};
     %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
     \draw[dashed, black] (axis cs:0, -1) -- (axis cs:0, 5);
@@ -839,7 +843,7 @@ $\lambda=1$の場合
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=0:5, samples=100, color=blue, thick] {x*ln(x)-x+1};
+    \addplot[domain=0:5, samples=1000, color=blue, thick] {x*ln(x)-x+1};
     %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
     \draw[dashed, black] (axis cs:0, 0) -- (axis cs:0, 5);
@@ -853,7 +857,7 @@ $\lambda=1$の場合
 \end{center}
 \begin{align*}
 K_X(t) &= \lambda(\mathrm{e}^t-1)\\
-I_X(a) &= a\log\frac{a}{\lambda} - a + \lambda\qquad\text{for } a > 0.
+I_X(a) &= a\log\frac{a}{\lambda} - a + \lambda\qquad\text{for } a \ge 0.
 \end{align*}
 \end{frame}
 
@@ -899,6 +903,7 @@ I_X(a) &= \sup_{t<\lambda} \left\{at - \log\frac{\lambda}{\lambda-t}\right\}\\
 &=
 %\begin{cases}
 \emm{a\lambda - 1 - \log(a\lambda)}
+\qquad\text{for } a> 0
 %& a > \frac1\lambda\\
 %0 & \text{otherwise.}
 %\end{cases}
@@ -928,7 +933,7 @@ $\lambda=1$の場合
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=-5:5, samples=100, color=blue, thick] {ln(1/(1-x))};
+    \addplot[domain=-5:5, samples=1000, color=blue, thick] {ln(1/(1-x))};
     %\addplot[black, mark=*, only marks] coordinates {(0, 0)};
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
     \draw[dashed, black] (axis cs:0, -3) -- (axis cs:0, 4);
@@ -949,7 +954,7 @@ $\lambda=1$の場合
     ytick={0},
     legend pos = south east
 ]
-    \addplot[domain=0:5, samples=100, color=blue, thick] {x-1-ln(x)};
+    \addplot[domain=0:5, samples=1000, color=blue, thick] {x-1-ln(x)};
     %\addplot[domain=-5:5, samples=100, color=red, thick] {-2*x};
     \draw[dashed, black] (axis cs:0, 0) -- (axis cs:0, 5);
     \draw[dashed, black] (axis cs:0, 0) -- (axis cs:5, 0);
@@ -965,7 +970,7 @@ K_X(t) &=
 \log\frac{\lambda}{\lambda-t}& t < \lambda\\
 +\infty&\text{otherwise.}
 \end{cases}\\
-I_X(a) &= a\lambda-1-\log(a\lambda)
+I_X(a) &= a\lambda-1-\log(a\lambda)\qquad \text{for } a > 0
 \end{align*}
 \end{frame}
 
