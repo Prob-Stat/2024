@@ -24,7 +24,15 @@
 
 \usepackage{luacolor}
 
-\newcommand{\emm}[1]{\textcolor{red}{#1}}
+\newcommand{\mycolor}[2]{%
+  \begingroup
+  \colorlet{currentcolor}{.}%
+  \color{#1}#2%
+  \color{currentcolor}%
+  \endgroup
+}
+
+\newcommand{\emm}[1]{\mycolor{red}{#1}}
 \newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
 \newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
 \newcommand{\cov}[1]{\mathrm{Cov}\left[#1\right]}
