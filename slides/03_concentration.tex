@@ -331,6 +331,32 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 \end{proof}
 \end{frame}
 
+\begin{frame}{集中不等式 by チェルノフ上界}
+\small
+\begin{lemma}[チェルノフ上界 for 確率変数の和]
+\vspace{-1em}
+\begin{align*}
+%\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-K_X^*(a)N}.
+% \mathrm{e}^{N(K_X(t) - at)}
+\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{\emm{(K_X(t) - at)}N} \qquad\forall t>0\\
+%\mathrm{e}^{-\emm{I_X(a)}N}\qquad\forall a>\expt{X}\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k\le a\right) &\le \mathrm{e}^{\emm{(K_X(t) - at)}N} \qquad\forall t<0
+%\qquad\forall a<\expt{X}.
+\end{align*}
+\end{lemma}
+\begin{proof}
+任意の$t>0$について
+\begin{align*}
+\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &=
+%\Pr\left(\exp\left(t\sum_{t=1}^N X_t\right)\ge \exp\left(t(\expt{X} + a)N\right)\right)\\
+\Pr\left(\sum_{k=1}^N X_k\ge Na\right)\\
+&\le\mathrm{e}^{K_{\sum_k X_k}(t) - Nat}\qquad\text{(チェルノフ上界)}\\
+&=\mathrm{e}^{N(K_X(t) - at)}.\qedhere
+\end{align*}
+%$t>0$を最適化することで補題を得る。
+\end{proof}
+\end{frame}
+
 \begin{frame}{チェルノフ上界の最適化}
 任意の実数$t>0$について
 \begin{align*}
@@ -583,30 +609,25 @@ I_X(a)&\text{if } a < \expt{X}\\
 \end{align*}
 \end{frame}
 
-\begin{frame}{集中不等式 by チェルノフ上界}
+
+\begin{frame}{最適化されたチェルノフ上界}
 \small
-\begin{theorem}[集中不等式]
+\begin{theorem}[最適化されたチェルノフ上界]
 \vspace{-1em}
 \begin{align*}
 %\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-K_X^*(a)N}.
 % \mathrm{e}^{N(K_X(t) - at)}
 \Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-\emm{I_X(a)}N}\qquad\forall a>\expt{X}\\
-\Pr\left(\frac1N\sum_{k=1}^N X_k\le a\right) &\le \mathrm{e}^{-\emm{I_X(a)}N}\qquad\forall a<\expt{X}.
+\Pr\left(\frac1N\sum_{k=1}^N X_k\le a\right) &\le \mathrm{e}^{-\emm{I_X(a)}N} \qquad\forall a<\expt{X}.
 \end{align*}
 \end{theorem}
-\begin{proof}
-任意の$t>0$について
-\begin{align*}
-\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &=
-%\Pr\left(\exp\left(t\sum_{t=1}^N X_t\right)\ge \exp\left(t(\expt{X} + a)N\right)\right)\\
-\Pr\left(\sum_{k=1}^N X_k\ge Na\right)\\
-&\le\mathrm{e}^{K_{\sum_k X_k}(t) - Nat}\qquad\text{(チェルノフ上界)}\\
-&=\mathrm{e}^{N(K_X(t) - at)}
-\end{align*}
-$t>0$を最適化することで補題を得る。
-\end{proof}
-\end{frame}
 
+\vspace{2em}
+\begin{center}
+\Large
+指数関数的な上界が得られた。
+\end{center}
+\end{frame}
 
 
 \begin{frame}{例: ベルヌーイ分布}
