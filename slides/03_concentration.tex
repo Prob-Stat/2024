@@ -316,18 +316,18 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 \begin{theorem}[チェルノフ上界]
 %任意の実数$t>0$について
 \begin{align*}
-\Pr(X\ge a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{\emm{K_X(t) - at}} \qquad\forall t>0\\
-\Pr(X\le a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{\emm{K_X(t) - at}} \qquad\forall t<0.
+\Pr(X\ge a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{\emm{K_X(t) - at}} \qquad\forall t\ge0\\
+\Pr(X\le a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{\emm{K_X(t) - at}} \qquad\forall t\le0.
 \end{align*}
 \end{theorem}
 \begin{proof}
-任意の実数$t>0$について
+任意の実数$t\ge0$について
 \begin{align*}
-\Pr(X\ge a)&=\Pr\bigl(\mathrm{e}^{tX}\ge\mathrm{e}^{ta}\bigr)\\
+\Pr(X\ge a)&\le\Pr\bigl(\mathrm{e}^{tX}\ge\mathrm{e}^{ta}\bigr)\\
 &\le\frac{\expt{\mathrm{e}^{tX}}}{\mathrm{e}^{ta}}\qquad\text{(Markovの不等式)}\\
 &=\frac{M_X(t)}{\mathrm{e}^{ta}}.\qedhere
 \end{align*}
-任意の実数$t<0$について$\Pr(X\le a) = \Pr(\mathrm{e}^{tX}\ge \mathrm{e}^{ta})\le\frac{M_X(t)}{\mathrm{e}^{ta}}$.
+任意の実数$t\le0$について$\Pr(X\le a) = \Pr(\mathrm{e}^{tX}\ge \mathrm{e}^{ta})\le\frac{M_X(t)}{\mathrm{e}^{ta}}$.
 \end{proof}
 \end{frame}
 
@@ -338,14 +338,14 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 \begin{align*}
 %\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-K_X^*(a)N}.
 % \mathrm{e}^{N(K_X(t) - at)}
-\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{\emm{(K_X(t) - at)}N} \qquad\forall t>0\\
+\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{\emm{(K_X(t) - at)}N} \qquad\forall t\ge0\\
 %\mathrm{e}^{-\emm{I_X(a)}N}\qquad\forall a>\expt{X}\\
-\Pr\left(\frac1N\sum_{k=1}^N X_k\le a\right) &\le \mathrm{e}^{\emm{(K_X(t) - at)}N} \qquad\forall t<0
+\Pr\left(\frac1N\sum_{k=1}^N X_k\le a\right) &\le \mathrm{e}^{\emm{(K_X(t) - at)}N} \qquad\forall t\le0.
 %\qquad\forall a<\expt{X}.
 \end{align*}
 \end{lemma}
 \begin{proof}
-任意の$t>0$について
+任意の$t\ge0$について
 \begin{align*}
 \Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &=
 %\Pr\left(\exp\left(t\sum_{t=1}^N X_t\right)\ge \exp\left(t(\expt{X} + a)N\right)\right)\\
@@ -358,19 +358,19 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 \end{frame}
 
 \begin{frame}{チェルノフ上界の最適化}
-任意の実数$t>0$について
+任意の実数$t\ge0$について
 \begin{align*}
 \Pr(X\ge a)&\le\mathrm{e}^{K_X(t)-at}
 \end{align*}
 が成り立つので上界の最小化
 \begin{align*}
-\inf_{t>0} \mathrm{e}^{K_X(t)-at}
+\inf_{t\ge0} \mathrm{e}^{K_X(t)-at}
 \end{align*}
 を考えたい。$\log$とってから最小化すると
 \begin{align*}
-\inf_{t>0} \{K_X(t) - at\}
+\inf_{t\ge0} \{K_X(t) - at\}
 &=
--\sup_{t>0} \{at - K_X(t)\}
+-\sup_{t\ge0} \{at - K_X(t)\}
 .
 \end{align*}
 \emm{キュムラント母関数}$K_X(t)$の\emm{ルジャンドル変換}
@@ -603,11 +603,11 @@ I_X(a) &:= \sup_{\emm{t \in\mathrm{dom}(K_X)}}\left\{at - K_X(t)\right\}
 と定義する。
 このとき、
 \begin{align*}
-\sup_{t>0}\left\{at-K_X(t)\right\}&=\begin{cases}
+\sup_{t\ge0}\left\{at-K_X(t)\right\}&=\begin{cases}
 I_X(a)&\text{if } a > \expt{X}\\
 0&\text{otherwise.}
 \end{cases}\\
-\sup_{t<0}\left\{at-K_X(t)\right\}&=\begin{cases}
+\sup_{t\le0}\left\{at-K_X(t)\right\}&=\begin{cases}
 I_X(a)&\text{if } a < \expt{X}\\
 0&\text{otherwise.}
 \end{cases}
