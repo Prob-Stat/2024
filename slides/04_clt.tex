@@ -574,6 +574,7 @@ $X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分でき�
 \left.\frac{\mathrm{d}^k\varphi_X(t)}{\mathrm{d}t^k}\right|_{t=0} &= i^k \expt{X^k}.
 \end{align*}
 
+$X$と$Y$の分布が同じ$\iff\varphi_X=\varphi_Y$.
 %\vspace{1em}
 %第二特性関数
 %\begin{align*}
@@ -582,16 +583,28 @@ $X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分でき�
 \end{frame}
 
 \begin{frame}{特性関数と確率質量関数}
-確率変数の像が有限集合のとき、
+確率変数の像が\emm{有限集合}のとき、
 \begin{align*}
-\varphi_X(t) &= \sum_{k\in \mathrm{Im}(X)} \Pr(X = k) \mathrm{e}^{itk}
+\varphi_X(t) &= \sum_{k\in \mathrm{Range}(X)} \Pr(X = k) \mathrm{e}^{itk}
 \end{align*}
-このとき、
+ここで、$\mathrm{Range}(X)$の最小値と最大値をそれぞれ$k_\mathsf{min}$と$k_\mathsf{max}$とおくと、
+$k_\mathsf{max}-k_\mathsf{min}$次多項式$Q_X$を以下のように定義する。
 \begin{align*}
-&\sum_{t} \varphi_X(t) \mathrm{e}^{-itu}\\
-=&\sum_{t} \sum_{k\in \mathrm{Im}(X)} \Pr(X = k) \mathrm{e}^{itk} \mathrm{e}^{-itu}\\
-=& \sum_{k\in \mathrm{Im}(X)} \Pr(X = k)\left(\sum_{t} \mathrm{e}^{it(k-u)}\right)
+Q_X(x) &= \sum_{k\in \mathrm{Range}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 \end{align*}
+このとき、$Q_X(\mathrm{e}^{it}) = \varphi_X(t) \mathrm{e}^{-itk_\mathsf{min}}$である。
+一般的に\emm{$n$次多項式は異なる$(n+1)$点での値から一意に定まる}(Vandermonde行列の正則性)。
+よって特性関数から多項式$Q_X$が一意に定まり、$\Pr(X=k)$が一意に定まる。
+
+\begin{center}
+確率質量関数から特性関数への写像が単射であることが分かった。
+これは一般の確率変数について(確率密度関数が存在しない場合でも)成り立つ(レヴィの連続性定理)
+\end{center}
+%\begin{align*}
+%&\sum_{t} \varphi_X(t) \mathrm{e}^{-itu}\\
+%=&\sum_{t} \sum_{k\in \mathrm{Im}(X)} \Pr(X = k) \mathrm{e}^{itk} \mathrm{e}^{-itu}\\
+%=& \sum_{k\in \mathrm{Im}(X)} \Pr(X = k)\left(\sum_{t} \mathrm{e}^{it(k-u)}\right)
+%\end{align*}
 \end{frame}
 
 \begin{frame}{コーシー分布の特性関数}
@@ -642,7 +655,6 @@ $X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分でき�
 多くの不確かな要因からくる\emm{ノイズは正規分布}とみなすとよい近似になっている。
 \end{frame}
 
-\if0
 \begin{frame}{集中不等式との比較}
 \begin{align*}
 %\Pr\left(\frac1N\sum_{k=1}^N X_k\ge \expt{X} + \frac{a}{\sqrt{N}}\right) &\le \mathrm{e}^{-\frac{\left(a/\sqrt{N}\right)^2}{2s^2}N}
@@ -658,7 +670,6 @@ I_X\left(\expt{X}+\frac{a}{\sqrt{N}}\right)&=I_X(\expt{X}) + I_X'(\expt{X})\frac
 &= \frac1{2\var{X}}\frac{a^2}N + o\left(\frac1N\right)
 \end{align*}
 \end{frame}
-\fi
 
 \if0
 \begin{frame}{中心極限定理の収束のスピード}
