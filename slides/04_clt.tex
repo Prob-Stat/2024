@@ -569,12 +569,14 @@ Y_k&:= \frac{X_k-\expt{X}}{\sqrt{\var{X}}}\qquad \text{for } k=1,2,\dotsc,N
 モーメント母関数は存在するとは限らないが特性関数は(定義域を$\mathbb{R}$として)\emm{常に存在}する。
 
 \vspace{2em}
+$X$と$Y$の分布が同じ$\emm{\iff}\varphi_X=\varphi_Y$.
+
+\vspace{2em}
 $X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分できる。
 \begin{align*}
 \left.\frac{\mathrm{d}^k\varphi_X(t)}{\mathrm{d}t^k}\right|_{t=0} &= i^k \expt{X^k}.
 \end{align*}
 
-$X$と$Y$の分布が同じ$\iff\varphi_X=\varphi_Y$.
 %\vspace{1em}
 %第二特性関数
 %\begin{align*}
@@ -597,8 +599,9 @@ Q_X(x) &= \sum_{k\in \mathrm{Range}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 よって特性関数から多項式$Q_X$が一意に定まり、$\Pr(X=k)$が一意に定まる。
 
 \begin{center}
-確率質量関数から特性関数への写像が単射であることが分かった。
-これは一般の確率変数について(確率密度関数が存在しない場合でも)成り立つ(レヴィの連続性定理)
+確率質量関数から特性関数への写像が\emm{単射}であることが分かった。
+これは一般の確率変数について(確率密度関数が存在しない場合でも)成り立つ。
+%(レヴィの連続性定理)
 \end{center}
 %\begin{align*}
 %&\sum_{t} \varphi_X(t) \mathrm{e}^{-itu}\\
@@ -611,7 +614,7 @@ Q_X(x) &= \sum_{k\in \mathrm{Range}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 \end{frame}
 
 \begin{frame}{分布の収束と特性関数の収束}
-\begin{theorem}
+\begin{theorem}[レヴィの連続性定理]
 確率変数の列$Z_1,Z_2,\dotsc$と確率変数$Z$について
 \begin{align*}
 \lim_{n\to\infty}\varphi_{Z_n}(t) = \varphi_Z(t)\qquad\forall t\in\mathbb{R}
@@ -625,12 +628,11 @@ Q_X(x) &= \sum_{k\in \mathrm{Range}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 
 \begin{frame}{中心極限定理の証明}
 \small
-平均0分散1のi.i.d.確率変数$Y_1,\dotsc,Y_N$と標準正規分布に従う確率変数$Z$について
+期待値0分散1のi.i.d.確率変数$Y_1,\dotsc,Y_N$と標準正規分布に従う確率変数$Z$について
 \begin{align*}
 \lim_{N\to\infty}\Pr\left(\frac{\sum_{k=1}^N Y_k}{\sqrt{N}} \le x\right) &= \Pr(Z\le x)
 \end{align*}
-を示す。
-%
+を示すためには
 \begin{align*}
 \lim_{N\to\infty} \varphi_{\frac{\sum_kY_k}{\sqrt{N}}}(t) &= \varphi_Z(t) = -\frac{t^2}2
 \end{align*}
