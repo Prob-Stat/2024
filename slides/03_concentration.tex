@@ -314,7 +314,7 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 \begin{frame}{チェルノフ上界}
 \small
 \begin{theorem}[チェルノフ上界]
-%任意の実数$t>0$について
+任意の$a\in\mathbb{R}$について
 \begin{align*}
 \Pr(X\ge a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{\emm{K_X(t) - at}} \qquad\forall t\ge0\\
 \Pr(X\le a)&\le\frac{M_X(t)}{\mathrm{e}^{at}} = \mathrm{e}^{\emm{K_X(t) - at}} \qquad\forall t\le0.
@@ -327,14 +327,15 @@ declare function={binom(\k,\n,\p)=\n!/(\k!*(\n-\k)!)*\p^\k*(1-\p)^(\n-\k);}]
 &\le\frac{\expt{\mathrm{e}^{tX}}}{\mathrm{e}^{ta}}\qquad\text{(Markovの不等式)}\\
 &=\frac{M_X(t)}{\mathrm{e}^{ta}}.\qedhere
 \end{align*}
-任意の実数$t\le0$について$\Pr(X\le a) = \Pr(\mathrm{e}^{tX}\ge \mathrm{e}^{ta})\le\frac{M_X(t)}{\mathrm{e}^{ta}}$.
+任意の実数$t\le0$について$\Pr(X\le a) \le \Pr(\mathrm{e}^{tX}\ge \mathrm{e}^{ta})\le\frac{M_X(t)}{\mathrm{e}^{ta}}$.
 \end{proof}
 \end{frame}
 
 \begin{frame}{集中不等式 by チェルノフ上界}
 \small
 \begin{lemma}[チェルノフ上界 for 確率変数の和]
-\vspace{-1em}
+%\vspace{-1em}
+任意の$a\in\mathbb{R}$について
 \begin{align*}
 %\Pr\left(\frac1N\sum_{k=1}^N X_k\ge a\right) &\le \mathrm{e}^{-K_X^*(a)N}.
 % \mathrm{e}^{N(K_X(t) - at)}
@@ -531,7 +532,7 @@ $f'(t_a) = a$を満たす$t_a\in J$が存在すると仮定する。
 $f$の$t_a$における接線は$a(t-t_a) + f(t_a)$。
 この\emm{接線の切片は$-at_a + f(t_a) = -f^*(a)$}である。
 
-例えば$a=f'(0)$のとき、$t_a=0$と取れる。このとき、接線の切片は$f(0)$であるので、$f^*(f'(0)) = f(0)$であることが分かる。
+例えば$a=f'(0)$のとき、$t_a=0$と取れる。このとき、接線の切片は$f(0)$であるので、$f^*(f'(0)) = -f(0)$であることが分かる。
 特に$f(0)=0$のとき以下の図のようになる。
 また、\emm{$t_a$は$a$について単調非減少}であることに注意する。
 
