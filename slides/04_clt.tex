@@ -710,7 +710,7 @@ q(x) &= \frac1{2\pi}\int_{-\infty}^\infty \mathrm{e}^{-ixt} \varphi_{\frac{\sum_
 \begin{align*}
 p(x) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\mu)^2}{2\sigma^2}}
 \end{align*}
-$X$が平均$\mu$、分散$\sigma^2$の正規分布に従うことを、$X\sim N(\mu,\sigma^2)$と表す。
+$X$が平均$\mu$、分散$\sigma^2$の正規分布に従うことを、\emm{$X\sim N(\mu,\sigma^2)$}と表す。
 
 \begin{itemize}
 \setlength{\itemsep}{2em}
@@ -798,6 +798,34 @@ $X\sim N(\mu,\sigma^2)$について
 \varphi_{\emm{a}X}(t) &= \mathrm{e}^{i\mu \emm{a}t - \frac{\emm{a^2}\sigma^2t^2}2}\qquad\text{\small ($N(a\mu,a^2\sigma^2)$の特性関数)}\\
 \varphi_{X_1\emm{+}X_2}(t) &= \mathrm{e}^{i(\mu_1\emm{+}\mu_2)t - \frac{(\sigma_1^2\emm{+}\sigma_2^2)t^2}2}\qquad\text{\small ($N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)$の特性関数)}
 \end{align*}
+\end{frame}
+
+\begin{frame}{ポアソン分布の再帰性}
+確率変数$X$が平均$\lambda>0$のポアソン分布に従うことを$X\sim\mathrm{Poisson}(\lambda)$と表す。
+\begin{lemma}
+独立確率変数$X$と$Y$が$X\sim\mathrm{Poisson}(\lambda_1)$、$Y\sim\mathrm{Poisson}(\lambda_2)$のとき
+$X+Y\sim\mathrm{Poisson}(\lambda_1+\lambda_2)$.
+\end{lemma}
+\begin{proof}
+$Z\sim\mathrm{Poisson}(\lambda)$について$\varphi_Z(t)=\mathrm{e}^{\lambda(\mathrm{e}^{it}-1)}$より
+\begin{align*}
+\varphi_{X+Y}(t) &= \varphi_X(t)\varphi_Y(t)\\
+&=\mathrm{e}^{\lambda_1(\mathrm{e}^{it}-1)}\mathrm{e}^{\lambda_2(\mathrm{e}^{it}-1)}\\
+&=\mathrm{e}^{(\lambda_1+\lambda_2)(\mathrm{e}^{it}-1)}
+\end{align*}
+であり、これは$\mathrm{Poisson}(\lambda_1+\lambda_2)$に従う確率変数の特性関数であるため$X+Y\sim\mathrm{Poisson}(\lambda_1+\lambda_2)$.
+\end{proof}
+\end{frame}
+
+\begin{frame}{ポアソン分布と中心極限定理}
+$X\sim\mathrm{Poisson}(\lambda)$のとき、
+$X_1+\dotsb+X_N\sim\mathrm{Poisson}(N\lambda)$である。
+\begin{itemize}
+\item $\varphi_X(t) = \mathrm{e}^{\lambda(\mathrm{e}^{it}-1)}$.
+\item $\varphi_{X-\lambda}(t) = \mathrm{e}^{\lambda(\mathrm{e}^{it}-1-it)}$.
+\item $\varphi_{\sum_{k=1}^N(X_k-\lambda)}(t) = \mathrm{e}^{\lambda(\mathrm{e}^{it}-1-it)N}$.
+\item $\varphi_{\frac{\sum_{k=1}^N(X_k-\lambda)}{\sqrt{\lambda N}}}(t) = \mathrm{e}^{\lambda\left(\mathrm{e}^{i\frac{t}{\sqrt{\lambda N}}}-1-i\frac{t}{\sqrt{\lambda N}}\right)N}$.
+\end{itemize}
 \end{frame}
 
 \if0
@@ -989,6 +1017,76 @@ p_{\symbf{Z}}(\symbf{x}) &= \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\fr
 \end{align*}
 で定義される。
 \end{definition}
+\end{frame}
+
+\begin{frame}{密度関数の積分}
+\small
+多変量正規分布の密度関数を積分して1になることを確認する。
+$\Sigma$は対称行列なのである直交行列$V$と対角行列$D$が存在して$\Sigma=V^TDV$と表せる(スペクトル分解)。
+また$\Sigma$は正定値なので、$D$の対角成分は正である。
+\begin{align*}
+&\int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}\mathrm{d}x\\
+&=
+\int \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \symbf{x}^T\Sigma^{-1} \symbf{x}}\mathrm{d}x\\
+&=
+\int \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 (V\symbf{x})^TD^{-1} (V\symbf{x})}\mathrm{d}x\qquad(\Sigma=V^TDV)\\
+&=
+\int \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 \symbf{y}^TD^{-1} \symbf{y}}\frac1{|\det(V)|}\mathrm{d}y\qquad (y=Vx)\\
+&=
+\int \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 \symbf{z}^T \symbf{z}}\frac1{|\det(\sqrt{D^{-1}})|}\mathrm{d}z\qquad (z=\sqrt{D^{-1}}y)\\
+&=
+\int \frac1{\sqrt{(2\pi)^n}} \mathrm{e}^{-\frac12 \symbf{z}^T \symbf{z}}\mathrm{d}z
+=\prod_{k=1}^n\left(\int\frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac{z_k^2}2}\mathrm{d}z_k\right) = 1
+\end{align*}
+\end{frame}
+
+\begin{frame}{多変数の特性関数}
+\begin{definition}[多変数特性関数]
+$n$次元確率変数$X$の\emm{特性関数}$\varphi_{X}\colon\mathbb{R}^n\to\mathbb{C}$を以下で定義する。
+\begin{align*}
+\varphi_{X}(t) &:= \expt{\mathrm{e}^{i\langle t,\, X\rangle}}.
+\end{align*}
+ここで$\langle t,\, X\rangle := \sum_{k=1}^n t_k X_k$である。
+\end{definition}
+
+\vspace{1em}
+\begin{itemize}
+\setlength{\itemsep}{1em}
+\item $\varphi_{X+b}(t) = \varphi_X(t)\mathrm{e}^{i\langle t,\, b\rangle}\qquad\forall b\in\mathbb{R}^n$.
+\item $\varphi_{AX}(t) = \varphi_X(A^Tt)\qquad\forall A\in\mathbb{R}^{m\times n}$.
+\item $\varphi_{X+Y}(t) = \varphi_X(t)\varphi_Y(t)$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{多変量正規分布の特性関数}
+\begin{align*}
+&\expt{\mathrm{e}^{i\langle t,\,X\rangle}}\\
+&=\int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}\mathrm{e}^{i\langle t,\, x\rangle}\mathrm{d}x\\
+&= \int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \langle\Sigma^{-\frac12}(x-\mu),\,\Sigma^{-\frac12}(x-\mu)\rangle+i\langle \Sigma^{\frac12}t,\, \Sigma^{-\frac12}x\rangle}\mathrm{d}x\\
+&= \int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \langle\Sigma^{-\frac12}(x-\mu-i\Sigma t),\,\Sigma^{-\frac12}(x-\mu-i\Sigma t)\rangle +i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}\mathrm{d}x\\
+&= \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}
+\end{align*}
+\end{frame}
+
+\begin{frame}{多変量正規分布の一次変換}
+\begin{lemma}
+$n$次元の確率変数$\symbf{Z}\sim N(\symbf{\mu}, \Sigma)$のとき、
+$A\symbf{Z}+\symbf{b}\sim N(A\symbf{\mu}+\symbf{b}, A\Sigma A^T)$.
+%$Z_k\sim N(\mu_k, \Sigma_{k,k})$.
+\end{lemma}
+\begin{proof}
+$\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}$より、
+\begin{align*}
+\varphi_{AZ+b}(t) &= \varphi_{AZ}(t)\mathrm{e}^{i\langle t,\,b\rangle} = \varphi_Z(A^Tt)\mathrm{e}^{i\langle t,\,b\rangle}\\
+&= \mathrm{e}^{i\langle \mu,\, A^T t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle + i\langle t,\,b\rangle}\\
+&= \mathrm{e}^{i\langle A\mu,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle+ i\langle t,\,b\rangle}\\
+&= \mathrm{e}^{i\langle A\mu + b,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle}
+\end{align*}
+これは$N(A\mu+b,\, A\Sigma A^T)$の特性関数である。
+\end{proof}
+\end{frame}
+
+\begin{frame}{多変量正規分布$\to$1変数正規分布}
 \end{frame}
 
 \end{document}
