@@ -1025,18 +1025,18 @@ p_{\symbf{Z}}(\symbf{x}) &= \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\fr
 $\Sigma$は対称行列なのである直交行列$V$と対角行列$D$が存在して$\Sigma=V^TDV$と表せる(スペクトル分解)。
 また$\Sigma$は正定値なので、$D$の対角成分は正である。
 \begin{align*}
-&\int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}\mathrm{d}x\\
+&\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}\mathrm{d}x\\
 &=
-\int \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \symbf{x}^T\Sigma^{-1} \symbf{x}}\mathrm{d}x\\
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \symbf{x}^T\Sigma^{-1} \symbf{x}}\mathrm{d}x\\
 &=
-\int \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 (V\symbf{x})^TD^{-1} (V\symbf{x})}\mathrm{d}x\qquad(\Sigma=V^TDV)\\
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 (V\symbf{x})^TD^{-1} (V\symbf{x})}\mathrm{d}x\qquad(\Sigma=V^TDV)\\
 &=
-\int \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 \symbf{y}^TD^{-1} \symbf{y}}\frac1{|\det(V)|}\mathrm{d}y\qquad (y=Vx)\\
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 \symbf{y}^TD^{-1} \symbf{y}}\frac1{|\det(V)|}\mathrm{d}y\qquad (y=Vx)\\
 &=
-\int \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 \symbf{z}^T \symbf{z}}\frac1{|\det(\sqrt{D^{-1}})|}\mathrm{d}z\qquad (z=\sqrt{D^{-1}}y)\\
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 \symbf{z}^T \symbf{z}}\frac1{|\det(\sqrt{D^{-1}})|}\mathrm{d}z\qquad (z=\sqrt{D^{-1}}y)\\
 &=
-\int \frac1{\sqrt{(2\pi)^n}} \mathrm{e}^{-\frac12 \symbf{z}^T \symbf{z}}\mathrm{d}z
-=\prod_{k=1}^n\left(\int\frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac{z_k^2}2}\mathrm{d}z_k\right) = 1
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n}} \mathrm{e}^{-\frac12 \symbf{z}^T \symbf{z}}\mathrm{d}z
+=\prod_{k=1}^n\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac{z_k^2}2}\mathrm{d}z_k\right) = 1
 \end{align*}
 \end{frame}
 
