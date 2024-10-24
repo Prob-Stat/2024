@@ -1,0 +1,89 @@
+\documentclass[lualatex,handout]{beamer}
+\setbeamertemplate{footline}[frame number]
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+
+%\usetheme{Berlin}
+\usecolortheme{rose}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+%\usepackage[haranoaji]{luatexja-preset}
+\usepackage[deluxe,ipaex]{luatexja-preset}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+%\setmainjfont{HaranoAjiGothic-Regular}
+
+\usepackage{unicode-math}
+%\setmathfont{Fira Math}
+\setmathfont{STIX Two Math}
+\setmathfont{STIX Two Math}[range=bfup/{Latin,latin,num,Greek,greek}]
+\setmathfont{STIX Two Math}[range=bfit/{Latin,latin}]
+\setmathfont{STIX Two Math}[range={"0000-"FFFF}]
+\setmathrm{STIX Two Math}[StylisticSet=8]
+
+%\usefonttheme{professionalfonts}
+
+\usepackage{luacolor}
+
+\newcommand{\mycolor}[2]{%
+  \begingroup
+  \colorlet{currentcolor}{.}%
+  \color{#1}#2%
+  \color{currentcolor}%
+  \endgroup
+}
+\newcommand{\emm}[1]{\mycolor{red}{#1}}
+\newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
+\newcommand{\cov}[1]{\mathsf{Cov}\left[#1\right]}
+\newcommand{\vc}[1]{\mathsf{Var}\left[#1\right]}
+
+
+\usepackage{xspace}
+%\usepackage{bm}
+%\newcommand\bm[1]{{\mathbf{#1}}}
+\newcommand\dx{{\,\mathrm{d}x}}
+
+\theoremstyle{definition}
+
+\title{確率・統計基礎: サノフの定理、エントロピー、KLダイバージェンス、}
+\author{森 立平}
+\date{}
+
+
+
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\begin{frame}{経験分布}
+大数の法則や中心極限定理と同様にi.i.d.確率変数$X_1,X_2,\dotsc,X_N$を考える。
+
+\vspace{1em}
+確率変数$X$の像は\emm{有限集合}$A$とする。
+
+\vspace{1em}
+各$a\in A$について$N_a := \{ k\mid X_k = a\}$とおく。
+
+$\left(\frac{N_a}{N}\right)_{a\in A}$を経験分布という。
+
+サイコロを100回振って
+\end{frame}
+
+\begin{frame}{確率}
+\begin{align*}
+\sum_{}\prod_{k=1}^N \Pr(X = x_k) &= \binom{N}{N_1, N_2, \dotsc, N_k} \prod_{k=1}^N\Pr(X=a_k)^{q(k)N}\\
+&= \mathrm{e}^{-\sum_kq(k)\log q(k) N + (\sum_{k} q(k)\log p(k))N}\\
+&= \mathrm{e}^{-\left(\sum_kq(k)\log \frac{q(k)}{p(k)}\right) N}\\
+\end{align*}
+
+\begin{definition}[Kullback--Libler divergence]
+\begin{align*}
+D(q\,\|\,p) &:= -\sum_kq(k)\log \frac{q(k)}{p(k)}
+\end{align*}
+\end{definition}
+\end{frame}
+\end{document}
