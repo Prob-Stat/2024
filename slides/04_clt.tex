@@ -59,16 +59,27 @@
 \maketitle
 \end{frame}
 
-\begin{frame}{集中不等式}
+\begin{frame}{大数の法則と集中不等式}
 
-確率変数$X_1,X_2,\dotsc,X_N$が\emm{独立}で\emm{同一の分布}に従うとき、
-独立同分布(independently and identically distributed (i.i.d.))であるという。
+%確率変数$X_1,X_2,\dotsc,X_N$が\emm{独立}で\emm{同一の分布}に従うとき、
+%独立同分布(independently and identically distributed (i.i.d.))であるという。
 
-\vspace{2em}
+%\vspace{2em}
 {このスライドでは$X_1,\dotsc,X_N$は i.i.d.で確率変数$X$と同分布であると仮定}する。
 
 \vspace{2em}
-\emm{$N$個のi.i.d.確率変数の平均$\frac{\sum_{k=1}^NX_k}{N}$が期待値$\expt{X}$周辺に集中}するというのが大数の法則や集中不等式が示すことである。
+集中不等式は
+\begin{align*}
+\Pr\left(\left|\left(\sum_{k=1}^NX_k\right) - N\expt{X}\right| > \emm{N}\epsilon\right)
+\end{align*}
+が指数関数的に小さいことを示している。
+
+\vspace{2em}
+より詳細に
+\begin{align*}
+\Pr\left(\left|\left(\sum_{k=1}^NX_k\right) - N\expt{X}\right| > \emm{\sqrt{N}}\epsilon\right)
+\end{align*}
+について考えてみる
 \end{frame}
 
 \begin{frame}{二項分布}
@@ -551,7 +562,7 @@ $X$が分散を持つと仮定する。
 \begin{align*}
 Y_k&:= \frac{X_k-\expt{X}}{\sqrt{\var{X}}}\qquad \text{for } k=1,2,\dotsc,N
 \end{align*}
-は期待値0、分散1に正規化した確率変数である。
+は$X_k$を期待値0、分散1に正規化した確率変数である。
 中心極限定理の主張は
 \begin{align*}
 \lim_{N\to\infty}\Pr\left(\frac{\sum_{k=1}^N Y_k}{\sqrt{N}} \le x\right) &= \Phi(x)
@@ -563,7 +574,7 @@ Y_k&:= \frac{X_k-\expt{X}}{\sqrt{\var{X}}}\qquad \text{for } k=1,2,\dotsc,N
 \begin{definition}[特性関数]
 確率変数$X$の\emm{特性関数}$\varphi_X\colon\mathbb{R}\to\mathbb{C}$を以下で定義する。
 \begin{align*}
-\varphi_X(t) &:= \expt{\mathrm{e}^{itX}}.
+\varphi_X(t) &:= \expt{\mathrm{e}^{\emm{i}tX}}.
 \end{align*}
 \end{definition}
 モーメント母関数は存在するとは限らないが特性関数は(定義域を$\mathbb{R}$として)\emm{常に存在}する。
@@ -624,6 +635,11 @@ Q_X(x) &= \sum_{k\in \mathrm{Range}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 \lim_{n\to\infty} \Pr(Z_n\le x) &= \Pr(Z\le x)\qquad\forall x\in\mathbb{R}
 \end{align*}
 \end{theorem}
+
+\vspace{1em}
+\begin{center}
+分布の収束を示すには\emm{特性関数の収束}を示せばよい。
+\end{center}
 \end{frame}
 
 \begin{frame}{中心極限定理の証明}
@@ -642,7 +658,7 @@ Q_X(x) &= \sum_{k\in \mathrm{Range}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 \varphi_{\sum_kY_k}\left(\frac{t}{\sqrt{N}}\right)
 = \varphi_Y\left(\frac{t}{\sqrt{N}}\right)^N\\
 &= \left(\varphi_Y(0) + \varphi_Y'(0)\frac{t}{\sqrt{N}} + \frac{\varphi_Y''(0)}2\left(\frac{t}{\sqrt{N}}\right)^2 + o\left(\frac{1}{N}\right)\right)^N\\
-&= \left(1 + \frac{1}2\frac{t^2}{N} + o\left(\frac{1}{N}\right)\right)^N
+&= \left(1 - \frac{1}2\frac{t^2}{N} + o\left(\frac{1}{N}\right)\right)^N
 \stackrel{N\to\infty}{\longrightarrow} \mathrm{e}^{-\frac{t^2}2}
 \end{align*}
 \end{frame}
@@ -716,10 +732,10 @@ $X$が平均$\mu$、分散$\sigma^2$の正規分布に従うことを、\emm{$X\
 
 \begin{itemize}
 \setlength{\itemsep}{2em}
-\item 任意の$a\in\mathbb{R}$について$X\sim N(\mu,\sigma^2)$のとき$X+a\sim N(\mu+a,\sigma^2)$である。
-\item 任意の$a\in\mathbb{R}$について$X\sim N(\mu,\sigma^2)$のとき$aX\sim N(a\mu,a^2\sigma^2)$である。
+\item 任意の$a\in\mathbb{R}$について$X\sim N(\mu,\sigma^2)$のとき$\emm{X+a}\sim N(\emm{\mu+a},\sigma^2)$である。
+\item 任意の$a\in\mathbb{R}$について$X\sim N(\mu,\sigma^2)$のとき$\emm{aX}\sim N(\emm{a\mu},\emm{a^2\sigma^2})$である。
 \item 独立な確率変数$X_1\sim N(\mu_1, \sigma_1^2)$と$X_2\sim N(\mu_2, \sigma_2^2)$について
-$X_1+X_2\sim N(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)$である。
+$X_1\emm{+}X_2\sim N(\mu_1\emm{+}\mu_2, \sigma_1^2\emm{+}\sigma_2^2)$である。
 \end{itemize}
 \end{frame}
 
@@ -737,7 +753,7 @@ $X_1+X_2\sim N(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)$である。
 \end{frame}
 
 \begin{frame}{$aX$の確率密度関数}
-\scriptsize
+\footnotesize
 
 また、$a>0$について確率変数$aX$の確率密度関数は
 \begin{align*}
@@ -759,22 +775,24 @@ $X_1+X_2\sim N(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)$である。
 \end{frame}
 
 \begin{frame}{$X+Y$の確率密度関数}
+\small
 独立確率変数$X$と$Y$がそれぞれ確率密度関数$p_X$と$p_Y$を持つとする。
 このとき、$X+Y$の確率密度関数は
 \begin{align*}
-\Pr(X+Y\le z) &= \int_{-\infty}^\infty p_Y(y) \Pr(X+y\le z) \mathrm{d}y\\
-&= \int_{-\infty}^\infty  p_Y(y)  \left(\int_{-\infty}^{z-y}p_X(x) \mathrm{d}x\right)\mathrm{d}y\\
+\Pr(X+Y\le z) &= \int_{x+y\le z} p_X(x)p_Y(y) \mathrm{d}x\mathrm{d}y\\
+%&= \int_{-\infty}^z \int_{\infty}^{z-x} p_X(x)p_Y(y) \mathrm{d}y\mathrm{d}x\\
+&= \int_{-\infty}^\infty  p_Y(y)  \left(\int_{-\infty}^{z-y}p_X(x) \mathrm{d}x\right)\mathrm{d}y\qquad\text{(多重積分$\to$逐次積分)}\\
 &= \int_{-\infty}^\infty  p_Y(y)  \left(\int_{-\infty}^{z}p_X(x'-y) \mathrm{d}x'\right)\mathrm{d}y\qquad(x'=x+y)\\
 &= \int_{-\infty}^{z}\left(\int_{-\infty}^\infty  p_Y(y)  p_X(x'-y) \mathrm{d}y\right)\mathrm{d}x'\\
 \end{align*}
-より$\emm{\int_{-\infty}^{\infty} p_Y(y)p_X(x-y)\mathrm{d}y}$である。
+より$\emm{(p_X*p_Y)(x):=\int_{-\infty}^{\infty} p_X(x-y)p_Y(y)\mathrm{d}y}$である。
 これを確率密度関数$p_X$と$p_Y$の\emm{畳み込み}という。
 \end{frame}
 
 \begin{frame}{正規分布の密度関数}
 \begin{align*}
 p(x\emm{-a}) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x\emm{-a}-\mu)^2}{2\sigma^2}}\\
-\frac1{|a|}p(\emm{a}x) &= \frac1{\sqrt{2\pi\emm{a^2}\sigma^2}} \mathrm{e}^{-\frac{(x/\emm{a}-\mu)^2}{2\sigma^2}}\\
+\frac1{|a|}p\left(\frac{x}{\emm{a}}\right) &= \frac1{\sqrt{2\pi\emm{a^2}\sigma^2}} \mathrm{e}^{-\frac{(x/\emm{a}-\mu)^2}{2\sigma^2}}\\
 &= \frac1{\sqrt{2\pi\emm{a^2}\sigma^2}} \mathrm{e}^{-\frac{(x-\emm{a}\mu)^2}{2\emm{a^2}\sigma^2}}\\
 \int_{-\infty}^{\infty} p_{X_2}(y)p_{X_1}(x-y) \mathrm{d}y &=
 \int_{-\infty}^{\infty} \frac1{\sqrt{2\pi\sigma_2^2}}\mathrm{e}^{-\frac{(y-\mu_2)^2}{2\sigma_2^2}} \frac1{\sqrt{2\pi\sigma_1^2}}\mathrm{e}^{-\frac{(x-y-\mu_1)^2}{2\sigma_1^2}} \mathrm{d}y\\
@@ -819,6 +837,46 @@ $Z\sim\mathrm{Poisson}(\lambda)$について$\varphi_Z(t)=\mathrm{e}^{\lambda(\m
 \end{proof}
 \end{frame}
 
+\begin{frame}{ガウス積分}
+\begin{align*}
+\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12x^2}\mathrm{d}x\right)^2
+&=
+\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12x^2}\mathrm{d}x\right)
+\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12y^2}\mathrm{d}y\right)\\
+&=
+\int_{\mathbb{R}^2} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
+&=
+\int_{0\le r,\, \theta\in[0,2\pi)} \frac1{2\pi}\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
+&=
+\emm{
+\left(\int_{0}^\infty r\mathrm{e}^{-\frac12r^2}\mathrm{d}r\right)
+\left(\int_0^{2\pi} \frac1{2\pi}\mathrm{d}\theta\right)}\\
+&=\left[-\mathrm{e}^{-\frac12r^2}\right]_0^\infty\cdot 1 = 1
+\end{align*}
+\end{frame}
+
+\begin{frame}{密度関数}
+\begin{align*}
+\Pr(f(X) \le x)&= \Pr\left(X\le f^{-1}(x)\right)\\
+&=\int_{-\infty}^{f^{-1}(x)} p(t) \mathrm{d}t\\
+&=\int_{-\infty}^{x} p\left(f^{-1}(u)\right) \frac1{f'(f^{-1}(u))}\mathrm{d}u\qquad(u = f(t))
+\end{align*}
+$f(t)=t^2$とすると、$X^2$の密度関数は
+\begin{align*}
+\frac1{2\sqrt{x}}p(\sqrt{x})
+&=
+\frac1{2\sqrt{2\pi x}}\mathrm{e}^{-\frac12 x}\qquad\text{for } x \ge 0
+\end{align*}
+\end{frame}
+
+\begin{frame}{課題}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item a
+\end{itemize}
+\end{frame}
+
+\if0
 \begin{frame}{ポアソン分布と中心極限定理}
 $X\sim\mathrm{Poisson}(\lambda)$のとき、
 $X_1+\dotsb+X_N\sim\mathrm{Poisson}(N\lambda)$である。
@@ -829,6 +887,7 @@ $X_1+\dotsb+X_N\sim\mathrm{Poisson}(N\lambda)$である。
 \item $\varphi_{\frac{\sum_{k=1}^N(X_k-\lambda)}{\sqrt{\lambda N}}}(t) = \mathrm{e}^{\lambda\left(\mathrm{e}^{i\frac{t}{\sqrt{\lambda N}}}-1-i\frac{t}{\sqrt{\lambda N}}\right)N}$.
 \end{itemize}
 \end{frame}
+\fi
 
 \if0
 \begin{frame}{独立だけど同分布じゃない場合}
@@ -839,273 +898,5 @@ $X_k$が分散を持つと仮定する。
 \end{align*}
 \end{frame}
 \fi
-
-\begin{frame}{複数の確率変数の確率密度関数}
-\small
-\begin{definition}
-$p_{Z_1,\dotsc,Z_n}\colon \mathbb{R}\to\mathbb{R}$が
-確率変数$Z_1,\dotsc,Z_n$の確率密度関数$\stackrel{\mathrm{def}}{\iff}$
-\begin{align*}
-\Pr(Z_1\le z_1, Z_2\le z_2,\dotsm Z_n\le z_n)&=
-\int_{\substack{-\infty< x_1 \le z_1\\ -\infty< x_2\le z_2\\\vdots\\-\infty<x_n\le z_n}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_1^n}
-\end{align*}
-\end{definition}
-%確率変数$Z_1,\dotsc,Z_n$が\emm{独立}のとき、
-%\begin{align*}
-%p_{Z_1,\dotsc,Z_n}(x_1,\dotsc,x_n)&=p_{Z_1}(x_1)p_{Z_2}(x_2)\dotsm p_{Z_n}(x_n)
-%\end{align*}
-%である。
-一つの確率変数$Z_1$の確率密度関数は$\Pr(Z_1\le z_1) = \Pr(Z_1\le z_1, Z_2 <\infty,\dotsc, Z_n<\infty)$より
-\begin{align*}
-p_{Z_1}(x_1)&=
-\int_{\substack{-\infty< x_s <\infty \;\forall s\ne 1}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_2^n}.
-\end{align*}
-他の$Z_k$の確率密度関数についても同様。
-\end{frame}
-
-\begin{frame}{独立確率変数}
-\begin{align*}
-\Pr(Z_1\le z_1, Z_2\le z_2,\dotsm Z_n\le z_n)&=
-\Pr(Z_1\le z_1)\Pr(Z_2\le z_2)\dotsm \Pr(Z_n\le z_n)
-\end{align*}
-\begin{align*}
-\int_{\substack{-\infty< x_1 \le z_1\\ -\infty< x_2\le z_2\\\vdots\\-\infty<x_n\le z_n}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_1^n}
-&=
-\end{align*}
-\end{frame}
-
-\begin{frame}{分散共分散行列}
-\small
-\begin{definition}[分散共分散行列]
-確率変数$Z_1,\dotsc,Z_n$の\emm{分散共分散行列}(もしくは\emm{共分散行列})$\vc{\symbf{Z}}\in\mathbb{R}^{n\times n}$は
-$(i,\,j)$成分に$\cov{Z_i,\,Z_j}=\expt{Z_iZ_j}-\expt{Z_i}\expt{Z_j}$を持つ行列である。
-\end{definition}
-\begin{align*}
-\vc{\symbf{Z}}&=
-\begin{bmatrix}
-\var{Z_1}&\cov{Z_1,Z_2}&\cov{Z_1,Z_3}\\
-\cov{Z_2,Z_1}&\var{Z_2}&\cov{Z_2,Z_3}\\
-\cov{Z_3,Z_1}&\cov{Z_3,Z_2}&\var{Z_3}\\
-\end{bmatrix}
-\end{align*}
-確率変数のベクトルや行列に対する$\expt{\cdot}$は成分毎に期待値を取ることを表す。
-\begin{align*}
-\symbf{Z} &= \begin{bmatrix}Z_1\\Z_2\\\vdots\\Z_n\end{bmatrix}&\text{とすると}\qquad
-\expt{\symbf{Z}} &= \begin{bmatrix}\expt{Z_1}\\\expt{Z_2}\\\vdots\\\expt{Z_n}\end{bmatrix}
-\end{align*}
-である。
-分散共分散行列は以下のように表せる。
-\begin{align*}
-\symbf{\Sigma}&=
-\expt{\symbf{Z} \symbf{Z}^T} - \expt{\symbf{Z}}\expt{\symbf{Z}}^T
-\end{align*}
-\end{frame}
-
-\begin{frame}{分散共分散行列の性質}
-\begin{itemize}
-\setlength{\itemsep}{2em}
-\item $\vc{\symbf{Z}}$は対称行列である。
-\item $\vc{\symbf{Z}}$は半正定値である。
-\item $\vc{\symbf{Z}+\symbf{b}}=\vc{\symbf{Z}}$.
-\item $\vc{A\symbf{Z}}=A\vc{\symbf{Z}}A^T$.
-%\item $\vc{\symbf{Z}+\symbf{Y}}=\vc{\symbf{Z}} + \vc{\symbf{Y}} + $.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{線形変換の分散共分散行列}
-行列$A\in\mathbb{R}^{m\times n}$と$n\times k$の確率変数行列$\symbf{Z}$について$\expt{A\symbf{Z}}=A\expt{\symbf{Z}}$である。
-よって、$N$次元確率変数ベクトル$\symbf{Z}$について
-\begin{align*}
-&\expt{(\symbf{Z} - \expt{\symbf{Z}})(\symbf{Z} - \expt{\symbf{Z}})^T}\\
-=&\expt{\symbf{Z}\symbf{Z}^T - \symbf{Z}\expt{\symbf{Z}}^T - \expt{\symbf{Z}}\symbf{Z}^T + \expt{\symbf{Z}}\expt{\symbf{Z}}^T}\\
-=& \expt{\symbf{Z} \symbf{Z}^T} - \expt{\symbf{Z}}\expt{\symbf{Z}}^T
-=\vc{\symbf{Z}}
-\end{align*}
-よって$\vc{\symbf{Z}+\symbf{b}}=\vc{\symbf{Z}}$である。
-
-\vspace{1em}
-\begin{align*}
-\vc{A\symbf{Z}}&=\expt{\symbf{AZ} (\symbf{AZ})^T} - \expt{\symbf{AZ}}\expt{\symbf{AZ}}^T\\
-&=A\expt{\symbf{Z} \symbf{Z}^T}A^T - A\expt{\symbf{Z}}\expt{\symbf{Z}}^TA^T\\
-&=A\emm{\vc{\symbf{Z}}}A^T
-\end{align*}
-\end{frame}
-
-\begin{frame}{分散共分散行列の半正定値性 I}
-\small
-\begin{align*}
-&
-\begin{bmatrix}
-1&\expt{Z_1}&\expt{Z_2}&\expt{Z_3}\\
-\expt{Z_1}&\expt{Z_1^2}&\expt{Z_1Z_2}&\expt{Z_1Z_3}\\
-\expt{Z_2}&\expt{Z_2Z_1}&\expt{Z_2^2}&\expt{Z_2Z_3}\\
-\expt{Z_3}&\expt{Z_3Z_1}&\expt{Z_3Z_2}&\expt{Z_3^2}\\
-\end{bmatrix}\\
-=&
-\expt{
-\begin{bmatrix}
-1&Z_1&Z_2&Z_3\\
-Z_1&Z_1^2&Z_1Z_2&Z_1Z_3\\
-Z_2&Z_2Z_1&Z_2^2&Z_2Z_3\\
-Z_3&Z_3Z_1&Z_3Z_2&Z_3^2\\
-\end{bmatrix}}\\
-=&
-\expt{
-\begin{bmatrix}
-1\\
-Z_1\\
-Z_2\\
-Z_3\\
-\end{bmatrix}
-\begin{bmatrix}
-1&
-Z_1&
-Z_2&
-Z_3
-\end{bmatrix}}\ge 0\qquad (\text{半正定値行列の期待値は半正定値})
-\end{align*}
-
-任意の$\symbf{a}\in\mathbb{R}^n$ と$n\times n$半正定値ランダム行列$R$について
-$\symbf{a}^T \expt{R}\symbf{a} = \expt{\symbf{a}^TR\symbf{a}}\ge 0$
-なので$\expt{R}\ge0$.
-\end{frame}
-
-\begin{frame}{分散共分散行列の半正定値性 II}
-\scriptsize
-\begin{align*}
-&
-\begin{bmatrix}
--\expt{Z_1}&1&0&0\\
--\expt{Z_2}&0&1&0\\
--\expt{Z_3}&0&0&1\\
-\end{bmatrix}
-\begin{bmatrix}
-1&\expt{Z_1}&\expt{Z_2}&\expt{Z_3}\\
-\expt{Z_1}&\expt{Z_1^2}&\expt{Z_1Z_2}&\expt{Z_1Z_3}\\
-\expt{Z_2}&\expt{Z_2Z_1}&\expt{Z_2^2}&\expt{Z_2Z_3}\\
-\expt{Z_3}&\expt{Z_3Z_1}&\expt{Z_3Z_2}&\expt{Z_3^2}\\
-\end{bmatrix}\\
-=&
-\begin{bmatrix}
-0&\expt{Z_1^2}-\expt{Z_1}^2&\expt{Z_1Z_2}-\expt{Z_1}\expt{Z_2}&\expt{Z_1Z_3}-\expt{Z_1}\expt{Z_3}\\
-0&\expt{Z_2Z_1}-\expt{Z_2}\expt{Z_1}&\expt{Z_2^2}-\expt{Z_2}^2&\expt{Z_2Z_3}-\expt{Z_2}\expt{Z_3}\\
-0&\expt{Z_3Z_1}-\expt{Z_3}\expt{Z_1}&\expt{Z_3Z_2}-\expt{Z_3}\expt{Z_2}&\expt{Z_3^2}-\expt{Z_3}^2\\
-\end{bmatrix}\\
-\end{align*}
-\begin{align*}
-&
-\begin{bmatrix}
-0&\var{Z_1}&\cov{Z_1, Z_2}&\cov{Z_1, Z_3}\\
-0&\cov{Z_2, Z_1}&\var{Z_2}&\cov{Z_2, Z_3}\\
-0&\cov{Z_3, Z_1}&\cov{Z_3, Z_2}&\var{Z_3}
-\end{bmatrix}
-\begin{bmatrix}
--\expt{Z_1}& -\expt{Z_2}& -\expt{Z_3}\\
-1&0&0\\
-0&1&0\\
-0&0&1\\
-\end{bmatrix}\\
-&=\vc{\symbf{Z}}
-\end{align*}
-
-$A\ge 0$のとき任意の行列$B$について$BAB^T\ge 0$なので$\vc{\symbf{Z}}\ge 0$である。
-\end{frame}
-
-\begin{frame}{多変量正規分布}
-\begin{definition}[多変量正規分布]
-確率変数$Z_1,\dotsc,Z_n$が平均$\symbf{\mu}\in\mathbb{R}^n$、分散共分散行列$\Sigma\in\mathbb{R}^{n\times n}$の多変量正規分布は確率密度関数
-\begin{align*}
-p_{\symbf{Z}}(\symbf{x}) &= \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}
-\end{align*}
-で定義される。
-\end{definition}
-\end{frame}
-
-\begin{frame}{密度関数の積分}
-\small
-多変量正規分布の密度関数を積分して1になることを確認する。
-$\Sigma$は対称行列なのである直交行列$V$と対角行列$D$が存在して$\Sigma=V^TDV$と表せる(スペクトル分解)。
-また$\Sigma$は正定値なので、$D$の対角成分は正である。
-\begin{align*}
-&\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}\mathrm{d}x\\
-&=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \symbf{x}^T\Sigma^{-1} \symbf{x}}\mathrm{d}x\\
-&=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 (V\symbf{x})^TD^{-1} (V\symbf{x})}\mathrm{d}x\qquad(\Sigma=V^TDV)\\
-&=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 \symbf{y}^TD^{-1} \symbf{y}}\frac1{|\det(V)|}\mathrm{d}y\qquad (y=Vx)\\
-&=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 \symbf{z}^T \symbf{z}}\frac1{|\det(\sqrt{D^{-1}})|}\mathrm{d}z\qquad (z=\sqrt{D^{-1}}y)\\
-&=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n}} \mathrm{e}^{-\frac12 \symbf{z}^T \symbf{z}}\mathrm{d}z
-=\prod_{k=1}^n\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac{z_k^2}2}\mathrm{d}z_k\right) = 1
-\end{align*}
-\end{frame}
-
-\begin{frame}{多変数の特性関数}
-\begin{definition}[多変数特性関数]
-$n$次元確率変数$X$の\emm{特性関数}$\varphi_{X}\colon\mathbb{R}^n\to\mathbb{C}$を以下で定義する。
-\begin{align*}
-\varphi_{X}(t) &:= \expt{\mathrm{e}^{i\langle t,\, X\rangle}}.
-\end{align*}
-ここで$\langle t,\, X\rangle := \sum_{k=1}^n t_k X_k$である。
-\end{definition}
-
-\vspace{1em}
-$X$と$Y$の分布が同じ$\emm{\iff}\varphi_X=\varphi_Y$ (ルベーグ積分に基づいた議論が必要).
-
-\vspace{1em}
-%$X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分できる。
-\begin{align*}
-%\left.\frac{\mathrm{d}^k\varphi_X(t)}{\mathrm{d}t^k}\right|_{t=0} &= i^k \expt{X^k}.
-\left.\frac{\partial \varphi_X(t)}{\partial t_k}\right|_{t=0} &= \left.\expt{iX_k\mathrm{e}^{i\langle t,\, X\rangle}}\right|_{t=0} = i\expt{X_k}\\
-\left.\frac{\partial^2 \varphi_X(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \left.\expt{(iX_k)(iX_\ell)\mathrm{e}^{i\langle t,\, X\rangle}}\right|_{t=0} = -\expt{X_kX_\ell}.
-\end{align*}
-\end{frame}
-
-\begin{frame}{多変数の特性関数の性質}
-\begin{itemize}
-\setlength{\itemsep}{1em}
-\item $\varphi_{X+b}(t) = \varphi_X(t)\mathrm{e}^{i\langle t,\, b\rangle}\qquad\forall b\in\mathbb{R}^n$.
-\item $\varphi_{AX}(t) = \varphi_X(A^Tt)\qquad\forall A\in\mathbb{R}^{m\times n}$.
-\item $\varphi_{X+Y}(t) = \varphi_X(t)\varphi_Y(t)$.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{多変量正規分布の特性関数}
-\small
-\begin{align*}
-&\expt{\mathrm{e}^{i\langle t,\,X\rangle}}\\
-&=\int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}\mathrm{e}^{i\langle t,\, x\rangle}\mathrm{d}x\\
-&= \int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \langle\Sigma^{-\frac12}(x-\mu),\,\Sigma^{-\frac12}(x-\mu)\rangle+i\langle \Sigma^{\frac12}t,\, \Sigma^{-\frac12}x\rangle}\mathrm{d}x\\
-&= \int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \langle\Sigma^{-\frac12}(x-\mu-i\Sigma t),\,\Sigma^{-\frac12}(x-\mu-i\Sigma t)\rangle +i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}\mathrm{d}x\\
-&= \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}
-\end{align*}
-\begin{align*}
-\left.\frac{\partial \varphi_Z(t)}{\partial t_k}\right|_{t=0} &= i\mu_k\\
-\left.\frac{\partial^2 \varphi_Z(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= 
-\end{align*}
-\end{frame}
-
-\begin{frame}{多変量正規分布の一次変換}
-\begin{lemma}
-$n$次元の確率変数$\symbf{Z}\sim N(\symbf{\mu}, \Sigma)$のとき、
-$A\symbf{Z}+\symbf{b}\sim N(A\symbf{\mu}+\symbf{b}, A\Sigma A^T)$.
-%$Z_k\sim N(\mu_k, \Sigma_{k,k})$.
-\end{lemma}
-\begin{proof}
-$\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}$より、
-\begin{align*}
-\varphi_{AZ+b}(t) &= \varphi_{AZ}(t)\mathrm{e}^{i\langle t,\,b\rangle} = \varphi_Z(A^Tt)\mathrm{e}^{i\langle t,\,b\rangle}\\
-&= \mathrm{e}^{i\langle \mu,\, A^T t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle + i\langle t,\,b\rangle}\\
-&= \mathrm{e}^{i\langle A\mu,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle+ i\langle t,\,b\rangle}\\
-&= \mathrm{e}^{i\langle A\mu + b,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle}
-\end{align*}
-これは$N(A\mu+b,\, A\Sigma A^T)$の特性関数である。
-\end{proof}
-\end{frame}
-
-\begin{frame}{多変量正規分布$\to$1変数正規分布}
-\end{frame}
 
 \end{document}
