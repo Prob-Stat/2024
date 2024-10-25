@@ -740,7 +740,7 @@ $X_1\emm{+}X_2\sim N(\mu_1\emm{+}\mu_2, \sigma_1^2\emm{+}\sigma_2^2)$である�
 \end{frame}
 
 \begin{frame}{$X+a$の確率密度関数}
-\small
+%\small
 確率変数$X$が確率密度関数$p(x)$を持つとする。
 
 このとき、$a\in\mathbb{R}$について確率変数$X+a$の確率密度関数は
@@ -856,12 +856,35 @@ $Z\sim\mathrm{Poisson}(\lambda)$について$\varphi_Z(t)=\mathrm{e}^{\lambda(\m
 \end{frame}
 
 \begin{frame}{密度関数}
+$J\subseteq\mathbb{R}$を区間とし、$f\colon J\to\mathbb{R}$を$J$の内点で\emm{微分可能で$f'(x)>0$}とする。
+$x\in\mathrm{Range}(f)$について
+
 \begin{align*}
 \Pr(f(X) \le x)&= \Pr\left(X\le f^{-1}(x)\right)\\
 &=\int_{-\infty}^{f^{-1}(x)} p(t) \mathrm{d}t\\
 &=\int_{-\infty}^{x} p\left(f^{-1}(u)\right) \frac1{f'(f^{-1}(u))}\mathrm{d}u\qquad(u = f(t))
 \end{align*}
-$f(t)=t^2$とすると、$X^2$の密度関数は
+よって$f(X)$の確率密度関数は\emm{$\frac1{f'(f^{-1}(x))}p(f^{-1}(x))$}である。
+
+%$f(t)=t^2$とすると、$X^2$の確率密度関数は
+%\begin{align*}
+%\frac1{2\sqrt{x}}p(\sqrt{x})
+%&=
+%\frac1{2\sqrt{2\pi x}}\mathrm{e}^{-\frac12 x}\qquad\text{for } x \ge 0
+%\end{align*}
+\end{frame}
+
+\begin{frame}{$\chi$二乗分布}
+$f(t)=t^2$は単調関数ではないが
+とすると、$X^2$の確率密度関数は
+\begin{align*}
+\Pr(X^2\le x) &= \Pr(X\in [-\sqrt{x},\,\sqrt{x}])\\
+&= \int_{-\sqrt{x}}^{\sqrt{x}} p(x)\mathrm{d}x\\
+\end{align*}
+
+\begin{align*}
+\Pr(X^2\le x) &= \Pr(X\le \sqrt{x})
+\end{align*}
 \begin{align*}
 \frac1{2\sqrt{x}}p(\sqrt{x})
 &=
