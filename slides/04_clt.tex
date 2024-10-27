@@ -598,12 +598,12 @@ $X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分でき�
 \begin{frame}{$X$と$Y$の分布が同じ$\iff\varphi_X=\varphi_Y$ (台が有限の場合)}
 確率変数の像が\emm{有限集合}のとき、
 \begin{align*}
-\varphi_X(t) &= \sum_{k\in \mathrm{Range}(X)} \Pr(X = k) \mathrm{e}^{itk}
+\varphi_X(t) &= \sum_{k\in \mathrm{Image}(X)} \Pr(X = k) \mathrm{e}^{itk}
 \end{align*}
-ここで、$\mathrm{Range}(X)$の最小値と最大値をそれぞれ$k_\mathsf{min}$と$k_\mathsf{max}$とおくと、
+ここで、$\mathrm{Image}(X)$の最小値と最大値をそれぞれ$k_\mathsf{min}$と$k_\mathsf{max}$とおくと、
 $k_\mathsf{max}-k_\mathsf{min}$次多項式$Q_X$を以下のように定義する。
 \begin{align*}
-Q_X(x) &= \sum_{k\in \mathrm{Range}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
+Q_X(x) &= \sum_{k\in \mathrm{Image}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 \end{align*}
 このとき、$Q_X(\mathrm{e}^{it}) = \varphi_X(t) \mathrm{e}^{-itk_\mathsf{min}}$である。
 一般的に\emm{$n$次多項式は異なる$(n+1)$点での値から一意に定まる}(Vandermonde行列の正則性)。
@@ -837,32 +837,15 @@ $Z\sim\mathrm{Poisson}(\lambda)$について$\varphi_Z(t)=\mathrm{e}^{\lambda(\m
 \end{proof}
 \end{frame}
 
-\begin{frame}{ガウス積分}
-\begin{align*}
-\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12x^2}\mathrm{d}x\right)^2
-&=
-\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12x^2}\mathrm{d}x\right)
-\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12y^2}\mathrm{d}y\right)\\
-&=
-\int_{\mathbb{R}^2} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
-&=
-\int_{0\le r,\, \theta\in[0,2\pi)} \frac1{2\pi}\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
-&=
-\emm{
-\left(\int_{0}^\infty r\mathrm{e}^{-\frac12r^2}\mathrm{d}r\right)
-\left(\int_0^{2\pi} \frac1{2\pi}\mathrm{d}\theta\right)}\\
-&=\left[-\mathrm{e}^{-\frac12r^2}\right]_0^\infty\cdot 1 = 1
-\end{align*}
-\end{frame}
 
 \begin{frame}{密度関数}
 $J\subseteq\mathbb{R}$を区間とし、$f\colon J\to\mathbb{R}$を$J$の内点で\emm{微分可能で$f'(x)>0$}とする。
-$x\in\mathrm{Range}(f)$について
+$x\in\mathrm{Image}(f)$について
 
 \begin{align*}
 \Pr(f(X) \le x)&= \Pr\left(X\le f^{-1}(x)\right)\\
-&=\int_{-\infty}^{f^{-1}(x)} p(t) \mathrm{d}t\\
-&=\int_{-\infty}^{x} p\left(f^{-1}(u)\right) \frac1{f'(f^{-1}(u))}\mathrm{d}u\qquad(u = f(t))
+&=\int_{-\infty}^{f^{-1}(x)} p(z) \mathrm{d}z\\
+&=\int_{-\infty}^{x} p\left(f^{-1}(u)\right) \frac1{f'(f^{-1}(u))}\mathrm{d}u\qquad(u = f(z))
 \end{align*}
 よって$f(X)$の確率密度関数は\emm{$\frac1{f'(f^{-1}(x))}p(f^{-1}(x))$}である。
 
@@ -874,23 +857,79 @@ $x\in\mathrm{Range}(f)$について
 %\end{align*}
 \end{frame}
 
+\if0
 \begin{frame}{$\chi$二乗分布}
-$f(t)=t^2$は単調関数ではないが
-とすると、$X^2$の確率密度関数は
+$N$個の独立確率変数が$X_1,\dotsc,X_k\sim N(0,1)$のとき
 \begin{align*}
-\Pr(X^2\le x) &= \Pr(X\in [-\sqrt{x},\,\sqrt{x}])\\
-&= \int_{-\sqrt{x}}^{\sqrt{x}} p(x)\mathrm{d}x\\
+\sum_{s=1}^k X_s^2
+\end{align*}
+が従う分布を\emm{自由度$k$の$\chi$二乗分布}という。
+\end{frame}
+
+%\begin{frame}{標準正規分布に従う確率変数の二乗}
+\begin{frame}{自由度1の$\chi$二乗分布}
+\small
+$f(x)=x^2$は単調関数ではないが$Z$の確率密度関数が対称($p(-z)=p(z)$)のとき、
+\begin{align*}
+\Pr(Z^2\le x) &= \Pr(Z\in [-\sqrt{x},\,\sqrt{x}])\\
+&= \int_{-\sqrt{x}}^{\sqrt{x}} p(z)\mathrm{d}z\\
+&= \int_{0}^{\sqrt{x}} p(z)\mathrm{d}z + \int_{-\sqrt{x}}^{0} p(z)\mathrm{d}z\\
+&= 2\int_{0}^{\sqrt{x}} p(z)\mathrm{d}z \qquad (p(-z)=p(z))\\
+&= 2\int_{0}^{x} p(\sqrt{u})\frac1{2\sqrt{u}}\mathrm{d}u \qquad (u = z^2)
 \end{align*}
 
+ここで$Z\sim N(0,1)$のとき、$Z^2$の確率密度関数は以下になる。
 \begin{align*}
-\Pr(X^2\le x) &= \Pr(X\le \sqrt{x})
-\end{align*}
-\begin{align*}
-\frac1{2\sqrt{x}}p(\sqrt{x})
-&=
-\frac1{2\sqrt{2\pi x}}\mathrm{e}^{-\frac12 x}\qquad\text{for } x \ge 0
+\emm{\frac1{\sqrt{2\pi x}} \mathrm{e}^{-\frac12 x}}\qquad x \ge 0.
 \end{align*}
 \end{frame}
+
+
+\begin{frame}{ガウス積分}
+\begin{align*}
+&\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12x^2}\mathrm{d}x\right)^2
+=
+\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12x^2}\mathrm{d}x\right)
+\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12y^2}\mathrm{d}y\right)\\
+&=
+\int_{\mathbb{R}^2} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
+&=
+\int_{0\le r,\, \theta\in[0,2\pi)} \frac1{2\pi}\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\qquad \left(r = \det\left(\begin{bmatrix}\cos\theta&\sin\theta\\-r\sin\theta&r\cos\theta\end{bmatrix}\right)\right)\\
+&=
+\emm{
+\left(\int_{0}^\infty r\mathrm{e}^{-\frac12r^2}\mathrm{d}r\right)
+\left(\int_0^{2\pi} \frac1{2\pi}\mathrm{d}\theta\right)}\\
+&=\left[-\mathrm{e}^{-\frac12r^2}\right]_0^\infty\cdot 1 = 1
+\end{align*}
+\end{frame}
+
+\begin{frame}{自由度2の$\chi$二乗分布}
+$Z$を自由度2の$\chi$二乗分布に従う確率変数とすると、任意の$A\subseteq\mathbb{R}^2$について
+\begin{align*}
+\Pr(Z\le z) &= \Pr(X^2 + Y^2 \le z)\\
+&= \int_{x^2+y^2\le z} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
+&=
+\int_{0\le r\le \sqrt{z},\, \theta\in[0,2\pi)} \frac1{2\pi}\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
+&=
+\left(\int_{0}^{\sqrt{z}} r\mathrm{e}^{-\frac12r^2}\mathrm{d}r\right)
+\left(\int_0^{2\pi} \frac1{2\pi}\mathrm{d}\theta\right)\\
+&=\left[-\mathrm{e}^{-\frac12r^2}\right]_0^{\sqrt{z}}\cdot 1 = 1 - \mathrm{e}^{-\frac12 z}
+\end{align*}
+これを微分すると$\frac12 \mathrm{e}^{-\frac12 z}$である。
+%$Z\sim N(0,1)$のとき、$Z^2$の確率密度関数は以下になる。
+%\begin{align*}
+%p(x) &= \frac1{\sqrt{2\pi x}} \mathrm{e}^{-\frac12 x}\qquad x \ge 0.
+%\end{align*}
+%
+%\begin{align*}
+%&\int_{0}^x p(z)p(x-z)\mathrm{d}z = \int_{0}^x \frac1{2\pi \sqrt{z(x-z)}} \mathrm{e}^{-\frac12 z(x-z)}\mathrm{d}z\\
+%&= 2\int_{0}^{\frac{x}2} \frac1{2\pi \sqrt{z(x-z)}} \mathrm{e}^{-\frac12 z(x-z)}\mathrm{d}z\\
+%&= 2\int_{0}^{\frac{x^2}4} \frac1{2\pi \sqrt{u}} \mathrm{e}^{-\frac12 u}\frac1{-2z+x}\mathrm{d}u\qquad \left(u=z(x-z),\, z = \frac{x-\sqrt{x^2-4u}}2\right)\\
+%&= 2\int_{0}^{\frac{x^2}4} \frac1{2\pi \sqrt{u}} \mathrm{e}^{-\frac12 u}\frac1{\sqrt{x^2-4u}}\mathrm{d}u
+%\end{align*}
+
+\end{frame}
+\fi
 
 \begin{frame}{課題}
 \begin{itemize}
