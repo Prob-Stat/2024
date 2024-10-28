@@ -75,7 +75,7 @@
 が指数関数的に小さいことを示している。
 
 \vspace{2em}
-より詳細に
+今日は期待値の近くに注目し、
 \begin{align*}
 \Pr\left(\left|\left(\sum_{k=1}^NX_k\right) - N\expt{X}\right| > \emm{\sqrt{N}}\epsilon\right)
 \end{align*}
@@ -595,8 +595,8 @@ $X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分でき�
 %\end{align*}
 \end{frame}
 
-\begin{frame}{$X$と$Y$の分布が同じ$\iff\varphi_X=\varphi_Y$ (台が有限の場合)}
-確率変数の像が\emm{有限集合}のとき、
+\begin{frame}{$X$と$Y$の分布が同じ$\iff\varphi_X=\varphi_Y$ (像が有限の場合)}
+確率変数$X$の像$\mathrm{Image}(X)$が\emm{有限集合}のとき、
 \begin{align*}
 \varphi_X(t) &= \sum_{k\in \mathrm{Image}(X)} \Pr(X = k) \mathrm{e}^{itk}
 \end{align*}
@@ -621,8 +621,17 @@ Q_X(x) &= \sum_{k\in \mathrm{Image}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 %\end{align*}
 \end{frame}
 
-\begin{frame}{コーシー分布の特性関数}
+\if0
+\begin{frame}{標準コーシー分布の特性関数}
+\begin{align*}
+p(x) &= \frac1{\pi(1+x^2)}
+\end{align*}
+\begin{align*}
+\expt{\mathrm{e}^{itX}} &= \int_{-\infty}^\infty \mathrm{e}^{itx}\frac1{\pi(1+x^2)}\mathrm{d}x\\
+&= \int_{-\infty}^\infty \mathrm{e}^{itx}\frac1{\pi(x-i)(x+i)}\mathrm{d}x\\
+\end{align*}
 \end{frame}
+\fi
 
 \begin{frame}{分布の収束と特性関数の収束}
 \begin{theorem}[レヴィの連続性定理]
@@ -658,7 +667,7 @@ Q_X(x) &= \sum_{k\in \mathrm{Image}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 \varphi_{\sum_kY_k}\left(\frac{t}{\sqrt{N}}\right)
 = \varphi_Y\left(\frac{t}{\sqrt{N}}\right)^N\\
 &= \left(\varphi_Y(0) + \varphi_Y'(0)\frac{t}{\sqrt{N}} + \frac{\varphi_Y''(0)}2\left(\frac{t}{\sqrt{N}}\right)^2 + o\left(\frac{1}{N}\right)\right)^N\\
-&= \left(1 - \frac{1}2\frac{t^2}{N} + o\left(\frac{1}{N}\right)\right)^N
+&= \left(\emm{1 - \frac{1}2\frac{t^2}{N}} + o\left(\frac{1}{N}\right)\right)^N
 \stackrel{N\to\infty}{\longrightarrow} \mathrm{e}^{-\frac{t^2}2}
 \end{align*}
 \end{frame}
@@ -790,14 +799,30 @@ $X_1\emm{+}X_2\sim N(\mu_1\emm{+}\mu_2, \sigma_1^2\emm{+}\sigma_2^2)$である�
 \end{frame}
 
 \begin{frame}{正規分布の密度関数}
+\small
+$Z\sim N(\mu,\sigma^2)$のとき、$Z+a$と$aZ$の確率密度関数は以下のようになる。
 \begin{align*}
 p(x\emm{-a}) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x\emm{-a}-\mu)^2}{2\sigma^2}}\\
 \frac1{|a|}p\left(\frac{x}{\emm{a}}\right) &= \frac1{\sqrt{2\pi\emm{a^2}\sigma^2}} \mathrm{e}^{-\frac{(x/\emm{a}-\mu)^2}{2\sigma^2}}\\
-&= \frac1{\sqrt{2\pi\emm{a^2}\sigma^2}} \mathrm{e}^{-\frac{(x-\emm{a}\mu)^2}{2\emm{a^2}\sigma^2}}\\
-\int_{-\infty}^{\infty} p_{X_2}(y)p_{X_1}(x-y) \mathrm{d}y &=
+&= \frac1{\sqrt{2\pi\emm{a^2}\sigma^2}} \mathrm{e}^{-\frac{(x-\emm{a}\mu)^2}{2\emm{a^2}\sigma^2}}
+\end{align*}
+\end{frame}
+
+\begin{frame}{正規分布の密度関数の畳み込み}
+\small
+\begin{align*}
+&\int_{-\infty}^{\infty} p_{X_2}(y)p_{X_1}(x-y) \mathrm{d}y =
 \int_{-\infty}^{\infty} \frac1{\sqrt{2\pi\sigma_2^2}}\mathrm{e}^{-\frac{(y-\mu_2)^2}{2\sigma_2^2}} \frac1{\sqrt{2\pi\sigma_1^2}}\mathrm{e}^{-\frac{(x-y-\mu_1)^2}{2\sigma_1^2}} \mathrm{d}y\\
- &=
-\int_{-\infty}^{\infty} \frac1{2\pi\sqrt{\sigma_1^2\sigma_2^2}}\mathrm{e}^{-\frac{\sigma_1^2(y-\mu_2)^2 - \sigma_2^2(x-y-\mu_1)^2}{2\sigma_1^2\sigma_2^2}}  \mathrm{d}y\\
+ &\quad=
+\int_{-\infty}^{\infty} \frac1{2\pi\sqrt{\sigma_1^2\sigma_2^2}}\mathrm{e}^{-\frac{\sigma_1^2(y-\mu_2)^2 + \sigma_2^2(x-y-\mu_1)^2}{2\sigma_1^2\sigma_2^2}}  \mathrm{d}y\\
+ &\quad=
+\int_{-\infty}^{\infty} \frac1{2\pi\sqrt{\sigma_1^2\sigma_2^2}}\mathrm{e}^{-\frac{(\sigma_1^2+\sigma_2^2)\left(y-\frac{(\mu_1-x)\sigma_2^2+\mu_2\sigma_1^2}{\sigma_1^2+\sigma_2^2}\right)^2 + \sigma_1^2\mu_2^2 + \sigma_2^2(x-\mu_1)^2 -\frac{((\mu_1-x)\sigma_2^2+\mu_2\sigma_1^2)^2}{\sigma_1^2+\sigma_2^2}}{2\sigma_1^2\sigma_2^2}}  \mathrm{d}y\\
+ &\quad=
+\frac1{\sqrt{2\pi(\sigma_1^2+\sigma_2^2)}}\mathrm{e}^{-\frac{\sigma_1^2\mu_2^2 + \sigma_2^2(x-\mu_1)^2 -\frac{((\mu_1-x)\sigma_2^2+\mu_2\sigma_1^2)^2}{\sigma_1^2+\sigma_2^2}}{2\sigma_1^2\sigma_2^2}}\\
+% &\quad=
+%\frac1{\sqrt{2\pi(\sigma_1^2+\sigma_2^2)}}\mathrm{e}^{-\frac{\sigma_1^2\sigma_2^2\mu_2^2 + \sigma_1^2\sigma_2^2(x-\mu_1)^2 -2(\mu_1-x)\sigma_2^2\mu_2\sigma_1^2}{2\sigma_1^2\sigma_2^2(\sigma_1^2+\sigma_2^2)}}\\
+ &\quad=
+\frac1{\sqrt{2\pi(\sigma_1^2+\sigma_2^2)}}\mathrm{e}^{-\frac{(x-\mu_1-\mu_2)^2}{2(\sigma_1^2+\sigma_2^2)}}\qquad \text{$N(\mu_1+\mu_2,\,\sigma_1^2+\sigma_2^2)$の確率密度関数}
 \end{align*}
 \end{frame}
 
@@ -934,7 +959,14 @@ $Z$を自由度2の$\chi$二乗分布に従う確率変数とすると、任意�
 \begin{frame}{課題}
 \begin{itemize}
 \setlength{\itemsep}{2em}
-\item a
+\item 表が出る確率が$p$のコインを$N$回投げて表が出る回数が区間$\left[pN-a\sqrt{N},\, pN+a\sqrt{N}\right]$に入る確率は$N\to\infty$極限で
+\begin{align*}
+\int_{-b}^b\frac1{\sqrt{2\pi}} \mathrm{e}^{-\frac12 x^2}\mathrm{d}x
+\end{align*}
+という形の値に収束する。この$b>0$を$p$と$a$を使って表せ。
+\item $U$を$[0,1]$上の一様分布とする(確率密度関数は$p(x) = \mathbb{1}_{\{x\in[0,1]\}}$である)。
+このとき、$-2\log U$の確率密度関数をもとめよ。
+\item $Z\sim N(0, 1)$のとき、$Z^2$の確率密度関数をもとめよ。
 \end{itemize}
 \end{frame}
 
