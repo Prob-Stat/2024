@@ -326,6 +326,63 @@ $\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\fr
 \end{frame}
 
 \begin{frame}{多変量正規分布$\to$1変数正規分布}
+
+\end{frame}
+
+\begin{frame}{確率密度関数}
+\begin{tikzpicture}
+\begin{axis}[
+    width=\textwidth, height=\axisdefaultheight,
+%%    zlabel={$p(x,y)$},
+%    xlabel={$x$},
+%    ylabel={$y$},
+%    xmin=-3, xmax=3,
+%    ymin=-3, ymax=3,
+%    scaled ticks = false,
+%    isosamples=100,
+%    pm3d = true
+    %tick label style={/pgf/number format/assume math mode=true, font=\footnotesize\sffamily},
+    %yticklabel style={/pgf/number format/.cd, fixed, fixed zerofill, precision=2},
+    %    domain=0:\binomN,samples at={0,1,...,\binomN},
+    %mark options={scale=0.75, blue},
+    %ybar, bar width = .75pt
+        ]
+%\addplot[ycomb] {binom(x,\binomN,0.3)};
+%\addplot {binom(x,\binomN,0.3)};
+\addplot3[surf, domain=-3:3, samples=100] {1.0/sqrt(2*pi) * exp(-0.5*(x^2 + y^2))};
+\end{axis}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{確率密度関数}
+\begin{tikzpicture}
+\begin{axis}[
+    width=150, height=150,
+    view={0}{90},
+    %colorbar horizontal
+        ]
+\addplot3[contour filled={number=128}, domain=-3:3, samples=100] {1.0/sqrt(2*pi) * exp(-0.5*(x^2 + y^2))};
+\end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[
+    width=150, height=150,
+    view={0}{90},
+    %colorbar horizontal
+        ]
+\addplot3[contour filled={number=128}, domain=-3:3, samples=100] {1.0/sqrt(2*pi) * exp(-0.5*(x^2 + y^2 - x*y))};
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\begin{axis}[
+    width=150, height=150,
+    view={0}{90},
+    %colorbar horizontal
+        ]
+\addplot3[contour filled={number=128}, domain=-3:3, samples=100] {1.0/sqrt(2*pi) * exp(-0.5*(x^2 + y^2 + x*y))};
+\end{axis}
+\end{tikzpicture}
 \end{frame}
 
 \end{document}
