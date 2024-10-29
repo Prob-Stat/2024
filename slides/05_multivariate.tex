@@ -332,6 +332,8 @@ $\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\fr
 \begin{frame}{確率密度関数}
 \begin{tikzpicture}
 \begin{axis}[
+%    title={$\frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}$},
+    title={$\mu=0,\,\Sigma = \begin{bmatrix}1&0\\0&1\end{bmatrix}$},
     width=\textwidth, height=\axisdefaultheight,
 %%    zlabel={$p(x,y)$},
 %    xlabel={$x$},
@@ -357,7 +359,8 @@ $\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\fr
 \begin{frame}{確率密度関数}
 \begin{tikzpicture}
 \begin{axis}[
-    width=150, height=150,
+    title={$\Sigma = \begin{bmatrix}1&0\\0&1\end{bmatrix}$},
+    width=120, height=120,
     view={0}{90},
     %colorbar horizontal
         ]
@@ -366,21 +369,23 @@ $\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\fr
 \end{tikzpicture}
 \begin{tikzpicture}
 \begin{axis}[
-    width=150, height=150,
+    title={$\Sigma = \begin{bmatrix}\sqrt{2}&1\\1&\sqrt{2}\end{bmatrix}$},
+    width=120, height=120,
     view={0}{90},
     %colorbar horizontal
         ]
-\addplot3[contour filled={number=128}, domain=-3:3, samples=100] {1.0/sqrt(2*pi) * exp(-0.5*(x^2 + y^2 - x*y))};
+\addplot3[contour filled={number=128}, domain=-3:3, samples=100] {1.0/sqrt(2*pi) * exp(-0.5*(sqrt(2)*x^2 + sqrt(2)*y^2 - 2*x*y))};
 \end{axis}
 \end{tikzpicture}
-
+%
 \begin{tikzpicture}
 \begin{axis}[
-    width=150, height=150,
+    title={$\Sigma = \begin{bmatrix}\sqrt{2}&-1\\-1&\sqrt{2}\end{bmatrix}$},
+    width=120, height=120,
     view={0}{90},
     %colorbar horizontal
         ]
-\addplot3[contour filled={number=128}, domain=-3:3, samples=100] {1.0/sqrt(2*pi) * exp(-0.5*(x^2 + y^2 + x*y))};
+\addplot3[contour filled={number=128}, domain=-3:3, samples=100] {1.0/sqrt(2*pi) * exp(-0.5*(sqrt(2)*x^2 + sqrt(2)*y^2 + 2*x*y))};
 \end{axis}
 \end{tikzpicture}
 \end{frame}
