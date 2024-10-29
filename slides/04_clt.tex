@@ -621,6 +621,30 @@ Q_X(x) &= \sum_{k\in \mathrm{Image}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 %\end{align*}
 \end{frame}
 
+\begin{frame}{おまけ: Vandermonde行列の正則性}
+\footnotesize
+\begin{definition}[Vandermonde行列]
+$x_0,\x_1,\dotsc,x_N\in\mathbb{C}$について、Vandermonde行列は以下で定義される。
+\begin{align*}
+V(x_0,x_1,\dotsc,x_N)&:=
+\begin{bmatrix}
+1&x_0&x_0^2&\cdots&x_0^N\\
+1&x_1&x_1^2&\cdots&x_1^N\\
+\vdots\\
+1&x_N&x_N^2&\cdots&x_N^N\\
+\end{bmatrix}.
+\end{align*}
+\end{definition}
+Vandermonde行列は多項式の係数から評価点への写像を表す。
+\begin{lemma}
+$x_0,x_1,\dotsc,x_N\in\mathbb{C}$が互いに異なるとき、$V(x_0,\dotsc,x_N)$は正則である。
+\end{lemma}
+\begin{proof}
+$x_0,x_1,\dotsc,x_N\in\mathbb{C}$が互いに異なるとき、$\ker(V(x_0,\dotsc,x_N))=\{0\}$を示せばよい。
+ある$v\in\mathbb{C}^{N+1}\setminus\{0\}$について$V(x_0,\dotsc,x_N) v = 0$のとき、高々$N$次の多項式を$P(x):=\sum_{k=0}^N v_k x^k$と定義する。この多項式は少なくとも$N+1$個の根$x_0,\dotsc,x_N$を持つ。高々$N$次の多項式は相異なる根を高々$N$個持つのでこれは矛盾。
+\end{proof}
+\end{frame}
+
 \if0
 \begin{frame}{標準コーシー分布の特性関数}
 \begin{align*}
