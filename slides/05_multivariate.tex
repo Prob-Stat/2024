@@ -493,7 +493,7 @@ $Z$を自由度2の$\chi$二乗分布に従う確率変数とすると、任意�
 
 \begin{frame}{二次元標準正規分布の極座標表示}
 \small
-$[X, Y]\sim N\left(\begin{bmatrix}0\\0\end{bmatrix},\,\begin{bmatrix}1&0\\0&1\end{bmatrix}\right)$について極座標表示$[R, \Theta]$を考える。
+$\begin{bmatrix}X\\ Y\end{bmatrix}\sim N\left(\begin{bmatrix}0\\0\end{bmatrix},\,\begin{bmatrix}1&0\\0&1\end{bmatrix}\right)$について極座標表示$[R, \Theta]$を考える。
 つまり、
 \begin{align*}
 R&:=\sqrt{X^2+Y^2}&\Theta&:=\arctan\frac{Y}{X}\\
@@ -504,7 +504,7 @@ X&=R\cos\Theta&Y&=R\sin\Theta
 &\qquad=
 \int_{[R(x,y),\,\Theta(x,y)]\in A} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
 &\qquad=
-\int_{[R(x,y),\,\Theta(x,y)]\in A} \frac1{2\pi}\cdot\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
+\int_{[r,\,\theta]\in A} \frac1{2\pi}\cdot\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
 &\qquad=
 \int_{[r,\,\theta]\in A} \emm{p_\Theta(\theta)p_R(r)}\mathrm{d}r\mathrm{d}\theta\\
 &\hspace{9em}\left(p_\Theta(\theta):=\mathbb{1}_{\{\theta\in[0,2\pi)\}},\, p_R(r):=r\mathrm{e}^{-\frac12 r^2}\right).
