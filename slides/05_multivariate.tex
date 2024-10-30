@@ -317,7 +317,7 @@ $\Sigma$は対称行列なのである\emm{直交行列$V$}と\emm{対角行列$
 &=
 \int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 y^TD^{-1} y}\frac1{|\det(V)|}\mathrm{d}y\qquad (y=Vx)\\
 &=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 z^T z}\frac1{|\det(\sqrt{D^{-1}})|}\mathrm{d}z\qquad (z=\sqrt{D^{-1}}y)\\
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 z^T z}\frac1{\left|\det(\sqrt{D^{-1}})\right|}\mathrm{d}z\qquad (z=\sqrt{D^{-1}}y)\\
 &=
 \int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n}} \mathrm{e}^{-\frac12 z^T z}\mathrm{d}z
 =\prod_{k=1}^n\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac{z_k^2}2}\mathrm{d}z_k\right) = 1
@@ -368,7 +368,7 @@ $n$次元確率変数$X$の\emm{特性関数}$\varphi_{X}\colon\mathbb{R}^n\to\m
 \begin{frame}{多変数の特性関数の性質}
 \small
 \begin{itemize}
-\setlength{\itemsep}{1em}
+\setlength{\itemsep}{3em}
 \item $M_{X+b}(t) = \expt{\mathrm{e}^{\langle t,\, X+b\rangle}} = \expt{\mathrm{e}^{\langle t,\, X\rangle}}\mathrm{e}^{\langle t,\,b\rangle}$\\
 $\qquad = M_X(t)\mathrm{e}^{\langle t,\, b\rangle}\qquad\forall b\in\mathbb{R}^n$.
 \item $M_{AX}(t) = \expt{\mathrm{e}^{\langle t,\, AX\rangle}} = \expt{\mathrm{e}^{\langle A^Tt,\, X\rangle}} = M_X(A^Tt)\qquad\forall A\in\mathbb{R}^{m\times n}$.
@@ -388,13 +388,28 @@ $\qquad = M_X(t)\mathrm{e}^{\langle t,\, b\rangle}\qquad\forall b\in\mathbb{R}^n
 よって、$K_Z(t) = \emm{\langle \mu,\, t\rangle + \frac12\left\langle \Sigma^\frac12t,\,\Sigma^\frac12t\right\rangle}$.
 \begin{align*}
 \left.\frac{\partial K_Z(t)}{\partial t_k}\right|_{t=0} &= \mu_k\\
-\left.\frac{\partial^2 K_Z(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \Sigma_{k, \ell}
+\left.\frac{\partial^2 K_Z(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \Sigma_{k, \ell}.
 \end{align*}
+\end{frame}
+
+\begin{frame}{多変量正規分布$\to$1変数正規分布}
+\begin{lemma}
+$n$次元の確率変数$\symbf{Z}\sim N(\mu, \Sigma)$について、
+$\symbf{Z}':=[Z_1,\dotsc,Z_{n-1}]\sim N(\mu', \Sigma')$.
+ここで、$\mu'\in\mathbb{R}^{N-1}$は$\mu$の第$n$成分を除いたもので$\Sigma'$は$\Sigma$の$n$行目と$n$列目を除いたもの。
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\varphi_{\symbf{Z}'}(t) &= \expt{\mathrm{e}^{i\langle t,\,Z'\rangle}}\\
+&=\expt{\mathrm{e}^{i\langle t,\, Z'\rangle + 0\cdot Z_n}}\\
+&=\varphi_{\symbf{Z}}(t,0) = \mathrm{e}^{i\langle t',\,\mu'\rangle - \langle \sqrt{\Sigma'}t,\,\sqrt{\Sigma'}t\rangle}
+\end{align*}
+\end{proof}
 \end{frame}
 
 \begin{frame}{多変量正規分布の一次変換}
 \begin{lemma}
-$n$次元の確率変数$\symbf{Z}\sim N(\mu, \Sigma)$について、
+$n$次元の確率変数$\symbf{Z}\sim N(\mu, \Sigma)$とランク$m$行列$A\in\mathbb{R}^{m\times n}$と$b\in\mathbb{R}^m$について、
 $A\symbf{Z}+b\sim N(A\mu+b, A\Sigma A^T)$.
 %$Z_k\sim N(\mu_k, \Sigma_{k,k})$.
 \end{lemma}
@@ -410,17 +425,9 @@ $\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\fr
 \end{proof}
 \end{frame}
 
-\begin{frame}{多変量正規分布$\to$1変数正規分布}
-\begin{corollary}
-$n$次元の確率変数$\symbf{Z}\sim N(\mu, \Sigma)$について、
-$[Z_1,\dotsc,Z_{n-1}]\sim N(\mu', \Sigma')$.
-%$Z_k\sim N(\mu_k, \Sigma_{k,k})$.
-\end{corollary}
-
-\end{frame}
 
 \begin{frame}{$\chi$二乗分布}
-$N$個の独立確率変数が$X_1,\dotsc,X_k\sim N(0,1)$のとき
+$k$個の独立確率変数が$X_1,\dotsc,X_k\sim N(0,1)$のとき
 \begin{align*}
 \sum_{s=1}^k X_s^2
 \end{align*}
@@ -502,12 +509,12 @@ X&=R\cos\Theta&Y&=R\sin\Theta
 \begin{align*}
 &\Pr([R, \Theta]\in A)\\
 &\qquad=
-\int_{[R(x,y),\,\Theta(x,y)]\in A} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
+\int_{[r(x,y),\,\theta(x,y)]\in A} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
 &\qquad=
 \int_{[r,\,\theta]\in A} \frac1{2\pi}\cdot\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
 &\qquad=
 \int_{[r,\,\theta]\in A} \emm{p_\Theta(\theta)p_R(r)}\mathrm{d}r\mathrm{d}\theta\\
-&\hspace{9em}\left(p_\Theta(\theta):=\mathbb{1}_{\{\theta\in[0,2\pi)\}},\, p_R(r):=r\mathrm{e}^{-\frac12 r^2}\right).
+&\hspace{9em}\left(p_\Theta(\theta):=\frac1{2\pi}\mathbb{1}_{\{\theta\in[0,2\pi)\}},\, p_R(r):=r\mathrm{e}^{-\frac12 r^2}\right).
 %\qquad&= \Pr([R\cos\Theta,\, R\sin\Theta]\in A)\qquad (R\sim \chi_2^2, \Theta\sim U(0,2\pi))
 \end{align*}
 \begin{center}
@@ -548,6 +555,21 @@ $U(0,1)$に従ったランダムな実数は発生できると仮定する。
 これをくり返すことで独立な標準正規分布に従う乱数をいくらでも作れる。
 $X\sim N(0,I)$のとき、$AX + \mu \sim N(\mu, AA^T)$なので一般の多変量正規分布に従う乱数も作れる。
 例えば$A=\sqrt{\Sigma}$とすれば$N(\mu,\Sigma)$に従う乱数が発生できる。
+\end{frame}
+
+\begin{frame}{直感的な理解と一般化}
+二次元標準正規分布の密度関数は\emm{$\sqrt{x^2+y^2}$だけで決まる}。
+よって、$\begin{bmatrix}x\\y\end{bmatrix}$を回転しても密度関数の値は不変。
+一般に$\begin{bmatrix}X\\Y\end{bmatrix}$の密度関数が$p(x,y)$が$r(x,y)=\sqrt{x^2+y^2}$だけで決まるとき、
+$p(x,y)$を$p(r)$と書くことにすると
+
+\begin{align*}
+\Pr(R\in A,\,\Theta\in B) &= \int_{r(x,\,y)\in A}\int_{\theta(x,\,y)\in B} p(x,\, y)\mathrm{d}x\mathrm{d}y\\
+ &= \int_{r\in A}\int_{\theta\in B} p(r)r\mathrm{d}r\mathrm{d}\theta\\
+ &= \left(\int_{\theta\in B}\frac1{2\pi}\mathrm{d}\theta\right)\left(\int_{r\in A} 2\pi rp(r)\mathrm{d}r\right)
+\end{align*}
+
+となる。つまり\emm{$R$と$\Theta$は独立で$\Theta$は$[0,2\pi)$上の一様分布}となる。
 \end{frame}
 
 \end{document}
