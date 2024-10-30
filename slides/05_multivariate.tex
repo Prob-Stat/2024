@@ -126,8 +126,8 @@ $(i,\,j)$成分に$\cov{Z_i,\,Z_j}=\expt{Z_iZ_j}-\expt{Z_i}\expt{Z_j}$を持つ�
 \setlength{\itemsep}{2em}
 \item $\vc{\symbf{Z}}$は対称行列である。
 \item $\vc{\symbf{Z}}$は半正定値である。
-\item $\vc{\symbf{Z}+\symbf{b}}=\vc{\symbf{Z}}$.
-\item $\vc{A\symbf{Z}}=A\vc{\symbf{Z}}A^T$.
+\item $\vc{\symbf{Z}+b}=\vc{\symbf{Z}}\quad\forall b\in\mathbb{R}^n$.
+\item $\vc{A\symbf{Z}}=A\vc{\symbf{Z}}A^T\quad\forall A\in\mathbb{R}^{m\times n}$.
 %\item $\vc{\symbf{Z}+\symbf{Y}}=\vc{\symbf{Z}} + \vc{\symbf{Y}} + $.
 \end{itemize}
 \end{frame}
@@ -136,16 +136,16 @@ $(i,\,j)$成分に$\cov{Z_i,\,Z_j}=\expt{Z_iZ_j}-\expt{Z_i}\expt{Z_j}$を持つ�
 行列$A\in\mathbb{R}^{m\times n}$と$n\times k$の確率変数行列$\symbf{Z}$について$\expt{A\symbf{Z}}=A\expt{\symbf{Z}}$である。
 よって、$N$次元確率変数ベクトル$\symbf{Z}$について
 \begin{align*}
-&\expt{(\symbf{Z} - \expt{\symbf{Z}})(\symbf{Z} - \expt{\symbf{Z}})^T}\\
+&\emm{\expt{(\symbf{Z} - \expt{\symbf{Z}})(\symbf{Z} - \expt{\symbf{Z}})^T}}\\
 =&\expt{\symbf{Z}\symbf{Z}^T - \symbf{Z}\expt{\symbf{Z}}^T - \expt{\symbf{Z}}\symbf{Z}^T + \expt{\symbf{Z}}\expt{\symbf{Z}}^T}\\
 =& \expt{\symbf{Z} \symbf{Z}^T} - \expt{\symbf{Z}}\expt{\symbf{Z}}^T
 =\vc{\symbf{Z}}
 \end{align*}
-よって$\vc{\symbf{Z}+\symbf{b}}=\vc{\symbf{Z}}$である。
+よって$\vc{\symbf{Z}+b}=\vc{\symbf{Z}}$である。
 
 \vspace{1em}
 \begin{align*}
-\vc{A\symbf{Z}}&=\expt{\symbf{AZ} (\symbf{AZ})^T} - \expt{\symbf{AZ}}\expt{\symbf{AZ}}^T\\
+\vc{A\symbf{Z}}&=\expt{A\symbf{Z} (A\symbf{Z})^T} - \expt{A\symbf{Z}}\expt{A\symbf{Z}}^T\\
 &=A\expt{\symbf{Z} \symbf{Z}^T}A^T - A\expt{\symbf{Z}}\expt{\symbf{Z}}^TA^T\\
 &=A\emm{\vc{\symbf{Z}}}A^T
 \end{align*}
@@ -182,11 +182,11 @@ Z_3\\
 Z_1&
 Z_2&
 Z_3
-\end{bmatrix}}\ge 0\qquad (\text{半正定値行列の期待値は半正定値})
+\end{bmatrix}}\ge 0\qquad (\text{\emm{半正定値行列の期待値は半正定値}})
 \end{align*}
 
-任意の$\symbf{a}\in\mathbb{R}^n$ と$n\times n$半正定値ランダム行列$R$について
-$\symbf{a}^T \expt{R}\symbf{a} = \expt{\symbf{a}^TR\symbf{a}}\ge 0$
+任意の$a\in\mathbb{R}^n$ と$n\times n$半正定値ランダム行列$R$について
+$a^T \expt{R}a = \expt{a^TR a}\ge 0$
 なので$\expt{R}\ge0$.
 \end{frame}
 
@@ -233,107 +233,20 @@ $A\ge 0$のとき任意の行列$B$について$BAB^T\ge 0$なので$\vc{\symbf{
 
 \begin{frame}{多変量正規分布}
 \begin{definition}[多変量正規分布]
-確率変数$Z_1,\dotsc,Z_n$が平均$\symbf{\mu}\in\mathbb{R}^n$、分散共分散行列$\Sigma\in\mathbb{R}^{n\times n}$の多変量正規分布は確率密度関数
+平均$\mu\in\mathbb{R}^n$、分散共分散行列$\Sigma\in\mathbb{R}^{n\times n}_{>0}$の
+多変量正規分布$N(\mu,\Sigma)$に従う $n$次元確率変数$\symbf{Z}$の確率密度関数は
 \begin{align*}
-p_{\symbf{Z}}(\symbf{x}) &= \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}
+p_{\symbf{Z}}(x) &= \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (x-\symbf{\mu})^T\Sigma^{-1} (x-\symbf{\mu})}
+\qquad \text{for }x\in\mathbb{R}^n
 \end{align*}
 で定義される。
 \end{definition}
 \end{frame}
-
-\begin{frame}{密度関数の積分}
-\small
-多変量正規分布の密度関数を積分して1になることを確認する。
-$\Sigma$は対称行列なのである直交行列$V$と対角行列$D$が存在して$\Sigma=V^TDV$と表せる(スペクトル分解)。
-また$\Sigma$は正定値なので、$D$の対角成分は正である。
-\begin{align*}
-&\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}\mathrm{d}x\\
-&=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \symbf{x}^T\Sigma^{-1} \symbf{x}}\mathrm{d}x\\
-&=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 (V\symbf{x})^TD^{-1} (V\symbf{x})}\mathrm{d}x\qquad(\Sigma=V^TDV)\\
-&=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 \symbf{y}^TD^{-1} \symbf{y}}\frac1{|\det(V)|}\mathrm{d}y\qquad (y=Vx)\\
-&=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 \symbf{z}^T \symbf{z}}\frac1{|\det(\sqrt{D^{-1}})|}\mathrm{d}z\qquad (z=\sqrt{D^{-1}}y)\\
-&=
-\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n}} \mathrm{e}^{-\frac12 \symbf{z}^T \symbf{z}}\mathrm{d}z
-=\prod_{k=1}^n\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac{z_k^2}2}\mathrm{d}z_k\right) = 1
-\end{align*}
-\end{frame}
-
-\begin{frame}{多変数の特性関数}
-\begin{definition}[多変数特性関数]
-$n$次元確率変数$X$の\emm{特性関数}$\varphi_{X}\colon\mathbb{R}^n\to\mathbb{C}$を以下で定義する。
-\begin{align*}
-\varphi_{X}(t) &:= \expt{\mathrm{e}^{i\langle t,\, X\rangle}}.
-\end{align*}
-ここで$\langle t,\, X\rangle := \sum_{k=1}^n t_k X_k$である。
-\end{definition}
-
-\vspace{1em}
-$X$と$Y$の分布が同じ$\emm{\iff}\varphi_X=\varphi_Y$ (ルベーグ積分に基づいた議論が必要).
-
-\vspace{1em}
-%$X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分できる。
-\begin{align*}
-%\left.\frac{\mathrm{d}^k\varphi_X(t)}{\mathrm{d}t^k}\right|_{t=0} &= i^k \expt{X^k}.
-\left.\frac{\partial \varphi_X(t)}{\partial t_k}\right|_{t=0} &= \left.\expt{iX_k\mathrm{e}^{i\langle t,\, X\rangle}}\right|_{t=0} = i\expt{X_k}\\
-\left.\frac{\partial^2 \varphi_X(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \left.\expt{(iX_k)(iX_\ell)\mathrm{e}^{i\langle t,\, X\rangle}}\right|_{t=0} = -\expt{X_kX_\ell}.
-\end{align*}
-\end{frame}
-
-\begin{frame}{多変数の特性関数の性質}
-\begin{itemize}
-\setlength{\itemsep}{1em}
-\item $\varphi_{X+b}(t) = \varphi_X(t)\mathrm{e}^{i\langle t,\, b\rangle}\qquad\forall b\in\mathbb{R}^n$.
-\item $\varphi_{AX}(t) = \varphi_X(A^Tt)\qquad\forall A\in\mathbb{R}^{m\times n}$.
-\item $\varphi_{X+Y}(t) = \varphi_X(t)\varphi_Y(t)$.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{多変量正規分布の特性関数}
-\small
-\begin{align*}
-&\expt{\mathrm{e}^{i\langle t,\,X\rangle}}\\
-&=\int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (\symbf{x}-\symbf{\mu})^T\Sigma^{-1} (\symbf{x}-\symbf{\mu})}\mathrm{e}^{i\langle t,\, x\rangle}\mathrm{d}x\\
-&= \int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \langle\Sigma^{-\frac12}(x-\mu),\,\Sigma^{-\frac12}(x-\mu)\rangle+i\langle \Sigma^{\frac12}t,\, \Sigma^{-\frac12}x\rangle}\mathrm{d}x\\
-&= \int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \langle\Sigma^{-\frac12}(x-\mu-i\Sigma t),\,\Sigma^{-\frac12}(x-\mu-i\Sigma t)\rangle +i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}\mathrm{d}x\\
-&= \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}
-\end{align*}
-\begin{align*}
-\left.\frac{\partial \varphi_Z(t)}{\partial t_k}\right|_{t=0} &= i\mu_k\\
-\left.\frac{\partial^2 \varphi_Z(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= 
-\end{align*}
-\end{frame}
-
-\begin{frame}{多変量正規分布の一次変換}
-\begin{lemma}
-$n$次元の確率変数$\symbf{Z}\sim N(\symbf{\mu}, \Sigma)$のとき、
-$A\symbf{Z}+\symbf{b}\sim N(A\symbf{\mu}+\symbf{b}, A\Sigma A^T)$.
-%$Z_k\sim N(\mu_k, \Sigma_{k,k})$.
-\end{lemma}
-\begin{proof}
-$\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}$より、
-\begin{align*}
-\varphi_{AZ+b}(t) &= \varphi_{AZ}(t)\mathrm{e}^{i\langle t,\,b\rangle} = \varphi_Z(A^Tt)\mathrm{e}^{i\langle t,\,b\rangle}\\
-&= \mathrm{e}^{i\langle \mu,\, A^T t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle + i\langle t,\,b\rangle}\\
-&= \mathrm{e}^{i\langle A\mu,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle+ i\langle t,\,b\rangle}\\
-&= \mathrm{e}^{i\langle A\mu + b,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle}
-\end{align*}
-これは$N(A\mu+b,\, A\Sigma A^T)$の特性関数である。
-\end{proof}
-\end{frame}
-
-\begin{frame}{多変量正規分布$\to$1変数正規分布}
-
-\end{frame}
-
 \begin{frame}{確率密度関数}
 \begin{tikzpicture}
 \begin{axis}[
 %    title={$\frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}$},
-    title={$\mu=0,\,\Sigma = \begin{bmatrix}1&0\\0&1\end{bmatrix}$},
+    title={$\mu=\begin{bmatrix}0\\0\end{bmatrix},\,\Sigma = \begin{bmatrix}1&0\\0&1\end{bmatrix}$},
     width=\textwidth, height=\axisdefaultheight,
 %%    zlabel={$p(x,y)$},
 %    xlabel={$x$},
@@ -388,6 +301,253 @@ $\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\fr
 \addplot3[contour filled={number=128}, domain=-3:3, samples=100] {1.0/sqrt(2*pi) * exp(-0.5*(sqrt(2)*x^2 + sqrt(2)*y^2 + 2*x*y))};
 \end{axis}
 \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{密度関数の積分}
+\small
+多変量正規分布の密度関数を積分して1になることを確認する。
+$\Sigma$は対称行列なのである\emm{直交行列$V$}と\emm{対角行列$D$}が存在して$\Sigma=V^TDV$と表せる(スペクトル分解)。
+また$\Sigma$は正定値なので、$D$の対角成分は正である。
+\begin{align*}
+&\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (x-\symbf{\mu})^T\Sigma^{-1} (x-\symbf{\mu})}\mathrm{d}x\\
+&=
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 x^T\Sigma^{-1} x}\mathrm{d}x\\
+&=
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 (Vx)^TD^{-1} (Vx)}\mathrm{d}x\qquad(\Sigma=V^TDV)\\
+&=
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 y^TD^{-1} y}\frac1{|\det(V)|}\mathrm{d}y\qquad (y=Vx)\\
+&=
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(D)}} \mathrm{e}^{-\frac12 z^T z}\frac1{|\det(\sqrt{D^{-1}})|}\mathrm{d}z\qquad (z=\sqrt{D^{-1}}y)\\
+&=
+\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n}} \mathrm{e}^{-\frac12 z^T z}\mathrm{d}z
+=\prod_{k=1}^n\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac{z_k^2}2}\mathrm{d}z_k\right) = 1
+\end{align*}
+\end{frame}
+
+\begin{frame}{多変数のモーメント母関数、キュムラント母関数、特性関数}
+\small
+\begin{definition}[多変数モーメント母関数]
+$n$次元確率変数$X$の\emm{モーメント母関数}$\varphi_{X}\colon\mathbb{R}^n\to\mathbb{R}$を以下で定義する。
+\begin{align*}
+M_{X}(t) &:= \expt{\mathrm{e}^{\langle t,\, X\rangle}}.
+\end{align*}
+ここで$\langle t,\, X\rangle := \sum_{k=1}^n t_k X_k$である。
+
+また\emm{キュムラント母関数}を$K_X(t) := \log M_X(t)$と定義する。
+\end{definition}
+\begin{definition}[多変数特性関数]
+$n$次元確率変数$X$の\emm{特性関数}$\varphi_{X}\colon\mathbb{R}^n\to\mathbb{C}$を以下で定義する。
+\begin{align*}
+\varphi_{X}(t) &:= \expt{\mathrm{e}^{i\langle t,\, X\rangle}}.
+\end{align*}
+%ここで$\langle t,\, X\rangle := \sum_{k=1}^n t_k X_k$である。
+\end{definition}
+\end{frame}
+
+\begin{frame}{多変数のモーメント母関数、キュムラント母関数、特性関数の性質}
+\small
+\begin{itemize}
+\setlength{\itemsep}{1em}
+\item $M_X(t)$が原点を含む開集合で存在するとき、この範囲で無限回微分でき
+\begin{align*}
+%\left.\frac{\mathrm{d}^k\varphi_X(t)}{\mathrm{d}t^k}\right|_{t=0} &= i^k \expt{X^k}.
+\left.\frac{\partial M_X(t)}{\partial t_k}\right|_{t=0} &= \left.\expt{X_k\mathrm{e}^{\langle t,\, X\rangle}}\right|_{t=0} = \expt{X_k}\\
+\left.\frac{\partial^2 M_X(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \left.\expt{X_kX_\ell\mathrm{e}^{\langle t,\, X\rangle}}\right|_{t=0} = \expt{X_kX_\ell}\\
+\left.\frac{\partial K_X(t)}{\partial t_k}\right|_{t=0} &= \left.\frac{\expt{X_k\mathrm{e}^{\langle t,\, X\rangle}}}{\expt{\mathrm{e}^{\langle t,\, X\rangle}}}\right|_{t=0} = \expt{X_k}\\
+\left.\frac{\partial^2 K_X(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \left.\frac{\expt{X_kX_\ell\mathrm{e}^{\langle t,\, X\rangle}}}{\expt{\mathrm{e}^{\langle t,\, X\rangle}}}\right|_{t=0} - \left(\left.\frac{\expt{X_k\mathrm{e}^{\langle t,\, X\rangle}}}{\expt{\mathrm{e}^{\langle t,\, X\rangle}}}\right|_{t=0}\right)\left(\left.\frac{\expt{X_\ell\mathrm{e}^{\langle t,\, X\rangle}}}{\expt{\mathrm{e}^{\langle t,\, X\rangle}}}\right|_{t=0}\right)\\
+&= \expt{X_kX_\ell} - \expt{X_k}\expt{X_\ell} = \cov{X_k, X_\ell}.
+\end{align*}
+\item $X$と$Y$の分布が同じ$\emm{\iff}\varphi_X=\varphi_Y$ (ルベーグ積分に基づいた議論が必要).
+\end{itemize}
+
+
+\vspace{1em}
+%$X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分できる。
+\end{frame}
+
+\begin{frame}{多変数の特性関数の性質}
+\small
+\begin{itemize}
+\setlength{\itemsep}{1em}
+\item $M_{X+b}(t) = \expt{\mathrm{e}^{\langle t,\, X+b\rangle}} = \expt{\mathrm{e}^{\langle t,\, X\rangle}}\mathrm{e}^{\langle t,\,b\rangle}$\\
+$\qquad = M_X(t)\mathrm{e}^{\langle t,\, b\rangle}\qquad\forall b\in\mathbb{R}^n$.
+\item $M_{AX}(t) = \expt{\mathrm{e}^{\langle t,\, AX\rangle}} = \expt{\mathrm{e}^{\langle A^Tt,\, X\rangle}} = M_X(A^Tt)\qquad\forall A\in\mathbb{R}^{m\times n}$.
+\item $M_{X+Y}(t) = \expt{\mathrm{e}^{\langle t,\, X+Y\rangle}} = \expt{\mathrm{e}^{\langle t,\, X\rangle}}\expt{\mathrm{e}^{\langle t,\, Y\rangle}}= M_X(t)M_Y(t)$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{多変量正規分布のモーメント母関数}
+\small
+\begin{align*}
+&\expt{\mathrm{e}^{\langle t,\,X\rangle}}\\
+&=\int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (x-\mu)^T\Sigma^{-1} (x-\mu)}\mathrm{e}^{\langle t,\, x\rangle}\mathrm{d}x\\
+&= \int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \left\langle\Sigma^{-\frac12}(x-\mu),\,\Sigma^{-\frac12}(x-\mu)\right\rangle+\left\langle \Sigma^{\frac12}t,\, \Sigma^{-\frac12}x\right\rangle}\mathrm{d}x\\
+&= \int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \left\langle\Sigma^{-\frac12}(x-\mu-\Sigma t),\,\Sigma^{-\frac12}(x-\mu-\Sigma t)\right\rangle +\left\langle \mu,\, t\right\rangle + \frac12\left\langle \Sigma^\frac12t,\,\Sigma^\frac12t\right\rangle}\mathrm{d}x\\
+&= \mathrm{e}^{\langle \mu,\, t\rangle + \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}.
+\end{align*}
+よって、$K_Z(t) = \emm{\langle \mu,\, t\rangle + \frac12\left\langle \Sigma^\frac12t,\,\Sigma^\frac12t\right\rangle}$.
+\begin{align*}
+\left.\frac{\partial K_Z(t)}{\partial t_k}\right|_{t=0} &= \mu_k\\
+\left.\frac{\partial^2 K_Z(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \Sigma_{k, \ell}
+\end{align*}
+\end{frame}
+
+\begin{frame}{多変量正規分布の一次変換}
+\begin{lemma}
+$n$次元の確率変数$\symbf{Z}\sim N(\mu, \Sigma)$について、
+$A\symbf{Z}+b\sim N(A\mu+b, A\Sigma A^T)$.
+%$Z_k\sim N(\mu_k, \Sigma_{k,k})$.
+\end{lemma}
+\begin{proof}
+$\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}$より、
+\begin{align*}
+\varphi_{AZ+b}(t) &= \varphi_{AZ}(t)\mathrm{e}^{i\langle t,\,b\rangle} = \varphi_Z(A^Tt)\mathrm{e}^{i\langle t,\,b\rangle}\\
+&= \mathrm{e}^{i\langle \mu,\, A^T t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle + i\langle t,\,b\rangle}\\
+&= \mathrm{e}^{i\langle A\mu,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle+ i\langle t,\,b\rangle}\\
+&= \mathrm{e}^{i\langle A\mu + b,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle}
+\end{align*}
+これは$N(A\mu+b,\, A\Sigma A^T)$の特性関数である。
+\end{proof}
+\end{frame}
+
+\begin{frame}{多変量正規分布$\to$1変数正規分布}
+\begin{corollary}
+$n$次元の確率変数$\symbf{Z}\sim N(\mu, \Sigma)$について、
+$[Z_1,\dotsc,Z_{n-1}]\sim N(\mu', \Sigma')$.
+%$Z_k\sim N(\mu_k, \Sigma_{k,k})$.
+\end{corollary}
+
+\end{frame}
+
+\begin{frame}{$\chi$二乗分布}
+$N$個の独立確率変数が$X_1,\dotsc,X_k\sim N(0,1)$のとき
+\begin{align*}
+\sum_{s=1}^k X_s^2
+\end{align*}
+が従う分布を\emm{自由度$k$の$\chi$二乗分布}という。
+\end{frame}
+
+%\begin{frame}{標準正規分布に従う確率変数の二乗}
+\begin{frame}{自由度1の$\chi$二乗分布}
+\small
+$f(x)=x^2$は単調関数ではないが$Z$の確率密度関数が対称($p(-z)=p(z)$)のとき、
+\begin{align*}
+\Pr(Z^2\le x) &= \Pr(Z\in [-\sqrt{x},\,\sqrt{x}])\\
+&= \int_{-\sqrt{x}}^{\sqrt{x}} p(z)\mathrm{d}z\\
+&= \int_{0}^{\sqrt{x}} p(z)\mathrm{d}z + \int_{-\sqrt{x}}^{0} p(z)\mathrm{d}z\\
+&= 2\int_{0}^{\sqrt{x}} p(z)\mathrm{d}z \qquad (p(-z)=p(z))\\
+&= 2\int_{0}^{x} p(\sqrt{u})\frac1{2\sqrt{u}}\mathrm{d}u \qquad (u = z^2)
+\end{align*}
+
+ここで$Z\sim N(0,1)$のとき、$Z^2$の確率密度関数は以下になる。
+\begin{align*}
+\emm{\frac1{\sqrt{2\pi x}} \mathrm{e}^{-\frac12 x}}\qquad x \ge 0.
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{ガウス積分}
+\begin{align*}
+&\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12x^2}\mathrm{d}x\right)^2
+=
+\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12x^2}\mathrm{d}x\right)
+\left(\int_{-\infty}^\infty \frac1{\sqrt{2\pi}}\mathrm{e}^{-\frac12y^2}\mathrm{d}y\right)\\
+&=
+\int_{\mathbb{R}^2} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
+&=
+\int_{0\le r,\, \theta\in[0,2\pi)} \frac1{2\pi}\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\qquad \left(r = \det\left(\begin{bmatrix}\cos\theta&\sin\theta\\-r\sin\theta&r\cos\theta\end{bmatrix}\right)\right)\\
+&=
+\emm{
+\left(\int_{0}^\infty r\mathrm{e}^{-\frac12r^2}\mathrm{d}r\right)
+\left(\int_0^{2\pi} \frac1{2\pi}\mathrm{d}\theta\right)}\\
+&=\left[-\mathrm{e}^{-\frac12r^2}\right]_0^\infty\cdot 1 = 1
+\end{align*}
+\end{frame}
+
+\begin{frame}{自由度2の$\chi$二乗分布}
+$Z$を自由度2の$\chi$二乗分布に従う確率変数とすると、任意の$A\subseteq\mathbb{R}^2$について
+\begin{align*}
+\Pr(Z\le z) &= \Pr(X^2 + Y^2 \le z)\\
+&= \int_{x^2+y^2\le z} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
+&=
+\int_{0\le r\le \sqrt{z},\, \theta\in[0,2\pi)} \frac1{2\pi}\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
+&=
+\left(\int_{0}^{\sqrt{z}} r\mathrm{e}^{-\frac12r^2}\mathrm{d}r\right)
+\left(\int_0^{2\pi} \frac1{2\pi}\mathrm{d}\theta\right)\\
+&=\left[-\mathrm{e}^{-\frac12r^2}\right]_0^{\sqrt{z}}\cdot 1 = 1 - \mathrm{e}^{-\frac12 z}
+\end{align*}
+これを微分すると$\frac12 \mathrm{e}^{-\frac12 z}$である。
+これは$U\sim U(0,1)$について\emm{$-2\log U$}の確率密度関数と同じである。
+%$Z\sim N(0,1)$のとき、$Z^2$の確率密度関数は以下になる。
+%\begin{align*}
+%p(x) &= \frac1{\sqrt{2\pi x}} \mathrm{e}^{-\frac12 x}\qquad x \ge 0.
+%\end{align*}
+%
+%\begin{align*}
+%&\int_{0}^x p(z)p(x-z)\mathrm{d}z = \int_{0}^x \frac1{2\pi \sqrt{z(x-z)}} \mathrm{e}^{-\frac12 z(x-z)}\mathrm{d}z\\
+%&= 2\int_{0}^{\frac{x}2} \frac1{2\pi \sqrt{z(x-z)}} \mathrm{e}^{-\frac12 z(x-z)}\mathrm{d}z\\
+%&= 2\int_{0}^{\frac{x^2}4} \frac1{2\pi \sqrt{u}} \mathrm{e}^{-\frac12 u}\frac1{-2z+x}\mathrm{d}u\qquad \left(u=z(x-z),\, z = \frac{x-\sqrt{x^2-4u}}2\right)\\
+%&= 2\int_{0}^{\frac{x^2}4} \frac1{2\pi \sqrt{u}} \mathrm{e}^{-\frac12 u}\frac1{\sqrt{x^2-4u}}\mathrm{d}u
+%\end{align*}
+\end{frame}
+
+\begin{frame}{二次元標準正規分布の極座標表示}
+\small
+$[X, Y]\sim N\left(\begin{bmatrix}0\\0\end{bmatrix},\,\begin{bmatrix}1&0\\0&1\end{bmatrix}\right)$について極座標表示$[R, \Theta]$を考える。
+つまり、
+\begin{align*}
+R&:=\sqrt{X^2+Y^2}&\Theta&:=\arctan\frac{Y}{X}\\
+X&=R\cos\Theta&Y&=R\sin\Theta
+\end{align*}
+\begin{align*}
+&\Pr([R, \Theta]\in A)\\
+&\qquad=
+\int_{[R(x,y),\,\Theta(x,y)]\in A} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
+&\qquad=
+\int_{[R(x,y),\,\Theta(x,y)]\in A} \frac1{2\pi}\cdot\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
+&\qquad=
+\int_{[r,\,\theta]\in A} \emm{p_\Theta(\theta)p_R(r)}\mathrm{d}r\mathrm{d}\theta\\
+&\hspace{9em}\left(p_\Theta(\theta):=\mathbb{1}_{\{\theta\in[0,2\pi)\}},\, p_R(r):=r\mathrm{e}^{-\frac12 r^2}\right).
+%\qquad&= \Pr([R\cos\Theta,\, R\sin\Theta]\in A)\qquad (R\sim \chi_2^2, \Theta\sim U(0,2\pi))
+\end{align*}
+\begin{center}
+\large
+$R$と$\Theta$は\emm{独立}
+\end{center}
+%\begin{align*}
+%&\Pr([X, Y]\in A)\\
+%&\qquad=
+%\int_{A} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
+%&\qquad=
+%\int_{\substack{0\le r,\,\theta\in[0,2\pi)\\ [r\cos\theta,\,r\sin\theta]\in A}} \frac1{2\pi}\cdot\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
+%&\qquad=
+%\int_{\substack{0\le r,\,\theta\in[0,2\pi)\\ [r\cos\theta,\,r\sin\theta]\in A}} \emm{p_\Theta(\theta)p_R(r)}\mathrm{d}r\mathrm{d}\theta\\
+%&\hspace{9em}\left(p_\Theta(\theta):=\mathbb{1}_{\{\theta\in[0,2\pi)\}},\, p_R(r):=r\mathrm{e}^{-\frac12 r^2}\right)\\
+%\qquad&= \Pr([R\cos\Theta,\, R\sin\Theta]\in A)\qquad (R\sim \chi_2^2, \Theta\sim U(0,2\pi))
+%\end{align*}
+\end{frame}
+
+\begin{frame}{ボックス--ミューラー法}
+コンピュータ上でのシミュレーションなどで正規分布に従う乱数はよく用いられる。
+
+\vspace{1em}
+コンピュータで標準正規分布に従って実数をランダムに発生させたい。
+
+\vspace{1em}
+$U(0,1)$に従ったランダムな実数は発生できると仮定する。
+
+\begin{block}{ボックス--ミューラー法}
+\begin{enumerate}
+\item $u, v\gets \mathtt{gen\_uniform(0,1)}$.
+\item $r \gets \sqrt{-2\log u},\quad \theta \gets 2\pi v$.
+\item $x \gets r\cos\theta,\quad y \gets r\sin\theta$.
+\end{enumerate}
+\emm{この手続きで生成された$x$と$y$は独立な標準正規分布に従う}。
+\end{block}
+
+これをくり返すことで独立な標準正規分布に従う乱数をいくらでも作れる。
+$X\sim N(0,I)$のとき、$AX + \mu \sim N(\mu, AA^T)$なので一般の多変量正規分布に従う乱数も作れる。
+例えば$A=\sqrt{\Sigma}$とすれば$N(\mu,\Sigma)$に従う乱数が発生できる。
 \end{frame}
 
 \end{document}
