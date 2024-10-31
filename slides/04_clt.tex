@@ -606,7 +606,7 @@ $k_\mathsf{max}-k_\mathsf{min}$次多項式$Q_X$を以下のように定義す�
 Q_X(x) &= \sum_{k\in \mathrm{Image}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 \end{align*}
 このとき、$Q_X(\mathrm{e}^{it}) = \varphi_X(t) \mathrm{e}^{-itk_\mathsf{min}}$である。
-一般的に\emm{$n$次多項式は異なる$(n+1)$点での値から一意に定まる}(Vandermonde行列の正則性)。
+一般的に\emm{$n$次多項式は異なる$(n+1)$点での値から一意に定まる}。
 よって特性関数から多項式$Q_X$が一意に定まり、$\Pr(X=k)$が一意に定まる。
 
 \begin{center}
@@ -621,27 +621,15 @@ Q_X(x) &= \sum_{k\in \mathrm{Image}(X)} \Pr(X = k) x^{k-k_{\mathsf{min}}}
 %\end{align*}
 \end{frame}
 
-\begin{frame}{おまけ: Vandermonde行列の正則性}
+\begin{frame}{おまけ: $N$次多項式は$N+1$点での値から定まる}
 \footnotesize
-\begin{definition}[Vandermonde行列]
-$x_0,\x_1,\dotsc,x_N\in\mathbb{C}$について、Vandermonde行列は以下で定義される。
-\begin{align*}
-V(x_0,x_1,\dotsc,x_N)&:=
-\begin{bmatrix}
-1&x_0&x_0^2&\cdots&x_0^N\\
-1&x_1&x_1^2&\cdots&x_1^N\\
-\vdots\\
-1&x_N&x_N^2&\cdots&x_N^N\\
-\end{bmatrix}.
-\end{align*}
-\end{definition}
-Vandermonde行列は多項式の係数から評価点への写像を表す。
 \begin{lemma}
-$x_0,x_1,\dotsc,x_N\in\mathbb{C}$が互いに異なるとき、$V(x_0,\dotsc,x_N)$は正則である。
+高々$N$次の体上の多項式$P$と$Q$が$N+1$個の異なる点で同じ値を取るとき、$P=Q$である。
 \end{lemma}
 \begin{proof}
-$x_0,x_1,\dotsc,x_N\in\mathbb{C}$が互いに異なるとき、$\ker(V(x_0,\dotsc,x_N))=\{0\}$を示せばよい。
-ある$b\in\mathbb{C}^{N+1}$について$V(x_0,\dotsc,x_N) b = 0$のとき、高々$N$次の多項式を$B(x):=\sum_{k=0}^N b_k x^k$と定義する。この多項式は少なくとも$N+1$個の根$x_0,\dotsc,x_N$を持つ。高々$N$次の非ゼロ多項式は相異なる根を高々$N$個持つため、$B$は零多項式であり、$b=0$である。
+仮定より、$P(x)-Q(x)$は高々$N$次の多項式であり、$N+1$個の異なる点で0である。
+一般に高々$N$次の非ゼロ多項式は高々$N$個の異なる根を持つ。
+そのため$P-Q$はゼロ多項式である。よって$P=Q$である。
 \end{proof}
 \end{frame}
 
