@@ -234,12 +234,14 @@ $A\ge 0$のとき任意の行列$B$について$BAB^T\ge 0$なので$\vc{\symbf{
 \begin{frame}{多変量正規分布}
 \begin{definition}[多変量正規分布]
 平均$\mu\in\mathbb{R}^n$、分散共分散行列$\Sigma\in\mathbb{R}^{n\times n}_{>0}$の
-多変量正規分布$N(\mu,\Sigma)$に従う $n$次元確率変数$\symbf{Z}$の確率密度関数は
+多変量正規分布$N(\mu,\,\Sigma)$に従う $n$次元確率変数$\symbf{Z}$の確率密度関数は
 \begin{align*}
 p_{\symbf{Z}}(x) &= \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (x-\symbf{\mu})^T\Sigma^{-1} (x-\symbf{\mu})}
 \qquad \text{for }x\in\mathbb{R}^n
 \end{align*}
 で定義される。
+
+また、$n\times n$単位行列$I_n$について$N(0,\, I_n)$は\emm{$n$次元標準正規分布}と呼ばれる。
 \end{definition}
 \end{frame}
 \begin{frame}{確率密度関数}
