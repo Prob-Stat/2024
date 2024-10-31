@@ -574,4 +574,29 @@ $p(x,y)$を$p(r)$と書くことにすると
 となる。つまり\emm{$R$と$\Theta$は独立で$\Theta$は$[0,2\pi)$上の一様分布}となる。
 \end{frame}
 
+\begin{frame}{なぜ$X^2+Y^2$と$-2\log U$が同じ分布なのか？}
+運がよかっただけか？
+
+\vspace{1em}
+$X^2+Y^2$と$-2\log U$が同じ分布$\iff \mathrm{e}^{-\frac12(X^2+Y^2)}$と$U$が同じ分布。
+
+一般に$\begin{bmatrix}X\\Y\end{bmatrix}$の密度関数が$p(x,y)$が$r(x,y)=\sqrt{x^2+y^2}$だけで決まるとき、
+$p(x,y)$を$q(r)$と書くことにする。$q$が単調減少だと仮定すると
+
+\begin{align*}
+\Pr(p(x, y) \le z) &= \int_{p(x,y)\le z} p(x,y)\mathrm{d}x\mathrm{d}y\\
+ &= \int_{q^{-1}(z)}^\infty q(r)r \mathrm{d}r\int_{0}^{2\pi}\mathrm{d}\theta\\
+ &= 2\pi\int_{q^{-1}(z)}^\infty q(r)r \mathrm{d}r\\
+ &= -2\pi\int_{0}^z u q^{-1}(u) q^{-1'}(u) \mathrm{d}u \qquad(u = q(r))
+\end{align*}
+
+%\begin{align*}
+%\Pr\left(\mathrm{e}^{-\frac12(X^2+Y^2)}\le z\right)
+%&= \Pr\left(\frac1{2\pi}\mathrm{e}^{-\frac12(X^2+Y^2)}\le \frac1{2\pi}z\right) \\
+%&= \Pr\left(p(X, Y)\le \frac1{2\pi}z\right)\\
+%&=\int_{p(x,y)\le \frac1{2\pi}z} p(x,y)\mathrm{d}x\mathrm{d}y\\
+%&=\int_Q \int_{\infty}^{\frac1{2\pi}z} p J \mathrm{d}p\mathrm{d}q\\
+%\end{align*}
+\end{frame}
+
 \end{document}
