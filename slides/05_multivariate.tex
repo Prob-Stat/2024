@@ -62,35 +62,50 @@
 
 \begin{frame}{複数の確率変数の確率密度関数}
 \small
-\begin{definition}
-$p_{Z_1,\dotsc,Z_n}\colon \mathbb{R}\to\mathbb{R}$が
-確率変数$Z_1,\dotsc,Z_n$の確率密度関数$\stackrel{\mathrm{def}}{\iff}$
+%\begin{definition}
+\begin{block}{多変数の確率密度関数}
+$p_{X_1,\dotsc, X_n}\colon \mathbb{R}^n\to\mathbb{R}$を
+確率変数$X_1,\dotsc, X_n$の\emm{確率密度関数}とすると、
+任意の$A\subseteq\mathbb{R}^n$について
+%$\stackrel{\mathrm{def}}{\iff}$
 \begin{align*}
-\Pr(Z_1\le z_1, Z_2\le z_2,\dotsm Z_n\le z_n)&=
-\int_{\substack{-\infty< x_1 \le z_1\\ -\infty< x_2\le z_2\\\vdots\\-\infty<x_n\le z_n}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_1^n}
+\Pr([X_1,\,X_2,\dotsc, X_n]\in A)&=
+%\int_{\substack{-\infty< x_1 \le z_1\\ -\infty< x_2\le z_2\\\vdots\\-\infty<x_n\le z_n}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_1^n}
+\int_{x\in A} p_{X_1,\dotsc, X_n}(x)\mathrm{d}x.
 \end{align*}
-\end{definition}
+\end{block}
+%\end{definition}
 %確率変数$Z_1,\dotsc,Z_n$が\emm{独立}のとき、
 %\begin{align*}
 %p_{Z_1,\dotsc,Z_n}(x_1,\dotsc,x_n)&=p_{Z_1}(x_1)p_{Z_2}(x_2)\dotsm p_{Z_n}(x_n)
 %\end{align*}
 %である。
-一つの確率変数$Z_1$の確率密度関数は$\Pr(Z_1\le z_1) = \Pr(Z_1\le z_1, Z_2 <\infty,\dotsc, Z_n<\infty)$より
+
+\begin{block}{独立な場合}
+確率変数$X_1,\dotsc,X_n$が独立な場合、
 \begin{align*}
-p_{Z_1}(x_1)&=
-\int_{\substack{-\infty< x_s <\infty \;\forall s\ne 1}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_2^n}.
+p_{X_1,\dotsc, X_n}(x_1,\dotsc, x_n) &= p_{X_1}(x_1)p_{X_2}(x_2)\dotsm p_{X_n}(x_n).
 \end{align*}
-他の$Z_k$の確率密度関数についても同様。
+\end{block}
+
+
+
+%他の$X_k$の確率密度関数についても同様。
 \end{frame}
 
-\begin{frame}{独立確率変数}
+\begin{frame}{周辺化}
+一つの確率変数$X_1$の確率密度関数は
 \begin{align*}
-\Pr(Z_1\le z_1, Z_2\le z_2,\dotsm Z_n\le z_n)&=
-\Pr(Z_1\le z_1)\Pr(Z_2\le z_2)\dotsm \Pr(Z_n\le z_n)
+\Pr(X_1\in A) &= \Pr(X_1\in A, X_2 \in\mathbb{R},\dotsc, X_n\in\mathbb{R})\\
+&=\int_{\substack{x_1\in A\\x_2,\dotsc,x_n\in\mathbb{R}}} p_{X_1,\dotsc,X_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}x\\
+&=\int_{x_1\in A}\left(\int_{x_2,\dotsc,x_n\in\mathbb{R}} p_{X_1,\dotsc,X_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}x_2\dotsm \mathrm{d}x_n\right)\mathrm{d}x_1.
+%p_{Z_1}(x_1)&=
+%%\int_{\substack{-\infty< x_s <\infty \;\forall s\ne 1}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_2^n}.
+%\int_{z_2\in\mathbb{R}} p_{Z_1,\dotsc,Z_n}(z_1,z_2,\dotsc,z_n)\mathrm{d}{\symbf{z}_2^n}.
 \end{align*}
+よって$X_1$の確率密度関数は
 \begin{align*}
-\int_{\substack{-\infty< x_1 \le z_1\\ -\infty< x_2\le z_2\\\vdots\\-\infty<x_n\le z_n}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_1^n}
-&=
+p_{X_1}(x_1) &=\int_{x_2,\dotsc,x_n\in\mathbb{R}} p_{X_1,\dotsc,X_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}x_2\dotsm \mathrm{d}x_n
 \end{align*}
 \end{frame}
 
@@ -333,7 +348,7 @@ $n$次元確率変数$X$の\emm{モーメント母関数}$\varphi_{X}\colon\math
 \begin{align*}
 M_{X}(t) &:= \expt{\mathrm{e}^{\langle t,\, X\rangle}}.
 \end{align*}
-ここで$\langle t,\, X\rangle := \sum_{k=1}^n t_k X_k$である。
+ここで$\langle t,\, X\rangle := \emm{\sum_{k=1}^n t_k X_k}$である。
 
 また\emm{キュムラント母関数}を$K_X(t) := \log M_X(t)$と定義する。
 \end{definition}
