@@ -71,7 +71,7 @@ $p_{X_1,\dotsc, X_n}\colon \mathbb{R}^n\to\mathbb{R}$を
 \begin{align*}
 \Pr([X_1,\,X_2,\dotsc, X_n]\in A)&=
 %\int_{\substack{-\infty< x_1 \le z_1\\ -\infty< x_2\le z_2\\\vdots\\-\infty<x_n\le z_n}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_1^n}
-\int_{x\in A} p_{X_1,\dotsc, X_n}(x)\mathrm{d}x.
+\int_{A} p_{X_1,\dotsc, X_n}(x)\mathrm{d}x.
 \end{align*}
 \end{block}
 %\end{definition}
@@ -88,7 +88,10 @@ p_{X_1,\dotsc, X_n}(x_1,\dotsc, x_n) &= p_{X_1}(x_1)p_{X_2}(x_2)\dotsm p_{X_n}(x
 \end{align*}
 \end{block}
 
-
+\begin{example}
+$X_1\sim U(0,1)$で($[0,1]$上の一様分布)、$X_2=X_1$のとき、$[X_1, X_2]$の確率密度関数は存在しない。
+$p_{X_1,X_2}(x_1,x_2)$は$x_1\ne x_2$のとき0としてよいが、$p(x,x)$をどのように定義しても$\int_{\mathbb{R}^2}p(x_1,x_2)\mathrm{d}x_1\mathrm{d}x_2$は0になる。
+\end{example}
 
 %他の$X_k$の確率密度関数についても同様。
 \end{frame}
@@ -109,6 +112,15 @@ p_{X_1}(x_1) &=\int_{x_2,\dotsc,x_n\in\mathbb{R}} p_{X_1,\dotsc,X_n}(x_1,x_2,\do
 \end{align*}
 \end{frame}
 
+\begin{frame}{期待値}
+確率変数のベクトルや行列に対する$\expt{\cdot}$は成分毎に期待値を取ることを表す。
+\begin{align*}
+\symbf{Z} &= \begin{bmatrix}Z_1\\Z_2\\\vdots\\Z_n\end{bmatrix}&\text{とすると}\qquad
+\expt{\symbf{Z}} &= \begin{bmatrix}\expt{Z_1}\\\expt{Z_2}\\\vdots\\\expt{Z_n}\end{bmatrix}
+\end{align*}
+である。
+\end{frame}
+
 \begin{frame}{分散共分散行列}
 \small
 \begin{definition}[分散共分散行列]
@@ -123,12 +135,6 @@ $(i,\,j)$成分に$\cov{Z_i,\,Z_j}=\expt{Z_iZ_j}-\expt{Z_i}\expt{Z_j}$を持つ�
 \cov{Z_3,Z_1}&\cov{Z_3,Z_2}&\var{Z_3}\\
 \end{bmatrix}
 \end{align*}
-確率変数のベクトルや行列に対する$\expt{\cdot}$は成分毎に期待値を取ることを表す。
-\begin{align*}
-\symbf{Z} &= \begin{bmatrix}Z_1\\Z_2\\\vdots\\Z_n\end{bmatrix}&\text{とすると}\qquad
-\expt{\symbf{Z}} &= \begin{bmatrix}\expt{Z_1}\\\expt{Z_2}\\\vdots\\\expt{Z_n}\end{bmatrix}
-\end{align*}
-である。
 分散共分散行列は以下のように表せる。
 \begin{align*}
 \symbf{\Sigma}&=
