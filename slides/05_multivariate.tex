@@ -90,7 +90,7 @@ p_{X_1,\dotsc, X_n}(x_1,\dotsc, x_n) &= p_{X_1}(x_1)p_{X_2}(x_2)\dotsm p_{X_n}(x
 
 \begin{example}
 $X_1\sim U(0,1)$で($[0,1]$上の一様分布)、$X_2=X_1$のとき、$[X_1, X_2]$の確率密度関数は存在しない。
-$p_{X_1,X_2}(x_1,x_2)$は$x_1\ne x_2$のとき0としてよいが、$p(x,x)$をどのように定義しても$\int_{\mathbb{R}^2}p(x_1,x_2)\mathrm{d}x_1\mathrm{d}x_2$は0になる。
+$p_{X_1,X_2}(x_1,x_2)$は$x_1\ne x_2$のとき0としてよいが、$p(x,x)$をどのように定義しても$\int_{\mathbb{R}^2}p(x_1,x_2)\mathrm{d}x_1\mathrm{d}x_2=0$になる。
 \end{example}
 
 %他の$X_k$の確率密度関数についても同様。
@@ -115,8 +115,8 @@ p_{X_1}(x_1) &=\int_{x_2,\dotsc,x_n\in\mathbb{R}} p_{X_1,\dotsc,X_n}(x_1,x_2,\do
 \begin{frame}{期待値}
 確率変数のベクトルや行列に対する$\expt{\cdot}$は成分毎に期待値を取ることを表す。
 \begin{align*}
-\symbf{Z} &= \begin{bmatrix}Z_1\\Z_2\\\vdots\\Z_n\end{bmatrix}&\text{とすると}\qquad
-\expt{\symbf{Z}} &= \begin{bmatrix}\expt{Z_1}\\\expt{Z_2}\\\vdots\\\expt{Z_n}\end{bmatrix}
+\symbf{X} &= \begin{bmatrix}X_1\\X_2\\\vdots\\X_n\end{bmatrix}&\text{とすると}\qquad
+\expt{\symbf{X}} &= \begin{bmatrix}\expt{X_1}\\\expt{X_2}\\\vdots\\\expt{X_n}\end{bmatrix}
 \end{align*}
 である。
 \end{frame}
@@ -124,51 +124,51 @@ p_{X_1}(x_1) &=\int_{x_2,\dotsc,x_n\in\mathbb{R}} p_{X_1,\dotsc,X_n}(x_1,x_2,\do
 \begin{frame}{分散共分散行列}
 \small
 \begin{definition}[分散共分散行列]
-確率変数$Z_1,\dotsc,Z_n$の\emm{分散共分散行列}(もしくは\emm{共分散行列})$\vc{\symbf{Z}}\in\mathbb{R}^{n\times n}$は
-$(i,\,j)$成分に$\cov{Z_i,\,Z_j}=\expt{Z_iZ_j}-\expt{Z_i}\expt{Z_j}$を持つ行列である。
+確率変数$X_1,\dotsc,X_n$の\emm{分散共分散行列}(もしくは\emm{共分散行列})$\vc{\symbf{X}}\in\mathbb{R}^{n\times n}$は
+$(i,\,j)$成分に$\cov{X_i,\,X_j}=\expt{X_iX_j}-\expt{X_i}\expt{X_j}$を持つ行列である。
 \end{definition}
 \begin{align*}
-\vc{\symbf{Z}}&=
+\vc{\symbf{X}}&=
 \begin{bmatrix}
-\var{Z_1}&\cov{Z_1,Z_2}&\cov{Z_1,Z_3}\\
-\cov{Z_2,Z_1}&\var{Z_2}&\cov{Z_2,Z_3}\\
-\cov{Z_3,Z_1}&\cov{Z_3,Z_2}&\var{Z_3}\\
+\var{X_1}&\cov{X_1,X_2}&\cov{X_1,X_3}\\
+\cov{X_2,X_1}&\var{X_2}&\cov{X_2,X_3}\\
+\cov{X_3,X_1}&\cov{X_3,X_2}&\var{X_3}\\
 \end{bmatrix}
 \end{align*}
 分散共分散行列は以下のように表せる。
 \begin{align*}
 \symbf{\Sigma}&=
-\expt{\symbf{Z} \symbf{Z}^T} - \expt{\symbf{Z}}\expt{\symbf{Z}}^T
+\expt{\symbf{X} \symbf{X}^T} - \expt{\symbf{X}}\expt{\symbf{X}}^T
 \end{align*}
 \end{frame}
 
 \begin{frame}{分散共分散行列の性質}
 \begin{itemize}
 \setlength{\itemsep}{2em}
-\item $\vc{\symbf{Z}}$は対称行列である。
-\item $\vc{\symbf{Z}}$は半正定値である。
-\item $\vc{\symbf{Z}+b}=\vc{\symbf{Z}}\quad\forall b\in\mathbb{R}^n$.
-\item $\vc{A\symbf{Z}}=A\vc{\symbf{Z}}A^T\quad\forall A\in\mathbb{R}^{m\times n}$.
-%\item $\vc{\symbf{Z}+\symbf{Y}}=\vc{\symbf{Z}} + \vc{\symbf{Y}} + $.
+\item $\vc{\symbf{X}}$は対称行列である。
+\item $\vc{\symbf{X}}$は半正定値である。
+\item $\vc{\symbf{X}+b}=\vc{\symbf{X}}\quad\forall b\in\mathbb{R}^n$.
+\item $\vc{A\symbf{X}}=A\vc{\symbf{X}}A^T\quad\forall A\in\mathbb{R}^{m\times n}$.
+%\item $\vc{\symbf{X}+\symbf{Y}}=\vc{\symbf{X}} + \vc{\symbf{Y}} + $.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{線形変換の分散共分散行列}
-行列$A\in\mathbb{R}^{m\times n}$と$n\times k$の確率変数行列$\symbf{Z}$について$\expt{A\symbf{Z}}=A\expt{\symbf{Z}}$である。
-よって、$N$次元確率変数ベクトル$\symbf{Z}$について
+行列$A\in\mathbb{R}^{m\times n}$と$n\times k$の確率変数行列$\symbf{R}$について$\expt{A\symbf{R}}=A\expt{\symbf{R}}$である。
+よって、$N$次元確率変数ベクトル$\symbf{X}$について
 \begin{align*}
-&\emm{\expt{(\symbf{Z} - \expt{\symbf{Z}})(\symbf{Z} - \expt{\symbf{Z}})^T}}\\
-=&\expt{\symbf{Z}\symbf{Z}^T - \symbf{Z}\expt{\symbf{Z}}^T - \expt{\symbf{Z}}\symbf{Z}^T + \expt{\symbf{Z}}\expt{\symbf{Z}}^T}\\
-=& \expt{\symbf{Z} \symbf{Z}^T} - \expt{\symbf{Z}}\expt{\symbf{Z}}^T
-=\vc{\symbf{Z}}
+&\emm{\expt{(\symbf{X} - \expt{\symbf{X}})(\symbf{X} - \expt{\symbf{X}})^T}}\\
+=&\expt{\symbf{X}\symbf{X}^T - \symbf{X}\expt{\symbf{X}}^T - \expt{\symbf{X}}\symbf{X}^T + \expt{\symbf{X}}\expt{\symbf{X}}^T}\\
+=& \expt{\symbf{X} \symbf{X}^T} - \expt{\symbf{X}}\expt{\symbf{X}}^T
+=\vc{\symbf{X}}
 \end{align*}
-よって$\vc{\symbf{Z}+b}=\vc{\symbf{Z}}$である。
+よって$\vc{\symbf{X}+b}=\vc{\symbf{X}}$である。
 
 \vspace{1em}
 \begin{align*}
-\vc{A\symbf{Z}}&=\expt{A\symbf{Z} (A\symbf{Z})^T} - \expt{A\symbf{Z}}\expt{A\symbf{Z}}^T\\
-&=A\expt{\symbf{Z} \symbf{Z}^T}A^T - A\expt{\symbf{Z}}\expt{\symbf{Z}}^TA^T\\
-&=A\emm{\vc{\symbf{Z}}}A^T
+\vc{A\symbf{X}}&=\expt{A\symbf{X} (A\symbf{X})^T} - \expt{A\symbf{X}}\expt{A\symbf{X}}^T\\
+&=A\expt{\symbf{X} \symbf{X}^T}A^T - A\expt{\symbf{X}}\expt{\symbf{X}}^TA^T\\
+&=A\emm{\vc{\symbf{X}}}A^T
 \end{align*}
 \end{frame}
 
@@ -177,32 +177,32 @@ $(i,\,j)$成分に$\cov{Z_i,\,Z_j}=\expt{Z_iZ_j}-\expt{Z_i}\expt{Z_j}$を持つ�
 \begin{align*}
 &
 \begin{bmatrix}
-1&\expt{Z_1}&\expt{Z_2}&\expt{Z_3}\\
-\expt{Z_1}&\expt{Z_1^2}&\expt{Z_1Z_2}&\expt{Z_1Z_3}\\
-\expt{Z_2}&\expt{Z_2Z_1}&\expt{Z_2^2}&\expt{Z_2Z_3}\\
-\expt{Z_3}&\expt{Z_3Z_1}&\expt{Z_3Z_2}&\expt{Z_3^2}\\
+1&\expt{X_1}&\expt{X_2}&\expt{X_3}\\
+\expt{X_1}&\expt{X_1^2}&\expt{X_1X_2}&\expt{X_1X_3}\\
+\expt{X_2}&\expt{X_2X_1}&\expt{X_2^2}&\expt{X_2X_3}\\
+\expt{X_3}&\expt{X_3X_1}&\expt{X_3X_2}&\expt{X_3^2}\\
 \end{bmatrix}\\
 =&
 \expt{
 \begin{bmatrix}
-1&Z_1&Z_2&Z_3\\
-Z_1&Z_1^2&Z_1Z_2&Z_1Z_3\\
-Z_2&Z_2Z_1&Z_2^2&Z_2Z_3\\
-Z_3&Z_3Z_1&Z_3Z_2&Z_3^2\\
+1&X_1&X_2&X_3\\
+X_1&X_1^2&X_1X_2&X_1X_3\\
+X_2&X_2X_1&X_2^2&X_2X_3\\
+X_3&X_3X_1&X_3X_2&X_3^2\\
 \end{bmatrix}}\\
 =&
 \expt{
 \begin{bmatrix}
 1\\
-Z_1\\
-Z_2\\
-Z_3\\
+X_1\\
+X_2\\
+X_3\\
 \end{bmatrix}
 \begin{bmatrix}
 1&
-Z_1&
-Z_2&
-Z_3
+X_1&
+X_2&
+X_3
 \end{bmatrix}}\ge 0\qquad (\text{\emm{半正定値行列の期待値は半正定値}})
 \end{align*}
 
@@ -216,40 +216,40 @@ $a^T \expt{R}a = \expt{a^TR a}\ge 0$
 \begin{align*}
 &
 \begin{bmatrix}
--\expt{Z_1}&1&0&0\\
--\expt{Z_2}&0&1&0\\
--\expt{Z_3}&0&0&1\\
+-\expt{X_1}&1&0&0\\
+-\expt{X_2}&0&1&0\\
+-\expt{X_3}&0&0&1\\
 \end{bmatrix}
 \begin{bmatrix}
-1&\expt{Z_1}&\expt{Z_2}&\expt{Z_3}\\
-\expt{Z_1}&\expt{Z_1^2}&\expt{Z_1Z_2}&\expt{Z_1Z_3}\\
-\expt{Z_2}&\expt{Z_2Z_1}&\expt{Z_2^2}&\expt{Z_2Z_3}\\
-\expt{Z_3}&\expt{Z_3Z_1}&\expt{Z_3Z_2}&\expt{Z_3^2}\\
+1&\expt{X_1}&\expt{X_2}&\expt{X_3}\\
+\expt{X_1}&\expt{X_1^2}&\expt{X_1X_2}&\expt{X_1X_3}\\
+\expt{X_2}&\expt{X_2X_1}&\expt{X_2^2}&\expt{X_2X_3}\\
+\expt{X_3}&\expt{X_3X_1}&\expt{X_3X_2}&\expt{X_3^2}\\
 \end{bmatrix}\\
 =&
 \begin{bmatrix}
-0&\expt{Z_1^2}-\expt{Z_1}^2&\expt{Z_1Z_2}-\expt{Z_1}\expt{Z_2}&\expt{Z_1Z_3}-\expt{Z_1}\expt{Z_3}\\
-0&\expt{Z_2Z_1}-\expt{Z_2}\expt{Z_1}&\expt{Z_2^2}-\expt{Z_2}^2&\expt{Z_2Z_3}-\expt{Z_2}\expt{Z_3}\\
-0&\expt{Z_3Z_1}-\expt{Z_3}\expt{Z_1}&\expt{Z_3Z_2}-\expt{Z_3}\expt{Z_2}&\expt{Z_3^2}-\expt{Z_3}^2\\
+0&\expt{X_1^2}-\expt{X_1}^2&\expt{X_1X_2}-\expt{X_1}\expt{X_2}&\expt{X_1X_3}-\expt{X_1}\expt{X_3}\\
+0&\expt{X_2X_1}-\expt{X_2}\expt{X_1}&\expt{X_2^2}-\expt{X_2}^2&\expt{X_2X_3}-\expt{X_2}\expt{X_3}\\
+0&\expt{X_3X_1}-\expt{X_3}\expt{X_1}&\expt{X_3X_2}-\expt{X_3}\expt{X_2}&\expt{X_3^2}-\expt{X_3}^2\\
 \end{bmatrix}\\
 \end{align*}
 \begin{align*}
 &
 \begin{bmatrix}
-0&\var{Z_1}&\cov{Z_1, Z_2}&\cov{Z_1, Z_3}\\
-0&\cov{Z_2, Z_1}&\var{Z_2}&\cov{Z_2, Z_3}\\
-0&\cov{Z_3, Z_1}&\cov{Z_3, Z_2}&\var{Z_3}
+0&\var{X_1}&\cov{X_1, X_2}&\cov{X_1, X_3}\\
+0&\cov{X_2, X_1}&\var{X_2}&\cov{X_2, X_3}\\
+0&\cov{X_3, X_1}&\cov{X_3, X_2}&\var{X_3}
 \end{bmatrix}
 \begin{bmatrix}
--\expt{Z_1}& -\expt{Z_2}& -\expt{Z_3}\\
+-\expt{X_1}& -\expt{X_2}& -\expt{X_3}\\
 1&0&0\\
 0&1&0\\
 0&0&1\\
 \end{bmatrix}\\
-&=\vc{\symbf{Z}}
+&=\vc{\symbf{X}}
 \end{align*}
 
-$A\ge 0$のとき任意の行列$B$について$BAB^T\ge 0$なので$\vc{\symbf{Z}}\ge 0$である。
+$A\ge 0$のとき任意の行列$B$について$BAB^T\ge 0$なので$\vc{\symbf{X}}\ge 0$である。
 \end{frame}
 
 \begin{frame}{多変量正規分布}
@@ -329,7 +329,7 @@ p_{\symbf{Z}}(x) &= \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (x-
 \begin{frame}{密度関数の積分}
 \small
 多変量正規分布の密度関数を積分して1になることを確認する。
-$\Sigma$は対称行列なのである\emm{直交行列$V$}と\emm{対角行列$D$}が存在して$\Sigma=V^TDV$と表せる(スペクトル分解)。
+$\Sigma$は対称行列なのである\emm{直交行列$V$}と\emm{対角行列$D$}が存在して\emm{$\Sigma=V^TDV$}と表せる(スペクトル分解)。
 また$\Sigma$は正定値なので、$D$の対角成分は正である。
 \begin{align*}
 &\int_{\mathbb{R}^n} \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (x-\symbf{\mu})^T\Sigma^{-1} (x-\symbf{\mu})}\mathrm{d}x\\
@@ -350,18 +350,18 @@ $\Sigma$は対称行列なのである\emm{直交行列$V$}と\emm{対角行列$
 \begin{frame}{多変数のモーメント母関数、キュムラント母関数、特性関数}
 \small
 \begin{definition}[多変数モーメント母関数]
-$n$次元確率変数$X$の\emm{モーメント母関数}$\varphi_{X}\colon\mathbb{R}^n\to\mathbb{R}$を以下で定義する。
+$n$次元確率変数${\symbf{X}}$の\emm{モーメント母関数}$\varphi_{{\symbf{X}}}\colon\mathbb{R}^n\to\mathbb{R}$を以下で定義する。
 \begin{align*}
-M_{X}(t) &:= \expt{\mathrm{e}^{\langle t,\, X\rangle}}.
+M_{{\symbf{X}}}(t) &:= \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}.
 \end{align*}
-ここで$\langle t,\, X\rangle := \emm{\sum_{k=1}^n t_k X_k}$である。
+ここで$\langle t,\, {\symbf{X}}\rangle := \emm{\sum_{k=1}^n t_k X_k}$である。
 
-また\emm{キュムラント母関数}を$K_X(t) := \log M_X(t)$と定義する。
+また\emm{キュムラント母関数}を$K_{\symbf{X}}(t) := \log M_{\symbf{X}}(t)$と定義する。
 \end{definition}
 \begin{definition}[多変数特性関数]
-$n$次元確率変数$X$の\emm{特性関数}$\varphi_{X}\colon\mathbb{R}^n\to\mathbb{C}$を以下で定義する。
+$n$次元確率変数${\symbf{X}}$の\emm{特性関数}$\varphi_{{\symbf{X}}}\colon\mathbb{R}^n\to\mathbb{C}$を以下で定義する。
 \begin{align*}
-\varphi_{X}(t) &:= \expt{\mathrm{e}^{i\langle t,\, X\rangle}}.
+\varphi_{{\symbf{X}}}(t) &:= \expt{\mathrm{e}^{i\langle t,\, {\symbf{X}}\rangle}}.
 \end{align*}
 %ここで$\langle t,\, X\rangle := \sum_{k=1}^n t_k X_k$である。
 \end{definition}
@@ -371,16 +371,17 @@ $n$次元確率変数$X$の\emm{特性関数}$\varphi_{X}\colon\mathbb{R}^n\to\m
 \small
 \begin{itemize}
 \setlength{\itemsep}{1em}
-\item $M_X(t)$が原点を含む開集合で存在するとき、この範囲で無限回微分でき
+\item $M_{\symbf{X}}(t)$が原点を含む開集合で存在するとき、この範囲で無限回微分できる(ルベーグ積分に基づいた議論が必要)。
+このとき、$t$に関する微分と期待値の順番を交換できる。
 \begin{align*}
 %\left.\frac{\mathrm{d}^k\varphi_X(t)}{\mathrm{d}t^k}\right|_{t=0} &= i^k \expt{X^k}.
-\left.\frac{\partial M_X(t)}{\partial t_k}\right|_{t=0} &= \left.\expt{X_k\mathrm{e}^{\langle t,\, X\rangle}}\right|_{t=0} = \expt{X_k}\\
-\left.\frac{\partial^2 M_X(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \left.\expt{X_kX_\ell\mathrm{e}^{\langle t,\, X\rangle}}\right|_{t=0} = \expt{X_kX_\ell}\\
-\left.\frac{\partial K_X(t)}{\partial t_k}\right|_{t=0} &= \left.\frac{\expt{X_k\mathrm{e}^{\langle t,\, X\rangle}}}{\expt{\mathrm{e}^{\langle t,\, X\rangle}}}\right|_{t=0} = \expt{X_k}\\
-\left.\frac{\partial^2 K_X(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \left.\frac{\expt{X_kX_\ell\mathrm{e}^{\langle t,\, X\rangle}}}{\expt{\mathrm{e}^{\langle t,\, X\rangle}}}\right|_{t=0} - \left(\left.\frac{\expt{X_k\mathrm{e}^{\langle t,\, X\rangle}}}{\expt{\mathrm{e}^{\langle t,\, X\rangle}}}\right|_{t=0}\right)\left(\left.\frac{\expt{X_\ell\mathrm{e}^{\langle t,\, X\rangle}}}{\expt{\mathrm{e}^{\langle t,\, X\rangle}}}\right|_{t=0}\right)\\
+\left.\frac{\partial M_{\symbf{X}}(t)}{\partial t_k}\right|_{t=0} &= \left.\expt{X_k\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}\right|_{t=0} = \expt{X_k}\\
+\left.\frac{\partial^2 M_{\symbf{X}}(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \left.\expt{X_kX_\ell\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}\right|_{t=0} = \expt{X_kX_\ell}\\
+\left.\frac{\partial K_{\symbf{X}}(t)}{\partial t_k}\right|_{t=0} &= \left.\frac{\expt{X_k\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}}{\expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}}\right|_{t=0} = \expt{X_k}\\
+\left.\frac{\partial^2 K_{\symbf{X}}(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \left.\frac{\expt{X_kX_\ell\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}}{\expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}}\right|_{t=0} - \left(\left.\frac{\expt{X_k\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}}{\expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}}\right|_{t=0}\right)\left(\left.\frac{\expt{X_\ell\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}}{\expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}}\right|_{t=0}\right)\\
 &= \expt{X_kX_\ell} - \expt{X_k}\expt{X_\ell} = \cov{X_k, X_\ell}.
 \end{align*}
-\item $X$と$Y$の分布が同じ$\emm{\iff}\varphi_X=\varphi_Y$ (ルベーグ積分に基づいた議論が必要).
+\item ${\symbf{X}}$と$\symbf{Y}$の分布が同じ$\emm{\iff}\varphi_{\symbf{X}}=\varphi_{\symbf{Y}}$ (ルベーグ積分に基づいた議論が必要)。
 \end{itemize}
 
 
@@ -388,44 +389,47 @@ $n$次元確率変数$X$の\emm{特性関数}$\varphi_{X}\colon\mathbb{R}^n\to\m
 %$X$が$k$次モーメントを持つ$\iff$$\varphi_X$は0で$k$回微分できる。
 \end{frame}
 
-\begin{frame}{多変数の特性関数の性質}
+\begin{frame}{多変数のモーメント母関数の性質}
 \small
 \begin{itemize}
 \setlength{\itemsep}{3em}
-\item $M_{X+b}(t) = \expt{\mathrm{e}^{\langle t,\, X+b\rangle}} = \expt{\mathrm{e}^{\langle t,\, X\rangle}}\mathrm{e}^{\langle t,\,b\rangle}$\\
-$\qquad = M_X(t)\mathrm{e}^{\langle t,\, b\rangle}\qquad\forall b\in\mathbb{R}^n$.
-\item $M_{AX}(t) = \expt{\mathrm{e}^{\langle t,\, AX\rangle}} = \expt{\mathrm{e}^{\langle A^Tt,\, X\rangle}} = M_X(A^Tt)\qquad\forall A\in\mathbb{R}^{m\times n}$.
-\item $M_{X+Y}(t) = \expt{\mathrm{e}^{\langle t,\, X+Y\rangle}} = \expt{\mathrm{e}^{\langle t,\, X\rangle}}\expt{\mathrm{e}^{\langle t,\, Y\rangle}}= M_X(t)M_Y(t)$.
+\item 任意の$n$次元確率変数$\symbf{X}$と$b\in\mathbb{R}^n$について
+$M_{{\symbf{X}}+b}(t) = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}+b\rangle}} = \expt{\mathrm{e}^{\langle t,\,\symbf{X}\rangle}\mathrm{e}^{\langle t,\,b\rangle}} = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}\mathrm{e}^{\langle t,\,b\rangle}$\\
+$\qquad = M_{\symbf{X}}(t)\mathrm{e}^{\langle t,\, b\rangle}$.
+\item 任意の$n$次元確率変数$\symbf{X}$と$A\in\mathbb{R}^{m\times n}$について
+$M_{A{\symbf{X}}}(t) = \expt{\mathrm{e}^{\langle t,\, A{\symbf{X}}\rangle}} = \expt{\mathrm{e}^{\langle A^Tt,\, {\symbf{X}}\rangle}} = M_{\symbf{X}}(A^Tt)$.
+\item 任意の独立$n$次元確率変数$\symbf{X}$と$\symbf{Y}$について
+$M_{{\symbf{X}}+{\symbf{Y}}}(t) = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}+{\symbf{Y}}\rangle}} = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}\expt{\mathrm{e}^{\langle t,\, {\symbf{Y}}\rangle}}= M_{\symbf{X}}(t)M_{\symbf{Y}}(t)$.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{多変量正規分布のモーメント母関数}
+\begin{frame}{多変量正規分布のキュムラント母関数}
 \small
 \begin{align*}
-&\expt{\mathrm{e}^{\langle t,\,X\rangle}}\\
+&\expt{\mathrm{e}^{\langle t,\,\symbf{Z}\rangle}}\\
 &=\int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 (x-\mu)^T\Sigma^{-1} (x-\mu)}\mathrm{e}^{\langle t,\, x\rangle}\mathrm{d}x\\
 &= \int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \left\langle\Sigma^{-\frac12}(x-\mu),\,\Sigma^{-\frac12}(x-\mu)\right\rangle+\left\langle \Sigma^{\frac12}t,\, \Sigma^{-\frac12}x\right\rangle}\mathrm{d}x\\
 &= \int_{-\infty}^\infty \frac1{\sqrt{(2\pi)^n\det(\Sigma)}} \mathrm{e}^{-\frac12 \left\langle\Sigma^{-\frac12}(x-\mu-\Sigma t),\,\Sigma^{-\frac12}(x-\mu-\Sigma t)\right\rangle +\left\langle \mu,\, t\right\rangle + \frac12\left\langle \Sigma^\frac12t,\,\Sigma^\frac12t\right\rangle}\mathrm{d}x\\
 &= \mathrm{e}^{\langle \mu,\, t\rangle + \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}.
 \end{align*}
-よって、$K_Z(t) = \emm{\langle \mu,\, t\rangle + \frac12\left\langle \Sigma^\frac12t,\,\Sigma^\frac12t\right\rangle}$.
+よって、$K_{\symbf{Z}}(t) = \emm{\langle \mu,\, t\rangle + \frac12\left\langle \Sigma^\frac12t,\,\Sigma^\frac12t\right\rangle}$.
 \begin{align*}
-\left.\frac{\partial K_Z(t)}{\partial t_k}\right|_{t=0} &= \mu_k\\
-\left.\frac{\partial^2 K_Z(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \Sigma_{k, \ell}.
+\left.\frac{\partial K_{\symbf{Z}}(t)}{\partial t_k}\right|_{t=0} &= \mu_k\\
+\left.\frac{\partial^2 K_{\symbf{Z}}(t)}{\partial t_k\partial t_\ell}\right|_{t=0} &= \Sigma_{k, \ell}.
 \end{align*}
 \end{frame}
 
-\begin{frame}{多変量正規分布$\to$1変数正規分布}
+\begin{frame}{多変量正規分布の周辺化も多変量正規分布}
 \begin{lemma}
-$n$次元の確率変数$\symbf{Z}\sim N(\mu, \Sigma)$について、
-$\symbf{Z}':=[Z_1,\dotsc,Z_{n-1}]\sim N(\mu', \Sigma')$.
+$n$次元の確率変数$\symbf{Z}=[Z_1,\dotsc, Z_n]\sim N(\mu, \Sigma)$について、
+$\symbf{Z}':=[Z_1,\dotsc, Z_{n-1}]\sim N(\mu', \Sigma')$.
 ここで、$\mu'\in\mathbb{R}^{N-1}$は$\mu$の第$n$成分を除いたもので$\Sigma'$は$\Sigma$の$n$行目と$n$列目を除いたもの。
 \end{lemma}
 \begin{proof}
 \begin{align*}
-\varphi_{\symbf{Z}'}(t) &= \expt{\mathrm{e}^{i\langle t,\,Z'\rangle}}\\
-&=\expt{\mathrm{e}^{i\langle t,\, Z'\rangle + 0\cdot Z_n}}\\
-&=\varphi_{\symbf{Z}}(t,0) = \mathrm{e}^{i\langle t',\,\mu'\rangle - \langle \sqrt{\Sigma'}t,\,\sqrt{\Sigma'}t\rangle}
+\varphi_{\symbf{Z}'}(t') &= \expt{\mathrm{e}^{i\langle t',\,\symbf{Z}'\rangle}}\\
+&=\expt{\mathrm{e}^{i\langle t',\, \symbf{Z}'\rangle + 0\cdot Z_n}}\\
+&=\varphi_{\symbf{Z}}(t',0) = \mathrm{e}^{i\langle t',\,\mu'\rangle - \langle \sqrt{\Sigma'}t',\,\sqrt{\Sigma'}t'\rangle}
 \end{align*}
 \end{proof}
 \end{frame}
@@ -437,9 +441,9 @@ $A\symbf{Z}+b\sim N(A\mu+b, A\Sigma A^T)$.
 %$Z_k\sim N(\mu_k, \Sigma_{k,k})$.
 \end{lemma}
 \begin{proof}
-$\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}$より、
+$\varphi_{\symbf{Z}}(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\frac12t,\,\Sigma^\frac12t\rangle}$より、
 \begin{align*}
-\varphi_{AZ+b}(t) &= \varphi_{AZ}(t)\mathrm{e}^{i\langle t,\,b\rangle} = \varphi_Z(A^Tt)\mathrm{e}^{i\langle t,\,b\rangle}\\
+\varphi_{A{\symbf{Z}}+b}(t) &= \varphi_{A{\symbf{Z}}}(t)\mathrm{e}^{i\langle t,\,b\rangle} = \varphi_{\symbf{Z}}(A^Tt)\mathrm{e}^{i\langle t,\,b\rangle}\\
 &= \mathrm{e}^{i\langle \mu,\, A^T t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle + i\langle t,\,b\rangle}\\
 &= \mathrm{e}^{i\langle A\mu,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle+ i\langle t,\,b\rangle}\\
 &= \mathrm{e}^{i\langle A\mu + b,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle}
@@ -448,13 +452,35 @@ $\varphi_Z(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle \Sigma^\fr
 \end{proof}
 \end{frame}
 
+\begin{frame}{逆関数法}
+\begin{theorem}[逆関数法]
+$U\sim U(0,1)$とすると、任意の確率変数$X$と\emm{$F^{-1}_X(U)$}は同じ分布を持つ。
+ここで、$F_X$は$X$の累積分布関数であり
+\begin{align*}
+F_X^{-1}(p) &:= \inf\left\{ x\in\mathbb{R}\mid F_X(x)\ge p\right\} \qquad\forall p\in[0,1].
+\end{align*}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\Pr(F_X^{-1}(U)\le x) &=
+%\Pr(F_X(F_X^{-1}(U))\le F_X(x))\\
+%&=
+\Pr(U\le F_X(x))\\
+&=F_X(x)
+\end{align*}
+\begin{align*}
+F_X^{-1}(u)\le x &\iff u\le F_X(x)
+\end{align*}
+\end{proof}
+\end{frame}
 
+\if0
 \begin{frame}{$\chi$二乗分布}
 $k$個の独立確率変数が$X_1,\dotsc,X_k\sim N(0,1)$のとき
 \begin{align*}
 \sum_{s=1}^k X_s^2
 \end{align*}
-が従う分布を\emm{自由度$k$の$\chi$二乗分布}という。
+が従う分布を\emm{自由度$k$の$\chi$二乗分布}といい$\chi_k^2$と表す。
 \end{frame}
 
 %\begin{frame}{標準正規分布に従う確率変数の二乗}
@@ -520,6 +546,7 @@ $Z$を自由度2の$\chi$二乗分布に従う確率変数とすると、任意�
 %&= 2\int_{0}^{\frac{x^2}4} \frac1{2\pi \sqrt{u}} \mathrm{e}^{-\frac12 u}\frac1{\sqrt{x^2-4u}}\mathrm{d}u
 %\end{align*}
 \end{frame}
+\fi
 
 \begin{frame}{二次元標準正規分布の極座標表示}
 \small
@@ -534,15 +561,15 @@ X&=R\cos\Theta&Y&=R\sin\Theta
 &\qquad=
 \int_{[r(x,y),\,\theta(x,y)]\in A} \frac1{2\pi}\mathrm{e}^{-\frac12(x^2+y^2)}\mathrm{d}x\mathrm{d}y\\
 &\qquad=
-\int_{[r,\,\theta]\in A} \frac1{2\pi}\cdot\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
+\int_{A} \frac1{2\pi}\cdot\mathrm{e}^{-\frac12r^2}r\mathrm{d}r\mathrm{d}\theta\\
 &\qquad=
-\int_{[r,\,\theta]\in A} \emm{p_\Theta(\theta)p_R(r)}\mathrm{d}r\mathrm{d}\theta\\
+\int_{A} \emm{p_\Theta(\theta)p_R(r)}\mathrm{d}r\mathrm{d}\theta\\
 &\hspace{9em}\left(p_\Theta(\theta):=\frac1{2\pi}\mathbb{1}_{\{\theta\in[0,2\pi)\}},\, p_R(r):=r\mathrm{e}^{-\frac12 r^2}\right).
 %\qquad&= \Pr([R\cos\Theta,\, R\sin\Theta]\in A)\qquad (R\sim \chi_2^2, \Theta\sim U(0,2\pi))
 \end{align*}
 \begin{center}
 \large
-$R$と$\Theta$は\emm{独立}
+$R$と$\Theta$は\emm{独立}で$\Theta\sim U(0,2\pi)$.
 \end{center}
 %\begin{align*}
 %&\Pr([X, Y]\in A)\\
@@ -555,6 +582,25 @@ $R$と$\Theta$は\emm{独立}
 %&\hspace{9em}\left(p_\Theta(\theta):=\mathbb{1}_{\{\theta\in[0,2\pi)\}},\, p_R(r):=r\mathrm{e}^{-\frac12 r^2}\right)\\
 %\qquad&= \Pr([R\cos\Theta,\, R\sin\Theta]\in A)\qquad (R\sim \chi_2^2, \Theta\sim U(0,2\pi))
 %\end{align*}
+\end{frame}
+
+\begin{frame}{$R$の分布}
+$R$の密度関数は
+\begin{align*}
+p_R(r)&:=r\mathrm{e}^{-\frac12 r^2} \qquad \text{for } r\ge0.
+\end{align*}
+累積分布関数は
+\begin{align*}
+F_R(x) &= \int_{0}^x r\mathrm{e}^{-\frac12 r^2}\mathrm{d}r\\
+&=\left[-\mathrm{e}^{-\frac12r^2}\right]_{0}^x\\
+&= 1 -\mathrm{e}^{-\frac12x^2}
+\end{align*}
+よって
+\begin{align*}
+F_R^{-1}(u) &= \sqrt{-2\log(1-u)}
+\end{align*}
+逆関数法より$\sqrt{-2\log(1-U)}$は$R$と同じ分布。
+$U$と$1-U$は同じ分布なので\emm{$\sqrt{-2\log(U)}$は$R$と同じ分布}。
 \end{frame}
 
 \begin{frame}{ボックス--ミューラー法}
@@ -595,6 +641,7 @@ $p(x,y)$を$p(r)$と書くことにすると
 となる。つまり\emm{$R$と$\Theta$は独立で$\Theta$は$[0,2\pi)$上の一様分布}となる。
 \end{frame}
 
+\if0
 \begin{frame}{なぜ$X^2+Y^2$と$-2\log U$が同じ分布なのか？}
 運がよかっただけか？
 
@@ -619,5 +666,8 @@ $p(x,y)$を$q(r)$と書くことにする。$q$が単調減少だと仮定する
 %&=\int_Q \int_{\infty}^{\frac1{2\pi}z} p J \mathrm{d}p\mathrm{d}q\\
 %\end{align*}
 \end{frame}
+\fi
+
+
 
 \end{document}
