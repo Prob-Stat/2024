@@ -59,18 +59,42 @@
 \maketitle
 \end{frame}
 
-\begin{frame}{経験分布}
+\begin{frame}{経験分布の集中}
 大数の法則や中心極限定理と同様にi.i.d.確率変数$X_1,X_2,\dotsc,X_N$を考える。
 
 \vspace{1em}
-確率変数$X$の像は\emm{有限集合}$A$とする。
+%\begin{definition}
+確率変数$X$の像が\emm{有限集合}$A$とする。
 
-\vspace{1em}
 各$a\in A$について$N_a := \{ k\mid X_k = a\}$とおく。
 
 $\left(\frac{N_a}{N}\right)_{a\in A}$を経験分布という。
+%\end{definition}
 
-サイコロを100回振って
+\vspace{1em}
+サイコロを100回振って1,2,3,4,5,6がそれぞれ16,13,18,20,14,19回出たとき経験分布は
+\begin{align*}
+P(1) &= \frac{16}{100}&
+P(2) &= \frac{13}{100}&
+P(3) &= \frac{18}{100}\\
+P(4) &= \frac{20}{100}&
+P(5) &= \frac{14}{100}&
+P(6) &= \frac{19}{100}
+\end{align*}
+である。
+\end{frame}
+
+\begin{frame}{経験分布}
+\begin{definition}
+確率変数$X$の像が\emm{有限集合}$A$とする。
+
+各$a\in A$について$N_a := \{ k\mid X_k = a\}$とおく。
+
+$\left(\frac{N_a}{N}\right)_{a\in A}$を経験分布という。
+\end{definition}
+\end{frame}
+
+\begin{frame}{サノフの定理}
 \end{frame}
 
 \begin{frame}{確率}
