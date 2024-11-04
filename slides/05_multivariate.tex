@@ -61,17 +61,17 @@
 
 
 \begin{frame}{複数の確率変数の確率密度関数}
-\small
+\footnotesize
 %\begin{definition}
 \begin{block}{多変数の確率密度関数}
-$p_{X_1,\dotsc, X_n}\colon \mathbb{R}^n\to\mathbb{R}$を
-確率変数$X_1,\dotsc, X_n$の\emm{確率密度関数}とすると、
+$p_{\symbf{X}}\colon \mathbb{R}^n\to\mathbb{R}$を
+$n$次元確率変数$\symbf{X}=[X_1,\dotsc, X_n]$の\emm{確率密度関数}とすると、
 任意の$A\subseteq\mathbb{R}^n$について
 %$\stackrel{\mathrm{def}}{\iff}$
 \begin{align*}
-\Pr([X_1,\,X_2,\dotsc, X_n]\in A)&=
+\Pr(\symbf{X}\in A)&=
 %\int_{\substack{-\infty< x_1 \le z_1\\ -\infty< x_2\le z_2\\\vdots\\-\infty<x_n\le z_n}} p_{Z_1,\dotsc,Z_n}(x_1,x_2,\dotsc,x_n)\mathrm{d}{\symbf{x}_1^n}
-\int_{A} p_{X_1,\dotsc, X_n}(x)\mathrm{d}x.
+\int_{A} p_{\symbf{X}}(x)\mathrm{d}x.
 \end{align*}
 \end{block}
 %\end{definition}
@@ -84,13 +84,13 @@ $p_{X_1,\dotsc, X_n}\colon \mathbb{R}^n\to\mathbb{R}$を
 \begin{block}{独立な場合}
 確率変数$X_1,\dotsc,X_n$が独立な場合、
 \begin{align*}
-p_{X_1,\dotsc, X_n}(x_1,\dotsc, x_n) &= p_{X_1}(x_1)p_{X_2}(x_2)\dotsm p_{X_n}(x_n).
+p_{X_1,\dotsc,\, X_n}(x_1,\dotsc, x_n) &= p_{X_1}(x_1)p_{X_2}(x_2)\dotsm p_{X_n}(x_n).
 \end{align*}
 \end{block}
 
 \begin{example}
-$X_1\sim U(0,1)$で($[0,1]$上の一様分布)、$X_2=X_1$のとき、$[X_1, X_2]$の確率密度関数は存在しない。
-$p_{X_1,X_2}(x_1,x_2)$は$x_1\ne x_2$のとき0としてよいが、$p(x,x)$をどのように定義しても$\int_{\mathbb{R}^2}p(x_1,x_2)\mathrm{d}x_1\mathrm{d}x_2=0$になる。
+$X_1\sim U(0,1)$で($[0,1]$上の一様分布)、$X_2=X_1$のとき$[X_1, X_2]$の確率密度関数は存在しない。
+$p_{X_1,\,X_2}(x_1,x_2)$は$x_1\ne x_2$のとき0としてよいが、$p_{X_1,\,X_2}(x,x)$をどのように定義しても$\int_{\mathbb{R}^2}p_{X_1,\,X_2}(x_1,x_2)\mathrm{d}x_1\mathrm{d}x_2=0$になる。
 \end{example}
 
 %他の$X_k$の確率密度関数についても同様。
@@ -394,12 +394,12 @@ $n$次元確率変数${\symbf{X}}$の\emm{特性関数}$\varphi_{{\symbf{X}}}\co
 \begin{itemize}
 \setlength{\itemsep}{3em}
 \item 任意の$n$次元確率変数$\symbf{X}$と$b\in\mathbb{R}^n$について
-$M_{{\symbf{X}}+b}(t) = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}+b\rangle}} = \expt{\mathrm{e}^{\langle t,\,\symbf{X}\rangle}\mathrm{e}^{\langle t,\,b\rangle}} = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}\mathrm{e}^{\langle t,\,b\rangle}$\\
-$\qquad = M_{\symbf{X}}(t)\mathrm{e}^{\langle t,\, b\rangle}$.
+$M_{{\symbf{X}}\emm{+b}}(t) = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}+b\rangle}} = \expt{\mathrm{e}^{\langle t,\,\symbf{X}\rangle}\mathrm{e}^{\langle t,\,b\rangle}} = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}\mathrm{e}^{\langle t,\,b\rangle}$\\
+$\qquad = M_{\symbf{X}}(t)\emm{\mathrm{e}^{\langle t,\, b\rangle}}$.
 \item 任意の$n$次元確率変数$\symbf{X}$と$A\in\mathbb{R}^{m\times n}$について
-$M_{A{\symbf{X}}}(t) = \expt{\mathrm{e}^{\langle t,\, A{\symbf{X}}\rangle}} = \expt{\mathrm{e}^{\langle A^Tt,\, {\symbf{X}}\rangle}} = M_{\symbf{X}}(A^Tt)$.
+$M_{\emm{A}{\symbf{X}}}(t) = \expt{\mathrm{e}^{\langle t,\, A{\symbf{X}}\rangle}} = \expt{\mathrm{e}^{\langle A^Tt,\, {\symbf{X}}\rangle}} = M_{\symbf{X}}(\emm{A^T}t)$.
 \item 任意の独立$n$次元確率変数$\symbf{X}$と$\symbf{Y}$について
-$M_{{\symbf{X}}+{\symbf{Y}}}(t) = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}+{\symbf{Y}}\rangle}} = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}\expt{\mathrm{e}^{\langle t,\, {\symbf{Y}}\rangle}}= M_{\symbf{X}}(t)M_{\symbf{Y}}(t)$.
+$M_{{\symbf{X}}\emm{+}{\symbf{Y}}}(t) = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}+{\symbf{Y}}\rangle}} = \expt{\mathrm{e}^{\langle t,\, {\symbf{X}}\rangle}}\expt{\mathrm{e}^{\langle t,\, {\symbf{Y}}\rangle}}= \emm{M_{\symbf{X}}(t)M_{\symbf{Y}}(t)}$.
 \end{itemize}
 \end{frame}
 
@@ -429,15 +429,16 @@ $\symbf{Z}':=[Z_1,\dotsc, Z_{n-1}]\sim N(\mu', \Sigma')$.
 \begin{align*}
 \varphi_{\symbf{Z}'}(t') &= \expt{\mathrm{e}^{i\langle t',\,\symbf{Z}'\rangle}}\\
 &=\expt{\mathrm{e}^{i\langle t',\, \symbf{Z}'\rangle + 0\cdot Z_n}}\\
-&=\varphi_{\symbf{Z}}(t',0) = \mathrm{e}^{i\langle t',\,\mu'\rangle - \langle \sqrt{\Sigma'}t',\,\sqrt{\Sigma'}t'\rangle}
+&=\varphi_{\symbf{Z}}(t',0) = \mathrm{e}^{i\langle t',\,\mu'\rangle - \langle \sqrt{\Sigma'}t',\,\sqrt{\Sigma'}t'\rangle}.
 \end{align*}
 \end{proof}
 \end{frame}
 
 \begin{frame}{多変量正規分布の一次変換}
+\small
 \begin{lemma}
 $n$次元の確率変数$\symbf{Z}\sim N(\mu, \Sigma)$とランク$m$行列$A\in\mathbb{R}^{m\times n}$と$b\in\mathbb{R}^m$について、
-$A\symbf{Z}+b\sim N(A\mu+b, A\Sigma A^T)$.
+$A\symbf{Z}+b\sim N(\emm{A\mu+b}, \emm{A\Sigma A^T})$.
 %$Z_k\sim N(\mu_k, \Sigma_{k,k})$.
 \end{lemma}
 \begin{proof}
@@ -446,13 +447,15 @@ $\varphi_{\symbf{Z}}(t) = \mathrm{e}^{i\langle \mu,\, t\rangle - \frac12\langle 
 \varphi_{A{\symbf{Z}}+b}(t) &= \varphi_{A{\symbf{Z}}}(t)\mathrm{e}^{i\langle t,\,b\rangle} = \varphi_{\symbf{Z}}(A^Tt)\mathrm{e}^{i\langle t,\,b\rangle}\\
 &= \mathrm{e}^{i\langle \mu,\, A^T t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle + i\langle t,\,b\rangle}\\
 &= \mathrm{e}^{i\langle A\mu,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle+ i\langle t,\,b\rangle}\\
-&= \mathrm{e}^{i\langle A\mu + b,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle}
+&= \mathrm{e}^{i\langle A\mu + b,\, t\rangle - \frac12\langle \Sigma^\frac12A^T t,\,\Sigma^\frac12A^T t\rangle}\\
+&= \mathrm{e}^{i\langle A\mu + b,\, t\rangle - \frac12\langle t,\,A \Sigma A^T t\rangle}.
 \end{align*}
 これは$N(A\mu+b,\, A\Sigma A^T)$の特性関数である。
 \end{proof}
 \end{frame}
 
-\begin{frame}{逆関数法}
+\begin{frame}{逆関数法: 一様分布から一般の分布の作り方}
+\footnotesize
 \begin{theorem}[逆関数法]
 $U\sim U(0,1)$とすると、任意の確率変数$X$と\emm{$F^{-1}_X(U)$}は同じ分布を持つ。
 ここで、$F_X$は$X$の累積分布関数であり
@@ -461,15 +464,27 @@ F_X^{-1}(p) &:= \inf\left\{ x\in\mathbb{R}\mid F_X(x)\ge p\right\} \qquad\forall
 \end{align*}
 \end{theorem}
 \begin{proof}
+
+\vspace{-2em}
 \begin{align*}
 \Pr(F_X^{-1}(U)\le x) &=
 %\Pr(F_X(F_X^{-1}(U))\le F_X(x))\\
 %&=
-\Pr(U\le F_X(x))\\
-&=F_X(x)
+\Pr(U\le F_X(x))
+=F_X(x)
 \end{align*}
+最初の等号は以下の関係から従う。
 \begin{align*}
 F_X^{-1}(u)\le x &\iff u\le F_X(x)
+\end{align*}
+$\implies:$ $F_X$が右連続であることに注意すると$u\le F_X(F_X^{-1}(u))$なので
+\begin{align*}
+F_X^{-1}(u)\le x &\implies F_X(F^{-1}_X(u))\le F_X(x).
+ \implies u\le F_X(x)
+\end{align*}
+$\impliedby:$ $F_X^{-1}(F_X(x))\le x$より
+\begin{align*}
+u\le F_X(x) &\implies F_X^{-1}(u)\le F_X^{-1}(F_X(x)) \implies F_X^{-1}(u)\le x.
 \end{align*}
 \end{proof}
 \end{frame}
@@ -553,7 +568,7 @@ $Z$を自由度2の$\chi$二乗分布に従う確率変数とすると、任意�
 $\begin{bmatrix}X\\ Y\end{bmatrix}\sim N\left(\begin{bmatrix}0\\0\end{bmatrix},\,\begin{bmatrix}1&0\\0&1\end{bmatrix}\right)$について極座標表示$[R, \Theta]$を考える。
 つまり、
 \begin{align*}
-R&:=\sqrt{X^2+Y^2}&\Theta&:=\arctan\frac{Y}{X}\\
+R&:=\sqrt{X^2+Y^2}&\Theta&:=\arg(X,\, Y)\\
 X&=R\cos\Theta&Y&=R\sin\Theta
 \end{align*}
 \begin{align*}
@@ -629,13 +644,13 @@ $X\sim N(0,I)$のとき、$AX + \mu \sim N(\mu, AA^T)$なので一般の多変�
 \begin{frame}{直感的な理解と一般化}
 二次元標準正規分布の密度関数は\emm{$\sqrt{x^2+y^2}$だけで決まる}。
 よって、$\begin{bmatrix}x\\y\end{bmatrix}$を回転しても密度関数の値は不変。
-一般に$\begin{bmatrix}X\\Y\end{bmatrix}$の密度関数が$p(x,y)$が$r(x,y)=\sqrt{x^2+y^2}$だけで決まるとき、
-$p(x,y)$を$p(r)$と書くことにすると
+一般に$\begin{bmatrix}X\\Y\end{bmatrix}$の密度関数$p(x,y)$が$r(x,y)=\sqrt{x^2+y^2}$だけで決まるとき、
+$p(x,y)$を$q(r)$と書くことにすると
 
 \begin{align*}
 \Pr(R\in A,\,\Theta\in B) &= \int_{r(x,\,y)\in A}\int_{\theta(x,\,y)\in B} p(x,\, y)\mathrm{d}x\mathrm{d}y\\
- &= \int_{r\in A}\int_{\theta\in B} p(r)r\mathrm{d}r\mathrm{d}\theta\\
- &= \left(\int_{\theta\in B}\frac1{2\pi}\mathrm{d}\theta\right)\left(\int_{r\in A} 2\pi rp(r)\mathrm{d}r\right)
+ &= \int_{r\in A}\int_{\theta\in B} q(r)r\mathrm{d}r\mathrm{d}\theta\\
+ &= \left(\int_{\theta\in B}\frac1{2\pi}\mathrm{d}\theta\right)\left(\int_{r\in A} 2\pi rq(r)\mathrm{d}r\right)
 \end{align*}
 
 となる。つまり\emm{$R$と$\Theta$は独立で$\Theta$は$[0,2\pi)$上の一様分布}となる。
@@ -668,6 +683,18 @@ $p(x,y)$を$q(r)$と書くことにする。$q$が単調減少だと仮定する
 \end{frame}
 \fi
 
+
+\begin{frame}{課題}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item 二次元確率変数$\symbf{Z}=\begin{bmatrix}X\\Y\end{bmatrix}$が正規分布$N\left(\begin{bmatrix}0\\0\end{bmatrix},\,\begin{bmatrix}\sqrt{2}&-1\\-1&\sqrt{2}\end{bmatrix}\right)$に従うとする。
+このとき$X+2Y+1$が従う分布をもとめよ。
+\item 二次元確率変数$\symbf{Z}=\begin{bmatrix}X\\Y\end{bmatrix}$が標準正規分布$N\left(\begin{bmatrix}0\\0\end{bmatrix},\,\begin{bmatrix}1&0\\0&1\end{bmatrix}\right)$に従うとする。
+対称行列$A\in\mathbb{R}^{2\times 2}$について $\symbf{Z}^TA\symbf{Z}$のキュムラント母関数をもとめよ。$A$のスペクトル分解を$A=V^TDV$とするとよい。
+\item 確率変数$Z_1,\,Z_2,\dotsc,\,Z_n$が独立でそれぞれが標準正規分布$N(0,1)$に従うとする。
+このとき、$\sum_{k=1}^nZ_k^2$のキュムラント母関数をもとめよ。
+\end{itemize}
+\end{frame}
 
 
 \end{document}
