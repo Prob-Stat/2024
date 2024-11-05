@@ -97,6 +97,10 @@ $\left(\frac{N_a}{N}\right)_{a\in A}$を経験分布という。
 \begin{frame}{サノフの定理}
 \end{frame}
 
+\begin{frame}{文字列のタイプ}
+
+\end{frame}
+
 \begin{frame}{確率}
 \begin{align*}
 \sum_{}\prod_{k=1}^N \Pr(X = x_k) &= \binom{N}{N_1, N_2, \dotsc, N_k} \prod_{k=1}^N\Pr(X=a_k)^{q(k)N}\\
@@ -110,4 +114,51 @@ D(q\,\|\,p) &:= -\sum_kq(k)\log \frac{q(k)}{p(k)}
 \end{align*}
 \end{definition}
 \end{frame}
+
+\if0
+\begin{frame}{$n!$の上下界}
+\footnotesize
+\begin{lemma}
+任意の自然数$n$について
+\begin{align*}
+\left(\frac{n}{\mathrm{e}}\right)^n\le n!\le n^n.
+\end{align*}
+\vspace{-1em}
+\begin{proof}
+$n!\le n^n$は自明である。以下では$\frac1{n!}\le \left(\frac{\mathrm{e}}{n}\right)^n$を示す。
+%
+$C_r$を原点を中心とした半径$r$の円を反時計回りに回るパスとすると、任意の$r>0$について
+\begin{align*}
+\frac1{n!} &= \frac1{2\pi i} \oint_{C_r} \frac{\mathrm{e}^z}{z^{n+1}}\mathrm{d}z\\
+ &= \left|\frac1{2\pi i} \oint_{C_r} \frac{\mathrm{e}^z}{z^{n+1}}\mathrm{d}z\right|\\
+&\le \frac1{2\pi } \oint_{C_r} \left|\frac{\mathrm{e}^z}{z^{n+1}}\right|\mathrm{d}z\\
+&\le \frac1{2\pi } (2\pi r) \frac{\mathrm{e}^r}{r^{n+1}} = \frac{\mathrm{e}^r}{r^n}
+\end{align*}
+である。この上界は$r=n$のときに最小化されて$\frac1{n!}\le\left(\frac{\mathrm{e}}{n}\right)^n$を得る。
+\end{proof}
+\end{lemma}
+\end{frame}
+\fi
+
+\begin{frame}{多項係数の上下界}
+\begin{lemma}
+\begin{align*}
+\frac1{(N+1)^m}\mathrm{e}^{N H(p)}\le
+\binom{N}{N_1\,N_2\,\dotsm N_m}
+\le \mathrm{e}^{N H(p)}
+\end{align*}
+\end{lemma}
+\begin{proof}
+任意の$N_1$と$p \in\mathcal{P}_m$について
+\begin{align*}
+1&\ge \binom{N}{N_1\,N_2\,\dotsm N_m} \prod_{k=1}^m q_k^{N_k}
+\end{align*}
+よって$q_k=p_k$とすると
+\begin{align*}
+\binom{N}{N_1\,N_2\,\dotsm N_k}&\le \frac{1}{\prod_{k=1}^m \left(\frac{N_k}{N}\right)^{N_k}} = \mathrm{e}^{NH(p)}
+\end{align*}
+\end{proof}
+\end{frame}
+
+
 \end{document}
