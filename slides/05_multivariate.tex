@@ -65,7 +65,7 @@
 %\begin{definition}
 \begin{block}{多変数の確率密度関数}
 $p_{\symbf{X}}\colon \mathbb{R}^n\to\mathbb{R}$を
-$n$次元確率変数$\symbf{X}=[X_1,\dotsc, X_n]$の\emm{確率密度関数}とすると、
+$n$次元確率変数$\symbf{X}=[X_1\dotsc X_n]$の\emm{確率密度関数}とすると、
 任意の$A\subseteq\mathbb{R}^n$について
 %$\stackrel{\mathrm{def}}{\iff}$
 \begin{align*}
@@ -137,7 +137,7 @@ $(i,\,j)$成分に$\cov{X_i,\,X_j}=\expt{X_iX_j}-\expt{X_i}\expt{X_j}$を持つ�
 \end{align*}
 分散共分散行列は以下のように表せる。
 \begin{align*}
-\symbf{\Sigma}&=
+\vc{\symbf{X}}&=
 \expt{\symbf{X} \symbf{X}^T} - \expt{\symbf{X}}\expt{\symbf{X}}^T
 \end{align*}
 \end{frame}
@@ -648,8 +648,8 @@ $X\sim N(0,I)$のとき、$AX + \mu \sim N(\mu, AA^T)$なので一般の多変�
 $p(x,y)$を$q(r)$と書くことにすると
 
 \begin{align*}
-\Pr(R\in A,\,\Theta\in B) &= \int_{r(x,\,y)\in A}\int_{\theta(x,\,y)\in B} p(x,\, y)\mathrm{d}x\mathrm{d}y\\
- &= \int_{r\in A}\int_{\theta\in B} q(r)r\mathrm{d}r\mathrm{d}\theta\\
+\Pr(R\in A,\,\Theta\in B) &= \int_{\substack{r(x,\,y)\in A\\ \theta(x,\,y)\in B}} p(x,\, y)\mathrm{d}x\mathrm{d}y\\
+ &= \int_{r\in A}\int_{\theta\in B} q(r)r\mathrm{d}\theta\mathrm{d}r\\
  &= \left(\int_{\theta\in B}\frac1{2\pi}\mathrm{d}\theta\right)\left(\int_{r\in A} 2\pi rq(r)\mathrm{d}r\right)
 \end{align*}
 
