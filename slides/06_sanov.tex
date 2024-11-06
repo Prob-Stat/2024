@@ -123,13 +123,23 @@ P_{12211}&\coloneq \left(\frac{3}{5},\,\frac{2}{5}\right)
 \end{example}
 \end{frame}
 
-\begin{frame}{サノフの定理}
+\begin{frame}{Kullback--Libler divergence}
 \begin{definition}[Kullback--Libler divergence]
 $D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
 \begin{align*}
-\KL{q}{p} &\coloneq \sum_kq_k\log \frac{q_k}{p_k}.
+\KL{q}{p} &\coloneq \sum_{k} q_k\log \frac{q_k}{p_k}.
 \end{align*}
+ただし、ある$k$について$p_k=0,\,q_k>0$のとき$\KL{q}{p}$は定義されない。
 \end{definition}
+\begin{lemma}
+\begin{itemize}
+\item $\KL{q}{p}\ge 0$
+\item $\KL{q}{p}= 0\iff q=p$
+\end{itemize}
+\end{lemma}
+\end{frame}
+
+\begin{frame}{サノフの定理}
 %\begin{theorem}[サノフの定理]
 \begin{restatable}[サノフの定理]{theorem}{sanov}
 任意の$\mathcal{D}\subseteq\mathcal{P}$について
@@ -190,8 +200,8 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \begin{align*}
 \Pr(P_{\symbf{X}}= q) &= \binom{N}{Nq_1\,Nq_2\,\dotsm Nq_m} \prod_{k=1}^m p_k^{Nq_k}\\
  &= \emm{\binom{N}{Nq_1\,Nq_2\,\dotsm Nq_m} \prod_{k=1}^m q_k^{Nq_k}}\prod_{k=1}^m\frac{p_k^{Nq_k}}{q_k^{Nq_k}}\\
- &= \emm{\Pr(\symbf{Y}\in T_q)}\prod_{k=1}^m\left(\frac{p_k}{q_k}\right)^{Nq_k}\\
- &=\emm{\Pr(\symbf{Y}\in T_q)}\mathrm{e}^{-N \KL{q}{p}}.
+ &= \emm{\Pr(P_{\symbf{Y}}= q)}\prod_{k=1}^m\left(\frac{p_k}{q_k}\right)^{Nq_k}\\
+ &=\emm{\Pr(P_{\symbf{Y}}= q)}\mathrm{e}^{-N \KL{q}{p}}.
 %=\mathrm{e}^{-N \KL{q}{p}}.
 \end{align*}
 ここで$\symbf{Y}$は$\mathrm{Multinom}(q)$に従う確率変数。
