@@ -90,9 +90,11 @@ P(6) &= \frac{19}{100}
 \begin{frame}{経験分布}
 \footnotesize
 \emm{有限集合}$A=\{1,2,\dotsc,\emm{m}\}$とする。
+$\mathcal{P}\coloneq\{(p_1,\dotsc,p_m)\in\mathbb{R}_{\ge 0}^m\mid p_1+\dotsb+p_m=1\}$.
 \begin{definition}
 %確率変数$X$の像が\emm{有限集合}$A=\{1,2,\dotsc,m\}$とする。
-\vspace{-1em}
+%\vspace{-1em}
+任意の$N\in\mathbb{Z}_{> 0}$について
 \begin{align*}
 \mathcal{P}_N &\coloneq \left\{ \left(\frac{N_1}{N}, \frac{N_2}{N},\dotsc, \frac{N_m}{N}\right)\;\middle|\; 
 \begin{gathered}
@@ -103,11 +105,10 @@ N_1+N_2+\dotsb+N_m=N
 %\qquad\text{where $N_k(\symbf{x})$ は$\symbf{x}$に含まれる$k$の数} 
 \end{align*}
 とする。
-
-
+%
 任意の$\symbf{x}\in A^N$について、\emm{経験分布}$P_{\symbf{x}}\in\mathcal{P}_N$は
 \begin{align*}
-P_{\symbf{x}}&\coloneq \left(\frac{N_1(\symbf{x})}{N}, \frac{N_2(\symbf{x})}{N},\dotsc, \frac{N_m(\symbf{x})}{N}\right)
+P_{\symbf{x}}&\coloneq \left(\frac{N_1(\symbf{x})}{N}, \frac{N_2(\symbf{x})}{N},\dotsc, \frac{N_m(\symbf{x})}{N}\right).
 \end{align*}
 %各$a\in A$について$N_a := \{ k\mid X_k = a\}$とおく。
 ここで$k=1,2,\dotsc,m$について $N_k(\symbf{x})$ は$\symbf{x}$に含まれる$k$の数。
@@ -127,7 +128,7 @@ P_{12211}&\coloneq \left(\frac{3}{5},\,\frac{2}{5}\right)
 \begin{definition}[Kullback--Libler divergence]
 $D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
 \begin{align*}
-\KL{q}{p} &\coloneq \sum_{k} q_k\log \frac{q_k}{p_k}.
+\KL{q}{p} &\coloneq \sum_{k=1}^m q_k\log \frac{q_k}{p_k}.
 \end{align*}
 ただし、ある$k$について$p_k=0,\,q_k>0$のとき$\KL{q}{p}$は定義されない。
 \end{definition}
