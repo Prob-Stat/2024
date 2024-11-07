@@ -117,8 +117,8 @@ P_{\symbf{x}}&\coloneq \left(\frac{N_1(\symbf{x})}{N}, \frac{N_2(\symbf{x})}{N},
 \begin{example}
 $m=2$のとき、
 \begin{align*}
-\mathcal{P}_3&\coloneq\left\{\left(\frac{0}{3},\,\frac{3}{3}\right),\,\left(\frac{1}{3},\,\frac{2}{3}\right),\,\left(\frac{2}{3},\,\frac{1}{3}\right),\,\left(\frac{3}{3},\,\frac{0}{3}\right)\right\}\\
-P_{12211}&\coloneq \left(\frac{3}{5},\,\frac{2}{5}\right)
+\mathcal{P}_3&=\left\{\left(\frac{0}{3},\,\frac{3}{3}\right),\,\left(\frac{1}{3},\,\frac{2}{3}\right),\,\left(\frac{2}{3},\,\frac{1}{3}\right),\,\left(\frac{3}{3},\,\frac{0}{3}\right)\right\}\\
+P_{12211}&= \left(\frac{3}{5},\,\frac{2}{5}\right)
 \end{align*}
 \end{example}
 \end{frame}
@@ -181,7 +181,7 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \end{frame}
 \fi
 
-\begin{frame}{特定のタイプになる確率の上下界 1/3}
+\begin{frame}{特定の経験分布になる確率の上下界 1/3}
 \small
 \begin{lemma}
 任意の$q\in\mathcal{P}_N$について
@@ -209,7 +209,7 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \end{proof}
 \end{frame}
 
-\begin{frame}{特定のタイプになる確率の上下界 2/3}
+\begin{frame}{特定の経験分布になる確率の上下界 2/3}
 \footnotesize
 \begin{lemma}
 任意の$q\in\mathcal{P}_N$について
@@ -245,7 +245,7 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \end{proof}
 \end{frame}
 
-\begin{frame}{特定のタイプになる確率の上下界 3/3}
+\begin{frame}{特定の経験分布になる確率の上下界 3/3}
 \small
 最後に
 \begin{align*}
@@ -273,10 +273,11 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
  &\le |\mathcal{D}\cap\mathcal{P}_N| \max_{q\in\mathcal{D}\cap\mathcal{P}_N}\Pr(P_{\symbf{X}} = q)\\
  &\le (N+1)^m \max_{q\in\mathcal{D}\cap\mathcal{P}_N}\mathrm{e}^{-N\KL{q}{p}}\\
  &\le (N+1)^m \sup_{q\in\mathcal{D}}\mathrm{e}^{-N\KL{q}{p}}\\
- &\le (N+1)^m \mathrm{e}^{-N\inf_{q\in\mathcal{D}}\KL{q}{p}}.
+ &= (N+1)^m \mathrm{e}^{-N\inf_{q\in\mathcal{D}}\KL{q}{p}}.
 \end{align*}
 \end{proof}
 \end{frame}
+
 
 \begin{frame}{サノフの定理の証明}
 \footnotesize
@@ -299,6 +300,37 @@ $\lim_{n\to\infty} \KL{q_n}{p} = \inf_{q\in\mathcal{D}} \KL{q}{p}$を満たす�
 \end{proof}
 \end{frame}
 
-\begin{frame}{KL divergenceの性質}
+\begin{frame}{二項分布($m=2$)の場合}
+\footnotesize
+二項分布の場合$\sum_{k=1}^n X_k=N_1(\symbf{X})$であり、$P_{\symbf{X}}=\left(\frac{N-N_1(\symbf{X})}N,\,\frac{N_1(\symbf{X})}N\right)$と一対一に対応する。
+
+\begin{align*}
+\Pr\left(\sum_{k=1}^N X_k \ge Na\right)
+&=
+\Pr\left(\frac{N_1(\symbf{X})}{N} \ge a\right)
+\end{align*}
+$\mathcal{D}\coloneq \{(p_0,\,p_1)\mid p_1\ge a\}$とすると、
+\begin{align*}
+\Pr\left(\sum_{k=1}^N X_k \ge Na\right)
+&=
+\Pr\left(P_{\symbf{X}} \in\mathcal{D}\right)
+\end{align*}
+サノフの定理より、これの指数部は
+\begin{align*}
+-\inf_{q\in\mathcal{D}} \KL{(1-q,\,q)}{(1-p,\,p)}
+\end{align*}
+である。
+\begin{align*}
+\inf_{q\in\mathcal{D}} \KL{(1-q,\,q)}{(1-p,\,p)}&= \inf_{q\ge a} (1-q)\log\frac{1-q}{1-p} + q\log\frac{q}{p}\\
+&= 
+\begin{cases}
+0&\text{if } a\le p\\
+(1-a)\log\frac{1-a}{1-p} + a\log\frac{a}{p}& \text{otherwise.}
+\end{cases}
+\end{align*}
+これはクラメールの定理で得られるレート関数$I_X(a)$と等しい。
+\end{frame}
+
+\begin{frame}{課題}
 \end{frame}
 \end{document}
