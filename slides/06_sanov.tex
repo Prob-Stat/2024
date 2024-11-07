@@ -143,7 +143,7 @@ $D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
 \begin{frame}{サノフの定理}
 %\begin{theorem}[サノフの定理]
 \begin{restatable}[サノフの定理]{theorem}{sanov}
-任意の$\mathcal{D}\subseteq\mathcal{P}$について
+任意の$\mathcal{D}\subseteq\mathcal{P}$と$N\in\mathbb{Z}_{>0}$について
 \begin{align*}
 \Pr\left(P_{\symbf{X}} \in \mathcal{D}\right) &\le (N+1)^m \mathrm{e}^{-N\inf_{q\in \mathcal{D}} \emm{\KL{q}{p}}}.
 \end{align*}
@@ -326,7 +326,7 @@ $\mathcal{D}\coloneq \{(p_0,\,p_1)\mid p_1\ge a\}$とすると、
 &= 
 \begin{cases}
 0&\text{if } a\le p\\
-(1-a)\log\frac{1-a}{1-p} + a\log\frac{a}{p}& \text{otherwise.}
+\emm{(1-a)\log\frac{1-a}{1-p} + a\log\frac{a}{p}}& \text{otherwise.}
 \end{cases}
 \end{align*}
 これはクラメールの定理で得られるレート関数$I_X(a)$と等しい。
