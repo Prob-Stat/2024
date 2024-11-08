@@ -132,12 +132,28 @@ $D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
 \end{align*}
 ただし、ある$k$について$p_k=0,\,q_k>0$のとき$\KL{q}{p}$は定義されない。
 \end{definition}
+\end{frame}
+
+\begin{frame}{KL-divergenceの性質}
 \begin{lemma}
 \begin{itemize}
 \item $\KL{q}{p}\ge 0$
 \item $\KL{q}{p}= 0\iff q=p$
 \end{itemize}
 \end{lemma}
+\begin{proof}
+\begin{align*}
+\KL{q}{p} &= \sum_{k=1}^m q_k\log \frac{q_k}{p_k}\\
+&= -\sum_{k=1}^m q_k\log \frac{p_k}{q_k}\\
+&\ge -\log \sum_{k=1}^m q_k\frac{p_k}{q_k}\qquad\text{(イェンセンの不等式)}\\
+&=0
+\end{align*}
+$q=p$のとき、$\KL{q}{p}=0$は自明。
+\end{proof}
+\end{frame}
+
+\begin{frame}{KL-divergenceの凸性}
+a
 \end{frame}
 
 \begin{frame}{サノフの定理}
@@ -258,9 +274,13 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \Pr(P_{\symbf{Y}}= p') &= \binom{N}{Np'_1\,Np'_2\,\dotsm Np'_m} \prod_{k=1}^m q_k^{Np'_k}\\
 \Pr(P_{\symbf{Y}}= q) &= \binom{N}{Nq_1\,Nq_2\,\dotsm Nq_m} \prod_{k=1}^m q_k^{Nq_k}
 \end{align*}
+より
 \begin{align*}
-\frac{\Pr(P_{\symbf{Y}}= p')}{\Pr(P_{\symbf{Y}}= q)}&=\prod_{k=1}^m\frac{(Nq_k)!\cdot q_k^{Np'_k}}{(Np'_k)!\cdot q_k^{Nq_k}}\\
-&=\prod_{k=1}^m\frac{(Nq_k)!\cdot (Nq_k)^{Np'_k}}{(Np'_k)!\cdot (Nq_k)^{Nq_k}}\\
+\frac{\Pr(P_{\symbf{Y}}= p')}{\Pr(P_{\symbf{Y}}= q)}&=\prod_{k=1}^m\frac{(Nq_k)!}{(Np'_k)!}q_k^{Np'_k-Nq_k}\\
+%&=\prod_{k=1}^m\frac{(Nq_k)!}{(Np'_k)!}q_k^{Np'_k-Nq_k}\\
+&\le\prod_{k=1}^m(Nq_k)^{Nq_k - Np'_k}q_k^{Np'_k-Nq_k}\qquad \left(\frac{b!}{a!}\le b^{b-a}\right)\\
+&=\prod_{k=1}^mN^{Nq_k - Np'_k}\\
+&=1.\qedhere
 \end{align*}
 \end{frame}
 
@@ -303,7 +323,7 @@ $\lim_{n\to\infty} \KL{q_n}{p} = \inf_{q\in\mathcal{D}} \KL{q}{p}$を満たす�
 
 \begin{frame}{二項分布($m=2$)の場合}
 \footnotesize
-二項分布の場合$\sum_{k=1}^n X_k=N_1(\symbf{X})$であり、$P_{\symbf{X}}=\left(\frac{N-N_1(\symbf{X})}N,\,\frac{N_1(\symbf{X})}N\right)$と一対一に対応する。
+二項分布の場合$\sum_{k=1}^n X_k=N_1(\symbf{X})$であり、$P_{\symbf{X}}=\left(\frac{N-N_1(\symbf{X})}N,\,\frac{N_1(\symbf{X})}N\right)$と一対一に対応する($A=\{1,2\}$ではなくて、$A=\{0,1\}$としている)。
 
 \begin{align*}
 \Pr\left(\sum_{k=1}^N X_k \ge Na\right)
