@@ -304,7 +304,12 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \footnotesize
 \sanov
 \begin{proof}
-KL divergenceの連続性より、
+$\inf$の定義より、任意の$\epsilon>0$について、ある$q_{\epsilon}\in\mathcal{D}$が存在して、$|\inf_{q\in\mathcal{D}}\KL{q}{p}-\KL{q_\epsilon}{p}|<\epsilon$.
+KL divergenceの連続性より、任意の$\epsilon>0$について、ある$\delta_\epsilon$が存在して、$|\KL{q'}{p}-\KL{q''}{p}|<\epsilon$ が任意の$\|q''-q'\|<\delta_\epsilon$を満たす$q''\in\mathcal{P}$について成り立つ。
+一方で$\mathcal{D}$は開集合であることから、ある$\delta_{q'}>0$が存在して、任意の$\|q''-q'\|<\delta_{q'}$を満たす$q''$は$\mathcal{D}$に含まれる。
+
+よって、任意の$\epsilon>0$について、
+
 $\mathcal{D}\cap\mathbb{Q}^m$の列$(q_n\in\mathcal{D}\cap\mathcal{P}_N)_{n\ge 0}$で
 $\lim_{n\to\infty} \KL{q_n}{p} = \inf_{q\in\mathcal{D}} \KL{q}{p}$を満たすものがある。
 
