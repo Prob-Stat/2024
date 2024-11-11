@@ -72,13 +72,13 @@
 \vspace{1em}
 任意の$\symbf{x}\in A^N$と各$k\in A$について$N_k(\symbf{x}) \coloneq \{ t\in\{1,\dotsc,N\}\mid x_t = k\}$とおく。
 
-$P_{\symbf{x}}\coloneq\left(\frac{N_k(\symbf{x})}{N}\right)_{k\in A}$を経験分布という。
+$\widehat{P}_{\symbf{x}}\coloneq\left(\frac{N_k(\symbf{x})}{N}\right)_{k\in A}$を経験分布という。
 %\end{definition}
 
 \vspace{2em}
 サイコロを100回振って1,2,3,4,5,6がそれぞれ16,13,18,20,14,19回出たとき経験分布は
 \begin{align*}
-P_{\symbf{x}}&\coloneq
+\widehat{P}_{\symbf{x}}&\coloneq
 \left( \frac{16}{100}
 , \frac{13}{100}
 , \frac{18}{100}
@@ -114,9 +114,9 @@ N_1+N_2+\dotsb+N_m=N
 \end{align*}
 とする。
 %
-任意の$\symbf{x}\in A^N$について、\emm{経験分布}$P_{\symbf{x}}\in\mathcal{P}_N$は
+任意の$\symbf{x}\in A^N$について、\emm{経験分布}$\widehat{P}_{\symbf{x}}\in\mathcal{P}_N$は
 \begin{align*}
-P_{\symbf{x}}&\coloneq \left(\frac{N_1(\symbf{x})}{N}, \frac{N_2(\symbf{x})}{N},\dotsc, \frac{N_m(\symbf{x})}{N}\right).
+\widehat{P}_{\symbf{x}}&\coloneq \left(\frac{N_1(\symbf{x})}{N}, \frac{N_2(\symbf{x})}{N},\dotsc, \frac{N_m(\symbf{x})}{N}\right).
 \end{align*}
 %各$a\in A$について$N_a := \{ k\mid X_k = a\}$とおく。
 ここで$k=1,2,\dotsc,m$について
@@ -129,7 +129,7 @@ $N_k(\symbf{x})\coloneq \{ t\in\{1,\dotsc,N\}\mid x_t = k\}$.
 $m=2$のとき、
 \begin{align*}
 \mathcal{P}_3&=\left\{\left(\frac{0}{3},\,\frac{3}{3}\right),\,\left(\frac{1}{3},\,\frac{2}{3}\right),\,\left(\frac{2}{3},\,\frac{1}{3}\right),\,\left(\frac{3}{3},\,\frac{0}{3}\right)\right\}\\
-P_{12211}&= \left(\frac{3}{5},\,\frac{2}{5}\right)
+\widehat{P}_{12211}&= \left(\frac{3}{5},\,\frac{2}{5}\right)
 \end{align*}
 \end{example}
 \end{frame}
@@ -140,7 +140,8 @@ $D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
 \begin{align*}
 \KL{q}{p} &\coloneq \sum_{k=1}^m q_k\log \frac{q_k}{p_k}.
 \end{align*}
-ただし、ある$k$について$p_k=0,\,q_k>0$のとき$\KL{q}{p}$は定義されない。
+ただし、$0\log 0 = 0\log\frac{0}{0}=0$とし、$q\log\frac{q}{0}$は$q>0$について無限とする。
+%ただし、ある$k$について$p_k=0,\,q_k>0$のとき$\KL{q}{p}$は定義されない。
 \end{definition}
 \end{frame}
 
@@ -186,8 +187,8 @@ a
 %\end{align*}
 %また任意の開集合$\mathcal{D}\subseteq\mathcal{P}$について
 \begin{align*}
-\frac1N\log\Pr\left(P_{\symbf{X}} \in \Gamma\right) &\le -\inf_{q\in \Gamma} \emm{\KL{q}{p}} + \frac{m\log(N+1)}N\quad\text{for any $N\in\mathbb{Z}_{>0}$}\\
-\liminf_{N\to\infty}\frac1N\log \Pr\left(P_{\symbf{X}} \in \Gamma\right) &\ge -\inf_{q\in \Gamma^\circ} \emm{\KL{q}{p}}.
+\frac1N\log\Pr\left(\widehat{P}_{\symbf{X}} \in \Gamma\right) &\le -\inf_{q\in \Gamma} \emm{\KL{q}{p}} + \frac{m\log(N+1)}N\quad\text{for any $N\in\mathbb{Z}_{>0}$}\\
+\liminf_{N\to\infty}\frac1N\log \Pr\left(\widehat{P}_{\symbf{X}} \in \Gamma\right) &\ge -\inf_{q\in \Gamma^\circ} \emm{\KL{q}{p}}.
 \end{align*}
 ただし、$\Gamma^\circ$は$\Gamma$の内点の集合とする。
 \end{restatable}
@@ -229,19 +230,22 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \frac1{(N+1)^m}\mathrm{e}^{-N \KL{q}{p}}\le
 %\binom{N}{N_1\,N_2\,\dotsm N_m}
 %\Pr(\symbf{X}\in T_q)
-\Pr(P_{\symbf{X}} = q)
+\Pr(\widehat{P}_{\symbf{X}} = q)
 \le \mathrm{e}^{-N \KL{q}{p}}.
 \end{align*}
 \end{lemma}
 \begin{proof}
-\vspace{-2em}
+%\vspace{-2em}
+%三つの値は$q$について連続なので、$q\in\mathcal{P}_N^\circ$について証明すれば十分
 %上界の証明:
 %任意の$N_1$と$p \in\mathcal{P}_m$について
+任意の$k$について$p_k>0$と仮定して一般性を失わない。
+$0^0=1$とすると
 \begin{align*}
-\Pr(P_{\symbf{X}}= q) &= \binom{N}{Nq_1\,Nq_2\,\dotsm Nq_m} \prod_{k=1}^m p_k^{Nq_k}\\
+\Pr(\widehat{P}_{\symbf{X}}= q) &= \binom{N}{Nq_1\,Nq_2\,\dotsm Nq_m} \prod_{k=1}^m p_k^{Nq_k}\\
  &= \emm{\binom{N}{Nq_1\,Nq_2\,\dotsm Nq_m} \prod_{k=1}^m q_k^{Nq_k}}\prod_{k=1}^m\frac{p_k^{Nq_k}}{q_k^{Nq_k}}\\
- &= \emm{\Pr(P_{\symbf{Y}}= q)}\prod_{k=1}^m\left(\frac{p_k}{q_k}\right)^{Nq_k}\\
- &=\emm{\Pr(P_{\symbf{Y}}= q)}\mathrm{e}^{-N \KL{q}{p}}.
+ &= \emm{\Pr(\widehat{P}_{\symbf{Y}}= q)}\prod_{k=1}^m\left(\frac{p_k}{q_k}\right)^{Nq_k}\\
+ &=\emm{\Pr(\widehat{P}_{\symbf{Y}}= q)}\mathrm{e}^{-N \KL{q}{p}}.
 %=\mathrm{e}^{-N \KL{q}{p}}.
 \end{align*}
 ここで$\symbf{Y}$は$\mathrm{Multinom}(q)$に従う確率変数。
@@ -256,30 +260,30 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \begin{align*}
 \frac1{(N+1)^m}\mathrm{e}^{-N \KL{q}{p}}\le
 %\binom{N}{N_1\,N_2\,\dotsm N_m}
-\Pr(P_{\symbf{X}} = q)
+\Pr(\widehat{P}_{\symbf{X}} = q)
 \le \mathrm{e}^{-N \KL{q}{p}}
 \end{align*}
 \end{lemma}
 \begin{proof}
 \vspace{-2em}
 \begin{align*}
-\Pr(P_{\symbf{X}}= q) &= \emm{\Pr(P_{\symbf{Y}}= q)}\mathrm{e}^{-N \KL{q}{p}}.
+\Pr(\widehat{P}_{\symbf{X}}= q) &= \emm{\Pr(\widehat{P}_{\symbf{Y}}= q)}\mathrm{e}^{-N \KL{q}{p}}.
 \end{align*}
-よって$\frac1{(N+1)^m}\le\Pr(P_{\symbf{Y}}= q)\le 1$を示せばよいが上界は明らか。
+よって$\frac1{(N+1)^m}\le\Pr(\widehat{P}_{\symbf{Y}}= q)\le 1$を示せばよいが上界は明らか。
 
 %下界の証明:
 %任意の$N_1$と$p \in\mathcal{P}_m$について
 %
 任意の$p'\in\mathcal{P}_N$について
 \begin{align*}
-\Pr\left(P_{\symbf{Y}}= p'\right)&\le
-\Pr\left(P_{\symbf{Y}}= q\right)
+\Pr\left(\widehat{P}_{\symbf{Y}}= p'\right)&\le
+\Pr\left(\widehat{P}_{\symbf{Y}}= q\right)
 \end{align*}
 が成り立つと仮定する(後で証明する)と、
 \begin{align*}
-1&=\sum_{p'\in\mathcal{P}_N} \Pr\left(P_{\symbf{Y}}= p'\right)
-\le\sum_{p'\in\mathcal{P}_N} \Pr\left(P_{\symbf{Y}}= q\right)
-=|\mathcal{P}_N| \Pr\left(P_{\symbf{Y}}= q\right)
+1&=\sum_{p'\in\mathcal{P}_N} \Pr\left(\widehat{P}_{\symbf{Y}}= p'\right)
+\le\sum_{p'\in\mathcal{P}_N} \Pr\left(\widehat{P}_{\symbf{Y}}= q\right)
+=|\mathcal{P}_N| \Pr\left(\widehat{P}_{\symbf{Y}}= q\right)
 \end{align*}
 であるが$|\mathcal{P}_N|=\binom{N+m-1}{m-1}\le (N+1)^m$より下界を得る。
 \end{proof}
@@ -289,17 +293,17 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \small
 最後に
 \begin{align*}
-\Pr\left(P_{\symbf{Y}}= p'\right)&\le
-\Pr\left(P_{\symbf{Y}}= q\right)
+\Pr\left(\widehat{P}_{\symbf{Y}}= p'\right)&\le
+\Pr\left(\widehat{P}_{\symbf{Y}}= q\right)
 \end{align*}
 を示せばよい。
 \begin{align*}
-\Pr(P_{\symbf{Y}}= p') &= \binom{N}{Np'_1\,Np'_2\,\dotsm Np'_m} \prod_{k=1}^m q_k^{Np'_k}\\
-\Pr(P_{\symbf{Y}}= q) &= \binom{N}{Nq_1\,Nq_2\,\dotsm Nq_m} \prod_{k=1}^m q_k^{Nq_k}
+\Pr(\widehat{P}_{\symbf{Y}}= p') &= \binom{N}{Np'_1\,Np'_2\,\dotsm Np'_m} \prod_{k=1}^m q_k^{Np'_k}\\
+\Pr(\widehat{P}_{\symbf{Y}}= q) &= \binom{N}{Nq_1\,Nq_2\,\dotsm Nq_m} \prod_{k=1}^m q_k^{Nq_k}
 \end{align*}
 より
 \begin{align*}
-\frac{\Pr(P_{\symbf{Y}}= p')}{\Pr(P_{\symbf{Y}}= q)}&=\prod_{k=1}^m\frac{(Nq_k)!}{(Np'_k)!}q_k^{Np'_k-Nq_k}\\
+\frac{\Pr(\widehat{P}_{\symbf{Y}}= p')}{\Pr(\widehat{P}_{\symbf{Y}}= q)}&=\prod_{k=1}^m\frac{(Nq_k)!}{(Np'_k)!}q_k^{Np'_k-Nq_k}\\
 %&=\prod_{k=1}^m\frac{(Nq_k)!}{(Np'_k)!}q_k^{Np'_k-Nq_k}\\
 &\le\prod_{k=1}^m(Nq_k)^{Nq_k - Np'_k}q_k^{Np'_k-Nq_k}\qquad \left(\frac{b!}{a!}\le b^{b-a}\right)\\
 &=\prod_{k=1}^mN^{Nq_k - Np'_k}\\
@@ -314,8 +318,8 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 %\vspace{-2em}
 任意の$\Gamma\subseteq\mathcal{P}$と$N\in\mathbb{Z}_{>0}$について
 \begin{align*}
-\Pr(P_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(P_{\symbf{X}} = q)\\
- &\le |\Gamma\cap\mathcal{P}_N| \max_{q\in\Gamma\cap\mathcal{P}_N}\Pr(P_{\symbf{X}} = q)\\
+\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(\widehat{P}_{\symbf{X}} = q)\\
+ &\le |\Gamma\cap\mathcal{P}_N| \max_{q\in\Gamma\cap\mathcal{P}_N}\Pr(\widehat{P}_{\symbf{X}} = q)\\
  &\le (N+1)^m \max_{q\in\Gamma\cap\mathcal{P}_N}\mathrm{e}^{-N\KL{q}{p}}\\
  &\le (N+1)^m \sup_{q\in\Gamma}\mathrm{e}^{-N\KL{q}{p}}\\
  &= (N+1)^m \mathrm{e}^{-N\inf_{q\in\Gamma}\KL{q}{p}}.
@@ -330,10 +334,10 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \begin{proof}[\small 下界の証明 1/2]
 任意の$\Gamma\subseteq\mathcal{P}$と$N\in\mathbb{Z}_{>0}$について
 \begin{align*}
-\Pr(P_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(P_{\symbf{X}} = q)\\
- &\ge \max_{q\in\Gamma\cap\mathcal{P}_N}\Pr(P_{\symbf{X}} = q)\\
+\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(\widehat{P}_{\symbf{X}} = q)\\
+ &\ge \max_{q\in\Gamma\cap\mathcal{P}_N}\Pr(\widehat{P}_{\symbf{X}} = q)\\
  &\ge \max_{q\in\Gamma\cap\mathcal{P}_N}\frac1{(N+1)^m}\mathrm{e}^{-N\KL{q}{p}}\\
- &\ge \frac1{(N+1)^m}\mathrm{e}^{-N\inf_{q\in\Gamma\cap\mathcal{P}_N}\KL{q}{p}}.
+ &\ge \frac1{(N+1)^m}\mathrm{e}^{-N\min_{q\in\Gamma\cap\mathcal{P}_N}\KL{q}{p}}.
 \end{align*}
 \end{proof}
 \end{frame}
@@ -344,7 +348,7 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \begin{proof}[\small 下界の証明 2/2]
 \vspace{-1.5em}
 \begin{align*}
-\frac1N\log\Pr(P_{\symbf{X}}\in\Gamma) &\ge -\inf_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} - \frac{m\log(N+1)}{N}.
+\frac1N\log\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &\ge -\min_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} - \frac{m\log(N+1)}{N}.
 \end{align*}
 よって任意の$\Gamma\subseteq\mathcal{P}$について以下を示せばよい。
 \begin{align*}
@@ -367,21 +371,21 @@ KL divergenceの連続性より、任意の$q\in\mathcal{P}$と$\epsilon>0$に�
 %$\lim_{n\to\infty} \KL{q_n}{p} = \inf_{q\in\Gamma} \KL{q}{p}$を満たすものがある。
 
 \begin{align*}
-\Pr(P_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(P_{\symbf{X}} = q)
- \ge \Pr(P_{\symbf{X}}=q_N)
+\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(\widehat{P}_{\symbf{X}} = q)
+ \ge \Pr(\widehat{P}_{\symbf{X}}=q_N)
  \ge \frac1{(N+1)^m}\mathrm{e}^{-N\KL{q_N}{p}}
 \end{align*}
 よって
 \begin{align*}
 \liminf_{N\to\infty}\frac1N
-\log\Pr(P_{\symbf{X}}\in\Gamma) &\ge -\inf_{q\in\Gamma}\KL{q}{p}.\qedhere
+\log\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &\ge -\inf_{q\in\Gamma}\KL{q}{p}.\qedhere
 \end{align*}
 \end{proof}
 \end{frame}
 
 \begin{frame}{二項分布($m=2$)の場合}
 \footnotesize
-二項分布の場合$\sum_{k=1}^n X_k=N_1(\symbf{X})$であり、$P_{\symbf{X}}=\left(\frac{N-N_1(\symbf{X})}N,\,\frac{N_1(\symbf{X})}N\right)$と一対一に対応する($A=\{1,2\}$ではなくて、$A=\{0,1\}$としている)。
+二項分布の場合$\sum_{k=1}^n X_k=N_1(\symbf{X})$であり、$\widehat{P}_{\symbf{X}}=\left(\frac{N-N_1(\symbf{X})}N,\,\frac{N_1(\symbf{X})}N\right)$と一対一に対応する($A=\{1,2\}$ではなくて、$A=\{0,1\}$としている)。
 
 \begin{align*}
 \Pr\left(\sum_{k=1}^N X_k \ge Na\right)
@@ -392,7 +396,7 @@ $\Gamma\coloneq \{(p_0,\,p_1)\mid p_1\ge a\}$とすると、
 \begin{align*}
 \Pr\left(\sum_{k=1}^N X_k \ge Na\right)
 &=
-\Pr\left(P_{\symbf{X}} \in\Gamma\right)
+\Pr\left(\widehat{P}_{\symbf{X}} \in\Gamma\right)
 \end{align*}
 サノフの定理より、これの指数部は
 \begin{align*}
@@ -401,7 +405,7 @@ $\Gamma\coloneq \{(p_0,\,p_1)\mid p_1\ge a\}$とすると、
 \end{align*}
 である。
 \begin{align*}
-\inf_{q\in\Gamma} \KL{(1-q,\,q)}{(1-p,\,p)}&= \inf_{q> a} (1-q)\log\frac{1-q}{1-p} + q\log\frac{q}{p}\\
+\inf_{q\in\Gamma} \KL{(1-q,\,q)}{(1-p,\,p)}&= \inf_{q\ge a} (1-q)\log\frac{1-q}{1-p} + q\log\frac{q}{p}\\
 &= 
 \begin{cases}
 0&\text{if } a\le p\\
