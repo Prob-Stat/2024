@@ -47,11 +47,11 @@
 %\usepackage{bm}
 %\newcommand\bm[1]{{\mathbf{#1}}}
 \newcommand\dx{{\,\mathrm{d}x}}
-\newcommand\KL[2]{D(#1\,\|\,#2)}
+\newcommand\KL[2]{D\left(#1\,\|\,#2\right)}
 
 \theoremstyle{definition}
 
-\title{確率・統計基礎: サノフの定理、エントロピー、KLダイバージェンス、}
+\title{確率・統計基礎: サノフの定理、KLダイバージェンス、}
 \author{森 立平}
 \date{}
 
@@ -140,12 +140,40 @@ $D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
 \begin{align*}
 \KL{q}{p} &\coloneq \sum_{k=1}^m q_k\log \frac{q_k}{p_k}.
 \end{align*}
-ただし、$0\log 0 = 0\log\frac{0}{0}=0$とし、$q\log\frac{q}{0}$は$q>0$について無限とする。
+ただし、$0\log 0 = 0\log\frac{0}{0}=0$とし、$q\log\frac{q}{0}$は$q>0$について$+\infty$とする。
 %ただし、ある$k$について$p_k=0,\,q_k>0$のとき$\KL{q}{p}$は定義されない。
 \end{definition}
 \end{frame}
 
 \begin{frame}{イェンセンの不等式}
+\footnotesize
+\begin{lemma}[\small イェンセンの不等式]
+凸関数$f\colon\mathbb{R}\to\mathbb{R}$と確率変数$X\colon\Omega\to\mathbb{R}$について、
+\begin{align*}
+\expt{f(X)} &\ge f(\expt{X}).
+\end{align*}
+
+\vspace{-1em}
+\end{lemma}
+\begin{proof}[\small $X$の像が有限のときの証明]
+確率変数$X$は$k=1,2,\dotsc,m$について確率$p_k$で値$a_k$をとると仮定する。
+$m$についての帰納法で示す。$m=1$のときは明らかに成り立つ。
+%
+%$m=2$のとき、
+%\begin{align*}
+%\expt{f(X)} &= p_1 f(a_1) + p_2 f(a_2) \ge f(p_1a_1 + p_2a_2) = f(\expt{X}).
+%\end{align*}
+%である。不等式は$f$の凸性の定義そのもの。
+%
+$X$の像のサイズが$m$未満のときにイェンセンの不等式が成り立つと仮定する。
+\begin{align*}
+\expt{f(X)} &= \sum_{k=1}^m p_k f(a_k)
+= \left(\sum_{k=1}^{m-1}p_k\right)\sum_{k=1}^{m-1} \frac{p_k}{\sum_{\ell=1}^{m-1}p_\ell} f(a_k) + p_m f(a_m)\\
+&\ge \left(\sum_{k=1}^{m-1}p_k\right) f\left(\sum_{k=1}^{m-1} \frac{p_k}{\sum_{\ell=1}^{m-1}p_\ell}a_k\right) + p_m f(a_m)\quad\text{(帰納法の仮定)}\\
+&\ge  f\left(\left(\sum_{k=1}^{m-1}p_k\right)\sum_{k=1}^{m-1} \frac{p_k}{\sum_{\ell=1}^{m-1}p_\ell}a_k + p_ma_m\right)\quad\text{($f$の凸性)}\\
+&\ge f\left(\sum_{k=1}^m p_ka_k\right) = f(\expt{X}).\qedhere
+\end{align*}
+\end{proof}
 \end{frame}
 
 \begin{frame}{KL-divergenceの性質}
@@ -166,9 +194,11 @@ $q=p$のとき、$\KL{q}{p}=0$は自明。
 \end{proof}
 \end{frame}
 
+\if0
 \begin{frame}{KL-divergenceの凸性}
 a
 \end{frame}
+\fi
 
 \begin{frame}{サノフの定理}
 %\begin{theorem}[サノフの定理]
@@ -269,7 +299,7 @@ $0^0=1$とすると
 \begin{align*}
 \Pr(\widehat{P}_{\symbf{X}}= q) &= \emm{\Pr(\widehat{P}_{\symbf{Y}}= q)}\mathrm{e}^{-N \KL{q}{p}}.
 \end{align*}
-よって$\frac1{(N+1)^m}\le\Pr(\widehat{P}_{\symbf{Y}}= q)\le 1$を示せばよいが上界は明らか。
+よって$\frac1{(N+1)^m}\le\emm{\Pr(\widehat{P}_{\symbf{Y}}= q)}\le 1$を示せばよいが上界は明らか。
 
 %下界の証明:
 %任意の$N_1$と$p \in\mathcal{P}_m$について
@@ -277,13 +307,13 @@ $0^0=1$とすると
 任意の$p'\in\mathcal{P}_N$について
 \begin{align*}
 \Pr\left(\widehat{P}_{\symbf{Y}}= p'\right)&\le
-\Pr\left(\widehat{P}_{\symbf{Y}}= q\right)
+\emm{\Pr\left(\widehat{P}_{\symbf{Y}}= q\right)}
 \end{align*}
 が成り立つと仮定する(後で証明する)と、
 \begin{align*}
 1&=\sum_{p'\in\mathcal{P}_N} \Pr\left(\widehat{P}_{\symbf{Y}}= p'\right)
-\le\sum_{p'\in\mathcal{P}_N} \Pr\left(\widehat{P}_{\symbf{Y}}= q\right)
-=|\mathcal{P}_N| \Pr\left(\widehat{P}_{\symbf{Y}}= q\right)
+\le\sum_{p'\in\mathcal{P}_N} \emm{\Pr\left(\widehat{P}_{\symbf{Y}}= q\right)}
+=|\mathcal{P}_N| \emm{\Pr\left(\widehat{P}_{\symbf{Y}}= q\right)}
 \end{align*}
 であるが$|\mathcal{P}_N|=\binom{N+m-1}{m-1}\le (N+1)^m$より下界を得る。
 \end{proof}
@@ -322,7 +352,7 @@ $0^0=1$とすると
  &\le |\Gamma\cap\mathcal{P}_N| \max_{q\in\Gamma\cap\mathcal{P}_N}\Pr(\widehat{P}_{\symbf{X}} = q)\\
  &\le (N+1)^m \max_{q\in\Gamma\cap\mathcal{P}_N}\mathrm{e}^{-N\KL{q}{p}}\\
  &\le (N+1)^m \sup_{q\in\Gamma}\mathrm{e}^{-N\KL{q}{p}}\\
- &= (N+1)^m \mathrm{e}^{-N\inf_{q\in\Gamma}\KL{q}{p}}.
+ &= (N+1)^m \mathrm{e}^{-N\inf_{q\in\Gamma}\KL{q}{p}}.\qedhere
 \end{align*}
 \end{proof}
 \end{frame}
@@ -343,44 +373,84 @@ $0^0=1$とすると
 \end{frame}
 
 \begin{frame}{サノフの定理の下界の証明 2/2}
-\footnotesize
-\sanov
-\begin{proof}[\small 下界の証明 2/2]
-\vspace{-1.5em}
+\scriptsize
+%\footnotesize
+%\sanov
+%\begin{proof}[\small 下界の証明 2/2]
+%\vspace{-1.5em}
+示したいことは
+\begin{align*}
+\liminf_{N\to\infty}\frac1N\log\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &\ge -\inf_{q\in\Gamma^\circ}\KL{q}{p}.
+\end{align*}
+今示せたことは
 \begin{align*}
 \frac1N\log\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &\ge -\min_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} - \frac{m\log(N+1)}{N}.
 \end{align*}
 よって任意の$\Gamma\subseteq\mathcal{P}$について以下を示せばよい。
 \begin{align*}
- \liminf_{N\to\infty} -\inf_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} &=
- -\limsup_{N\to\infty} \inf_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} \ge -\inf_{q\in\Gamma^\circ}\KL{q}{p}.
+ \liminf_{N\to\infty} -\min_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} &=
+ -\limsup_{N\to\infty} \min_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} \ge -\inf_{q\in\Gamma^\circ}\KL{q}{p}.
 \end{align*}
-ここで
-\begin{align*}
- -\limsup_{N\to\infty} \inf_{q\in\Gamma\cap\mathcal{P}_N}\KL{q}{p} &\ge
- -\limsup_{N\to\infty} \inf_{q\in\Gamma^\circ\cap\mathcal{P}_N}\KL{q}{p}\\
- &\ge
-\end{align*}
-$\inf$の定義より、任意の$\epsilon>0$について、ある$q_{\epsilon}\in\Gamma^\circ$が存在して、$|\inf_{q\in\Gamma^\circ}\KL{q}{p}-\KL{q_\epsilon}{p}|<\epsilon$.
-KL divergenceの連続性より、任意の$q\in\mathcal{P}$と$\epsilon>0$について、ある$\delta_{q,\epsilon}$が存在して、$|\KL{q}{p}-\KL{q'}{p}|<\epsilon$ が任意の$\|q-q'\|<\delta_{q,\epsilon}$を満たす$q'\in\mathcal{P}$について成り立つ。
-一方で$\Gamma$は開集合であることから、ある$\delta_{q'}>0$が存在して、任意の$\|q''-q'\|<\delta_{q'}$を満たす$q''$は$\Gamma$に含まれる。
+%ここで
+%\begin{align*}
+% -\limsup_{N\to\infty} \min_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} &=
+% - \inf_{q\in\Gamma\cap\mathbb{Q}^m}\KL{q}{p}
+%% -\limsup_{N\to\infty} \inf_{q\in\Gamma\cap\mathcal{P}_N}\KL{q}{p} &\ge
+%% -\limsup_{N\to\infty} \inf_{q\in\Gamma^\circ\cap\mathcal{P}_N}\KL{q}{p}\\
+%% &\ge
+%\end{align*}
+%が成り立つ。$\le$は自明。$\ge$を示す。
+%
+$\inf$の定義より、任意の$\epsilon>0$について、ある$q_{\epsilon}\in\Gamma^\circ$が存在して、$\KL{q_\epsilon}{p}\le\inf_{q\in\Gamma^\circ}\KL{q}{p}+\epsilon$.
 
-よって、任意の$\epsilon>0$について、
+\begin{itemize}
+\item KL divergenceの連続性より、任意の$q\in\mathcal{P}$と$\epsilon>0$について、ある$\delta_{q,\,\epsilon}$が存在して、$|\KL{q}{p}-\KL{q'}{p}|<\epsilon$ が任意の$q'\in S_{q,\,\delta_{q,\,\epsilon}}\coloneq \{q'\in\mathcal{P}\mid \|q-q'\|<\delta_{q,\epsilon}\}$について成り立つ。ここで$\|\cdot\|$はユークリッドノルム(任意のノルムでよい)。
+\item $\Gamma^\circ$は開集合なので、任意の$q\in\Gamma^\circ$についてある$\tau_{q}$が存在して、
+$S_{q,\, \tau_q}\subseteq\Gamma^\circ$.
+\end{itemize}
+よって、$\delta\coloneq\min\left\{\delta_{q_{\frac{\epsilon}2},\, \frac{\epsilon}2}, \tau_{q_{\frac{\epsilon}2}}\right\}$とすると、任意の$\epsilon>0$と
+$q'\in S_{q_{\frac{\epsilon}2},\, \delta}\subseteq \Gamma^\circ$について
+\begin{align*}
+-\inf_{q\in\Gamma^\circ} \KL{q}{p}
+&\le -\KL{q_{\frac{\epsilon}2}}{p} + \frac{\epsilon}2
+\le -\KL{q'}{p} + \epsilon
+\le - \min_{q\in\Gamma\cap \mathcal{P}_N} \KL{q}{p} + \epsilon
+\end{align*}
+が十分大きな$N$について成り立つ。両辺$\liminf_{N\to\infty}$を取ることで不等式を得る。
+%またKL-divergenceの連続性より
+
+%$q_\epsilon\in\Gamma\cap\mathbb{Q}^m$よりある$N_{\epsilon}$が存在して
+%任意の$k\in\mathbb{Z}_{>0}$について$q_\epsilon\in\Gamma\cap\mathcal{P}_{kN_{\epsilon}}$である。
+%よって任意の$\epsilon>0$について
+%\begin{align*}
+ %-\limsup_{N\to\infty} \min_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} &\ge
+ %-\limsup_{k\to\infty} \min_{q\in\Gamma\emm{\cap\mathcal{P}_{kN_{\epsilon}}}}\KL{q}{p}\\
+ %&\ge
+ %-\KL{q_\epsilon}{p} \ge
+ %- \inf_{q\in\Gamma\cap\mathbb{Q}^m}\KL{q}{p}-\epsilon
+%% -\limsup_{N\to\infty} \inf_{q\in\Gamma\cap\mathcal{P}_N}\KL{q}{p} &\ge
+%% -\limsup_{N\to\infty} \inf_{q\in\Gamma^\circ\cap\mathcal{P}_N}\KL{q}{p}\\
+%% &\ge
+%\end{align*}
+
+%一方で$\Gamma$は開集合であることから、ある$\delta_{q'}>0$が存在して、任意の$\|q''-q'\|<\delta_{q'}$を満たす$q''$は$\Gamma$に含まれる。
+
+%よって、任意の$\epsilon>0$について、
 
 %$\Gamma\cap\mathbb{Q}^m$の列$(q_n\in\Gamma\cap\mathcal{P}_N)_{n\ge 0}$で
 %$\lim_{n\to\infty} \KL{q_n}{p} = \inf_{q\in\Gamma} \KL{q}{p}$を満たすものがある。
 
-\begin{align*}
-\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(\widehat{P}_{\symbf{X}} = q)
- \ge \Pr(\widehat{P}_{\symbf{X}}=q_N)
- \ge \frac1{(N+1)^m}\mathrm{e}^{-N\KL{q_N}{p}}
-\end{align*}
-よって
-\begin{align*}
-\liminf_{N\to\infty}\frac1N
-\log\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &\ge -\inf_{q\in\Gamma}\KL{q}{p}.\qedhere
-\end{align*}
-\end{proof}
+%\begin{align*}
+%\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(\widehat{P}_{\symbf{X}} = q)
+% \ge \Pr(\widehat{P}_{\symbf{X}}=q_N)
+% \ge \frac1{(N+1)^m}\mathrm{e}^{-N\KL{q_N}{p}}
+%\end{align*}
+%よって
+%\begin{align*}
+%\liminf_{N\to\infty}\frac1N
+%\log\Pr(\widehat{P}_{\symbf{X}}\in\Gamma) &\ge -\inf_{q\in\Gamma}\KL{q}{p}.\qedhere
+%\end{align*}
+%%\end{proof}
 \end{frame}
 
 \begin{frame}{二項分布($m=2$)の場合}
@@ -417,7 +487,11 @@ $\Gamma\coloneq \{(p_0,\,p_1)\mid p_1\ge a\}$とすると、
 
 \begin{frame}{課題}
 \begin{itemize}
-\item 偏りのないサイコロを$N$回独立に投げたときに
+\item 確率変数$X\sim\mathrm{Multinom}(p)$について
+\begin{align*}
+\lim_{N\to\infty} \frac1N\log\Pr\left(\KL{P_{\symbf{X}}}{p}\ge a\right)
+\end{align*}
+をもとめよ。
 \item $\Gamma_a\coloneq\{q\in\mathcal{P}\mid \sum_k q_k k \ge a\}$
 \end{itemize}
 \end{frame}
