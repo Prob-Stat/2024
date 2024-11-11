@@ -69,22 +69,30 @@
 %\begin{definition}
 確率変数$X$の像が\emm{有限集合}$A$とする。
 
-各$a\in A$について$N_a := \{ k\mid X_k = a\}$とおく。
+\vspace{1em}
+任意の$\symbf{x}\in A^N$と各$k\in A$について$N_k(\symbf{x}) \coloneq \{ t\in\{1,\dotsc,N\}\mid x_t = k\}$とおく。
 
-$\left(\frac{N_a}{N}\right)_{a\in A}$を経験分布という。
+$P_{\symbf{x}}\coloneq\left(\frac{N_k(\symbf{x})}{N}\right)_{k\in A}$を経験分布という。
 %\end{definition}
 
-\vspace{1em}
+\vspace{2em}
 サイコロを100回振って1,2,3,4,5,6がそれぞれ16,13,18,20,14,19回出たとき経験分布は
 \begin{align*}
-P(1) &= \frac{16}{100}&
-P(2) &= \frac{13}{100}&
-P(3) &= \frac{18}{100}\\
-P(4) &= \frac{20}{100}&
-P(5) &= \frac{14}{100}&
-P(6) &= \frac{19}{100}
+P_{\symbf{x}}&\coloneq
+\left( \frac{16}{100}
+, \frac{13}{100}
+, \frac{18}{100}
+, \frac{20}{100}
+, \frac{14}{100}
+, \frac{19}{100}\right).
+%P(1) &= \frac{16}{100}&
+%P(2) &= \frac{13}{100}&
+%P(3) &= \frac{18}{100}\\
+%P(4) &= \frac{20}{100}&
+%P(5) &= \frac{14}{100}&
+%P(6) &= \frac{19}{100}
 \end{align*}
-である。
+%である。
 \end{frame}
 
 \begin{frame}{経験分布}
@@ -111,7 +119,9 @@ N_1+N_2+\dotsb+N_m=N
 P_{\symbf{x}}&\coloneq \left(\frac{N_1(\symbf{x})}{N}, \frac{N_2(\symbf{x})}{N},\dotsc, \frac{N_m(\symbf{x})}{N}\right).
 \end{align*}
 %各$a\in A$について$N_a := \{ k\mid X_k = a\}$とおく。
-ここで$k=1,2,\dotsc,m$について $N_k(\symbf{x})$ は$\symbf{x}$に含まれる$k$の数。
+ここで$k=1,2,\dotsc,m$について
+% $N_k(\symbf{x})$ は$\symbf{x}$に含まれる$k$の数。
+$N_k(\symbf{x})\coloneq \{ t\in\{1,\dotsc,N\}\mid x_t = k\}$.
 
 %$\left(\frac{N_a}{N}\right)_{a\in A}$を経験分布という。
 \end{definition}
@@ -132,6 +142,9 @@ $D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
 \end{align*}
 ただし、ある$k$について$p_k=0,\,q_k>0$のとき$\KL{q}{p}$は定義されない。
 \end{definition}
+\end{frame}
+
+\begin{frame}{イェンセンの不等式}
 \end{frame}
 
 \begin{frame}{KL-divergenceの性質}
@@ -159,14 +172,24 @@ a
 \begin{frame}{サノフの定理}
 %\begin{theorem}[サノフの定理]
 \begin{restatable}[サノフの定理]{theorem}{sanov}
-任意の$\mathcal{D}\subseteq\mathcal{P}$と$N\in\mathbb{Z}_{>0}$について
+\footnotesize
+%\begin{align*}
+%-\inf_{q \in\Gamma^\circ} \KL{q}{p}
+%&\le \liminf_{N\to\infty}\frac1N\log \Pr\left(P_{\symbf{X}} \in \Gamma\right)\\
+%\limsup_{N\to\infty}\frac1N\log \Pr\left(P_{\symbf{X}} \in \mathcal{D}\right)
+%&\le-\inf_{q \in\mathcal{D}^\circ} \KL{q}{p}
+%\end{align*}
+任意の$\Gamma\subseteq\mathcal{P}$について
+%と$N\in\mathbb{Z}_{>0}$について
+%\begin{align*}
+%\Pr\left(P_{\symbf{X}} \in \mathcal{D}\right) &\le (N+1)^m \mathrm{e}^{-N\inf_{q\in \mathcal{D}} \emm{\KL{q}{p}}}.
+%\end{align*}
+%また任意の開集合$\mathcal{D}\subseteq\mathcal{P}$について
 \begin{align*}
-\Pr\left(P_{\symbf{X}} \in \mathcal{D}\right) &\le (N+1)^m \mathrm{e}^{-N\inf_{q\in \mathcal{D}} \emm{\KL{q}{p}}}.
+\frac1N\log\Pr\left(P_{\symbf{X}} \in \Gamma\right) &\le -\inf_{q\in \Gamma} \emm{\KL{q}{p}} + \frac{m\log(N+1)}N\quad\text{for any $N\in\mathbb{Z}_{>0}$}\\
+\liminf_{N\to\infty}\frac1N\log \Pr\left(P_{\symbf{X}} \in \Gamma\right) &\ge -\inf_{q\in \Gamma^\circ} \emm{\KL{q}{p}}.
 \end{align*}
-また任意の開集合$\mathcal{D}\subseteq\mathcal{P}$について
-\begin{align*}
-\lim_{N\to\infty}\frac1N\log \Pr\left(P_{\symbf{X}} \in \mathcal{D}\right) &= -\inf_{q\in \mathcal{D}} \emm{\KL{q}{p}}.
-\end{align*}
+ただし、$\Gamma^\circ$は$\Gamma$の内点の集合とする。
 \end{restatable}
 %\end{theorem}
 \end{frame}
@@ -199,7 +222,7 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \fi
 
 \begin{frame}{特定の経験分布になる確率の上下界 1/3}
-\small
+\footnotesize
 \begin{lemma}
 任意の$q\in\mathcal{P}_N$について
 \begin{align*}
@@ -284,44 +307,74 @@ $C_r$を原点を中心とした半径$r$の円を反時計回りに回るパス
 \end{align*}
 \end{frame}
 
-\begin{frame}{サノフの定理の証明}
+\begin{frame}{サノフの定理の上界の証明}
 \footnotesize
 \sanov
-\begin{proof}
-\vspace{-2em}
+\begin{proof}[\small 上界の証明]
+%\vspace{-2em}
+任意の$\Gamma\subseteq\mathcal{P}$と$N\in\mathbb{Z}_{>0}$について
 \begin{align*}
-\Pr(P_{\symbf{X}}\in\mathcal{D}) &= \sum_{q\in\mathcal{D}\cap\mathcal{P}_N} \Pr(P_{\symbf{X}} = q)\\
- &\le |\mathcal{D}\cap\mathcal{P}_N| \max_{q\in\mathcal{D}\cap\mathcal{P}_N}\Pr(P_{\symbf{X}} = q)\\
- &\le (N+1)^m \max_{q\in\mathcal{D}\cap\mathcal{P}_N}\mathrm{e}^{-N\KL{q}{p}}\\
- &\le (N+1)^m \sup_{q\in\mathcal{D}}\mathrm{e}^{-N\KL{q}{p}}\\
- &= (N+1)^m \mathrm{e}^{-N\inf_{q\in\mathcal{D}}\KL{q}{p}}.
+\Pr(P_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(P_{\symbf{X}} = q)\\
+ &\le |\Gamma\cap\mathcal{P}_N| \max_{q\in\Gamma\cap\mathcal{P}_N}\Pr(P_{\symbf{X}} = q)\\
+ &\le (N+1)^m \max_{q\in\Gamma\cap\mathcal{P}_N}\mathrm{e}^{-N\KL{q}{p}}\\
+ &\le (N+1)^m \sup_{q\in\Gamma}\mathrm{e}^{-N\KL{q}{p}}\\
+ &= (N+1)^m \mathrm{e}^{-N\inf_{q\in\Gamma}\KL{q}{p}}.
 \end{align*}
 \end{proof}
 \end{frame}
 
 
-\begin{frame}{サノフの定理の証明}
+\begin{frame}{サノフの定理の下界の証明 1/2}
 \footnotesize
 \sanov
-\begin{proof}
-$\inf$の定義より、任意の$\epsilon>0$について、ある$q_{\epsilon}\in\mathcal{D}$が存在して、$|\inf_{q\in\mathcal{D}}\KL{q}{p}-\KL{q_\epsilon}{p}|<\epsilon$.
-KL divergenceの連続性より、任意の$\epsilon>0$について、ある$\delta_\epsilon$が存在して、$|\KL{q'}{p}-\KL{q''}{p}|<\epsilon$ が任意の$\|q''-q'\|<\delta_\epsilon$を満たす$q''\in\mathcal{P}$について成り立つ。
-一方で$\mathcal{D}$は開集合であることから、ある$\delta_{q'}>0$が存在して、任意の$\|q''-q'\|<\delta_{q'}$を満たす$q''$は$\mathcal{D}$に含まれる。
+\begin{proof}[\small 下界の証明 1/2]
+任意の$\Gamma\subseteq\mathcal{P}$と$N\in\mathbb{Z}_{>0}$について
+\begin{align*}
+\Pr(P_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(P_{\symbf{X}} = q)\\
+ &\ge \max_{q\in\Gamma\cap\mathcal{P}_N}\Pr(P_{\symbf{X}} = q)\\
+ &\ge \max_{q\in\Gamma\cap\mathcal{P}_N}\frac1{(N+1)^m}\mathrm{e}^{-N\KL{q}{p}}\\
+ &\ge \frac1{(N+1)^m}\mathrm{e}^{-N\inf_{q\in\Gamma\cap\mathcal{P}_N}\KL{q}{p}}.
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{サノフの定理の下界の証明 2/2}
+\footnotesize
+\sanov
+\begin{proof}[\small 下界の証明 2/2]
+\vspace{-1.5em}
+\begin{align*}
+\frac1N\log\Pr(P_{\symbf{X}}\in\Gamma) &\ge -\inf_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} - \frac{m\log(N+1)}{N}.
+\end{align*}
+よって任意の$\Gamma\subseteq\mathcal{P}$について以下を示せばよい。
+\begin{align*}
+ \liminf_{N\to\infty} -\inf_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} &=
+ -\limsup_{N\to\infty} \inf_{q\in\Gamma\emm{\cap\mathcal{P}_N}}\KL{q}{p} \ge -\inf_{q\in\Gamma^\circ}\KL{q}{p}.
+\end{align*}
+ここで
+\begin{align*}
+ -\limsup_{N\to\infty} \inf_{q\in\Gamma\cap\mathcal{P}_N}\KL{q}{p} &\ge
+ -\limsup_{N\to\infty} \inf_{q\in\Gamma^\circ\cap\mathcal{P}_N}\KL{q}{p}\\
+ &\ge
+\end{align*}
+$\inf$の定義より、任意の$\epsilon>0$について、ある$q_{\epsilon}\in\Gamma^\circ$が存在して、$|\inf_{q\in\Gamma^\circ}\KL{q}{p}-\KL{q_\epsilon}{p}|<\epsilon$.
+KL divergenceの連続性より、任意の$q\in\mathcal{P}$と$\epsilon>0$について、ある$\delta_{q,\epsilon}$が存在して、$|\KL{q}{p}-\KL{q'}{p}|<\epsilon$ が任意の$\|q-q'\|<\delta_{q,\epsilon}$を満たす$q'\in\mathcal{P}$について成り立つ。
+一方で$\Gamma$は開集合であることから、ある$\delta_{q'}>0$が存在して、任意の$\|q''-q'\|<\delta_{q'}$を満たす$q''$は$\Gamma$に含まれる。
 
 よって、任意の$\epsilon>0$について、
 
-$\mathcal{D}\cap\mathbb{Q}^m$の列$(q_n\in\mathcal{D}\cap\mathcal{P}_N)_{n\ge 0}$で
-$\lim_{n\to\infty} \KL{q_n}{p} = \inf_{q\in\mathcal{D}} \KL{q}{p}$を満たすものがある。
+%$\Gamma\cap\mathbb{Q}^m$の列$(q_n\in\Gamma\cap\mathcal{P}_N)_{n\ge 0}$で
+%$\lim_{n\to\infty} \KL{q_n}{p} = \inf_{q\in\Gamma} \KL{q}{p}$を満たすものがある。
 
 \begin{align*}
-\Pr(P_{\symbf{X}}\in\mathcal{D}) &= \sum_{q\in\mathcal{D}\cap\mathcal{P}_N} \Pr(P_{\symbf{X}} = q)
+\Pr(P_{\symbf{X}}\in\Gamma) &= \sum_{q\in\Gamma\cap\mathcal{P}_N} \Pr(P_{\symbf{X}} = q)
  \ge \Pr(P_{\symbf{X}}=q_N)
  \ge \frac1{(N+1)^m}\mathrm{e}^{-N\KL{q_N}{p}}
 \end{align*}
 よって
 \begin{align*}
 \liminf_{N\to\infty}\frac1N
-\log\Pr(P_{\symbf{X}}\in\mathcal{D}) &\ge -\inf_{q\in\mathcal{D}}\KL{q}{p}.\qedhere
+\log\Pr(P_{\symbf{X}}\in\Gamma) &\ge -\inf_{q\in\Gamma}\KL{q}{p}.\qedhere
 \end{align*}
 \end{proof}
 \end{frame}
@@ -335,19 +388,20 @@ $\lim_{n\to\infty} \KL{q_n}{p} = \inf_{q\in\mathcal{D}} \KL{q}{p}$を満たす�
 &=
 \Pr\left(\frac{N_1(\symbf{X})}{N} \ge a\right)
 \end{align*}
-$\mathcal{D}\coloneq \{(p_0,\,p_1)\mid p_1\ge a\}$とすると、
+$\Gamma\coloneq \{(p_0,\,p_1)\mid p_1\ge a\}$とすると、
 \begin{align*}
 \Pr\left(\sum_{k=1}^N X_k \ge Na\right)
 &=
-\Pr\left(P_{\symbf{X}} \in\mathcal{D}\right)
+\Pr\left(P_{\symbf{X}} \in\Gamma\right)
 \end{align*}
 サノフの定理より、これの指数部は
 \begin{align*}
--\inf_{q\in\mathcal{D}} \KL{(1-q,\,q)}{(1-p,\,p)}
+-\inf_{q\in\Gamma^\circ} \KL{(1-q,\,q)}{(1-p,\,p)}
+&=-\inf_{q\in\Gamma} \KL{(1-q,\,q)}{(1-p,\,p)}
 \end{align*}
 である。
 \begin{align*}
-\inf_{q\in\mathcal{D}} \KL{(1-q,\,q)}{(1-p,\,p)}&= \inf_{q\ge a} (1-q)\log\frac{1-q}{1-p} + q\log\frac{q}{p}\\
+\inf_{q\in\Gamma} \KL{(1-q,\,q)}{(1-p,\,p)}&= \inf_{q> a} (1-q)\log\frac{1-q}{1-p} + q\log\frac{q}{p}\\
 &= 
 \begin{cases}
 0&\text{if } a\le p\\
@@ -358,5 +412,9 @@ $\mathcal{D}\coloneq \{(p_0,\,p_1)\mid p_1\ge a\}$とすると、
 \end{frame}
 
 \begin{frame}{課題}
+\begin{itemize}
+\item 偏りのないサイコロを$N$回独立に投げたときに
+\item $\Gamma_a\coloneq\{q\in\mathcal{P}\mid \sum_k q_k k \ge a\}$
+\end{itemize}
 \end{frame}
 \end{document}
