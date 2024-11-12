@@ -1,0 +1,152 @@
+\documentclass[lualatex,handout]{beamer}
+\setbeamertemplate{footline}[frame number]
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+
+\usepackage{thm-restate}
+
+%\usetheme{Berlin}
+\usecolortheme{rose}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+%\usepackage[haranoaji]{luatexja-preset}
+\usepackage[deluxe,ipaex]{luatexja-preset}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+%\setmainjfont{HaranoAjiGothic-Regular}
+
+\usepackage{unicode-math}
+%\setmathfont{Fira Math}
+\setmathfont{STIX Two Math}
+\setmathfont{STIX Two Math}[range=bfup/{Latin,latin,num,Greek,greek}]
+\setmathfont{STIX Two Math}[range=bfit/{Latin,latin}]
+\setmathfont{STIX Two Math}[range={"0000-"FFFF}]
+\setmathrm{STIX Two Math}[StylisticSet=8]
+
+%\usefonttheme{professionalfonts}
+
+\usepackage{luacolor}
+
+\newcommand{\mycolor}[2]{%
+  \begingroup
+  \colorlet{currentcolor}{.}%
+  \color{#1}#2%
+  \color{currentcolor}%
+  \endgroup
+}
+\newcommand{\emm}[1]{\mycolor{red}{#1}}
+\newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
+\newcommand{\cov}[1]{\mathsf{Cov}\left[#1\right]}
+\newcommand{\vc}[1]{\mathsf{Var}\left[#1\right]}
+
+
+\usepackage{xspace}
+%\usepackage{bm}
+%\newcommand\bm[1]{{\mathbf{#1}}}
+\newcommand\defiff{\stackrel{\text{def}}{\iff}}
+\newcommand\dx{{\,\mathrm{d}x}}
+\newcommand\KL[2]{D\left(#1\,\|\,#2\right)}
+
+\theoremstyle{definition}
+
+\title{確率・統計基礎: KLダイバージェンスの性質}
+\author{森 立平}
+\date{}
+
+
+
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+
+\begin{frame}{Kullback--Leibler divergence}
+\begin{definition}[Kullback--Leibler divergence]
+$D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
+\begin{align*}
+\KL{q}{p} &\coloneq \sum_{k=1}^m q_k\log \frac{q_k}{p_k}.
+\end{align*}
+ただし、$0\log 0 = 0\log\frac{0}{0}=0$とし、$q\log\frac{q}{0}$は$q>0$について$+\infty$とする。
+%ただし、ある$k$について$p_k=0,\,q_k>0$のとき$\KL{q}{p}$は定義されない。
+\end{definition}
+\end{frame}
+
+
+\begin{frame}{KL-divergenceの性質}
+\begin{lemma}
+%\begin{itemize}
+任意の$p,\,q\in\mathcal{P}$について$\KL{q}{p}\ge 0$.
+%\item $\KL{q}{p}\ge 0$
+%\item $\KL{q}{p}= 0\iff q=p$
+%\end{itemize}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\KL{q}{p} &= \sum_{k=1}^m q_k\log \frac{q_k}{p_k}\\
+&= -\sum_{k=1}^m q_k\log \frac{p_k}{q_k}\\
+&\ge -\log \sum_{k=1}^m q_k\frac{p_k}{q_k}\qquad\text{(イェンセンの不等式)}\\
+&=0.\qedhere
+\end{align*}
+%$q=p$のとき、$\KL{q}{p}=0$は自明。
+\end{proof}
+\end{frame}
+
+\begin{frame}{KL-divergenceの凸性}
+a
+\end{frame}
+
+\begin{frame}{サノフの定理}
+%\begin{theorem}[サノフの定理]
+\begin{restatable}[サノフの定理]{theorem}{sanov}
+\footnotesize
+%\begin{align*}
+%-\inf_{q \in\Gamma^\circ} \KL{q}{p}
+%&\le \liminf_{N\to\infty}\frac1N\log \Pr\left(P_{\symbf{X}} \in \Gamma\right)\\
+%\limsup_{N\to\infty}\frac1N\log \Pr\left(P_{\symbf{X}} \in \mathcal{D}\right)
+%&\le-\inf_{q \in\mathcal{D}^\circ} \KL{q}{p}
+%\end{align*}
+任意の$\Gamma\subseteq\mathcal{P}$について
+%と$N\in\mathbb{Z}_{>0}$について
+%\begin{align*}
+%\Pr\left(P_{\symbf{X}} \in \mathcal{D}\right) &\le (N+1)^m \mathrm{e}^{-N\inf_{q\in \mathcal{D}} \emm{\KL{q}{p}}}.
+%\end{align*}
+%また任意の開集合$\mathcal{D}\subseteq\mathcal{P}$について
+\begin{align*}
+\frac1N\log\Pr\left(\widehat{P}_{\symbf{X}} \in \Gamma\right) &\le -\inf_{q\in \Gamma} \emm{\KL{q}{p}} + \frac{m\log(N+1)}N\quad\text{for any $N\in\mathbb{Z}_{>0}$}\\
+\liminf_{N\to\infty}\frac1N\log \Pr\left(\widehat{P}_{\symbf{X}} \in \Gamma\right) &\ge -\inf_{q\in \Gamma^\circ} \emm{\KL{q}{p}}.
+\end{align*}
+ただし、$\Gamma^\circ$は$\Gamma$の内点の集合とする。
+\end{restatable}
+%\end{theorem}
+\begin{corollary}
+\footnotesize
+$\Gamma\subseteq\mathcal{P}$について$\emm{\Gamma\subseteq\overline{\Gamma^\circ}}$のとき、
+\begin{align*}
+\lim_{N\to\infty}\frac1N\log \Pr\left(\widehat{P}_{\symbf{X}} \in \Gamma\right) &= -\min_{q\in \overline{\Gamma}} \emm{\KL{q}{p}}.
+\end{align*}
+\end{corollary}
+\end{frame}
+
+\begin{frame}{ラグランジュの未定乗数法}
+\end{frame}
+
+\begin{frame}{最大エントロピー原理}
+\begin{theorem}
+$\Gamma=\{q\in\mathcal{P}\mid \expt{f_s(Y)}\ge a_s,\, s\in\{1,\dotsc,t\}\}$について
+\begin{align*}
+\min\colon& \KL{q}{p}\\
+\text{subject to}\colon& \sum_{k=1}^m q_k = 1\\
+&q_k\ge 0\\
+&\sum_{k=1}^m q_k f_s(k) \ge a\qquad \text{for } s\in\{1,2,\dotsc,t\} 
+\end{align*}
+の解は$(\lambda_s\in\mathbb{R})_{s=1,\dotsc,t}$
+\begin{align*}
+q_k &= \frac1Z p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)}
+\end{align*}
+\end{theorem}
+\end{frame}
+\end{document}
