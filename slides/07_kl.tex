@@ -145,8 +145,36 @@ $\Gamma=\{q\in\mathcal{P}\mid \expt{f_s(Y)}\ge a_s,\, s\in\{1,\dotsc,t\}\}$に�
 \end{align*}
 の解は$(\lambda_s\in\mathbb{R})_{s=1,\dotsc,t}$
 \begin{align*}
-q_k &= \frac1Z p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)}
+q_k &= \frac1{Z(\lambda)} p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)}\\
+Z(\lambda) &\coloneq \sum_{k=1}^m p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)} \qquad \text{(分配関数)}
 \end{align*}
 \end{theorem}
 \end{frame}
+
+\begin{frame}{ラグランジュの未定乗数法}
+\begin{align*}
+\mathcal{L}(q;\lambda,\,\rho,\,\nu) &= \sum_{k=1}^m q_k\log\frac{q_k}{p_k}\\
+&\quad - \sum_{s=1}^t \lambda_s \left(\sum_{k=1}^m q_k f_s(k) - a_s\right) - \sum_{k=1}^m \rho_k q_k + \nu \left(\sum_{k=1}^m q_k - 1\right)
+\end{align*}
+\begin{align*}
+\inf_{q}\sup_{\lambda\ge 0,\, \rho\ge0,\, \nu} \mathcal{L}(q;\lambda,\rho,\nu) &= 
+\sup_{\lambda\ge 0,\, \rho\ge0,\, \nu}\inf_{q} \mathcal{L}(q;\lambda,\rho,\nu)
+\end{align*}
+\begin{align*}
+\frac{\partial \mathcal{L}}{\partial q_k} &= \log\frac{q_k}{p_k} + 1 - \sum_{s=1}^t \lambda_s f_s(k) - \rho_k + \nu = 0\\
+\iff \log q_k &= \log p_k - 1 + \sum_{s=1}^t \lambda_s f_s(k) + \rho_k - \nu\\
+\iff q_k &= p_k \mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k) - 1 - \nu}\\
+\end{align*}
+\end{frame}
+
+\begin{frame}{確率論振り返り}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item 確率空間$(\Omega, P)$. 完全加法性。
+\item 大数の法則、クラメールの定理。
+\item 中心極限定理
+\item サノフの定理
+\end{itemize}
+\end{frame}
+
 \end{document}
