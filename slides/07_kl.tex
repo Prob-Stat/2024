@@ -146,7 +146,7 @@ $\Gamma=\{q\in\mathcal{P}\mid \expt{f_s(Y)}\ge a_s,\, s\in\{1,\dotsc,t\}\}$に�
 の解は$(\lambda_s\in\mathbb{R})_{s=1,\dotsc,t}$
 \begin{align*}
 q_k &= \frac1{Z(\lambda)} p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)}\\
-Z(\lambda) &\coloneq \sum_{k=1}^m p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)} \qquad \text{(分配関数)}
+Z(\lambda) &\coloneq \sum_{k=1}^m p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)} = \expt{\mathrm{e}^{\langle \lambda, f(X)\rangle}} \qquad \text{(分配関数)}
 \end{align*}
 \end{theorem}
 \end{frame}
@@ -165,6 +165,9 @@ Z(\lambda) &\coloneq \sum_{k=1}^m p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)} 
 \iff \log q_k &= \log p_k - 1 + \sum_{s=1}^t \lambda_s f_s(k) + \rho_k - \nu\\
 \iff q_k &= p_k \mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k) - 1 - \nu}\\
 \end{align*}
+\end{frame}
+
+\begin{frame}{サノフの定理を用いたクラメールの定理の導出}
 \end{frame}
 
 \begin{frame}{確率論振り返り}
