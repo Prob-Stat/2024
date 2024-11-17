@@ -75,8 +75,30 @@ $D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
 \end{definition}
 \end{frame}
 
+\begin{frame}{Log sum 不等式}
+\footnotesize
+\begin{lemma}[Log sum 不等式]
+任意の$a_1,\dotsc,a_n,\,b_1,\dotsc,\,b_n\in\mathbb{R}_{>0}$について
+\begin{align*}
+\sum_k a_k\log\frac{a_k}{b_k}&\ge
+\left(\sum_k a_k\right)\log\frac{\left(\sum_ka_k\right)}{\left(\sum_kb_k\right)}.
+\end{align*}
+\end{lemma}
+\begin{proof}
+\vspace{-1em}
+\begin{align*}
+\sum_k a_k\log\frac{a_k}{b_k}
+&=\sum_k \emm{b_k}\frac{a_k}{\emm{b_k}}\log\frac{a_k}{b_k}\\
+&=\emm{\left(\sum_k b_k\right)}\sum_k \frac{b_k}{\emm{\sum_{k'} b_{k'}}}\frac{a_k}{b_k}\log\frac{a_k}{b_k}\\
+&\ge\emm{\left(\sum_k b_k\right)}\left(\sum_k \frac{b_k}{\emm{\sum_{k'} b_{k'}}}\frac{a_k}{b_k}\right)
+\log\left(\sum_k \frac{b_k}{\sum_{k'} b_{k'}}\frac{a_k}{b_k}\right)\\
+&\hspace{14em} \text{(イェンセンの不等式)}\\
+&=\left(\sum_k a_k\right)\log\frac{\left(\sum_ka_k\right)}{\left(\sum_kb_k\right)}.\qedhere
+\end{align*}
+\end{proof}
+\end{frame}
 
-\begin{frame}{KL-divergenceの性質}
+\begin{frame}{KL-divergenceの非負性}
 \begin{lemma}
 %\begin{itemize}
 任意の$p,\,q\in\mathcal{P}$について$\KL{q}{p}\ge 0$.
@@ -96,7 +118,26 @@ $D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
 \end{frame}
 
 \begin{frame}{KL-divergenceの凸性}
-a
+\small
+\begin{lemma}
+任意の$p,p',q,q'\in\mathcal{P}$と$\lambda\in[0,1]$について
+\begin{align*}
+\KL{\lambda q+(1-\lambda)q'}{\lambda p+(1-\lambda)p'}
+&\le
+\lambda\KL{q}{p} + (1-\lambda)\KL{q'}{p'}.
+\end{align*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+&\KL{\lambda q+(1-\lambda)q'}{\lambda p+(1-\lambda)p'}\\
+&= \sum_k (\lambda q_k+(1-\lambda)q'_k)\log
+\frac{\lambda q_k+(1-\lambda)q'_k}{\lambda p_k+(1-\lambda)p'_k}\\
+&= \sum_k \emm{(\lambda p_k+(1-\lambda)p'_k)}
+\frac{\lambda q_k+(1-\lambda)q'_k}{\emm{\lambda p_k+(1-\lambda)p'_k}}
+\log
+\frac{\lambda q_k+(1-\lambda)q'_k}{\lambda p_k+(1-\lambda)p'_k}\\
+\end{align*}
+\end{proof}
 \end{frame}
 
 \begin{frame}{サノフの定理}
