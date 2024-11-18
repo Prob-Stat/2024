@@ -75,71 +75,6 @@ $D\colon \mathcal{P}\times\mathcal{P}\to\mathbb{R}$を以下で定義する
 \end{definition}
 \end{frame}
 
-\begin{frame}{Log sum 不等式}
-\footnotesize
-\begin{lemma}[Log sum 不等式]
-任意の$a_1,\dotsc,a_n,\,b_1,\dotsc,\,b_n\in\mathbb{R}_{>0}$について
-\begin{align*}
-\sum_k a_k\log\frac{a_k}{b_k}&\ge
-\left(\sum_k a_k\right)\log\frac{\left(\sum_ka_k\right)}{\left(\sum_kb_k\right)}.
-\end{align*}
-\end{lemma}
-\begin{proof}
-\vspace{-1em}
-\begin{align*}
-\sum_k a_k\log\frac{a_k}{b_k}
-&=\sum_k \emm{b_k}\frac{a_k}{\emm{b_k}}\log\frac{a_k}{b_k}\\
-&=\emm{\left(\sum_k b_k\right)}\sum_k \frac{b_k}{\emm{\sum_{k'} b_{k'}}}\frac{a_k}{b_k}\log\frac{a_k}{b_k}\\
-&\ge\emm{\left(\sum_k b_k\right)}\left(\sum_k \frac{b_k}{\emm{\sum_{k'} b_{k'}}}\frac{a_k}{b_k}\right)
-\log\left(\sum_k \frac{b_k}{\sum_{k'} b_{k'}}\frac{a_k}{b_k}\right)\\
-&\hspace{14em} \text{(イェンセンの不等式)}\\
-&=\left(\sum_k a_k\right)\log\frac{\left(\sum_ka_k\right)}{\left(\sum_kb_k\right)}.\qedhere
-\end{align*}
-\end{proof}
-\end{frame}
-
-\begin{frame}{KL-divergenceの非負性}
-\begin{lemma}
-%\begin{itemize}
-任意の$p,\,q\in\mathcal{P}$について$\KL{q}{p}\ge 0$.
-%\item $\KL{q}{p}\ge 0$
-%\item $\KL{q}{p}= 0\iff q=p$
-%\end{itemize}
-\end{lemma}
-\begin{proof}
-\begin{align*}
-\KL{q}{p} &= \sum_{k=1}^m q_k\log \frac{q_k}{p_k}\\
-&= -\sum_{k=1}^m q_k\log \frac{p_k}{q_k}\\
-&\ge -\log \sum_{k=1}^m q_k\frac{p_k}{q_k}\qquad\text{(イェンセンの不等式)}\\
-&=0.\qedhere
-\end{align*}
-%$q=p$のとき、$\KL{q}{p}=0$は自明。
-\end{proof}
-\end{frame}
-
-\begin{frame}{KL-divergenceの凸性}
-\small
-\begin{lemma}
-任意の$p,p',q,q'\in\mathcal{P}$と$\lambda\in[0,1]$について
-\begin{align*}
-\KL{\lambda q+(1-\lambda)q'}{\lambda p+(1-\lambda)p'}
-&\le
-\lambda\KL{q}{p} + (1-\lambda)\KL{q'}{p'}.
-\end{align*}
-\end{lemma}
-\begin{proof}
-\begin{align*}
-&\KL{\lambda q+(1-\lambda)q'}{\lambda p+(1-\lambda)p'}\\
-&= \sum_k (\lambda q_k+(1-\lambda)q'_k)\log
-\frac{\lambda q_k+(1-\lambda)q'_k}{\lambda p_k+(1-\lambda)p'_k}\\
-&= \sum_k \emm{(\lambda p_k+(1-\lambda)p'_k)}
-\frac{\lambda q_k+(1-\lambda)q'_k}{\emm{\lambda p_k+(1-\lambda)p'_k}}
-\log
-\frac{\lambda q_k+(1-\lambda)q'_k}{\lambda p_k+(1-\lambda)p'_k}\\
-\end{align*}
-\end{proof}
-\end{frame}
-
 \begin{frame}{サノフの定理}
 %\begin{theorem}[サノフの定理]
 \begin{restatable}[サノフの定理]{theorem}{sanov}
@@ -169,25 +104,151 @@ $\Gamma\subseteq\mathcal{P}$について$\emm{\Gamma\subseteq\overline{\Gamma^\c
 \begin{align*}
 \lim_{N\to\infty}\frac1N\log \Pr\left(\widehat{P}_{\symbf{X}} \in \Gamma\right) &= -\min_{q\in \overline{\Gamma}} \emm{\KL{q}{p}}.
 \end{align*}
+ただし、$\overline{\Gamma}$は$\Gamma$の閉包とする。
 \end{corollary}
 \end{frame}
 
+\begin{frame}{KL divergenceの性質}
+\begin{enumerate}
+\setlength{\itemsep}{2em}
+\item $\KL{q}{p}\ge 0$ で等号は$q=p$のときのみ成り立つ。
+\item 凸関数である。
+$\KL{\lambda q+(1-\lambda)q'}{\lambda p+(1-\lambda)p'}
+\le
+\lambda\KL{q}{p} + (1-\lambda)\KL{q'}{p'}$.
+%\item 
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{イェンセンの不等式}
+\footnotesize
+\begin{lemma}[\small イェンセンの不等式]
+凸関数$f\colon\mathbb{R}\to\mathbb{R}$と確率変数$X\colon\Omega\to\mathbb{R}$について、
+\begin{align*}
+\expt{f(X)} &\ge f(\expt{X}).
+\end{align*}
+また、$f$が狭義凸のとき等号は$X$が決定的($\Pr(X=\expt{X})=1$)な場合にのみ成り立つ。
+\end{lemma}
+\begin{proof}
+$f(x)$の$x=\expt{X}$における``接線''を
+\begin{align*}
+y&=a(x-\expt{X}) + f(\expt{X})
+\end{align*}
+とおくと、$f$の凸性より接線は$f$より下側にある。
+つまり
+\begin{align*}
+f(x) &\ge a(x-\expt{X}) + f(\expt{X})\qquad \forall x\in\mathbb{R}
+\end{align*}
+である。$x=X$として期待値を取ることで目的の不等式を得る。
+
+$f$が狭義凸の場合、$f$と接線は一点のみを共有するので決定的でない場合は狭義の不等式が成り立つ。
+\end{proof}
+\end{frame}
+
+
+\begin{frame}{Log sum 不等式}
+\footnotesize
+\begin{lemma}[Log sum 不等式]
+任意の$a_1,\dotsc,a_m,\,b_1,\dotsc,\,b_m\in\mathbb{R}_{>0}$について
+\begin{align*}
+\sum_k a_k\log\frac{a_k}{b_k}&\ge
+\left(\sum_k a_k\right)\log\frac{\left(\sum_ka_k\right)}{\left(\sum_kb_k\right)}.
+\end{align*}
+等号は$\frac{a_k}{b_k}$が一定の場合のみ成り立つ。
+\end{lemma}
+\begin{proof}
+\vspace{-1em}
+\begin{align*}
+\sum_k a_k\log\frac{a_k}{b_k}
+%&=\sum_k \emm{b_k}\frac{a_k}{\emm{b_k}}\log\frac{a_k}{b_k}\\
+&=\emm{\left(\sum_k b_k\right)}\sum_k \frac{\emm{b_k}}{\emm{\sum_{k'} b_{k'}}}\frac{a_k}{\emm{b_k}}\log\frac{a_k}{b_k}\\
+&\ge\left(\sum_k b_k\right)\left(\sum_k \frac{b_k}{\sum_{k'} b_{k'}}\frac{a_k}{b_k}\right)
+\log\left(\sum_k \frac{b_k}{\sum_{k'} b_{k'}}\frac{a_k}{b_k}\right)\\
+&\hspace{10em} \text{($x\log x$の凸性とイェンセンの不等式)}\\
+&=\left(\sum_k a_k\right)\log\frac{\left(\sum_ka_k\right)}{\left(\sum_kb_k\right)}.\qedhere
+\end{align*}
+\end{proof}
+零を含む場合も$\to 0$極限を考えることで不等式が示せる。
+\end{frame}
+
+\if0
+\begin{frame}{KL-divergenceの非負性}
+\begin{lemma}
+%\begin{itemize}
+任意の$p,\,q\in\mathcal{P}$について$\KL{q}{p}\ge 0$.
+%\item $\KL{q}{p}\ge 0$
+%\item $\KL{q}{p}= 0\iff q=p$
+%\end{itemize}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\KL{q}{p} &= \sum_{k=1}^m q_k\log \frac{q_k}{p_k}\\
+&= -\sum_{k=1}^m q_k\log \frac{p_k}{q_k}\\
+&\ge -\log \sum_{k=1}^m q_k\frac{p_k}{q_k}\qquad\text{(イェンセンの不等式)}\\
+&=0.\qedhere
+\end{align*}
+%$q=p$のとき、$\KL{q}{p}=0$は自明。
+\end{proof}
+\end{frame}
+\fi
+
+\begin{frame}{KL-divergenceの凸性}
+\small
+\begin{lemma}
+任意の$p,p',q,q'\in\mathcal{P}$と$\lambda\in[0,1]$について
+\begin{align*}
+\KL{\lambda q+(1-\lambda)q'}{\lambda p+(1-\lambda)p'}
+&\le
+\lambda\KL{q}{p} + (1-\lambda)\KL{q'}{p'}.
+\end{align*}
+\end{lemma}
+\begin{proof}
+\vspace{-2em}
+\begin{align*}
+%&\KL{\lambda q+(1-\lambda)q'}{\lambda p+(1-\lambda)p'}\\
+%&= \sum_k (\lambda q_k+(1-\lambda)q'_k)\log
+%\frac{\lambda q_k+(1-\lambda)q'_k}{\lambda p_k+(1-\lambda)p'_k}\\
+%&= \sum_k \emm{(\lambda p_k+(1-\lambda)p'_k)}
+%\frac{\lambda q_k+(1-\lambda)q'_k}{\emm{\lambda p_k+(1-\lambda)p'_k}}
+%\log
+%\frac{\lambda q_k+(1-\lambda)q'_k}{\lambda p_k+(1-\lambda)p'_k}\\
+&(\lambda q_k+(1-\lambda)q'_k)\log \frac{\lambda q_k+(1-\lambda)q'_k}{\lambda p_k+(1-\lambda)p'_k}\\
+&\le \lambda q_k\log \frac{\lambda q_k}{\lambda p_k}
++ (1-\lambda) q_k\log \frac{(1-\lambda) q_k}{(1-\lambda) p_k}\qquad\text{(Log sum不等式)}\\
+&= \lambda q_k\log \frac{q_k}{p_k}
++ (1-\lambda) q_k\log \frac{q_k}{p_k}.
+\end{align*}
+両辺を$k$について和を取ると目的の不等式を得る。
+\end{proof}
+$p'=p$や$q'=q$の場合を考えると、
+\begin{align*}
+\KL{\lambda q+(1-\lambda)q'}{p} &\le \lambda\KL{q}{p} + (1-\lambda)\KL{q'}{p}\\
+\KL{q}{\lambda p+(1-\lambda)p'} &\le \lambda\KL{q}{p} + (1-\lambda)\KL{q}{p'}.
+\end{align*}
+\end{frame}
+
+\if0
 \begin{frame}{ラグランジュの未定乗数法}
 \end{frame}
 
 \begin{frame}{最大エントロピー原理}
+\footnotesize
 \begin{theorem}
-$\Gamma=\{q\in\mathcal{P}\mid \expt{f_s(Y)}\ge a_s,\, s\in\{1,\dotsc,t\}\}$について
+$\Gamma=\{q\in\mathcal{P}\mid Y\sim\mathrm{Cat}(q),\,\expt{f_s(Y)}\ge a_s,\, s\in\{1,\dotsc,t\}\}$について
 \begin{align*}
 \min_{q}\colon& \KL{q}{p}\\
-\text{subject to}\colon& \sum_{k=1}^m q_k = 1\\
-&q_k\ge 0\\
-&\sum_{k=1}^m q_k f_s(k) \ge a\qquad \text{for } s\in\{1,2,\dotsc,t\} 
+\text{subject to}\colon& \sum_{k=1}^m q_k = 1,\qquad
+q_k\ge 0\quad\forall k\in\{1,2,\dotsc,m\}\\
+&\sum_{k=1}^m q_k f_s(k) \ge a\qquad \forall s\in\{1,2,\dotsc,t\} 
 \end{align*}
-の解は$(\lambda_s\in\mathbb{R})_{s=1,\dotsc,t}$
+の解は$(\lambda_s\in\mathbb{R})_{s=1,\dotsc,t}$について
 \begin{align*}
-q_k &= \frac1{Z(\lambda)} p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)}\\
-Z(\lambda) &\coloneq \sum_{k=1}^m p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)} = \expt{\mathrm{e}^{\langle \lambda, f(X)\rangle}} \qquad \text{(分配関数)}
+q_k &= \frac1{M_{f(X)}(\lambda)} p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)}\qquad\text{(Gibbs--Boltzmann分布)}\\
+M_{f(X)}(\lambda) &\coloneq \sum_{k=1}^m p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)} = \expt{\mathrm{e}^{\langle \lambda,\, f(X)\rangle}} \qquad \text{(分配関数)}
+\end{align*}
+と表すことができ、目的関数の値は
+\begin{align*}
+\KL{q}{p} &= \sum_{s}\lambda_s\expt{f_s(Y)} -\log M_{f(X)}(\lambda)
 \end{align*}
 \end{theorem}
 \end{frame}
@@ -209,7 +270,32 @@ Z(\lambda) &\coloneq \sum_{k=1}^m p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)} 
 \end{frame}
 
 \begin{frame}{サノフの定理を用いたクラメールの定理の導出}
+\footnotesize
+集合$A$が有限集合で$\mathbb{R}$の部分集合のとき、
+$\Gamma\coloneq\{q\in \mathcal{P}\mid Y\sim\mathrm{Cat}(q),\,\expt{Y}\in C\}$とすると
+\begin{align*}
+\Pr\left(\frac1N(X_1+\dotsb+X_N)\in C\right) &= \Pr(P_{\symbf{X}}\in\Gamma)
+\end{align*}
+任意の$q\in\mathcal{P}$と$t\in\mathbb{R}$について
+\begin{align*}
+K_X(t) &= \log\expt{\mathrm{e}^{tX}}\\
+&=\log\sum_k p_k \mathrm{e}^{ta_k}\\
+&=\log\sum_k \emm{q_k}\frac{p_k}{\emm{q_k}} \mathrm{e}^{ta_k}\\
+&\ge \sum_k q_k\log\frac{p_k}{q_k} \mathrm{e}^{ta_k}\qquad\text{($\log$の凹性とイェンセンの不等式)}\\
+&= -\KL{q}{p} + t \expt{Y}
+\end{align*}
+よって
+\begin{align*}
+\KL{q}{p}&\ge t\expt{Y} - K_X(t)\qquad\forall q\in\mathcal{P},\,t\in\mathbb{R}\\
+\inf_{q\in\Gamma}\KL{q}{p}&\ge \inf_{a\in C}\{ta - K_X(t)\}\qquad\forall t\in \mathbb{R}
+\end{align*}
+\begin{align*}
+\inf_{q\in\Gamma}\KL{q}{p}&\ge \inf_{a\in C}\sup_{t\in \mathbb{R}}\left\{ta - K_X(t)\right\}
+=\inf_{a\in C} I_X(a)
+\end{align*}
+
 \end{frame}
+\fi
 
 \begin{frame}{確率論振り返り}
 \begin{itemize}
@@ -218,6 +304,18 @@ Z(\lambda) &\coloneq \sum_{k=1}^m p_k\mathrm{e}^{\sum_{s=1}^t \lambda_s f_s(k)} 
 \item 大数の法則、クラメールの定理。
 \item 中心極限定理
 \item サノフの定理
+\end{itemize}
+\end{frame}
+
+\begin{frame}{課題}
+\begin{itemize}
+\item $p=(0.1,\,0.2,\,0.7),\,q=(0.3,\,0.6,\,0.1)$について$\KL{q}{p}$と$\KL{p}{q}$をもとめよ。
+%\item 確率変数$X\sim\mathrm{Multinom}(p)$について
+%\begin{align*}
+%\lim_{N\to\infty} \frac1N\log\Pr\left(\KL{P_{\symbf{X}}}{p}\ge a\right)
+%\end{align*}
+%をもとめよ。
+%\item $\Gamma_a\coloneq\{q\in\mathcal{P}\mid \sum_k q_k k \ge a\}$
 \end{itemize}
 \end{frame}
 
