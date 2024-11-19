@@ -7,7 +7,7 @@
 * 10/29 中心極限定理、正規分布 [slide](./slides/04_clt.pdf)
 * 11/5 複数の確率変数、多変量正規分布 [slide](./slides/05_multivariate.pdf)
 * 11/12 サノフの定理、KLダイバージェンス [slide](./slides/06_sanov.pdf) 
-* 11/19 
+* 11/19 KLダイバージェンスの性質 [slide](./slides/07_kl.pdf)
 * 11/26 
 * 12/3 
 * 12/10 
