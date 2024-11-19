@@ -297,6 +297,52 @@ K_X(t) &= \log\expt{\mathrm{e}^{tX}}\\
 \end{frame}
 \fi
 
+\begin{frame}{エントロピー}
+\begin{definition}[エントロピー]
+$H\colon \mathcal{P}\to\mathbb{R}$を以下で定義する
+\begin{align*}
+H(p) &\coloneq -\sum_{k=1}^m p_k\log p_k.
+\end{align*}
+ただし、$0\log 0 = 0$とする。
+$\log$の底は$m$とすることも多い。
+%ただし、ある$k$について$p_k=0,\,q_k>0$のとき$\KL{q}{p}$は定義されない。
+\end{definition}
+$q$を$\{1,2,\dotsc,m\}$上の一様分布とすると、
+$H(p) = \KL{p}{q} - \log m$である。
+\end{frame}
+
+\begin{frame}{多項係数とエントロピー}
+\begin{lemma}
+$N,N_1,\dotsc,N_m\in\mathbb{Z}_{\ge 0}$で$N_1+\dotsb+N_m=N$のとき、
+\begin{align*}
+\frac1{(N+1)^m}\mathrm{e}^{NH(p)}\le
+\binom{N}{N_1\,N_2\,\dotsc,N_m} \le \mathrm{e}^{NH(p)}
+\end{align*}
+ただし$k=1,2,\dotsc,m$について$p_k\coloneq N_k/N$とする。
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\frac1{(N+1)^m}&\le
+\binom{N}{N_1\,N_2\,\dotsc,N_m} \prod_{k=1}^m (p_k)^{Np_k}\le 1\\
+\iff\frac1{(N+1)^m}&\le
+\binom{N}{N_1\,N_2\,\dotsc,N_m} \mathrm{e}^{-NH(p)}\le 1.
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{データ圧縮とエントロピー}
+データ圧縮の概要
+
+\vspace{2em}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item データ$\symbf{x}\in A^N$がi.i.dでそれぞれが確率分布$p\in\mathcal{P}$に従っていると仮定する。
+\item サノフの定理よりデータの経験分布$\widehat{P}_{\symbf{x}}$は高い確率で真の分布$p$に近い。
+\item よってあり得る$\symbf{x}$の数は大体$\binom{N}{p_1N\,p_2N\,\dotsm\,p_mN}\approx \mathrm{e}^{NH(p)}$である。
+\item よって長さ $\log_m \mathrm{e}^{N H(p)} = N H(p)/(\log m)$ の$A$の列に圧縮できる。ここで $H(p)/(\log m)$はエントロピーの定義の$\log$の底を$m$にしたものに等しい。
+\end{itemize}
+\end{frame}
+
 \begin{frame}{確率論振り返り}
 \begin{itemize}
 \setlength{\itemsep}{2em}
@@ -309,7 +355,7 @@ K_X(t) &= \log\expt{\mathrm{e}^{tX}}\\
 
 \begin{frame}{課題}
 \begin{itemize}
-\item $p=(0.1,\,0.2,\,0.7),\,q=(0.3,\,0.6,\,0.1)$について$\KL{q}{p}$と$\KL{p}{q}$をもとめよ。
+\item 二元エントロピー関数$h(p)\coloneq -p\log_2 p - (1-p)\log_2(1-p)\quad\text{for } p\in[0,1]$のグラフを描け。凸性に気をつけること。
 %\item 確率変数$X\sim\mathrm{Multinom}(p)$について
 %\begin{align*}
 %\lim_{N\to\infty} \frac1N\log\Pr\left(\KL{P_{\symbf{X}}}{p}\ge a\right)
