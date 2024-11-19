@@ -154,7 +154,8 @@ $f$が狭義凸の場合、$f$と接線は一点のみを共有するので決�
 \sum_k a_k\log\frac{a_k}{b_k}&\ge
 \left(\sum_k a_k\right)\log\frac{\left(\sum_ka_k\right)}{\left(\sum_kb_k\right)}.
 \end{align*}
-等号は$\frac{a_k}{b_k}$が一定の場合のみ成り立つ。
+ある$c\in\mathbb{R}$が存在して、任意の$k\in\{1,\dotsc,m\}$について$a_k=cb_k$が成り立つ場合のみ等号が成り立つ。
+%等号は$\frac{a_k}{b_k}$が一定の場合のみ成り立つ。
 \end{lemma}
 \begin{proof}
 \vspace{-1em}
@@ -307,8 +308,8 @@ H(p) &\coloneq -\sum_{k=1}^m p_k\log p_k.
 $\log$の底は$m$とすることも多い。
 %ただし、ある$k$について$p_k=0,\,q_k>0$のとき$\KL{q}{p}$は定義されない。
 \end{definition}
-$q$を$\{1,2,\dotsc,m\}$上の一様分布とすると、
-$H(p) = \KL{p}{q} - \log m$である。
+$u$を$\{1,2,\dotsc,m\}$上の一様分布とすると、
+$H(p) = \log m - \KL{p}{u}$である。
 \end{frame}
 
 \begin{frame}{多項係数とエントロピー}
@@ -346,8 +347,9 @@ $N,N_1,\dotsc,N_m\in\mathbb{Z}_{\ge 0}$で$N_1+\dotsb+N_m=N$のとき、
 \begin{frame}{確率論振り返り}
 \begin{itemize}
 \setlength{\itemsep}{2em}
-\item 確率空間$(\Omega, P)$. 完全加法性。
-\item 大数の法則、クラメールの定理。
+\item 確率空間$(\Omega, P)$. 完全加法性
+\item 確率変数、期待値、分散、モーメント
+\item 大数の法則、クラメールの定理
 \item 中心極限定理
 \item サノフの定理
 \end{itemize}
