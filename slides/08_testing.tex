@@ -1,0 +1,93 @@
+\documentclass[lualatex,handout]{beamer}
+\setbeamertemplate{footline}[frame number]
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+
+\usepackage{thm-restate}
+
+%\usetheme{Berlin}
+\usecolortheme{rose}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+%\usepackage[haranoaji]{luatexja-preset}
+\usepackage[deluxe,ipaex]{luatexja-preset}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+%\setmainjfont{HaranoAjiGothic-Regular}
+
+\usepackage{unicode-math}
+%\setmathfont{Fira Math}
+\setmathfont{STIX Two Math}
+\setmathfont{STIX Two Math}[range=bfup/{Latin,latin,num,Greek,greek}]
+\setmathfont{STIX Two Math}[range=bfit/{Latin,latin}]
+\setmathfont{STIX Two Math}[range={"0000-"FFFF}]
+\setmathrm{STIX Two Math}[StylisticSet=8]
+
+%\usefonttheme{professionalfonts}
+
+\usepackage{luacolor}
+
+\newcommand{\mycolor}[2]{%
+  \begingroup
+  \colorlet{currentcolor}{.}%
+  \color{#1}#2%
+  \color{currentcolor}%
+  \endgroup
+}
+\newcommand{\emm}[1]{\mycolor{red}{#1}}
+\newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
+\newcommand{\cov}[1]{\mathsf{Cov}\left[#1\right]}
+\newcommand{\vc}[1]{\mathsf{Var}\left[#1\right]}
+
+
+\usepackage{xspace}
+%\usepackage{bm}
+%\newcommand\bm[1]{{\mathbf{#1}}}
+\newcommand\defiff{\stackrel{\text{def}}{\iff}}
+\newcommand\dx{{\,\mathrm{d}x}}
+\newcommand\KL[2]{D\left(#1\,\|\,#2\right)}
+
+\theoremstyle{definition}
+
+\title{確率・統計基礎: 二値の推定}
+\author{森 立平}
+\date{}
+
+
+
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+
+\begin{frame}{統計の問題}
+現実の問題では確率分布が未知であることがほとんど
+
+\vspace{2em}
+確率分布や統計量を推定するのが統計の主な問題
+
+\vspace{2em}
+一番単純な設定では確率分布は$p$か$q$のどちらかを当てる設定。
+\end{frame}
+
+\begin{frame}{ベイズ}
+確率$\lambda\in[0,1]$で確率分布$p\in\mathcal{P}$、確率$1-\lambda$で確率分布$q\in\mathcal{P}$
+\end{frame}
+
+\begin{frame}{課題}
+\begin{itemize}
+\item 二元エントロピー関数$h(p)\coloneq -p\log_2 p - (1-p)\log_2(1-p)\quad\text{for } p\in[0,1]$のグラフを描け。凸性に気をつけること。
+%\item 確率変数$X\sim\mathrm{Multinom}(p)$について
+%\begin{align*}
+%\lim_{N\to\infty} \frac1N\log\Pr\left(\KL{P_{\symbf{X}}}{p}\ge a\right)
+%\end{align*}
+%をもとめよ。
+%\item $\Gamma_a\coloneq\{q\in\mathcal{P}\mid \sum_k q_k k \ge a\}$
+\end{itemize}
+\end{frame}
+
+\end{document}
