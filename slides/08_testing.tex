@@ -76,11 +76,22 @@
 
 \begin{frame}{ベイズ}
 \begin{block}{問題}
-入力: 確率$\lambda\in[0,1]$で確率分布$p\in\mathcal{P}$、確率$1-\lambda$で確率分布$q\in\mathcal{P}$
-が選ばれ、その分布に従って$x\in A$が入力される\\
-\vspace{2em}
-出力: 0 or 1
+確率$\lambda\in[0,1]$で確率分布$p_0\in\mathcal{P}$、確率$1-\lambda$で確率分布$p_1\in\mathcal{P}$
+が選ばれ、その分布に従って$x\in A$が定まる。
+
+\vspace{1em}
+選ばれた分布が$p_0$か$p_1$か$x$を見て決定せよ。
 \end{block}
+
+\vspace{1em}
+関数$E\colon A\to\{0,1\}$で
+
+\begin{align*}
+\min_{E\colon A\to \{0,1\}} \left(\lambda \sum_{x\in E^{-1}(1)} p_0(x) + (1-\lambda) \sum_{x\in E^{-1}(0)}q_1(x)  \right)
+\end{align*}
+\end{frame}
+
+\begin{frame}{ベイズ}
 \end{frame}
 
 \begin{frame}{課題}
