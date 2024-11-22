@@ -42,6 +42,8 @@
 \newcommand{\cov}[1]{\mathsf{Cov}\left[#1\right]}
 \newcommand{\vc}[1]{\mathsf{Var}\left[#1\right]}
 
+\DeclareMathOperator*{\argmax}{arg\,max}
+
 
 \usepackage{xspace}
 %\usepackage{bm}
@@ -49,6 +51,7 @@
 \newcommand\defiff{\stackrel{\text{def}}{\iff}}
 \newcommand\dx{{\,\mathrm{d}x}}
 \newcommand\KL[2]{D\left(#1\,\|\,#2\right)}
+\newcommand\dtv{d_{\mathrm{TV}}}
 
 \theoremstyle{definition}
 
@@ -80,18 +83,107 @@
 が選ばれ、その分布に従って$x\in A$が定まる。
 
 \vspace{1em}
-選ばれた分布が$p_0$か$p_1$か$x$を見て決定せよ。
+$x$を見て選ばれた分布が$p_0$か$p_1$か決定せよ。
 \end{block}
 
+\begin{example}
+\begin{itemize}
+\item $A=\{0,1\}^{100}$
+\item $p_0$が成功確率$1/2$、試行回数$100$の二項分布
+\item $p_1$が成功確率$1/3$、試行回数$100$の二項分布
+\end{itemize}
+\end{example}
+
 \vspace{1em}
-関数$E\colon A\to\{0,1\}$で
+$p_0$と$p_1$を識別する関数$E\colon A\to\{0,1\}$とすると、その誤り確率は
 
 \begin{align*}
-\min_{E\colon A\to \{0,1\}} \left(\lambda \sum_{x\in E^{-1}(1)} p_0(x) + (1-\lambda) \sum_{x\in E^{-1}(0)}q_1(x)  \right)
+%\min_{E\colon A\to \{0,1\}}
+% \left(
+\lambda \sum_{x\in E^{-1}(1)} p_0(x) + (1-\lambda) \sum_{x\in E^{-1}(0)}p_1(x)
+% \right)
 \end{align*}
 \end{frame}
 
-\begin{frame}{ベイズ}
+\begin{frame}{最小誤り確率}
+\small
+\begin{align*}
+&\min_{E\colon A\to \{0,1\}}
+ \left( \lambda \sum_{x\in E^{-1}(1)} p_0(x) + (1-\lambda) \sum_{x\in E^{-1}(0)}p_1(x) \right)\\
+&=\min_{E\colon A\to \{0,1\}}
+ \left( \lambda \sum_{x\in E^{-1}(1)} p_0(x) + (1-\lambda) \left(1-\sum_{x\in E^{-1}(1)}p_1(x) \right)\right)\\
+&=\min_{E\colon A\to \{0,1\}}
+ \left( (1-\lambda) + \sum_{x\in E^{-1}(1)} \left(\lambda p_0(x) - (1-\lambda) p_1(x) \right)\right)\\
+&= (1-\lambda) + \min_{B\subseteq A} \left(\sum_{x\in B} \left(\lambda p_0(x) - (1-\lambda) p_1(x) \right)\right)\\
+\end{align*}
+ここで$\sum_{x\in B}$の部分は\emm{項が負のところだけ足す}ときに最小化されるので
+\begin{align*}
+&  (1-\lambda) + \frac{\left(\sum_{x\in A}\lambda p_0(x) - (1-\lambda) p_1(x) \right) - \sum_{x\in A}\left|\lambda p_0(x) - (1-\lambda) p_1(x) \right|}2\\
+&=\frac{1-\emm{\sum_{x\in A}\left|\lambda p_0(x) - (1-\lambda) p_1(x) \right|}}2.
+\end{align*}
+\end{frame}
+
+\begin{frame}{全変動距離}
+最小誤り確率は
+\begin{align*}
+\frac{1-\emm{\sum_{x\in A}\left|\lambda p_0(x) - (1-\lambda) p_1(x) \right|}}2.
+\end{align*}
+特に$\lambda=1/2$のとき、
+\begin{align*}
+\frac{1-\emm{\frac12\sum_{x\in A}\left|p_0(x) - p_1(x) \right|}}2.
+\end{align*}
+\begin{definition}[全変動距離(Total variation distance)]
+$p,\, q\in\mathcal{P}$についてその全変動距離$\dtv(p,\,q)$を以下で定義する。
+\begin{align*}
+\dtv(p,\, q) &\coloneq
+\frac12\sum_{x\in A}\left|p(x) - q(x) \right|.
+\end{align*}
+\end{definition}
+\end{frame}
+
+\begin{frame}{最大事後確率}
+\small
+識別したい分布の数が二つではなく、それ以上(有限個)の場合を考える。
+
+\begin{block}{問題}
+確率$\lambda_s$で確率分布$p_s\in\mathcal{P}$が選ばれ、その分布に従って$x\in A$が定まる。
+
+\vspace{1em}
+$x$を見て選ばれた分布$p_s$の添字$s$を決定せよ。
+\end{block}
+
+$s$に対応する確率変数を$S$、$x$に対応する確率変数を$X$とおく。つまり
+\begin{align*}
+\Pr(S=s,\, X=x) &= \Pr(S = s) \Pr(X = x\mid S = s) = \lambda_s p_s(x).
+\end{align*}
+このとき、識別器$E\colon A\to \{1,2,\dotsc,s\}$の誤り確率は
+\begin{align*}
+\Pr(E(X) \ne S) &= 
+%\sum_{s \in } \Pr(S = s)\Pr(E(X)\ne S\mid S = s)\\
+\sum_{x \in A} \Pr(X = x)\Pr(E(X)\ne S\mid X = x)\\
+&=\sum_{x \in A} \Pr(X = x)\Pr(E(x)\ne S\mid X = x)\\
+&=\sum_{x \in A} \Pr(X = x) \sum_{s\ne E(x)} \Pr(S=s\mid X = x)
+%\sum_{s \in S} \lambda_s \sum_{x \notin E^{-1}(s)} p_s(x)
+\end{align*}
+これを最小化したいので
+$E(x)=\emm{\argmax_{s} \Pr(S=s\mid X=x)}$とするのが最適である。
+\end{frame}
+
+\begin{frame}{用語}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item $s$
+\item $x$
+\item $\Pr(S = s)$: 事前確率
+\item $\Pr(X = x \mid S = s)$: 尤度
+\item $\Pr(S = s \mid X = x)$: 事後確率
+\end{itemize}
+\end{frame}
+
+\begin{frame}{漸近}
+\begin{align*}
+\Pr\left(\right)
+\end{align*}
 \end{frame}
 
 \begin{frame}{課題}
