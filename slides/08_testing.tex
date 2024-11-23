@@ -55,7 +55,7 @@
 
 \theoremstyle{definition}
 
-\title{確率・統計基礎: 二値の推定}
+\title{確率・統計基礎: パラメータ推定、最大事後確率}
 \author{森 立平}
 \date{}
 
@@ -75,6 +75,45 @@
 
 \vspace{2em}
 一番単純な設定では確率分布は$p$か$q$のどちらかを当てる設定。
+\end{frame}
+
+\begin{frame}{用語}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item $s$
+\item $x$
+\item $\Pr(S = s)$: 事前確率
+\item $\Pr(X = x \mid S = s)$: 尤度
+\item $\Pr(S = s \mid X = x)$: 事後確率
+\end{itemize}
+\end{frame}
+
+\begin{frame}{最大事後確率}
+\small
+識別したい分布の数が二つではなく、それ以上(有限個)の場合を考える。
+
+\begin{block}{問題}
+確率$\lambda_s$で確率分布$p_s\in\mathcal{P}$が選ばれ、その分布に従って$x\in A$が定まる。
+
+\vspace{1em}
+$x$を見て選ばれた分布$p_s$の添字$s$を決定せよ。
+\end{block}
+
+$s$に対応する確率変数を$S$、$x$に対応する確率変数を$X$とおく。つまり
+\begin{align*}
+\Pr(S=s,\, X=x) &= \Pr(S = s) \Pr(X = x\mid S = s) = \lambda_s p_s(x).
+\end{align*}
+このとき、識別器$E\colon A\to \{1,2,\dotsc,s\}$の誤り確率は
+\begin{align*}
+\Pr(E(X) \ne S) &= 
+%\sum_{s \in } \Pr(S = s)\Pr(E(X)\ne S\mid S = s)\\
+\sum_{x \in A} \Pr(X = x)\Pr(E(X)\ne S\mid X = x)\\
+&=\sum_{x \in A} \Pr(X = x)\Pr(E(x)\ne S\mid X = x)\\
+&=\sum_{x \in A} \Pr(X = x) \sum_{s\ne E(x)} \Pr(S=s\mid X = x)
+%\sum_{s \in S} \lambda_s \sum_{x \notin E^{-1}(s)} p_s(x)
+\end{align*}
+これを最小化したいので
+$E(x)=\emm{\argmax_{s} \Pr(S=s\mid X=x)}$とするのが最適である。
 \end{frame}
 
 \begin{frame}{ベイズ}
@@ -141,44 +180,7 @@ $p,\, q\in\mathcal{P}$についてその全変動距離$\dtv(p,\,q)$を以下で
 \end{definition}
 \end{frame}
 
-\begin{frame}{最大事後確率}
-\small
-識別したい分布の数が二つではなく、それ以上(有限個)の場合を考える。
 
-\begin{block}{問題}
-確率$\lambda_s$で確率分布$p_s\in\mathcal{P}$が選ばれ、その分布に従って$x\in A$が定まる。
-
-\vspace{1em}
-$x$を見て選ばれた分布$p_s$の添字$s$を決定せよ。
-\end{block}
-
-$s$に対応する確率変数を$S$、$x$に対応する確率変数を$X$とおく。つまり
-\begin{align*}
-\Pr(S=s,\, X=x) &= \Pr(S = s) \Pr(X = x\mid S = s) = \lambda_s p_s(x).
-\end{align*}
-このとき、識別器$E\colon A\to \{1,2,\dotsc,s\}$の誤り確率は
-\begin{align*}
-\Pr(E(X) \ne S) &= 
-%\sum_{s \in } \Pr(S = s)\Pr(E(X)\ne S\mid S = s)\\
-\sum_{x \in A} \Pr(X = x)\Pr(E(X)\ne S\mid X = x)\\
-&=\sum_{x \in A} \Pr(X = x)\Pr(E(x)\ne S\mid X = x)\\
-&=\sum_{x \in A} \Pr(X = x) \sum_{s\ne E(x)} \Pr(S=s\mid X = x)
-%\sum_{s \in S} \lambda_s \sum_{x \notin E^{-1}(s)} p_s(x)
-\end{align*}
-これを最小化したいので
-$E(x)=\emm{\argmax_{s} \Pr(S=s\mid X=x)}$とするのが最適である。
-\end{frame}
-
-\begin{frame}{用語}
-\begin{itemize}
-\setlength{\itemsep}{2em}
-\item $s$
-\item $x$
-\item $\Pr(S = s)$: 事前確率
-\item $\Pr(X = x \mid S = s)$: 尤度
-\item $\Pr(S = s \mid X = x)$: 事後確率
-\end{itemize}
-\end{frame}
 
 \begin{frame}{漸近}
 \begin{align*}
