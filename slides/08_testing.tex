@@ -55,7 +55,7 @@
 
 \theoremstyle{definition}
 
-\title{確率・統計基礎: パラメータ推定、最大事後確率}
+\title{確率・統計基礎: ベイズ推定}
 \author{森 立平}
 \date{}
 
@@ -68,6 +68,8 @@
 
 
 \begin{frame}{統計の問題}
+データから
+
 現実の問題では確率分布が未知であることがほとんど
 
 \vspace{2em}
@@ -80,42 +82,109 @@
 \begin{frame}{用語}
 \begin{itemize}
 \setlength{\itemsep}{2em}
-\item $s$
-\item $x$
+\item $x$: データ点
+%\item $\theta$: パラメータ、母数
+\item $s$: パラメータ(今日は離散の場合を考える。連続のときは$\theta$という記号を使うことが多い)
 \item $\Pr(S = s)$: 事前確率
 \item $\Pr(X = x \mid S = s)$: 尤度
 \item $\Pr(S = s \mid X = x)$: 事後確率
 \end{itemize}
 \end{frame}
 
-\begin{frame}{最大事後確率}
+\begin{frame}{最大事後確率推定}
 \small
-識別したい分布の数が二つではなく、それ以上(有限個)の場合を考える。
+%識別したい分布の数が二つではなく、それ以上(有限個)の場合を考える。
 
 \begin{block}{問題}
-確率$\lambda_s$で確率分布$p_s\in\mathcal{P}$が選ばれ、その分布に従って$x\in A$が定まる。
-
-\vspace{1em}
-$x$を見て選ばれた分布$p_s$の添字$s$を決定せよ。
+確率分布$\Pr(S = s,\, X = x)$が既知である。
+与えられた$x\in A$から$s\in B$を推定したい。
+推定関数$E\colon A\to B$の平均誤り確率は$\Pr(E(X)\ne S)$で定義される。
 \end{block}
 
-$s$に対応する確率変数を$S$、$x$に対応する確率変数を$X$とおく。つまり
-\begin{align*}
-\Pr(S=s,\, X=x) &= \Pr(S = s) \Pr(X = x\mid S = s) = \lambda_s p_s(x).
-\end{align*}
-このとき、識別器$E\colon A\to \{1,2,\dotsc,s\}$の誤り確率は
+%$s$に対応する確率変数を$S$、$x$に対応する確率変数を$X$とおく。つまり
+%\begin{align*}
+%\Pr(S=s,\, X=x) &= \Pr(S = s) \Pr(X = x\mid S = s) = \lambda_s p_s(x).
+%\end{align*}
 \begin{align*}
 \Pr(E(X) \ne S) &= 
+1 - \Pr(S = E(X))\\
+&=1 - \sum_{x \in A} \Pr(X = x)\Pr(S = E(X)\mid X = x)\\
+&=1 - \sum_{x \in A} \Pr(X = x)\Pr(S = E(x)\mid X = x)
 %\sum_{s \in } \Pr(S = s)\Pr(E(X)\ne S\mid S = s)\\
-\sum_{x \in A} \Pr(X = x)\Pr(E(X)\ne S\mid X = x)\\
-&=\sum_{x \in A} \Pr(X = x)\Pr(E(x)\ne S\mid X = x)\\
-&=\sum_{x \in A} \Pr(X = x) \sum_{s\ne E(x)} \Pr(S=s\mid X = x)
+%\sum_{x \in A} \Pr(X = x)\Pr(E(X)\ne S\mid X = x)\\
+%&=\sum_{x \in A} \Pr(X = x)\Pr(E(x)\ne S\mid X = x)\\
+%&=\sum_{x \in A} \Pr(X = x) \sum_{s\ne E(x)} \Pr(S=s\mid X = x)\\
+%&=\sum_{x \in A} \Pr(X = x) (1- \Pr(S=E(x)\mid X = x))\\
+%&=1- \sum_{x \in A} \Pr(X = x) \Pr(S=E(x)\mid X = x)\\
 %\sum_{s \in S} \lambda_s \sum_{x \notin E^{-1}(s)} p_s(x)
 \end{align*}
 これを最小化したいので
 $E(x)=\emm{\argmax_{s} \Pr(S=s\mid X=x)}$とするのが最適である。
+これを\emm{最大事後確率推定}という。
 \end{frame}
 
+\begin{frame}{最尤推定}
+\footnotesize
+最大事後確率推定
+\begin{align*}
+E(x)=\emm{\argmax_{s} \Pr(S=s\mid X=x)}
+\end{align*}
+平均誤り確率を最小化する。事前分布を知らないと使えない。
+
+\vspace{1.5em}
+最尤推定
+\begin{align*}
+E(x)=\emm{\argmax_{s} \Pr(X=x\mid S=s)}
+\end{align*}
+平均誤り確率については何も言えない。事前分布を知らないくても使える。
+
+\vspace{1.5em}
+\emm{事前分布が一様分布}$P(S=s)=\frac1{|B|}$のとき、
+\begin{align*}
+\argmax_{s}\, \Pr(S=s\mid X=x)
+&= \argmax_{s}\, \frac{\Pr(S=s,\, X=x)}{\Pr(X=x)}\\
+&= \argmax_{s}\, \Pr(S=s,\, X=x)\\
+&= \argmax_{s}\, \Pr(S=s)\Pr(X=x\mid S = s)\\
+%&= \argmax_{s}\, \frac1{|B|}\Pr(X=x\mid S = s)\\
+&= \argmax_{s}\, \Pr(X=x\mid S = s)
+\end{align*}
+最大事後確率推定と最尤推定は等しい。
+\end{frame}
+
+\begin{frame}{例}
+
+\end{frame}
+
+\begin{frame}{二値の場合}
+\footnotesize
+$B = \{0,1\}$の状況を考える。以下のように$p_0(x),\,p_1(x)$を定義する。
+
+\begin{align*}
+p_0(x) &\coloneq \Pr(X=x\mid S=0)\\
+p_1(x) &\coloneq \Pr(X=x\mid S=1)
+\end{align*}
+
+\vspace{.5em}
+$\Pr(S=0)=\lambda$, $\Pr(S=1)=1-\lambda$とする。
+最大事後確率推定では$\lambda p_0(x)$と$(1-\lambda)p_1(x)$を比較して、前者(もしくは後者)が大きい場合0(もしくは1)と推定する。
+このとき
+%平均誤り確率は
+\begin{align*}
+&\Pr(E(X) = S) - \Pr(E(X)\ne S)\\
+&= \sum_s \Pr(S=s) \Pr(E(X) = S\mid S = s)
+- \sum_s \Pr(S=s) \Pr(E(X) \ne S\mid S = s)\\
+&=\sum_{x\in E^{-1}(0)} \lambda p_0(x) + \sum_{x\in E^{-1}(1)} (1-\lambda)p_1(x)\\
+&\quad -\left(\sum_{x\in E^{-1}(1)} \lambda p_0(x) + \sum_{x\in E^{-1}(0)} (1-\lambda)p_1(x)\right)\\
+&=\sum_{x\in E^{-1}(0)} (\lambda p_0(x) - (1-\lambda)p_1(x))
+-\left(\sum_{x\in E^{-1}(1)} (\lambda p_0(x) - (1-\lambda)p_1(x))\right)\\
+&=\emm{\sum_{x\in A} \left|\lambda p_0(x) - (1-\lambda)p_1(x)\right|}
+\end{align*}
+\end{frame}
+
+%\begin{frame}{ベイズ}
+%\end{frame}
+
+\if0
 \begin{frame}{ベイズ}
 \begin{block}{問題}
 確率$\lambda\in[0,1]$で確率分布$p_0\in\mathcal{P}$、確率$1-\lambda$で確率分布$p_1\in\mathcal{P}$
@@ -161,6 +230,7 @@ $p_0$と$p_1$を識別する関数$E\colon A\to\{0,1\}$とすると、その誤�
 &=\frac{1-\emm{\sum_{x\in A}\left|\lambda p_0(x) - (1-\lambda) p_1(x) \right|}}2.
 \end{align*}
 \end{frame}
+\fi
 
 \begin{frame}{全変動距離}
 最小誤り確率は
@@ -182,21 +252,48 @@ $p,\, q\in\mathcal{P}$についてその全変動距離$\dtv(p,\,q)$を以下で
 
 
 
-\begin{frame}{漸近}
+\begin{frame}{平均誤り確率の漸近的挙動}
+\small
+二種類あるコインの片方を選んで独立に何回も投げる。
+どちらのコインを選んだのか推定したい。
 \begin{align*}
-\Pr\left(\right)
+\Pr(\symbf{X}=\symbf{x},\, S= s) &= \prod_{k=1}^N \Pr(X_i=x_i \mid S=s)\Pr(S=s)
 \end{align*}
+誤り確率は
+\begin{align*}
+\sum_{\symbf{x}\in A^N}\left|\lambda\prod_k p_0(x_k) - (1-\lambda)\prod_kp_1(x_k) \right|.
+\end{align*}
+から定まるが、これを見ても$N\to\infty$の挙動はよく分からない。
+$p(s)\coloneq \Pr(S=s)$,
+$p(x\mid s) \coloneq \Pr(X=x\mid S=s),\, p(\symbf{x}\mid s)\coloneq \prod_k p(x_k\mid s)$とすると、
+\begin{align*}
+\Pr\left(E(\symbf{X}) \ne S\right)
+&= \Pr\left(p(S) p(\symbf{X}\mid S) < p(\overline{S}) p(\symbf{X}\mid \overline{S})\right)\\
+&= \Pr\left(\emm{\sum_k \log\frac{p(X_k\mid S)}{p(X_k\mid \overline{S})}} < \log\frac{p(\overline{S})}{p(S)}\right).
+\end{align*}
+\end{frame}
+
+\begin{frame}{平均誤り確率の漸近的挙動}
+\footnotesize
+\begin{align*}
+\Pr\left(\emm{\sum_k \log\frac{p(X_k\mid S)}{p(X_k\mid \overline{S})}} < \log\frac{p(\overline{S})}{p(S)}\right)
+&=
+\lambda \Pr\left(\emm{\sum_k \log\frac{p(X_k\mid 0)}{p(X_k\mid 1)}} < \log\frac{p(1)}{p(0)}\mid S=0\right)\\
+&+
+(1-\lambda) \Pr\left(\emm{\sum_k \log\frac{p(X_k\mid 1)}{p(X_k\mid 0)}} < \log\frac{p(0)}{p(1)}\mid S=1\right)
+\end{align*}
+この確率はクラメールの定理で漸近評価できる。
+
+%\begin{align*}
+%\Pr\left(\emm{\sum_k \log\frac{p(X_k\mid 0)}{p(X_k\mid 1)}} < \log\frac{p(1)}{p(0)}\mid S=0\right)
+%&= \Pr\left(\emm{\prod_k \sqrt{\frac{p(X_k\mid 1)}{p(X_k\mid 0)}}} > \sqrt{\frac{p(0)}{p(1)}}\mid S=0\right)\\
+%\end{align*}
+
 \end{frame}
 
 \begin{frame}{課題}
 \begin{itemize}
-\item 二元エントロピー関数$h(p)\coloneq -p\log_2 p - (1-p)\log_2(1-p)\quad\text{for } p\in[0,1]$のグラフを描け。凸性に気をつけること。
-%\item 確率変数$X\sim\mathrm{Multinom}(p)$について
-%\begin{align*}
-%\lim_{N\to\infty} \frac1N\log\Pr\left(\KL{P_{\symbf{X}}}{p}\ge a\right)
-%\end{align*}
-%をもとめよ。
-%\item $\Gamma_a\coloneq\{q\in\mathcal{P}\mid \sum_k q_k k \ge a\}$
+\item あ
 \end{itemize}
 \end{frame}
 
