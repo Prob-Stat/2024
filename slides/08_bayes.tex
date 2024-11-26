@@ -127,16 +127,16 @@ $E(x)=\emm{\argmax_{s} \Pr(S=s\mid X=x)}$とするのが最適である。
 
 \begin{frame}{最尤推定}
 \footnotesize
-最大事後確率推定
+最大事後確率推定 (Maximum a posteriori probability estimation)
 \begin{align*}
-E(x)=\emm{\argmax_{s} \Pr(S=s\mid X=x)}
+E_{\mathrm{MAP}}(x)\coloneq\emm{\argmax_{s} \Pr(S=s\mid X=x)}
 \end{align*}
 平均誤り確率を最小化する。事前分布を知らないと使えない。
 
 \vspace{1.5em}
-最尤推定
+最尤推定 (Maximum likelihood estimation)
 \begin{align*}
-E(x)=\emm{\argmax_{s} \Pr(X=x\mid S=s)}
+E_{\mathrm{ML}}(x)\coloneq\emm{\argmax_{s} \Pr(X=x\mid S=s)}
 \end{align*}
 平均誤り確率については何も言えない。事前分布を知らなくても使える。
 
@@ -261,7 +261,7 @@ $p,\, q\in\mathcal{P}$についてその全変動距離$\dtv(p,\,q)$を以下で
 二種類あるコインの片方を選んで独立に何回も投げる。
 どちらのコインを選んだのか推定したい。
 \begin{align*}
-\Pr(\symbf{X}=\symbf{x},\, S= s) &= \prod_{k=1}^N \Pr(X_i=x_i \mid S=s)\Pr(S=s)
+\Pr(\symbf{X}=\symbf{x},\, S= s) &= \Pr(S=s)\prod_{k=1}^N \Pr(X_i=x_i \mid S=s)
 \end{align*}
 誤り確率は
 \begin{align*}
@@ -311,13 +311,59 @@ $A=\{0,1,2\},\,B=\{0, 1\}$とし、
 \end{align*}
 とするとき、以下の問に答えよ。
 \vspace{1em}
-\begin{itemize}
+\begin{enumerate}
 \setlength{\itemsep}{1em}
 \item $X$から$S$を最大事後確率推定する関数$E_{\mathrm{MAP}}\colon A\to B$と最尤推定する関数$E_{\mathrm{ML}}\colon A\to B$をもとめよ。
 %事後確率や尤度が等しい場合ものが複数ある場合は一様に選ぶことにせよ。
 \item $X$から$S$を最大事後確率推定した場合の誤り確率をもとめよ。
 \item $X$から$S$を最尤推定した場合の誤り確率をもとめよ。
-\end{itemize}
+\end{enumerate}
 \end{frame}
+
+\if0
+\begin{frame}{おまけ 1/2}
+\footnotesize
+\begin{definition}[対称通信路]
+$B=\{0,1\}$とする。
+通信路$\Pr(X=s\mid S=s)$についてある置換$\sigma\colon A\to A$が存在して
+$\sigma^2=\mathrm{id}$で
+\begin{align*}
+\Pr(X = x\mid S = 0) &= \Pr(X = \sigma(x)\mid S = 1)
+\end{align*}
+が成り立つとき$\Pr(X=x\mid S=s)$を\emm{対称通信路}という。
+\end{definition}
+$\lambda=1/2$と$\Pr(X=x\mid S=s)$が対称通信路であることを仮定すると、
+\begin{align*}
+&\lambda \Pr\left(\emm{\sum_{k=1}^N \log\frac{p(X_k\mid 0)}{p(X_k\mid 1)}} \le \log\frac{1-\lambda}{\lambda}\mid S=0\right)\\
+&\quad + (1-\lambda) \Pr\left(\emm{\sum_{k=1}^N \log\frac{p(X_k\mid 1)}{p(X_k\mid 0)}} \le \log\frac{\lambda}{1-\lambda}\mid S=1\right)\\
+&=
+\frac12 \Pr\left(\emm{\sum_{k=1}^N \log\frac{p(X_k\mid 0)}{p(X_k\mid 1)}} \le 0\mid S=0\right)
++ \frac12 \Pr\left(\emm{\sum_{k=1}^N \log\frac{p(X_k\mid 1)}{p(X_k\mid 0)}} \le 0\mid S=1\right)\\
+&=
+\frac12 \Pr\left(\emm{\sum_{k=1}^N \log\frac{p(X_k\mid 0)}{p(X_k\mid 1)}} \le 0\mid S=0\right)
++ \frac12 \Pr\left(\emm{\sum_{k=1}^N \log\frac{p(\sigma(\sigma(X_k))\mid 0)}{p(\sigma(\sigma(X_k))\mid 1)}} \le 0\mid S=0\right)\\
+&=
+\Pr\left(\emm{\sum_{k=1}^N \log\frac{p(X_k\mid 0)}{p(X_k\mid 1)}} \le 0\mid S=0\right).
+\end{align*}
+\end{frame}
+
+\begin{frame}{おまけ 2/2}
+$Y=\log\frac{p(X\mid 1)}{p(X\mid 0)}$とすると、任意の$t\ge 0$について
+\begin{align*}
+\Pr\left(\emm{\sum_{k=1}^N \log\frac{p(X_k\mid 0)}{p(X_k\mid 1)}} \le 0\mid S=0\right)
+&=\Pr\left(\emm{\sum_{k=1}^N \log\frac{p(X_k\mid 1)}{p(X_k\mid 0)}} \ge 0\mid S=0\right)\\
+&\le M_Y(t)^N.
+\end{align*}
+である。ここで
+\begin{align*}
+M_Y(t) &= \sum_{x\in A} p_0(x) \left(\frac{p_1(x)}{p_0(x)}\right)^t = \mathrm{e}^{-(1-t)D(p_1||p_0)}
+\end{align*}
+\begin{definition}[R\'enyi ダイバージェンス]
+\begin{align*}
+D_\alpha(q||p) &= \frac1{\alpha - 1} \log \sum_{x\in A} q^\alpha(x) p^{1-\alpha}(x)
+\end{align*}
+\end{definition}
+\end{frame}
+\fi
 
 \end{document}
