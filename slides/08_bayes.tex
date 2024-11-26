@@ -67,24 +67,26 @@
 \end{frame}
 
 
-\begin{frame}{統計の問題}
-データから
+\if0
+\begin{frame}{統計的の問題}
+データから知りたい情報を推定したい。
 
-現実の問題では確率分布が未知であることがほとんど
+%現実の問題では確率分布が未知であることがほとんど
 
-\vspace{2em}
-確率分布や統計量を推定するのが統計の主な問題
+%\vspace{2em}
+%確率分布や統計量を推定するのが統計の主な問題
 
-\vspace{2em}
-一番単純な設定では確率分布は$p$か$q$のどちらかを当てる設定。
+%\vspace{2em}
+%一番単純な設定では確率分布は$p$か$q$のどちらかを当てる設定。
 \end{frame}
+\fi
 
 \begin{frame}{用語}
 \begin{itemize}
 \setlength{\itemsep}{2em}
-\item $x$: データ点
+\item $x\in A$: データ、知っているもの(今日は離散と仮定するが、本質的な仮定ではない)
 %\item $\theta$: パラメータ、母数
-\item $s$: パラメータ(今日は離散の場合を考える。連続のときは$\theta$という記号を使うことが多い)
+\item $s\in B$: パラメータ、推定したいもの(今日は離散の場合を考える。連続のときは$\theta$という記号を使うことが多い)
 \item $\Pr(S = s)$: 事前確率
 \item $\Pr(X = x \mid S = s)$: 尤度
 \item $\Pr(S = s \mid X = x)$: 事後確率
@@ -109,7 +111,7 @@
 \Pr(E(X) \ne S) &= 
 1 - \Pr(S = E(X))\\
 &=1 - \sum_{x \in A} \Pr(X = x)\Pr(S = E(X)\mid X = x)\\
-&=1 - \sum_{x \in A} \Pr(X = x)\Pr(S = E(x)\mid X = x)
+&=1 - \sum_{x \in A} \Pr(X = x)\emm{\Pr(S = E(x)\mid X = x)}
 %\sum_{s \in } \Pr(S = s)\Pr(E(X)\ne S\mid S = s)\\
 %\sum_{x \in A} \Pr(X = x)\Pr(E(X)\ne S\mid X = x)\\
 %&=\sum_{x \in A} \Pr(X = x)\Pr(E(x)\ne S\mid X = x)\\
@@ -146,16 +148,18 @@ E(x)=\emm{\argmax_{s} \Pr(X=x\mid S=s)}
 &= \argmax_{s}\, \Pr(S=s,\, X=x)\\
 &= \argmax_{s}\, \Pr(S=s)\Pr(X=x\mid S = s)\\
 %&= \argmax_{s}\, \frac1{|B|}\Pr(X=x\mid S = s)\\
-&= \argmax_{s}\, \Pr(X=x\mid S = s)
+&\emm{=} \argmax_{s}\, \Pr(X=x\mid S = s)
 \end{align*}
 最大事後確率推定と最尤推定は等しい。
 \end{frame}
 
+\if0
 \begin{frame}{例}
 
 \end{frame}
+\fi
 
-\begin{frame}{二値の場合}
+\begin{frame}{二値の推定}
 \footnotesize
 $B = \{0,1\}$の状況を考える。以下のように$p_0(x),\,p_1(x)$を定義する。
 
@@ -268,19 +272,20 @@ $p(s)\coloneq \Pr(S=s)$,
 $p(x\mid s) \coloneq \Pr(X=x\mid S=s),\, p(\symbf{x}\mid s)\coloneq \prod_k p(x_k\mid s)$とすると、
 \begin{align*}
 \Pr\left(E(\symbf{X}) \ne S\right)
-&= \Pr\left(p(S) p(\symbf{X}\mid S) < p(\overline{S}) p(\symbf{X}\mid \overline{S})\right)\\
-&= \Pr\left(\emm{\sum_k \log\frac{p(X_k\mid S)}{p(X_k\mid \overline{S})}} < \log\frac{p(\overline{S})}{p(S)}\right).
+&= \Pr\left(p(S) p(\symbf{X}\mid S) \le p(\overline{S}) p(\symbf{X}\mid \overline{S})\right)\\
+&= \Pr\left(\emm{\sum_k \log\frac{p(X_k\mid S)}{p(X_k\mid \overline{S})}} \le \log\frac{p(\overline{S})}{p(S)}\right).
 \end{align*}
+(不等号が等号の場合は$1/2$の確率でエラーになるが、簡単のためそれはエラーと数えることにする)。
 \end{frame}
 
 \begin{frame}{平均誤り確率の漸近的挙動}
 \footnotesize
 \begin{align*}
-\Pr\left(\emm{\sum_k \log\frac{p(X_k\mid S)}{p(X_k\mid \overline{S})}} < \log\frac{p(\overline{S})}{p(S)}\right)
+\Pr\left(\emm{\sum_k \log\frac{p(X_k\mid S)}{p(X_k\mid \overline{S})}} \le \log\frac{p(\overline{S})}{p(S)}\right)
 &=
-\lambda \Pr\left(\emm{\sum_k \log\frac{p(X_k\mid 0)}{p(X_k\mid 1)}} < \log\frac{p(1)}{p(0)}\mid S=0\right)\\
+\lambda \Pr\left(\emm{\sum_k \log\frac{p(X_k\mid 0)}{p(X_k\mid 1)}} \le \log\frac{1-\lambda}{\lambda}\mid S=0\right)\\
 &+
-(1-\lambda) \Pr\left(\emm{\sum_k \log\frac{p(X_k\mid 1)}{p(X_k\mid 0)}} < \log\frac{p(0)}{p(1)}\mid S=1\right)
+(1-\lambda) \Pr\left(\emm{\sum_k \log\frac{p(X_k\mid 1)}{p(X_k\mid 0)}} \le \log\frac{\lambda}{1-\lambda}\mid S=1\right)
 \end{align*}
 この確率はクラメールの定理で漸近評価できる。
 
@@ -292,8 +297,25 @@ $p(x\mid s) \coloneq \Pr(X=x\mid S=s),\, p(\symbf{x}\mid s)\coloneq \prod_k p(x_
 \end{frame}
 
 \begin{frame}{課題}
+\small
+$A=\{0,1,2\},\,B=\{0, 1\}$とし、
+\begin{align*}
+\Pr(S = 0) &= 1/4&
+\Pr(S = 1) &= 3/4\\
+\Pr(X=0\mid S=0) &= 1/6&
+\Pr(X=1\mid S=0) &= 2/6&
+\Pr(X=2\mid S=0) &= 3/6\\
+\Pr(X=0\mid S=1) &= 3/6&
+\Pr(X=1\mid S=1) &= 1/6&
+\Pr(X=2\mid S=1) &= 2/6\\
+\end{align*}
+とするとき、以下の問に答えよ。
+\vspace{1em}
 \begin{itemize}
-\item あ
+\setlength{\itemsep}{1em}
+\item $X$から$S$を最大事後確率推定する関数$E_{\mathrm{MAP}}\colon A\to B$と最尤推定する関数$E_{\mathrm{ML}}\colon A\to B$をもとめよ。
+%事後確率や尤度が等しい場合ものが複数ある場合は一様に選ぶことにせよ。
+\item $X$から$S$を最大事後確率推定した場合の誤り確率をもとめよ。
 \end{itemize}
 \end{frame}
 
