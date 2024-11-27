@@ -174,13 +174,13 @@ $\Pr(S=0)=\lambda$, $\Pr(S=1)=1-\lambda$とする。
 このとき
 %平均誤り確率は
 \begin{align*}
-&\Pr(E(X) = S) - \Pr(E(X)\ne S)\\
-&= \sum_s \Pr(S=s) \Pr(E(X) = S\mid S = s)
-- \sum_s \Pr(S=s) \Pr(E(X) \ne S\mid S = s)\\
-&=\sum_{x\in E^{-1}(0)} \lambda p_0(x) + \sum_{x\in E^{-1}(1)} (1-\lambda)p_1(x)\\
-&\quad -\left(\sum_{x\in E^{-1}(1)} \lambda p_0(x) + \sum_{x\in E^{-1}(0)} (1-\lambda)p_1(x)\right)\\
-&=\sum_{x\in E^{-1}(0)} (\lambda p_0(x) - (1-\lambda)p_1(x))
--\left(\sum_{x\in E^{-1}(1)} (\lambda p_0(x) - (1-\lambda)p_1(x))\right)\\
+&\Pr(E_{\mathrm{MAP}}(X) = S) - \Pr(E_{\mathrm{MAP}}(X)\ne S)\\
+&= \sum_s \Pr(S=s) \Pr(E_{\mathrm{MAP}}(X) = S\mid S = s)
+- \sum_s \Pr(S=s) \Pr(E_{\mathrm{MAP}}(X) \ne S\mid S = s)\\
+&=\sum_{x\in E_{\mathrm{MAP}}^{-1}(0)} \lambda p_0(x) + \sum_{x\in E_{\mathrm{MAP}}^{-1}(1)} (1-\lambda)p_1(x)\\
+&\quad -\left(\sum_{x\in E_{\mathrm{MAP}}^{-1}(1)} \lambda p_0(x) + \sum_{x\in E_{\mathrm{MAP}}^{-1}(0)} (1-\lambda)p_1(x)\right)\\
+&=\sum_{x\in E_{\mathrm{MAP}}^{-1}(0)} (\lambda p_0(x) - (1-\lambda)p_1(x))
+-\left(\sum_{x\in E_{\mathrm{MAP}}^{-1}(1)} (\lambda p_0(x) - (1-\lambda)p_1(x))\right)\\
 &=\emm{\sum_{x\in A} \left|\lambda p_0(x) - (1-\lambda)p_1(x)\right|}
 \end{align*}
 \end{frame}
@@ -271,7 +271,7 @@ $p,\, q\in\mathcal{P}$についてその全変動距離$\dtv(p,\,q)$を以下で
 $p(s)\coloneq \Pr(S=s)$,
 $p(x\mid s) \coloneq \Pr(X=x\mid S=s),\, p(\symbf{x}\mid s)\coloneq \prod_k p(x_k\mid s)$とすると、
 \begin{align*}
-\Pr\left(E(\symbf{X}) \ne S\right)
+\Pr\left(E_{\mathrm{MAP}}(\symbf{X}) \ne S\right)
 &= \Pr\left(p(S) p(\symbf{X}\mid S) \le p(\overline{S}) p(\symbf{X}\mid \overline{S})\right)\\
 &= \Pr\left(\emm{\sum_k \log\frac{p(X_k\mid S)}{p(X_k\mid \overline{S})}} \le \log\frac{p(\overline{S})}{p(S)}\right).
 \end{align*}
