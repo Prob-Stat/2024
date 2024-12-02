@@ -97,9 +97,9 @@
 \begin{block}{問題}
 尤度関数$\Pr(X = x\mid S=s)$が既知である。
 与えられた$x\in A$から$s\in \{0,1\}$を推定したい。
-検定関数$E\colon A\to \{0,1\}$の
-第一種誤り確率は$\alpha_E\coloneq\Pr(E(X) = 1\mid S= 0)$、
-第二種誤り確率は$\beta_E\coloneq\Pr(E(X) = 0\mid S= 1)$
+検定関数$E\colon A\to [0,1]$の
+第一種誤り確率は$\alpha_E\coloneq\expt{E(X)\mid S= 0}$、
+第二種誤り確率は$\beta_E\coloneq 1-\expt{E(X)\mid S= 1}$
 で定義される。
 \end{block}
 
@@ -120,6 +120,7 @@
 \end{frame}
 
 \begin{frame}{二種類の誤り確率}
+\small
 \centering
 \begin{tikzpicture}
   \fill[blue!20, domain=180:270, samples=100] plot ({5*cos(\x) + 5}, {5*sin(\x) + 5}) -- (5,5) -- cycle;
@@ -132,11 +133,12 @@
 
 実現可能な$(\alpha_E,\beta_E)$の集合
 \begin{align*}
-\left\{(\alpha_E,\beta_E)\mid E\right\}
+\left\{(\alpha_E,\beta_E)\mid E\colon A\to[0,1]\right\}
 \end{align*}
 は凸集合である。
 
 二つの検定関数$E_1$と$E_2$の確率混合$\lambda E_1(x) + (1-\lambda) E_2(x)$は
+やはり検定関数で
 \end{frame}
 
 \begin{frame}{尤度比検定}
