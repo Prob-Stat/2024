@@ -75,6 +75,7 @@
 \setlength{\itemsep}{2em}
 \item 開発中の薬に効果があるかないか。
 \item 患者が病気かどうか。
+\item サイコロに偏りがあるかどうか。
 \end{itemize}
 \end{frame}
 
@@ -82,23 +83,41 @@
 \begin{itemize}
 \setlength{\itemsep}{2em}
 \item 対立仮説
-\item 帰無仮説
+\begin{itemize}
+\setlength{\itemsep}{1em}
+\item 開発中の薬に効果がある。
+\item 患者が病気である。
+\item サイコロに偏りがある。
 \end{itemize}
+\item 帰無仮説
+\begin{itemize}
+\setlength{\itemsep}{1em}
+\item 開発中の薬に効果がない。
+\item 患者が病気でない。
+\item サイコロに偏りがない。
+\end{itemize}
+\end{itemize}
+
+\vspace{2em}
+帰無仮説を\emm{採択}or\emm{棄却}する。
+
+対立仮説を採択or棄却するのではない。
 \end{frame}
 
-\begin{frame}{数学的な問題設定}
-\small
+\begin{frame}{単純化した問題設定}
+\footnotesize
 
 以下では$s=0$が帰無仮説、$s=1$が対立仮説に対応しているとする。
 
 検定関数$E\colon A\to\{0,1\}$は$E(x)=0$のとき帰無仮説を採択、$E(x)=1$のとき帰無仮説を棄却することを表す。
 以下では\emm{確率的な検定関数}$E\colon A\to [0,1]$を考える。$E(x)\in[0,1]$は帰無仮説を\emm{棄却する確率}を表す。
+(一般的には帰無仮説も対立仮説も分布の\emm{集合}となるが、ここではそれぞれ一つの分布であることに注意する)
 
 \begin{block}{問題}
 尤度関数$\Pr(X = x\mid S=s)$が既知である。
 与えられた$x\in A$から$s\in \{0,1\}$を推定したい。
 検定関数$E\colon A\to [0,1]$の
-第一種誤り確率は$\alpha_E\coloneq\expt{E(X)\mid S= 0}$、
+第一種誤り確率(有意水準)は$\alpha_E\coloneq\expt{E(X)\mid S= 0}$、
 第二種誤り確率は$\beta_E\coloneq 1-\expt{E(X)\mid S= 1}$
 で定義される。
 \end{block}
@@ -113,8 +132,8 @@
 %\item $\alpha_E = \alpha$.
 %\item $\beta_E = \min\{ \beta_{E'}\mid E', \alpha_{E'}\ge \alpha\}$.
 %\end{enumerate}
-検定関数$E\colon A\to \{0,1\}$がの最強力検定$\defiff$
-任意の$F\colon A\to\{0,1\}$について$\alpha_{F}\ge \alpha_E$もしくは$\beta_{F}\ge \beta_E$が成り立つ。
+検定関数$E\colon A\to \{0,1\}$が有意水準$\alpha\in[0,1]$の最強力検定$\defiff$$\alpha_E=\alpha$であり、
+任意の$F\colon A\to\{0,1\}$について$\alpha_{F}\le \alpha$ならば$\beta_{F}\ge \beta_E$が成り立つ。
 \end{definition}
 
 \end{frame}
@@ -123,22 +142,34 @@
 \small
 \centering
 \begin{tikzpicture}
-  \fill[blue!20, domain=180:270, samples=100] plot ({5*cos(\x) + 5}, {5*sin(\x) + 5}) -- (5,5) -- cycle;
+  \begin{scope}
+    \clip (0,0) -- (5, 0) arc (0:90:5) -- cycle;
+    \clip (5,5) -- (0, 5) arc (180:270:5) -- cycle;
+    \fill[blue!30] (0,0) rectangle (5,5);
+  \end{scope}
+
   
   \draw[thick, blue, domain=180:270, samples=100, very thick] plot ({5*cos(\x)+5}, {5*sin(\x)+5}) node[right] {};
+  \draw[thick, blue, domain=0:90, samples=100, very thick] plot ({5*cos(\x)+0}, {5*sin(\x)+0}) node[right] {};
 
-  \draw[->,very thick] node[below] {0} (-0,0) -- (5,0) node[below] {$\alpha$};
-  \draw[->,very thick] (0,-0) -- (0,5) node[left] {$\beta$};
+  \draw[->,very thick] node[below] {0} (-0,0) -- (5,0) node[below] {$1$} node[midway,below] {$\alpha$};
+  \draw[->,very thick] (0,-0) -- (0,5) node[left] {$1$} node[midway,left] {$\beta$};
 \end{tikzpicture}
 
-実現可能な$(\alpha_E,\beta_E)$の集合
-\begin{align*}
-\left\{(\alpha_E,\beta_E)\mid E\colon A\to[0,1]\right\}
-\end{align*}
+\footnotesize
+実現可能な$(\alpha,\beta)$の集合
+%\begin{align*}
+$\left\{(\alpha_E,\beta_E)\mid E\colon A\to[0,1]\right\}$
+%\end{align*}
 は凸集合である。
 
 二つの検定関数$E_1$と$E_2$の確率混合$\lambda E_1(x) + (1-\lambda) E_2(x)$は
-やはり検定関数で
+やはり検定関数で誤り確率も凸結合したものになる。
+
+\vspace{1em}
+$(\alpha, \beta)$が実現可能 $\iff$ $(1-\alpha, 1-\beta)$も実現可能
+
+$1-E(x)$を考えればよい。
 \end{frame}
 
 \begin{frame}{尤度比検定}
@@ -153,7 +184,7 @@ E_{\mathrm{MAP}}(x)&=
 が最適な検定関数となる。
 
 \vspace{2em}
-一般的に$\eta\in\mathbb{R}_{\ge 0},\,\kappa\in[0,1]$について
+一般的に$\eta\ge 0,\,\kappa\in[0,1]$について
 \begin{align*}
 E(x)&=
 \begin{cases}
@@ -174,7 +205,7 @@ E(x)&=
 任意の尤度比検定は最強力検定である。
 \end{lemma}
 \begin{proof}
-尤度比検定$E$における尤度比の閾値を$\eta\in\mathbb{R}_{\ge 0}$とする。
+尤度比検定$E$における尤度比の閾値を$\eta\ge 0$とする。
 \begin{align*}
 p_0(x) &\coloneq \Pr(X = x\mid S = 0)&
 p_1(x) &\coloneq \Pr(X = x\mid S = 1)
@@ -273,6 +304,7 @@ $E$を尤度比検定関数で$\kappa=1$とする。
 $\limsup_{N\to\infty} \frac1N \log\beta_{E_N} \le -\KL{p_0}{p_1}$.
 \end{frame}
 
+\if0
 \begin{frame}{ベイズ推定の誤り指数}
 \begin{align*}
 \alpha_{E_{\mathrm{MAP}}} &= \Pr\left(\frac1N\sum_{k=1}^N\log \frac{p_0(X_k)}{p_1(X_k)} \le \frac1N\log\frac{\Pr(S=1)}{\Pr(S=0)}\mid S = 0\right)\\
@@ -281,39 +313,57 @@ $\limsup_{N\to\infty} \frac1N \log\beta_{E_N} \le -\KL{p_0}{p_1}$.
 &= \Pr\left(\KL{P_{\symbf{X}}}{p_1} - \KL{P_{\symbf{X}}}{p_0} > \frac1N\log\frac{\Pr(S=1)}{\Pr(S=0)}\mid S = 1\right)
 \end{align*}
 \end{frame}
+\fi
 
 \begin{frame}{連続確率変数の場合}
 \begin{itemize}
 \setlength{\itemsep}{2em}
-\item $x\in A$: データ、知っているもの
-\item $\theta \in \Theta\colon$ パラメータ、母数、推定したいもの$\Theta\subseteq\mathbb{R}$とか$\Theta\subseteq\mathbb{R}^n$とか。
+\item $x\in A$: データ、知っているもの、$A\subseteq \mathbb{R}$とか$A\subseteq\mathbb{R}^n$とか。
+%\item $\emm{\theta \in \Theta}\colon$ パラメータ、母数、知りたいもの。
+%$\Theta\subseteq\mathbb{R}$とか$\Theta\subseteq\mathbb{R}^n$とか。
 %\item $s\in B$: パラメータ、推定したいもの(今日は離散の場合を考える。連続のときは$\theta$という記号を使うことが多い)
-\item $p(\theta)$: 事前分布の密度関数
-\item $p(x \mid \theta)$: 尤度(条件付き密度関数)
-\item $p(\theta \mid x)$: 事後密度関数
+\item $s\in B$: パラメータ、知りたいもの、$B$は有限集合とする
+\item $\Pr(S=s)$: 事前分布
+\item $p(x \mid s)$: 尤度(条件付き確率密度関数)
+\item $p(s \mid x)\coloneq p(x\mid s)\Pr(S=s) / p(x)$: 事後確率
 \end{itemize}
+\begin{align*}
+\Pr(X\in B,\, S=s) &= \int_B  p(x\mid s)\Pr(S=s)\mathrm{d}x\\
+p(x) &= \sum_{s\in B} p(x\mid s)\Pr(S=s)
+\end{align*}
 \end{frame}
 
 \begin{frame}{連続確率変数の場合のMAP,ML推定}
 最大事後確率推定 (Maximum a posteriori probability estimation)
 \begin{align*}
-E_{\mathrm{MAP}}(x)\coloneq\emm{\argmax_{\theta\in\Theta} p(\theta\mid x)}
+E_{\mathrm{MAP}}(x)\coloneq\emm{\argmax_{s\in B} p(s\mid x)}
 \end{align*}
-平均誤り確率を最小化する。事前分布を知らないと使えない。
+\emm{平均誤り確率を最小化する}。事前分布を知らないと使えない。
 
 \vspace{1.5em}
 最尤推定 (Maximum likelihood estimation)
 \begin{align*}
-E_{\mathrm{ML}}(x)\coloneq\emm{\argmax_{\theta\in\Theta} p(x\mid \theta)}
+E_{\mathrm{ML}}(x)\coloneq\emm{\argmax_{s\in B} p(x\mid s)}
 \end{align*}
 平均誤り確率については何も言えない。事前分布を知らなくても使える。
 
 \vspace{1.5em}
-事前分布が一様分布のとき($\Theta$が有界のときしか定義できない)、最尤推定と最大事後確率推定は等しい。
+事前分布が一様分布のとき、最尤推定と最大事後確率推定は等しい。
 \end{frame}
 
 \begin{frame}{連続確率変数の場合の尤度比検定}
-一般的に$\eta\in\mathbb{R}_{\ge 0},\,\kappa\in[0,1]$について
+事前分布が分かっている場合、
+\begin{align*}
+E_{\mathrm{MAP}}(x)&=
+\begin{cases}
+0&\text{if } \frac{p(x\mid \theta_0)}{p(x\mid \theta_1)} \ge \frac{\Pr(S = \theta_1)}{\Pr(S = \theta_0)}\\
+1&\text{otherwise.}
+\end{cases}
+\end{align*}
+が最適な検定関数となる。
+
+\vspace{1em}
+一般的に$\eta\ge 0,\,\kappa\in[0,1]$について
 \begin{align*}
 E(x)&=
 \begin{cases}
@@ -339,32 +389,33 @@ p(x\mid \theta_1) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\theta_1)
 \frac{p(x\mid \theta_0)}{p(x\mid \theta_1)} &= \mathrm{e}^{\frac{2(\theta_0-\theta_1)x+\theta_1^2-\theta_0^2}{2\sigma^2}}
 \end{align*}
 \begin{align*}
-\log\frac{p(\symbf{x}\mid \theta_0)}{p(\symbf{x}\mid \theta_1)} &= N\frac{\sigma_1^2-\sigma_0^2}{2\sigma^2} + \frac{\theta_0-\theta_1}{\sigma^2}\sum_{k=1}^N x_k
+\log\frac{p(\symbf{x}\mid \theta_0)}{p(\symbf{x}\mid \theta_1)} &= N\frac{\theta_1^2-\theta_0^2}{2\sigma^2} + \frac{\theta_0-\theta_1}{\sigma^2}\emm{\sum_{k=1}^N x_k}
 \end{align*}
 なので$\sum_k x_k$の大きさを見て検定することになる。
 \end{frame}
 
 \begin{frame}{課題}
 \small
-$A=\{0,1,2\},\,B=\{0, 1\}$とし、
+$A=\{0,\,1\},\, B=\left\{p_0=\frac12,\,p_1=\frac13\right\}$とし、$k\in\{0,\,1\}$について
 \begin{align*}
-\Pr(S = 0) &= 1/4&
-\Pr(S = 1) &= 3/4\\
-\Pr(X=0\mid S=0) &= 1/6&
-\Pr(X=1\mid S=0) &= 2/6&
-\Pr(X=2\mid S=0) &= 3/6\\
-\Pr(X=0\mid S=1) &= 3/6&
-\Pr(X=1\mid S=1) &= 1/6&
-\Pr(X=2\mid S=1) &= 2/6\\
+\Pr(X = 0 \mid S = p_k) &= 1-p_k&
+\Pr(X = 1 \mid S = p_k) &= p_k
 \end{align*}
 とするとき、以下の問に答えよ。
 \vspace{1em}
 \begin{enumerate}
 \setlength{\itemsep}{1em}
-\item $X$から$S$を最大事後確率推定する関数$E_{\mathrm{MAP}}\colon A\to B$と最尤推定する関数$E_{\mathrm{ML}}\colon A\to B$をもとめよ。
-%事後確率や尤度が等しい場合ものが複数ある場合は一様に選ぶことにせよ。
-\item $X$から$S$を最大事後確率推定した場合の平均誤り確率をもとめよ。
-\item $X$から$S$を最尤推定した場合の平均誤り確率をもとめよ。
+\item $\eta\ge 0,\,\kappa\in[0,1]$について、以下の尤度比検定$E$の誤り確率$\alpha_E$, $\beta_E$をもとめよ。$\eta$の値で場合分けなどしてもとめること。
+\begin{align*}
+E(x)&=
+\begin{cases}
+\vspace{.5em}
+0&\text{if } \frac{\Pr(X = x\mid S = p_0)}{\Pr(X = x\mid S = p_1)} > \eta\\\vspace{.5em}
+1&\text{if } \frac{\Pr(X = x\mid S = p_0)}{\Pr(X = x\mid S = p_1)} < \eta\\
+\kappa&\text{otherwise.}
+\end{cases}
+\end{align*}
+\item 任意の検定関数$E\colon A\to[0,1]$で実現可能な$(\alpha_E,\, \beta_E)$の範囲を図示せよ。
 \end{enumerate}
 \end{frame}
 
