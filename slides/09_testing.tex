@@ -173,6 +173,11 @@ E(x)&=
 \end{lemma}
 \begin{proof}
 尤度比検定$E$における尤度比の閾値を$\eta\in\mathbb{R}_{\ge 0}$とする。
+\begin{align*}
+p_0(x) &\coloneq \Pr(X = x\mid S = 0)&
+p_1(x) &\coloneq \Pr(X = x\mid S = 1)
+\end{align*}
+とする。
 %$L\coloneq\left\{x\in A\mid \frac{p_0(x)}{p_1(x)}\ge \eta\right\}$とおくと、
 任意の$F\colon A\to[0,1]$について
 \begin{align*}
@@ -185,12 +190,31 @@ E(x)&=
 \end{proof}
 \end{frame}
 
+\begin{frame}{$N$回独立にサンプルする場合の尤度比検定}
+\begin{align*}
+\Pr(\symbf{X}=\symbf{x}\mid S = s) &= \prod_{k=1}^N \Pr(X_k=x_k\mid S = s)
+\end{align*}
+\begin{align*}
+\log \frac{\Pr(\symbf{X}=\symbf{x}\mid S = 0)}{\Pr(\symbf{X}=\symbf{x}\mid S = 1)}
+&=
+\log \prod_{k=1}^N \frac{\Pr(X_k=x_k\mid S = 0)}{\Pr(X_k=x_k\mid S = 1)}\\
+&=
+\sum_{k=1}^N \log \frac{\Pr(X_k=x_k\mid S = 0)}{\Pr(X_k=x_k\mid S = 1)}\\
+&=
+N\sum_{x\in A} P_{\symbf{x}}(x) \log \frac{\Pr(X=x\mid S = 0)}{\Pr(X=x\mid S = 1)}\\
+&=
+N\sum_{x\in A} P_{\symbf{x}}(x) \log \frac{p_0(x)P_{\symbf{x}}(x)}{p_1(x)P_{\symbf{x}}(x)}\\
+&=
+N\left(\emm{\KL{P_{\symbf{x}}}{p_1} - \KL{P_{\symbf{x}}}{p_0}}\right)
+\end{align*}
+\end{frame}
+
 \begin{frame}{漸近的な誤り確率 1/3}
 \footnotesize
-\begin{theorem}[ステインの補題]
+\begin{theorem}[シュタインの補題]
 $\KL{p_0}{p_1}<\infty$とする。$\epsilon\in(0,1)$について
 \begin{align*}
-\beta_N^{\emm{\epsilon}} \coloneq \min_{\substack{E\colon A^N\to[0,1]\\ \alpha_E<{\emm{\epsilon}}}} \beta_E
+\beta_N^{\emm{\epsilon}} \coloneq \min_{\substack{E\colon A^N\to[0,1]\\ \alpha_E\le{\emm{\epsilon}}}} \beta_E
 \end{align*}
 とすると、任意の$\epsilon\in(0,1)$について
 \begin{align*}
@@ -226,17 +250,17 @@ $E$を尤度比検定関数で$\kappa=1$とする。
 \KL{p_0}{p_1} &= \sum_{x} p_0(x) \log\frac{p_0(x)}{p_1(x)}\qquad\text{if } S = 0\\
 -\KL{p_1}{p_0} &= \sum_{x} p_1(x) \log\frac{p_0(x)}{p_1(x)}\qquad\text{if } S = 1
 \end{align*}
-に集中する。よって$\frac1N\log\eta = \KL{p_0}{p_1} - \delta$ とすると$\alpha_E\to 0$である。
+に集中する。よって$E_N$において$\frac1N\log\eta = \KL{p_0}{p_1} - \delta$ とすると$\alpha_{E_N}\to 0$である。
 \end{frame}
 
 \begin{frame}{漸近的な誤り確率 3/3}
 \small
 \begin{align*}
 \beta_{E_N} &= \Pr\left(\frac1N\sum_{k=1}^N\log \frac{p_0(X_k)}{p_1(X_k)} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
- &= \Pr\left(\sum_{x\in A}P_{\symbf{x}}(x)\log \frac{p_0(x)}{p_1(x)} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
- &= \Pr\left(\sum_{x\in A}P_{\symbf{x}}(x)\log \frac{p_0(x)P_{\symbf{x}}(x)}{p_1(x)P_{\symbf{x}}(x)} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
-&= \Pr\left(\KL{P_X}{p_1} - \KL{P_X}{p_0} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
-&\le \Pr\left(\KL{P_X}{p_1} > \KL{p_0}{p_1}-\delta \mid S = 1\right)
+% &= \Pr\left(\sum_{x\in A}P_{\symbf{x}}(x)\log \frac{p_0(x)}{p_1(x)} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
+% &= \Pr\left(\sum_{x\in A}P_{\symbf{x}}(x)\log \frac{p_0(x)P_{\symbf{x}}(x)}{p_1(x)P_{\symbf{x}}(x)} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
+&= \Pr\left(\KL{P_{\symbf{X}}}{p_1} - \KL{P_{\symbf{X}}}{p_0} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
+&\le \Pr\left(\KL{P_{\symbf{X}}}{p_1} > \KL{p_0}{p_1}-\delta \mid S = 1\right)
 %&\le \mathrm{e}^{-(\KL{p_0}{p_1}-\delta)N}
 \end{align*}
 よってサノフの定理より
@@ -249,10 +273,73 @@ $\limsup_{N\to\infty} \frac1N \log\beta_{E_N} \le -\KL{p_0}{p_1}$.
 
 \begin{frame}{ベイズ推定の誤り指数}
 \begin{align*}
-\alpha_E &= \Pr\left(\frac1N\sum_{k=1}^N\log \frac{p_0(X_k)}{p_1(X_k)} \le \frac1N\log\frac{\Pr(S=1)}{\Pr(S=0)}\mid S = 0\right)\\
+\alpha_{E_{\mathrm{MAP}}} &= \Pr\left(\frac1N\sum_{k=1}^N\log \frac{p_0(X_k)}{p_1(X_k)} \le \frac1N\log\frac{\Pr(S=1)}{\Pr(S=0)}\mid S = 0\right)\\
 &= \Pr\left(\KL{P_{\symbf{X}}}{p_1} - \KL{P_{\symbf{X}}}{p_0} \le \frac1N\log\frac{\Pr(S=1)}{\Pr(S=0)}\mid S = 0\right)\\
-\beta_E &= \Pr\left(\frac1N\sum_{k=1}^N\log \frac{p_0(X_k)}{p_1(X_k)} > \frac1N\log\frac{\Pr(S=1)}{\Pr(S=0)}\mid S = 1\right)
+\beta_{E_{\mathrm{MAP}}} &= \Pr\left(\frac1N\sum_{k=1}^N\log \frac{p_0(X_k)}{p_1(X_k)} > \frac1N\log\frac{\Pr(S=1)}{\Pr(S=0)}\mid S = 1\right)\\
+&= \Pr\left(\KL{P_{\symbf{X}}}{p_1} - \KL{P_{\symbf{X}}}{p_0} > \frac1N\log\frac{\Pr(S=1)}{\Pr(S=0)}\mid S = 1\right)
 \end{align*}
+\end{frame}
+
+\begin{frame}{連続確率変数の場合}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item $x\in A$: データ、知っているもの
+\item $\theta \in \Theta\colon$ パラメータ、母数、推定したいもの$\Theta\subseteq\mathbb{R}$とか$\Theta\subseteq\mathbb{R}^n$とか。
+%\item $s\in B$: パラメータ、推定したいもの(今日は離散の場合を考える。連続のときは$\theta$という記号を使うことが多い)
+\item $p(\theta)$: 事前分布の密度関数
+\item $p(x \mid \theta)$: 尤度(条件付き密度関数)
+\item $p(\theta \mid x)$: 事後密度関数
+\end{itemize}
+\end{frame}
+
+\begin{frame}{連続確率変数の場合のMAP,ML推定}
+最大事後確率推定 (Maximum a posteriori probability estimation)
+\begin{align*}
+E_{\mathrm{MAP}}(x)\coloneq\emm{\argmax_{\theta\in\Theta} p(\theta\mid x)}
+\end{align*}
+平均誤り確率を最小化する。事前分布を知らないと使えない。
+
+\vspace{1.5em}
+最尤推定 (Maximum likelihood estimation)
+\begin{align*}
+E_{\mathrm{ML}}(x)\coloneq\emm{\argmax_{\theta\in\Theta} p(x\mid \theta)}
+\end{align*}
+平均誤り確率については何も言えない。事前分布を知らなくても使える。
+
+\vspace{1.5em}
+事前分布が一様分布のとき($\Theta$が有界のときしか定義できない)、最尤推定と最大事後確率推定は等しい。
+\end{frame}
+
+\begin{frame}{連続確率変数の場合の尤度比検定}
+一般的に$\eta\in\mathbb{R}_{\ge 0},\,\kappa\in[0,1]$について
+\begin{align*}
+E(x)&=
+\begin{cases}
+\vspace{.5em}
+0&\text{if } \frac{p(x\mid \theta_0)}{p(x\mid \theta_1)} > \eta\\\vspace{.5em}
+1&\text{if } \frac{p(x\mid \theta_0)}{p(x\mid \theta_1)} < \eta\\
+\kappa&\text{otherwise.}
+\end{cases}
+\end{align*}
+という形の検定関数を用いた仮説検定を\emm{尤度比検定}という。
+
+\vspace{2em}
+ネイマン・ピアソンの補題も成り立つ。
+\end{frame}
+
+\begin{frame}{分散が同じで既知な正規分布の尤度比検定}
+\begin{align*}
+p(x\mid \theta_0) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\theta_0)^2}{2\sigma^2}}\\
+p(x\mid \theta_1) &= \frac1{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{(x-\theta_1)^2}{2\sigma^2}}
+\end{align*}
+のとき、
+\begin{align*}
+\frac{p(x\mid \theta_0)}{p(x\mid \theta_1)} &= \mathrm{e}^{\frac{2(\theta_0-\theta_1)x+\theta_1^2-\theta_0^2}{2\sigma^2}}
+\end{align*}
+\begin{align*}
+\log\frac{p(\symbf{x}\mid \theta_0)}{p(\symbf{x}\mid \theta_1)} &= N\frac{\sigma_1^2-\sigma_0^2}{2\sigma^2} + \frac{\theta_0-\theta_1}{\sigma^2}\sum_{k=1}^N x_k
+\end{align*}
+なので$\sum_k x_k$の大きさを見て検定することになる。
 \end{frame}
 
 \begin{frame}{課題}
