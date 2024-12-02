@@ -184,7 +184,7 @@ E_{\mathrm{MAP}}(x)&=
 が最適な検定関数となる。
 
 \vspace{2em}
-一般的に$\eta\ge 0,\,\kappa\in[0,1]$について
+一般的に$\eta> 0,\,\kappa\in[0,1]$について
 \begin{align*}
 E(x)&=
 \begin{cases}
@@ -205,7 +205,7 @@ E(x)&=
 任意の尤度比検定は最強力検定である。
 \end{lemma}
 \begin{proof}
-尤度比検定$E$における尤度比の閾値を$\eta\ge 0$とする。
+尤度比検定$E$における尤度比の閾値を$\eta> 0$とする。
 \begin{align*}
 p_0(x) &\coloneq \Pr(X = x\mid S = 0)&
 p_1(x) &\coloneq \Pr(X = x\mid S = 1)
@@ -219,7 +219,7 @@ p_1(x) &\coloneq \Pr(X = x\mid S = 1)
 \implies&\alpha_F - \alpha_E - \eta (1-\beta_F)  + \eta (1-\beta_E)\ge 0\\
 \iff&(\alpha_F - \alpha_E) + \eta(\beta_F-\beta_E)\ge 0.
 \end{align*}
-よって$\alpha_F\ge\alpha_E$もしくは$\beta_F\ge\beta_E$である。
+よって$\alpha_F\le\alpha_E$ならば$\beta_F\ge\beta_E$である。
 \end{proof}
 \end{frame}
 
@@ -363,7 +363,7 @@ E_{\mathrm{MAP}}(x)&=
 が最適な検定関数となる。
 
 \vspace{1em}
-一般的に$\eta\ge 0,\,\kappa\in[0,1]$について
+一般的に$\eta> 0,\,\kappa\in[0,1]$について
 \begin{align*}
 E(x)&=
 \begin{cases}
@@ -405,7 +405,7 @@ $A=\{0,\,1\},\, B=\left\{p_0=\frac12,\,p_1=\frac13\right\}$とし、$k\in\{0,\,1
 \vspace{1em}
 \begin{enumerate}
 \setlength{\itemsep}{1em}
-\item $\eta\ge 0,\,\kappa\in[0,1]$について、以下の尤度比検定$E$の誤り確率$\alpha_E$, $\beta_E$をもとめよ。$\eta$の値で場合分けなどしてもとめること。
+\item $\eta> 0,\,\kappa\in[0,1]$について、以下の尤度比検定$E$の誤り確率$\alpha_E$, $\beta_E$をもとめよ。$\eta$の値で場合分けなどしてもとめること。
 \begin{align*}
 E(x)&=
 \begin{cases}
