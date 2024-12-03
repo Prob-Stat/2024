@@ -279,11 +279,11 @@ p_1(x) &\coloneq \Pr(X = x\mid S = 1)
 &=
 \sum_{k=1}^N \log \frac{\Pr(X_k=x_k\mid S = 0)}{\Pr(X_k=x_k\mid S = 1)}\\
 &=
-N\sum_{x\in A} P_{\symbf{x}}(x) \log \frac{\Pr(X=x\mid S = 0)}{\Pr(X=x\mid S = 1)}\\
+N\sum_{x\in A} \widehat{P}_{\symbf{x}}(x) \log \frac{\Pr(X=x\mid S = 0)}{\Pr(X=x\mid S = 1)}\\
 &=
-N\sum_{x\in A} P_{\symbf{x}}(x) \log \frac{p_0(x)P_{\symbf{x}}(x)}{p_1(x)P_{\symbf{x}}(x)}\\
+N\sum_{x\in A} \widehat{P}_{\symbf{x}}(x) \log \frac{p_0(x)\widehat{P}_{\symbf{x}}(x)}{p_1(x)\widehat{P}_{\symbf{x}}(x)}\\
 &=
-N\left(\emm{\KL{P_{\symbf{x}}}{p_1} - \KL{P_{\symbf{x}}}{p_0}}\right)
+N\left(\emm{\KL{\widehat{P}_{\symbf{x}}}{p_1} - \KL{\widehat{P}_{\symbf{x}}}{p_0}}\right)
 \end{align*}
 \end{frame}
 
@@ -337,8 +337,8 @@ $E$を尤度比検定関数で$\kappa=1$とする。
 \beta_{E_N} &= \Pr\left(\frac1N\sum_{k=1}^N\log \frac{p_0(X_k)}{p_1(X_k)} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
 % &= \Pr\left(\sum_{x\in A}P_{\symbf{x}}(x)\log \frac{p_0(x)}{p_1(x)} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
 % &= \Pr\left(\sum_{x\in A}P_{\symbf{x}}(x)\log \frac{p_0(x)P_{\symbf{x}}(x)}{p_1(x)P_{\symbf{x}}(x)} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
-&= \Pr\left(\KL{P_{\symbf{X}}}{p_1} - \KL{P_{\symbf{X}}}{p_0} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
-&\le \Pr\left(\KL{P_{\symbf{X}}}{p_1} > \KL{p_0}{p_1}-\delta \mid S = 1\right)
+&= \Pr\left(\KL{\widehat{P}_{\symbf{X}}}{p_1} - \KL{\widehat{P}_{\symbf{X}}}{p_0} > \KL{p_0}{p_1}-\delta \mid S = 1\right)\\
+&\le \Pr\left(\KL{\widehat{P}_{\symbf{X}}}{p_1} > \KL{p_0}{p_1}-\delta \mid S = 1\right)
 %&\le \mathrm{e}^{-(\KL{p_0}{p_1}-\delta)N}
 \end{align*}
 よってサノフの定理より
