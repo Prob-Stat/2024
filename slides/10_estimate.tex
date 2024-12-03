@@ -1,0 +1,130 @@
+\documentclass[lualatex,handout]{beamer}
+\setbeamertemplate{footline}[frame number]
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+
+\usepackage{thm-restate}
+
+%\usetheme{Berlin}
+\usecolortheme{rose}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+%\usepackage[haranoaji]{luatexja-preset}
+\usepackage[deluxe,ipaex]{luatexja-preset}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+%\setmainjfont{HaranoAjiGothic-Regular}
+
+\usepackage{unicode-math}
+%\setmathfont{Fira Math}
+\setmathfont{STIX Two Math}
+\setmathfont{STIX Two Math}[range=bfup/{Latin,latin,num,Greek,greek}]
+\setmathfont{STIX Two Math}[range=bfit/{Latin,latin}]
+\setmathfont{STIX Two Math}[range={"0000-"FFFF}]
+\setmathrm{STIX Two Math}[StylisticSet=8]
+
+%\usefonttheme{professionalfonts}
+
+\usepackage{luacolor}
+
+\newcommand{\mycolor}[2]{%
+  \begingroup
+  \colorlet{currentcolor}{.}%
+  \color{#1}#2%
+  \color{currentcolor}%
+  \endgroup
+}
+\newcommand{\emm}[1]{\mycolor{red}{#1}}
+\newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
+\newcommand{\cov}[1]{\mathsf{Cov}\left[#1\right]}
+\newcommand{\vc}[1]{\mathsf{Var}\left[#1\right]}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+
+\usepackage{xspace}
+%\usepackage{bm}
+%\newcommand\bm[1]{{\mathbf{#1}}}
+\newcommand\defiff{\stackrel{\text{def}}{\iff}}
+\newcommand\dx{{\,\mathrm{d}x}}
+\newcommand\KL[2]{D\left(#1\,\|\,#2\right)}
+\newcommand\dtv{d_{\mathrm{TV}}}
+
+\theoremstyle{definition}
+
+\title{確率・統計基礎: 母数推定}
+\author{森 立平}
+\date{}
+
+
+
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+
+
+\begin{frame}{連続確率変数の場合}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item $x\in A$: データ、知っているもの、$A\subseteq \mathbb{R}$とか$A\subseteq\mathbb{R}^n$とか
+%\item $\emm{\theta \in \Theta}\colon$ パラメータ、母数、知りたいもの。
+%$\Theta\subseteq\mathbb{R}$とか$\Theta\subseteq\mathbb{R}^n$とか。
+%\item $s\in B$: パラメータ、推定したいもの(今日は離散の場合を考える。連続のときは$\theta$という記号を使うことが多い)
+\item $\theta\in \Theta$: パラメータ、\emm{母数}、知りたいもの、$\Theta\subseteq\mathbb{R}$とか$\Theta\subseteq\mathbb{R}^n$とか
+\item $p(\theta)$: 事前確率密度関数
+\item $p(x \mid \theta)$: 尤度(条件付き確率密度関数)
+\item $p(\theta \mid x)\coloneq p(x\mid \theta)p(\theta) / p(x)$: 事後確率密度関数
+\end{itemize}
+\end{frame}
+
+\begin{frame}{誤差関数}
+$\widehat{\theta}\colon A\to \Theta$
+\begin{align*}
+\expt{d(\widehat{\theta}(X), \theta)}
+&=
+\int_{A\times\Theta} d(\widehat{\theta}(x),\theta) p(x\mid\theta) p(\theta) \mathrm{d}x\mathrm{d}\theta
+\end{align*}
+\begin{align*}
+\expt{(\widehat{\theta}(X)-\theta)^2}
+&= \expt{\left(\widehat{\theta}(X)-\expt{\widehat{\theta}(X)}+\expt{\widehat{\theta}(X)}-\theta\right)^2}\\
+&= \expt{\left(\widehat{\theta}(X)-\expt{\widehat{\theta}(X)}\right)^2}+\expt{\left(\expt{\widehat{\theta}(X)}-\theta\right)^2}\\
+&\quad + 2\expt{\left(\widehat{\theta}(X)-\expt{\widehat{\theta}(X)}\right)\left(\expt{\widehat{\theta}(X)}-\theta\right)}\\
+&= \var{\widehat{\theta}(X)}+\expt{\left(\expt{\widehat{\theta}(X)}-\theta\right)^2}
+%\expt{\widehat{\theta}(X)^2 - 2\widehat{\theta}(X)\theta + \theta^2}
+\end{align*}
+\end{frame}
+
+\begin{frame}{課題}
+\small
+$A=\{0,\,1\},\, B=\left\{p_0=\frac12,\,p_1=\frac13\right\}$とし、$k\in\{0,\,1\}$について
+\begin{align*}
+\Pr(X = 0 \mid S = p_k) &= 1-p_k&
+\Pr(X = 1 \mid S = p_k) &= p_k
+\end{align*}
+とする。
+このとき、 $\eta> 0,\,\kappa\in[0,1]$について、以下の尤度比検定関数$E(x)$で仮説検定することを考える。
+\begin{align*}
+E(x)&=
+\begin{cases}
+\vspace{.5em}
+0&\text{if } \frac{\Pr(X = x\mid S = p_0)}{\Pr(X = x\mid S = p_1)} > \eta\\\vspace{.5em}
+1&\text{if } \frac{\Pr(X = x\mid S = p_0)}{\Pr(X = x\mid S = p_1)} < \eta\\
+\kappa&\text{otherwise.}
+\end{cases}
+\end{align*}
+以下の問に答えよ。
+\begin{enumerate}
+\setlength{\itemsep}{1em}
+\item $\eta=1$のとき$\alpha_E$, $\beta_E$をもとめよ。
+\item 一般の$\eta>0$と$\kappa\in[0,1]$について、誤り確率$\alpha_E$, $\beta_E$をもとめよ。$\eta$の値で場合分けしてもとめること。
+\item 任意の検定関数$E\colon A\to[0,1]$で実現可能な$(\alpha_E,\, \beta_E)$の範囲を図示せよ。
+\end{enumerate}
+\end{frame}
+
+
+\end{document}
