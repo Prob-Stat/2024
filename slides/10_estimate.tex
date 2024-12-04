@@ -83,20 +83,132 @@
 \end{frame}
 
 \begin{frame}{誤差関数}
+\small
 $\widehat{\theta}\colon A\to \Theta$
 \begin{align*}
 \expt{d(\widehat{\theta}(X), \theta)}
 &=
 \int_{A\times\Theta} d(\widehat{\theta}(x),\theta) p(x\mid\theta) p(\theta) \mathrm{d}x\mathrm{d}\theta
 \end{align*}
+\end{frame}
+
+\begin{frame}{二乗誤差}
+\small
 \begin{align*}
-\expt{(\widehat{\theta}(X)-\theta)^2}
-&= \expt{\left(\widehat{\theta}(X)-\expt{\widehat{\theta}(X)}+\expt{\widehat{\theta}(X)}-\theta\right)^2}\\
-&= \expt{\left(\widehat{\theta}(X)-\expt{\widehat{\theta}(X)}\right)^2}+\expt{\left(\expt{\widehat{\theta}(X)}-\theta\right)^2}\\
-&\quad + 2\expt{\left(\widehat{\theta}(X)-\expt{\widehat{\theta}(X)}\right)\left(\expt{\widehat{\theta}(X)}-\theta\right)}\\
-&= \var{\widehat{\theta}(X)}+\expt{\left(\expt{\widehat{\theta}(X)}-\theta\right)^2}
+\mathrm{MSE}(\theta)&= \expt{(\widehat{\theta}(X)-\theta)^2\mid\theta}\\
+&= \expt{\left(\widehat{\theta}(X)-\expt{\widehat{\theta}(X)\mid\theta}+\expt{\widehat{\theta}(X)\mid\theta}-\theta\right)^2\mid\theta}\\
+&= \expt{\left(\widehat{\theta}(X)-\expt{\widehat{\theta}(X)\mid\theta}\right)^2\mid\theta}+\expt{\left(\expt{\widehat{\theta}(X)\mid\theta}-\theta\right)^2\mid\theta}\\
+&\quad + 2\expt{\left(\widehat{\theta}(X)-\expt{\widehat{\theta}(X)\mid\theta}\right)\left(\expt{\widehat{\theta}(X)\mid\theta}-\theta\right)\mid\theta}\\
+&= \var{\widehat{\theta}(X)\mid\theta}+\left(\expt{\widehat{\theta}(X)\mid\theta}-\theta\right)^2\\
+&= \var{\widehat{\theta}(X)\mid\theta}+\mathrm{Bias}(\widehat{\theta}\mid\theta)^2
 %\expt{\widehat{\theta}(X)^2 - 2\widehat{\theta}(X)\theta + \theta^2}
 \end{align*}
+\begin{align*}
+\mathrm{Bias}(\widehat{\theta}\mid\theta)&\coloneq\expt{\widehat{\theta}(X)\mid\theta}-\theta
+\end{align*}
+\begin{definition}[不偏推定量]
+推定量$\widehat{\theta}\colon A\to\Theta$が以下を満たすとき、\emm{不偏推定量}であるという。
+\begin{align*}
+\mathrm{Bias}(\widehat{\theta}\mid\theta) &= 0 \qquad\forall \theta\in\Theta.
+\end{align*}
+\end{definition}
+\end{frame}
+
+\begin{frame}{推定量の平均}
+\footnotesize
+\begin{lemma}
+$\widehat{\theta}_1,\,\widehat{\theta}_2,\dotsc,\widehat{\theta}_n\colon A\to\Theta$が不偏推定量のとき、
+\begin{align*}
+\widehat{\theta}^* &\coloneq \frac1n\sum_{k=1}^n\widehat{\theta}_k
+\end{align*}
+は不偏推定量で
+\begin{align*}
+\var{\widehat{\theta}^*(X)\mid\theta} &\le\frac1n\sum_{k=1}^n\var{\widehat{\theta}_k(X)\mid\theta}
+\qquad\forall\theta\in\Theta.
+\end{align*}
+\end{lemma}
+\begin{proof}
+$\widehat{\theta}^*$が不偏推定量であることは期待値の線形性から明らか。
+\begin{align*}
+\var{\widehat{\theta}^*(X)\mid\theta} &=
+\expt{\left(\frac1n\sum_{k=1}^n\widehat{\theta}_k(X) - \theta\right)^2\mid\theta}\\
+&\le
+\frac1n\sum_{k=1}^n\expt{\left(\widehat{\theta}_k(X) - \theta\right)^2\mid\theta}\quad\text{(イェンセンの不等式)}\qedhere
+%\frac1{n^2} \left(\sum_{k=1}^n \var{\widehat{\theta}_k(X)\mid\theta} + 2\sum_{k<\ell} \cov{\widehat{\theta}_k,\,\widehat{\theta}_\ell}\right)
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{対称な不偏推定量}
+\small
+\begin{align*}
+p(\symbf{x}\mid \theta) &= \prod_{k=1}^N p(x_k\mid \theta).
+\end{align*}
+\begin{lemma}[対称な不偏推定量]
+任意の不偏推定量$\widehat{\theta}\colon A^N\to\Theta$について、ある対称な不偏推定量$\widehat{\theta}^*$が存在して
+\begin{align*}
+\var{\widehat{\theta}^*(\symbf{X})\mid\theta} &\le \var{\widehat{\theta}(\symbf{X})\mid\theta}
+\qquad\forall\theta\in\Theta.
+\end{align*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\widehat{\theta}^*(x_1,\dotsc,x_N) &\coloneq \frac1{N!} \sum_{\sigma\in S_N} \widehat{\theta}\left(x_{\sigma(1)},\dotsc,x_{\sigma(N)}\right)
+\end{align*}
+と定義すればよい。
+\end{proof}
+\end{frame}
+
+\begin{frame}{加法的ノイズのモデル}
+\footnotesize
+\begin{align*}
+X &= \theta + Z
+\end{align*}
+\begin{itemize}
+\item $\expt{Z} = 0$.
+\item $\var{Z} < \infty$.
+\end{itemize}
+\begin{theorem}
+$\widehat{\theta}^*$が$Z$の分布によらず対称な不偏推定量となるとき、$\widehat{\theta}^*$は\emm{標本平均}
+\begin{align*}
+\widehat{\theta}^*(x_1,\dotsc,x_n)&\coloneq \frac1n \sum_{k=1}^n x_k
+\end{align*}
+である。
+\end{theorem}
+\begin{proof}
+$n=1$のとき、
+$\Pr(Z=0)=1$と仮定すると、
+\begin{align*}
+\theta&= \expt{\widehat{\theta}^*(X)\mid\theta}
+= \widehat{\theta}^*(\theta)
+\end{align*}
+が任意の$\theta\in\Theta$について成り立つ。よって$\widehat{\theta}^*(x)=x$である。
+\end{proof}
+\end{frame}
+
+\begin{frame}{加法的ノイズのモデル}
+\small
+ある$a\ne 0$と$p\in[0,1]$について、ノイズの分布を
+\begin{align*}
+\Pr(Z = a(p-1)) &= p&
+\Pr(Z = ap) &= 1-p
+\end{align*}
+とすると$\expt{Z}=0$, $\var{Z}<\infty$である。
+
+任意の$a\ne 0$と$p\in[0,1]$について
+\begin{align*}
+%\expt{\widehat{\theta}^*(\symbf{X})\mid\theta} &=
+\theta&= \expt{\widehat{\theta}^*(X)\mid\theta}\\
+ &= p \widehat{\theta}^*(\theta+a(p-1)) + (1-p) \widehat{\theta}^*(\theta+ap)\\
+ &= p \widehat{\theta}^*(\theta+a(p-1)) + (1-p) \widehat{\theta}^*(\theta+ap)
+\end{align*}
+が成り立つ。
+$a=2\theta,\,p=\frac12$のとき、
+\begin{align*}
+\theta &= \frac12 \widehat{\theta}^*(0) + \frac12 \widehat{\theta}^*(2\theta)
+\end{align*}
+よって$\widehat{\theta}^*(2\theta) = 2\theta - \widehat{\theta}^*(0)$が任意の$\theta\in\Theta$について成り立つ。
+よって、ある$c\in\mathbb{R}$が存在して$\widehat{\theta}^*(x) = x - c$であるが、$\widehat{\theta}^*(\theta)=\theta$より$c=0$
 \end{frame}
 
 \begin{frame}{課題}
