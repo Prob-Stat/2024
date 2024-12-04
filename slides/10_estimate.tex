@@ -82,6 +82,33 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}{確率分布の族}
+a
+\end{frame}
+
+\begin{frame}{十分統計量}
+\small
+\begin{definition}[十分統計量(離散の場合)]
+$\mathcal{X}$上の確率分布族$p_\theta$について$T\colon \mathcal{X}\to \mathcal{Y}$が\emm{十分統計量}$\defiff$
+任意の$U\subseteq \mathcal{X}$と$V\subseteq \mathcal{Y}$について
+\begin{align*}
+%p(X\mid T) &\coloneq \frac{p()}{p(T)}
+\Pr_\theta(X=x\mid T(X)=t)&\qquad\text{$\mathcal{X}$と$\mathcal{Y}$が離散の場合}\\
+%\Pr_\theta(X\in U\mid T(X)\in V) &= \frac{\int_{U\cap T^{-1}(V)} p_\theta(x)\mathrm{d}x}{\int_{T^{-1}(V)} p_\theta(x)\mathrm{d}x}
+%p_\theta(x\mid t) &\coloneq \frac{p_\theta(x,t)}{{\int_{T^{-1}(\{t\})} p_\theta(x)\mathrm{d}x}}
+p_\theta(x\mid t) \coloneq \frac{p_\theta(x)\mathbb{1}_{\{T(x)=t\}}}{{\int_{T^{-1}(\{t\})} p_\theta(x)\mathrm{d}x}}&\qquad\text{$\mathcal{X}$と$\mathcal{Y}$が連続の場合}
+\end{align*}
+が$\theta$に依存しない。
+\end{definition}
+「\emm{$T(X)$は$X$に含まれている$\theta$の情報をすべて含む}」というのが直感的な意味。
+
+\vspace{1em}
+基本的には$X$の余計な部分を削ぎ落して$\theta$の推定に必要な部分だけを取り出したものを$T(X)$としたい。
+
+\vspace{1em}
+$T(x)=x$は自明な十分統計量であるが、
+\end{frame}
+
 \begin{frame}{誤差関数}
 \small
 $\widehat{\theta}\colon A\to \Theta$
@@ -195,20 +222,16 @@ $\Pr(Z=0)=1$と仮定すると、
 \end{align*}
 とすると$\expt{Z}=0$, $\var{Z}<\infty$である。
 
+$n=2$のとき、
 任意の$a\ne 0$と$p\in[0,1]$について
 \begin{align*}
 %\expt{\widehat{\theta}^*(\symbf{X})\mid\theta} &=
-\theta&= \expt{\widehat{\theta}^*(X)\mid\theta}\\
- &= p \widehat{\theta}^*(\theta+a(p-1)) + (1-p) \widehat{\theta}^*(\theta+ap)\\
- &= p \widehat{\theta}^*(\theta+a(p-1)) + (1-p) \widehat{\theta}^*(\theta+ap)
+\theta&= \expt{\widehat{\theta}^*(X_1,X_2)\mid\theta}\\
+ &= p^2 \widehat{\theta}^*(a(p-1),a(p-1)) + (1-p)^2 \widehat{\theta}^*(ap, ap)\\
+&\quad + p(1-p) \widehat{\theta}^*(a(p-1), ap) + (1-p)p\widehat{\theta}^*(ap, a(p-1))\\
+ &= p^2 a(p-1) + (1-p)^2 ap + 2p(1-p) \widehat{\theta}^*(ap, a(p-1))
 \end{align*}
 が成り立つ。
-$a=2\theta,\,p=\frac12$のとき、
-\begin{align*}
-\theta &= \frac12 \widehat{\theta}^*(0) + \frac12 \widehat{\theta}^*(2\theta)
-\end{align*}
-よって$\widehat{\theta}^*(2\theta) = 2\theta - \widehat{\theta}^*(0)$が任意の$\theta\in\Theta$について成り立つ。
-よって、ある$c\in\mathbb{R}$が存在して$\widehat{\theta}^*(x) = x - c$であるが、$\widehat{\theta}^*(\theta)=\theta$より$c=0$
 \end{frame}
 
 \begin{frame}{課題}
