@@ -86,7 +86,7 @@
 a
 \end{frame}
 
-\begin{frame}{推定したいもの}
+\begin{frame}{推定したいものの例}
 $g\colon \Theta\to\mathbb{R}$
 
 \vspace{1em}
@@ -108,16 +108,16 @@ $g\colon \Theta\to\mathbb{R}$
 \setlength{\itemsep}{2em}
 \item 非負性
 \begin{align*}
-L(\theta,\, d) \ge 0\qquad \forall d\in\mathbb{R}
+L(\theta,\, d) \ge 0\qquad \forall \theta\in\Theta,\,d\in\mathbb{R}.
 \end{align*}
 \item 正しいときはゼロ
 \begin{align*}
-L(\theta,\, g(\theta)) = 0\qquad \forall \theta\in\Theta
+L(\theta,\, g(\theta)) = 0\qquad \forall \theta\in\Theta.
 \end{align*}
 \end{itemize}
 また、対応する\emm{リスク関数}$R\colon\Theta\times(\mathcal{X}\to\mathbb{R})\to\mathbb{R}$を以下で定義する。
 \begin{align*}
-R(\theta,\, \delta) \coloneq \expt{L(\theta,\, \delta(X))\mid \theta}
+R(\theta,\, \delta) \coloneq \expt{L(\theta,\, \delta(X))\mid \theta}.
 \end{align*}
 \end{definition}
 \end{frame}
@@ -126,9 +126,9 @@ R(\theta,\, \delta) \coloneq \expt{L(\theta,\, \delta(X))\mid \theta}
 \small
 \begin{itemize}
 \setlength{\itemsep}{2em}
-\item 0-1損失関数 $L(\theta, d) = \mathbb{1}_{\{d \ne g(\theta)\}}$.
+\item \emm{0-1損失関数} $L(\theta, d) = \mathbb{1}_{\{d \ne g(\theta)\}}$.
 このとき、$R(\theta, \delta)=\Pr(\delta(X)\ne g(\theta)\mid\theta)$
-\item 二乗誤差損失 $L(\theta, d) = (g(\theta)- d)^2$.
+\item \emm{二乗誤差損失} $L(\theta, d) = (g(\theta)- d)^2$.
 このとき、$R(\theta, \delta)=\expt{(g(\theta) - \delta(X))^2\mid\theta}$.
 この$R(\theta, \delta)$を平均二乗誤差(MSE; meaned squared error)という。
 \end{itemize}
@@ -144,7 +144,7 @@ $\mathcal{X}$上の確率分布族$p_\theta$について$T\colon \mathcal{X}\to 
 \Pr_\theta(X=x\mid T(X)=t)&\qquad\text{$\mathcal{X}$と$\mathcal{Y}$が離散の場合}\\
 %\Pr_\theta(X\in U\mid T(X)\in V) &= \frac{\int_{U\cap T^{-1}(V)} p_\theta(x)\mathrm{d}x}{\int_{T^{-1}(V)} p_\theta(x)\mathrm{d}x}
 %p_\theta(x\mid t) &\coloneq \frac{p_\theta(x,t)}{{\int_{T^{-1}(\{t\})} p_\theta(x)\mathrm{d}x}}
-p_\theta(x\mid t) \coloneq \frac{p_\theta(x)\mathbb{1}_{\{T(x)=t\}}}{{\int_{T^{-1}(\{t\})} p_\theta(x)\mathrm{d}x}}&\qquad\text{$\mathcal{X}$と$\mathcal{Y}$が連続の場合}
+p_\theta(x\mid t) \coloneq \frac{p_\theta(x)\mathbb{1}_{\{T(x)=t\}}}{q(t)}&\qquad\text{$\mathcal{X}$と$\mathcal{Y}$が連続の場合}
 \end{align*}
 が$\theta$に依存しない。
 \end{definition}
