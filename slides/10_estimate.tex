@@ -55,7 +55,7 @@
 
 \theoremstyle{definition}
 
-\title{確率・統計基礎: 母数推定}
+\title{確率・統計基礎: 点推定}
 \author{森 立平}
 \date{}
 
@@ -86,6 +86,54 @@
 a
 \end{frame}
 
+\begin{frame}{推定したいもの}
+$g\colon \Theta\to\mathbb{R}$
+
+\vspace{1em}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item $g(\theta) = \theta$.
+\item $g(\theta) = \expt{X\mid\theta}$.
+\item $g(\theta) = \var{X\mid\theta}$.
+\item $g(\theta) = \expt{f(X)\mid\theta}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{損失関数とリスク関数}
+\small
+
+\begin{definition}[損失関数、リスク関数]
+以下を満たす関数$L\colon \Theta\times\mathbb{R}\to \mathbb{R}$を$g(\theta)$の損失関数という。
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item 非負性
+\begin{align*}
+L(\theta,\, d) \ge 0\qquad \forall d\in\mathbb{R}
+\end{align*}
+\item 正しいときはゼロ
+\begin{align*}
+L(\theta,\, g(\theta)) = 0\qquad \forall \theta\in\Theta
+\end{align*}
+\end{itemize}
+また、対応する\emm{リスク関数}$R\colon\Theta\times(\mathcal{X}\to\mathbb{R})\to\mathbb{R}$を以下で定義する。
+\begin{align*}
+R(\theta,\, \delta) \coloneq \expt{L(\theta,\, \delta(X))\mid \theta}
+\end{align*}
+\end{definition}
+\end{frame}
+
+\begin{frame}{損失関数の例}
+\small
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item 0-1損失関数 $L(\theta, d) = \mathbb{1}_{\{d \ne g(\theta)\}}$.
+このとき、$R(\theta, \delta)=\Pr(\delta(X)\ne g(\theta)\mid\theta)$
+\item 二乗誤差損失 $L(\theta, d) = (g(\theta)- d)^2$.
+このとき、$R(\theta, \delta)=\expt{(g(\theta) - \delta(X))^2\mid\theta}$.
+この$R(\theta, \delta)$を平均二乗誤差(MSE; meaned squared error)という。
+\end{itemize}
+\end{frame}
+
 \begin{frame}{十分統計量}
 \small
 \begin{definition}[十分統計量(離散の場合)]
@@ -106,17 +154,36 @@ p_\theta(x\mid t) \coloneq \frac{p_\theta(x)\mathbb{1}_{\{T(x)=t\}}}{{\int_{T^{-
 基本的には$X$の余計な部分を削ぎ落して$\theta$の推定に必要な部分だけを取り出したものを$T(X)$としたい。
 
 \vspace{1em}
-$T(x)=x$は自明な十分統計量であるが、
+$T(x)=x$は自明な十分統計量であるが、余計な部分を削ぎ落していないので面白くない。
 \end{frame}
 
-\begin{frame}{誤差関数}
+\begin{frame}{十分統計量の例}
+\begin{itemize}
+\setlength{\itemsep}{2em}
+\item a
+\end{itemize}
+\end{frame}
+
+\begin{frame}{十分統計量は推定において十分}
 \small
-$\widehat{\theta}\colon A\to \Theta$
+\begin{theorem}
+任意の推定関数$\delta\colon\mathcal{X}\to\mathbb{R}$について、あるランダムな$\delta'\colon\mathcal{Y}\to\mathbb{R}$が存在して、
+同じリスク関数の値をとる。
+\end{theorem}
+\begin{proof}
 \begin{align*}
-\expt{d(\widehat{\theta}(X), \theta)}
-&=
-\int_{A\times\Theta} d(\widehat{\theta}(x),\theta) p(x\mid\theta) p(\theta) \mathrm{d}x\mathrm{d}\theta
+\delta'(t) &= \delta(X)
 \end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{分解定理}
+\end{frame}
+
+\begin{frame}{極小十分統計量}
+\end{frame}
+
+\begin{frame}{ラオ-ブラックウェルの定理}
 \end{frame}
 
 \begin{frame}{二乗誤差}
