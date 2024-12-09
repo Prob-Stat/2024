@@ -68,23 +68,22 @@
 
 
 
-\begin{frame}{連続確率変数の場合}
+\begin{frame}{設定}
 \begin{itemize}
 \setlength{\itemsep}{2em}
-\item $x\in A$: データ、知っているもの、$A\subseteq \mathbb{R}$とか$A\subseteq\mathbb{R}^n$とか
+\item $x\in \mathcal{X}$: データ、知っているもの。
 %\item $\emm{\theta \in \Theta}\colon$ パラメータ、母数、知りたいもの。
 %$\Theta\subseteq\mathbb{R}$とか$\Theta\subseteq\mathbb{R}^n$とか。
 %\item $s\in B$: パラメータ、推定したいもの(今日は離散の場合を考える。連続のときは$\theta$という記号を使うことが多い)
-\item $\theta\in \Theta$: パラメータ、\emm{母数}、知りたいもの、$\Theta\subseteq\mathbb{R}$とか$\Theta\subseteq\mathbb{R}^n$とか
-\item $p(\theta)$: 事前確率密度関数
-\item $p(x \mid \theta)$: 尤度(条件付き確率密度関数)
-\item $p(\theta \mid x)\coloneq p(x\mid \theta)p(\theta) / p(x)$: 事後確率密度関数
+\item $\theta\in \Theta$: \emm{パラメータ、母数}、知りたいもの、$\Theta\subseteq\mathbb{R}$とか$\Theta\subseteq\mathbb{R}^n$とか
+\item $p(x \mid \theta)$ or $\Pr(X=x\mid\theta)$: 尤度(条件付き確率密度関数)
+\item $p(\theta)$: 事前確率密度関数、仮定する場合もあるが今回は仮定しない。
 \end{itemize}
 \end{frame}
 
-\begin{frame}{確率分布の族}
-a
-\end{frame}
+%\begin{frame}{確率分布の族}
+%a
+%\end{frame}
 
 \begin{frame}{推定したいものの例}
 $g\colon \Theta\to\mathbb{R}$
@@ -301,7 +300,7 @@ $X_1,\dotsc,X_N$が独立同分布な一様分布$U(0,\theta)$に従っている
 確率分布族$(p_\theta)_\theta$について以下は同値。
 \begin{enumerate}
 \item $T\colon\mathcal{X}\to\mathcal{Y}$が$(p_\theta)_\theta$の十分統計量である。
-\item 
+\item ある$u\colon\mathcal{X}\to\mathbb{R}$, $(v_\theta\colon \mathcal{Y}\to\mathbb{R})_\theta$が存在して
 \begin{align*}
 p_\theta(x) &= u(x) v_\theta(T(x)).
 \end{align*}
@@ -328,7 +327,7 @@ p_\theta(x) &= u(x) v_\theta(T(x)).
 確率分布族$(p_\theta)_\theta$について以下は同値。
 \begin{enumerate}
 \item $T\colon\mathcal{X}\to\mathcal{Y}$が$(p_\theta)_\theta$の十分統計量である。
-\item 
+\item ある$u\colon\mathcal{X}\to\mathbb{R}$, $(v_\theta\colon \mathcal{Y}\to\mathbb{R})_\theta$が存在して
 \begin{align*}
 p_\theta(x) &= u(x) v_\theta(T(x)).
 \end{align*}
@@ -347,20 +346,66 @@ p_\theta(x) &= u(x) v_\theta(T(x)).
 \end{proof}
 \end{frame}
 
-\if0
-\begin{frame}{極小十分統計量}
+\begin{frame}{尤度比は十分統計量}
+\small
+\begin{lemma}
+パラメータ空間$\Theta=\{\theta_0,\,\theta_1,\dotsc,\theta_k\}$が有限集合とする。
+\begin{align*}
+T(x) &= \left(\frac{\Pr(X=x\mid\theta_1)}{\Pr(X=x\mid\theta_0)},\, \frac{\Pr(X=x\mid\theta_2)}{\Pr(X=x\mid\theta_0)},\dotsc,\,\frac{\Pr(X=x\mid\theta_k)}{\Pr(X=x\mid\theta_0)}\right)
+\end{align*}
+は十分統計量である。
+\end{lemma}
+\begin{proof}
+\vspace{-1em}
+\begin{align*}
+\Pr(X=x\mid\theta_\ell)&=
+\begin{cases}
+\Pr(X=x\mid\theta_0)&\text{if } \ell = 0\\
+\Pr(X=x\mid\theta_0) T(x)_\ell&\text{otherwise.}
+\end{cases}
+\end{align*}
+よって
+\begin{align*}
+u(x) &= \Pr(X=x\mid\theta_0),&
+v_{\theta_\ell}(t) &=
+\begin{cases}
+1&\text{if } \ell = 0\\
+t_\ell&\text{otherwise.}
+\end{cases}
+\end{align*}
+とおくと$\Pr(X=x\mid\theta_\ell)=u(x)v_{\theta_\ell}(T(x))$.
+\end{proof}
+\end{frame}
+
+\begin{frame}{最小十分統計量}
+\footnotesize
+\begin{definition}[\emm{最小}十分統計量]
+十分統計量$T\colon\mathcal{X}\to\mathcal{Y}$が\emm{最小}十分統計量
+$\defiff$
+任意の十分統計量$U\colon\mathcal{X}\to\mathcal{Z}$についてある関数$V\colon\mathcal{Z}\to\mathcal{Y}$が存在して$T(x) = V(U(x))$.
+\end{definition}
 \begin{theorem}
 パラメータ空間$\Theta=\{\theta_0,\,\theta_1,\dotsc,\theta_k\}$が有限集合とする。
 \begin{align*}
 T(x) &= \left(\frac{\Pr(X=x\mid\theta_1)}{\Pr(X=x\mid\theta_0)},\, \frac{\Pr(X=x\mid\theta_2)}{\Pr(X=x\mid\theta_0)},\dotsc,\,\frac{\Pr(X=x\mid\theta_k)}{\Pr(X=x\mid\theta_0)}\right)
 \end{align*}
+は\emm{最小}十分統計量である。
 \end{theorem}
-尤度比は
+\vspace{-.7em}
+\begin{proof}
+$U\colon\mathcal{X}\to\mathcal{Z}$を十分統計量とする。分解定理より、ある$u$と$v_\theta$が存在して
+\begin{align*}
+\Pr(X=x\mid\theta_t)&= u(x)v_{\theta_t}(U(x)).
+\end{align*}
+\vspace{-.5em}
+このとき、
+\vspace{-.5em}
+\begin{align*}
+\frac{\Pr(X=x\mid\theta_t)}{\Pr(X=x\mid\theta_0)}&= \frac{v_{\theta_t}(U(x))}{v_{\theta_0}(U(x))}
+\end{align*}
+よって$T(x)=V(U(x))$と表すことができる。
+\end{proof}
 \end{frame}
-
-\begin{frame}{極小十分統計量}
-\end{frame}
-\fi
 
 \begin{frame}{ラオ--ブラックウェルの定理}
 \small
@@ -391,10 +436,11 @@ R(\theta,\,\eta\circ T)
 任意の(ランダムでもよい)推定関数$\delta\colon\mathcal{X}\to\mathbb{R}$ついてあるランデムでない推定関数$\delta'\colon\mathcal{X}\to\mathbb{R}$が存在して、$R(\theta,\, \delta')\le R(\theta,\,\delta)$である。
 \end{lemma}
 \begin{proof}
-$\delta'$を以下で定義する。$\expt{\cdot}$は推定関数の持つランダムネスについての期待値である。
+$\delta'$を以下で定義する。
 \begin{align*}
 \delta'(x) &= \expt{\delta(x)}
 \end{align*}
+ここで$\expt{\cdot}$は推定関数の持つランダムネスについての期待値である。
 目的の不等式はイェンセンの不等式により得られる。
 \end{proof}
 \end{frame}
@@ -520,28 +566,22 @@ $n=2$のとき、
 
 \begin{frame}{課題}
 \small
-$A=\{0,\,1\},\, B=\left\{p_0=\frac12,\,p_1=\frac13\right\}$とし、$k\in\{0,\,1\}$について
-\begin{align*}
-\Pr(X = 0 \mid S = p_k) &= 1-p_k&
-\Pr(X = 1 \mid S = p_k) &= p_k
-\end{align*}
-とする。
-このとき、 $\eta> 0,\,\kappa\in[0,1]$について、以下の尤度比検定関数$E(x)$で仮説検定することを考える。
-\begin{align*}
-E(x)&=
-\begin{cases}
-\vspace{.5em}
-0&\text{if } \frac{\Pr(X = x\mid S = p_0)}{\Pr(X = x\mid S = p_1)} > \eta\\\vspace{.5em}
-1&\text{if } \frac{\Pr(X = x\mid S = p_0)}{\Pr(X = x\mid S = p_1)} < \eta\\
-\kappa&\text{otherwise.}
-\end{cases}
-\end{align*}
 以下の問に答えよ。
 \begin{enumerate}
 \setlength{\itemsep}{1em}
-\item $\eta=1$のとき$\alpha_E$, $\beta_E$をもとめよ。
-\item 一般の$\eta>0$と$\kappa\in[0,1]$について、誤り確率$\alpha_E$, $\beta_E$をもとめよ。$\eta$の値で場合分けしてもとめること。
-\item 任意の検定関数$E\colon A\to[0,1]$で実現可能な$(\alpha_E,\, \beta_E)$の範囲を図示せよ。
+\item 
+\begin{align*}
+p(\symbf{x}\mid\theta)&= \frac1{\sqrt{2\pi}}\mathrm{e}^{-\sum_{k=1}^N\frac{(x_k-\theta)^2}2}
+\end{align*}
+のとき、以下の$T\colon\mathbb{R}^N\to\mathbb{R}$が十分統計量かどうか示せ。結論だけでなく理由も示すこと。
+\begin{align*}
+T(\symbf{x})&= \sum_{k=1}^N x_k.
+\end{align*}
+\item
+\begin{align*}
+\Pr(X_1=x_1,\dotsc,X_N=x_N\mid\lambda)&= \frac1{\prod_{k=1}^N x_k!}\lambda^{\sum_{k=1}^N x_k} \mathrm{e}^{-N\lambda}
+\end{align*}
+のとき、推定関数$\delta(\symbf{x})=x_1$と十分統計量$T(\symbf{x})=\sum_{k=1}^Nx_k$を用いてラオ--ブラックウェルの定理に基づいて、よりよい推定関数$\eta\circ T$をもとめよ。
 \end{enumerate}
 \end{frame}
 
