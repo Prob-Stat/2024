@@ -251,6 +251,7 @@ t!(2\emm{\lambda})^{-t}\mathrm{e}^{2\emm{\lambda}}\\
 \end{frame}
 
 \begin{frame}{十分統計量の例 3/3}
+\small
 $X$が従っている分布が対称であるとする。
 つまり
 \begin{align*}
@@ -260,15 +261,15 @@ $X$が従っている分布が対称であるとする。
 
 任意の$\delta >0$について
 \begin{align*}
-\Pr(X\in [t,\,t+\delta]\mid T(X) = t)
- &= \lim_{\epsilon\to0} \frac{\Pr(X\in [t,\,t+\delta],\, |X|\in[t,\,t+\epsilon])}{\Pr(|X|\in[t,\,t+\epsilon])}\\
- &= \lim_{\epsilon\to0} \frac{\Pr(-X\in [t,\,t+\delta],\, |X|\in[t,\,t+\epsilon])}{\Pr(|X|\in[t,\,t+\epsilon])}\\
- &= \lim_{\epsilon\to0} \frac{\Pr(X\in [-t-\delta,\,-t],\, |X|\in[t,\,t+\epsilon])}{\Pr(|X|\in[t,\,t+\epsilon])}\\
- &= \Pr(X\in [-t-\delta,\,-t]\mid T(X) = t)
+\Pr(X\in [t,\,t+\delta]\mid T(X) = t,\,\theta)
+ &= \lim_{\epsilon\to0} \frac{\Pr(X\in [t,\,t+\delta],\, |X|\in[t,\,t+\epsilon]\mid\theta)}{\Pr(|X|\in[t,\,t+\epsilon]\mid\theta)}\\
+ &= \lim_{\epsilon\to0} \frac{\Pr(-X\in [t,\,t+\delta],\, |X|\in[t,\,t+\epsilon]\mid\theta)}{\Pr(|X|\in[t,\,t+\epsilon]\mid\theta)}\\
+ &= \lim_{\epsilon\to0} \frac{\Pr(X\in [-t-\delta,\,-t],\, |X|\in[t,\,t+\epsilon]\mid\theta)}{\Pr(|X|\in[t,\,t+\epsilon]\mid\theta)}\\
+ &= \Pr(X\in [-t-\delta,\,-t]\mid T(X) = t,\,\theta)
 %&=\frac12
 \end{align*}
-一方で$\Pr(X\notin ([t,\,t+\delta] \cup [-t-\delta,\,-t])\mid T(X)=t)=0$なので、
-よって、$\Pr(X=t\mid T(X)=t)=\Pr(X=-t\mid T(X)=t)=\frac12$である。
+一方で$\Pr(X\notin ([t,\,t+\delta] \cup [-t-\delta,\,-t])\mid T(X)=t,\,\theta)=0$なので、
+よって、$\Pr(X=t\mid T(X)=t,\,\theta)=\Pr(X=-t\mid T(X)=t,\,\theta)=\frac12$である。
 \end{frame}
 
 \if0
