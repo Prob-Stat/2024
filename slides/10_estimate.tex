@@ -396,13 +396,13 @@ T(x) &= \left(\frac{\Pr(X=x\mid\theta_1)}{\Pr(X=x\mid\theta_0)},\, \frac{\Pr(X=x
 \begin{proof}
 $U\colon\mathcal{X}\to\mathcal{Z}$を十分統計量とする。分解定理より、ある$u$と$v_\theta$が存在して
 \begin{align*}
-\Pr(X=x\mid\theta_t)&= u(x)v_{\theta_t}(U(x)).
+\Pr(X=x\mid\theta_\ell)&= u(x)v_{\theta_\ell}(U(x))\qquad\forall\ell\in\{0,1,\dotsc,\ell\}.
 \end{align*}
 \vspace{-.5em}
 このとき、
 \vspace{-.5em}
 \begin{align*}
-\frac{\Pr(X=x\mid\theta_t)}{\Pr(X=x\mid\theta_0)}&= \frac{v_{\theta_t}(U(x))}{v_{\theta_0}(U(x))}
+\frac{\Pr(X=x\mid\theta_\ell)}{\Pr(X=x\mid\theta_0)}&= \frac{v_{\theta_\ell}(U(x))}{v_{\theta_0}(U(x))}\qquad\forall\ell\in\{1,2,\dotsc,\ell\}.
 \end{align*}
 よって$T(x)=V(U(x))$と表すことができる。
 \end{proof}
