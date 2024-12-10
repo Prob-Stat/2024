@@ -179,7 +179,7 @@ $T(x)=x$は自明な十分統計量であるが、余計な部分を削ぎ落し
 \begin{frame}{十分統計量は推定において十分}
 \footnotesize
 \begin{theorem}
-任意の推定関数$\delta\colon\mathcal{X}\to\mathbb{R}$と十分統計量$\mathcal{X}\to\mathcal{Y}$について、あるランダムな$\eta\colon\mathcal{Y}\to\mathbb{R}$が存在して、
+任意の推定関数$\delta\colon\mathcal{X}\to\mathbb{R}$と十分統計量$T\colon\mathcal{X}\to\mathcal{Y}$について、あるランダムな$\eta\colon\mathcal{Y}\to\mathbb{R}$が存在して、
 推定関数$\eta\circ T$は同じリスク関数の値をとる。
 \end{theorem}
 \begin{proof}
@@ -571,7 +571,7 @@ $n=2$のとき、
 \setlength{\itemsep}{1em}
 \item 
 \begin{align*}
-p(\symbf{x}\mid\theta)&= \frac1{\sqrt{2\pi}}\mathrm{e}^{-\sum_{k=1}^N\frac{(x_k-\theta)^2}2}
+p(\symbf{x}\mid\theta)&= \frac1{(2\pi)^{\frac{N}2}}\mathrm{e}^{-\sum_{k=1}^N\frac{(x_k-\theta)^2}2}
 \end{align*}
 のとき、以下の$T\colon\mathbb{R}^N\to\mathbb{R}$が十分統計量かどうか示せ。結論だけでなく理由も示すこと。
 \begin{align*}
