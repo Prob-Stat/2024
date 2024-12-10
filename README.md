@@ -10,7 +10,7 @@
 * 11/19 KLダイバージェンスの性質 [slide](./slides/07_kl.pdf)
 * 11/26 ベイズ推定 [slide](./slides/08_bayes.pdf)
 * 12/3 仮説検定 [slide](./slides/09_testing.pdf)
-* 12/10 
+* 12/10 点推定、十分統計量 [slide](./slides/10_estimate.pdf)
 * 12/17 
 * 12/24 
 * 1/14 

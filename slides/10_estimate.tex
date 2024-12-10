@@ -76,8 +76,8 @@
 %$\Theta\subseteq\mathbb{R}$とか$\Theta\subseteq\mathbb{R}^n$とか。
 %\item $s\in B$: パラメータ、推定したいもの(今日は離散の場合を考える。連続のときは$\theta$という記号を使うことが多い)
 \item $\theta\in \Theta$: \emm{パラメータ、母数}、知りたいもの、$\Theta\subseteq\mathbb{R}$とか$\Theta\subseteq\mathbb{R}^n$とか
-\item $p(x \mid \theta)$ or $\Pr(X=x\mid\theta)$: 尤度(条件付き確率密度関数)
-\item $p(\theta)$: 事前確率密度関数、仮定する場合もあるが今回は仮定しない。
+\item $p(x \mid \theta)$ or $\Pr(X=x\mid\theta)$: 尤度(条件付き確率密度関数 or 条件付き確率質量関数)
+\item $p(\theta)$: 事前確率密度関数、仮定する場合もある(ベイズ推定)が今回は仮定しない。
 \end{itemize}
 \end{frame}
 
@@ -151,10 +151,10 @@ $Y$が連続確率変数の場合、
 \small
 \begin{definition}[十分統計量]
 $\mathcal{X}$上の確率分布族$p_\theta$について$T\colon \mathcal{X}\to \mathcal{Y}$が\emm{十分統計量}$\defiff$
-任意の$A\subseteq \mathcal{X}$について
+任意の$A\subseteq \mathcal{X}$と$t\in\mathcal{Y}$について
 \begin{align*}
 %p(X\mid T) &\coloneq \frac{p()}{p(T)}
-\Pr_\theta(X\in A\mid T(X)=t)
+\Pr(X\in A\mid T(X)=t,\,\theta)
 %&\qquad\text{$\mathcal{X}$と$\mathcal{Y}$が離散の場合}\\
 %\Pr_\theta(X\in U\mid T(X)\in V) &= \frac{\int_{U\cap T^{-1}(V)} p_\theta(x)\mathrm{d}x}{\int_{T^{-1}(V)} p_\theta(x)\mathrm{d}x}
 %p_\theta(x\mid t) &\coloneq \frac{p_\theta(x,t)}{{\int_{T^{-1}(\{t\})} p_\theta(x)\mathrm{d}x}}
@@ -173,7 +173,7 @@ $\mathcal{X}$上の確率分布族$p_\theta$について$T\colon \mathcal{X}\to 
 基本的には$X$の余計な部分を削ぎ落して$\theta$の推定に必要な部分だけを取り出したものを$T(X)$としたい。
 
 \vspace{1em}
-$T(x)=x$は自明な十分統計量であるが、余計な部分を削ぎ落していないので面白くない。
+$T(x)=x$は自明な十分統計量であるが、余計な部分を削ぎ落していないので意味がない。
 \end{frame}
 
 \begin{frame}{十分統計量は推定において十分}
