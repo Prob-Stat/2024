@@ -1,0 +1,215 @@
+\documentclass[lualatex,handout]{beamer}
+\setbeamertemplate{footline}[frame number]
+\usepackage{luatexja}
+\usepackage{amsmath,amssymb}
+
+\usepackage{thm-restate}
+
+%\usetheme{Berlin}
+\usecolortheme{rose}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+%\usepackage[haranoaji]{luatexja-preset}
+\usepackage[deluxe,ipaex]{luatexja-preset}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+%\setmainjfont{HaranoAjiGothic-Regular}
+
+\usepackage{unicode-math}
+%\setmathfont{Fira Math}
+\setmathfont{STIX Two Math}
+\setmathfont{STIX Two Math}[range=bfup/{Latin,latin,num,Greek,greek}]
+\setmathfont{STIX Two Math}[range=bfit/{Latin,latin}]
+\setmathfont{STIX Two Math}[range={"0000-"FFFF}]
+\setmathrm{STIX Two Math}[StylisticSet=8]
+
+%\usefonttheme{professionalfonts}
+
+\usepackage{luacolor}
+
+\newcommand{\mycolor}[2]{%
+  \begingroup
+  \colorlet{currentcolor}{.}%
+  \color{#1}#2%
+  \color{currentcolor}%
+  \endgroup
+}
+\newcommand{\emm}[1]{\mycolor{red}{#1}}
+\newcommand{\expt}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\var}[1]{\mathbb{V}\left[#1\right]}
+\newcommand{\cov}[1]{\mathsf{Cov}\left[#1\right]}
+\newcommand{\vc}[1]{\mathsf{Var}\left[#1\right]}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+
+\usepackage{xspace}
+%\usepackage{bm}
+%\newcommand\bm[1]{{\mathbf{#1}}}
+\newcommand\defiff{\stackrel{\text{def}}{\iff}}
+\newcommand\dx{{\,\mathrm{d}x}}
+\newcommand\KL[2]{D\left(#1\,\|\,#2\right)}
+\newcommand\dtv{d_{\mathrm{TV}}}
+
+\theoremstyle{definition}
+
+\title{確率・統計基礎: 点推定、不偏推定量}
+\author{森 立平}
+\date{}
+
+
+
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+
+\begin{frame}{二乗誤差}
+\small
+\begin{align*}
+\mathrm{MSE}(\theta,\,\delta)&\coloneq \expt{(\delta(X)-g(\theta))^2\mid\theta}\\
+&= \expt{\left(\delta(X)\emm{-\expt{\delta(X)\mid\theta}+\expt{\delta(X)\mid\theta}}-g(\theta)\right)^2\mid\theta}\\
+&= \expt{\left(\delta(X)-\expt{\delta(X)\mid\theta}\right)^2\mid\theta}+\expt{\left(\expt{\delta(X)\mid\theta}-g(\theta)\right)^2\mid\theta}\\
+&\quad + 2\expt{\left(\delta(X)-\expt{\delta(X)\mid\theta}\right)\left(\expt{\delta(X)\mid\theta}-g(\theta)\right)\mid\theta}\\
+&= \var{\delta(X)\mid\theta}+\left(\expt{\delta(X)\mid\theta}-g(\theta)\right)^2\\
+&= \var{\delta(X)\mid\theta}+\mathrm{Bias}_g(\delta\mid\theta)^2
+%\expt{\widehat{\theta}(X)^2 - 2\widehat{\theta}(X)\theta + \theta^2}
+\end{align*}
+\begin{align*}
+\mathrm{Bias}_g(\delta\mid\theta)&\coloneq\expt{\delta(X)\mid\theta}-g(\theta)
+\end{align*}
+\begin{definition}[不偏推定量]
+推定量$\delta\colon \mathcal{X}\to\mathbb{R}$が以下を満たすとき、$g(\theta)$の\emm{不偏推定量}であるという。
+\begin{align*}
+\mathrm{Bias}_g(\delta\mid\theta) &= 0 \qquad\forall \theta\in\Theta.
+\end{align*}
+\end{definition}
+\end{frame}
+
+\begin{frame}{不偏推定量は存在するとは限らない}
+
+\end{frame}
+
+\begin{frame}{ジャックナイフサンプリング}
+
+\end{frame}
+
+\begin{frame}{推定量の平均}
+\footnotesize
+\begin{lemma}
+$\widehat{\theta}_1,\,\widehat{\theta}_2,\dotsc,\widehat{\theta}_n\colon A\to\Theta$が不偏推定量のとき、
+\begin{align*}
+\widehat{\theta}^* &\coloneq \frac1n\sum_{k=1}^n\widehat{\theta}_k
+\end{align*}
+は不偏推定量で
+\begin{align*}
+\var{\widehat{\theta}^*(X)\mid\theta} &\le\frac1n\sum_{k=1}^n\var{\widehat{\theta}_k(X)\mid\theta}
+\qquad\forall\theta\in\Theta.
+\end{align*}
+\end{lemma}
+\begin{proof}
+$\widehat{\theta}^*$が不偏推定量であることは期待値の線形性から明らか。
+\begin{align*}
+\var{\widehat{\theta}^*(X)\mid\theta} &=
+\expt{\left(\frac1n\sum_{k=1}^n\widehat{\theta}_k(X) - \theta\right)^2\mid\theta}\\
+&\le
+\frac1n\sum_{k=1}^n\expt{\left(\widehat{\theta}_k(X) - \theta\right)^2\mid\theta}\quad\text{(イェンセンの不等式)}\qedhere
+%\frac1{n^2} \left(\sum_{k=1}^n \var{\widehat{\theta}_k(X)\mid\theta} + 2\sum_{k<\ell} \cov{\widehat{\theta}_k,\,\widehat{\theta}_\ell}\right)
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{対称な不偏推定量}
+\small
+\begin{align*}
+p(\symbf{x}\mid \theta) &= \prod_{k=1}^N p(x_k\mid \theta).
+\end{align*}
+\begin{lemma}[対称な不偏推定量]
+任意の不偏推定量$\widehat{\theta}\colon A^N\to\Theta$について、ある対称な不偏推定量$\widehat{\theta}^*$が存在して
+\begin{align*}
+\var{\widehat{\theta}^*(\symbf{X})\mid\theta} &\le \var{\widehat{\theta}(\symbf{X})\mid\theta}
+\qquad\forall\theta\in\Theta.
+\end{align*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\widehat{\theta}^*(x_1,\dotsc,x_N) &\coloneq \frac1{N!} \sum_{\sigma\in S_N} \widehat{\theta}\left(x_{\sigma(1)},\dotsc,x_{\sigma(N)}\right)
+\end{align*}
+と定義すればよい。
+\end{proof}
+\end{frame}
+
+\begin{frame}{加法的ノイズのモデル}
+\footnotesize
+\begin{align*}
+X &= \theta + Z
+\end{align*}
+\begin{itemize}
+\item $\expt{Z} = 0$.
+\item $\var{Z} < \infty$.
+\end{itemize}
+\begin{theorem}
+$\widehat{\theta}^*$が$Z$の分布によらず対称な不偏推定量となるとき、$\widehat{\theta}^*$は\emm{標本平均}
+\begin{align*}
+\widehat{\theta}^*(x_1,\dotsc,x_n)&\coloneq \frac1n \sum_{k=1}^n x_k
+\end{align*}
+である。
+\end{theorem}
+\begin{proof}
+$n=1$のとき、
+$\Pr(Z=0)=1$と仮定すると、
+\begin{align*}
+\theta&= \expt{\widehat{\theta}^*(X)\mid\theta}
+= \widehat{\theta}^*(\theta)
+\end{align*}
+が任意の$\theta\in\Theta$について成り立つ。よって$\widehat{\theta}^*(x)=x$である。
+\end{proof}
+\end{frame}
+
+\begin{frame}{加法的ノイズのモデル}
+\small
+ある$a\ne 0$と$p\in[0,1]$について、ノイズの分布を
+\begin{align*}
+\Pr(Z = a(p-1)) &= p&
+\Pr(Z = ap) &= 1-p
+\end{align*}
+とすると$\expt{Z}=0$, $\var{Z}<\infty$である。
+
+$n=2$のとき、
+任意の$a\ne 0$と$p\in[0,1]$について
+\begin{align*}
+%\expt{\widehat{\theta}^*(\symbf{X})\mid\theta} &=
+\theta&= \expt{\widehat{\theta}^*(X_1,X_2)\mid\theta}\\
+ &= p^2 \widehat{\theta}^*(a(p-1),a(p-1)) + (1-p)^2 \widehat{\theta}^*(ap, ap)\\
+&\quad + p(1-p) \widehat{\theta}^*(a(p-1), ap) + (1-p)p\widehat{\theta}^*(ap, a(p-1))\\
+ &= p^2 a(p-1) + (1-p)^2 ap + 2p(1-p) \widehat{\theta}^*(ap, a(p-1))
+\end{align*}
+が成り立つ。
+\end{frame}
+
+\begin{frame}{課題}
+\small
+以下の問に答えよ。
+\begin{enumerate}
+\setlength{\itemsep}{1em}
+\item 
+\begin{align*}
+p(\symbf{x}\mid\theta)&= \frac1{\sqrt{(2\pi)^N}}\mathrm{e}^{-\sum_{k=1}^N\frac{(x_k-\theta)^2}2}
+\end{align*}
+のとき、以下の$T\colon\mathbb{R}^N\to\mathbb{R}$が十分統計量かどうか示せ。結論だけでなく理由も示すこと。
+\begin{align*}
+T(\symbf{x})&= \sum_{k=1}^N x_k.
+\end{align*}
+\item
+\begin{align*}
+\Pr(X_1=x_1,\dotsc,X_N=x_N\mid\lambda)&= \frac1{\prod_{k=1}^N x_k!}\lambda^{\sum_{k=1}^N x_k} \mathrm{e}^{-N\lambda}
+\end{align*}
+のとき、$\lambda$の推定関数$\delta(\symbf{x})=x_1$と十分統計量$T(\symbf{x})=\sum_{k=1}^Nx_k$を用いてラオ--ブラックウェルの定理に基づいて、よりよい推定関数$\eta\circ T$をもとめよ。
+\end{enumerate}
+\end{frame}
+
+
+\end{document}
