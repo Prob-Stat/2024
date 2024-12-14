@@ -54,6 +54,7 @@
 \newcommand\dtv{d_{\mathrm{TV}}}
 
 \theoremstyle{definition}
+%\newtheorem{fact}{Fact}
 
 \title{確率・統計基礎: 点推定、不偏推定量}
 \author{森 立平}
@@ -90,11 +91,185 @@
 \end{frame}
 
 \begin{frame}{不偏推定量は存在するとは限らない}
-
+パラメータ$\theta\in(0,1)$について、
+$X\sim\mathrm{Binom}(N, \theta)$、$g(\theta) = 1/\theta$とする。
+$\delta\colon \mathbb{Z}_{\ge 0}\to \mathbb{R}$を不偏推定量とすると、
+\begin{align*}
+\frac1\theta &= \sum_{x=0}^N \delta(x) \Pr(X = x)\\
+&= \sum_{x=0}^N \delta(x) \binom{N}{x} \theta^x(1-\theta)^{N-x}
+\end{align*}
+$\theta\to 0$の極限で左辺は$+\infty$に発散する。一方で右辺は$\delta(0)$に収束する。
+よって\emm{$\delta$をどのように定めても不偏推定量にはならない}。
 \end{frame}
 
+\if0
 \begin{frame}{ジャックナイフサンプリング}
+\begin{align*}
+\Pr(\symbf{X}=\symbf{x}\mid\theta) &= \prod_{k=1}^N \Pr(X_k=x_k\mid\theta)
+\end{align*}
+各$N\in\mathbb{N}$について
+$\delta_N\colon \mathcal{X}^N\to\mathbb{R}$が
+\begin{align*}
+\expt{\delta_N(\symbf{X})\mid\theta} &= g(\theta) + O\left(\frac{1}{N}\right)
+\end{align*}
+を満たすとする。
+\end{frame}
+\fi
 
+\begin{frame}{不偏推定量の自由度}
+\begin{fact}
+$\delta_0\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とする。
+任意の推定量$\delta\colon\mathcal{X}\to\mathbb{R}$について以下は同値
+\begin{enumerate}
+\item $\delta$は$g(\theta)$の不偏推定量
+\item $\delta-\delta_0$は $0$の不偏推定量
+\end{enumerate}
+\end{fact}
+よって$h\colon\mathcal{X}\to\mathbb{R}$を$0$の不偏推定量とすると、$g(\theta)$の任意の不偏推定量は$\delta=\delta_0+h$と表せる。このとき、
+\begin{align*}
+\var{\delta(X)\mid\theta}&=
+\var{\delta_0(X)+h(X)\mid\theta}\\
+&= \var{\delta_0(X)\mid\theta}+\var{h(X)\mid\theta}+2\cov{\delta_0(X), h(X)\mid\theta}\\
+&= \var{\delta_0(X)\mid\theta}+\emm{\expt{h(X)^2\mid\theta}+2\expt{\delta_0(X)h(X)\mid\theta}}
+%&=
+%\expt{(\delta_0(X)+h(X))^2\mid\theta}-
+%\expt{\delta_0(X)+h(X)\mid\theta}^2\\
+%&=
+%\emm{\expt{(\delta_0(X)+h(X))^2\mid\theta}}- g(\theta)^2
+\end{align*}
+%よって$\emm{\expt{(\delta_0(X)+h(X))^2\mid\theta}}$を最小化する$h$を見つければよい。
+よって$\emm{\expt{h(X)^2\mid\theta}+2\expt{\delta_0(X)h(X)\mid\theta}}$を最小化する$h$を見つければよい。
+\end{frame}
+
+\begin{frame}{例: 不偏推定量の最適化 1/2}
+\small
+パラメータ$p\in(0,1)$について、
+\begin{align*}
+\Pr(X=-1\mid p) &= p\\
+\Pr(X=x\mid p) &= p^x (1-p)^2 \qquad\forall x\in\mathbb{Z}_{\ge 0}
+\end{align*}
+とする(確率$p$で$-1$、確率$1-p$で幾何分布$\mathrm{Geo}(p)$)。このとき、$\emm{p}$と$\emm{(1-p)^2}$の不偏推定量をそれぞれ
+\begin{align*}
+\delta_0(x) &=\mathbb{1}_{\{x = -1\}}\\
+\delta_1(x) &=\mathbb{1}_{\{x = 0\}}
+\end{align*}
+とする。
+また、$h\colon\mathbb{Z}_{\ge -1}\to\mathbb{R}$を$0$の不偏推定量とすると、
+\begin{align*}
+&ph(-1) + \sum_{x\ge 0} h(x) p^x (1-p)^2 = 0\qquad\forall p\in(0,1)\\
+%&h(0) + (h(-1) + h(1) - 2h(0))p + \sum_{x\ge 2} (h(x)-2h(x-1)+h(x-2)) p^x = 0\qquad\forall p\in(0,1)\\
+\iff&h(0) + \sum_{x\ge 1} (h(x)-2h(x-1)+h(x-2)) p^x = 0\qquad\forall p\in(0,1)\\
+\iff&h(0)=0,\qquad h(x)-2h(x-1)+h(x-2) = 0\qquad\forall x\in\mathbb{Z}_{\ge1}\\
+\iff&h(x)=xh(1)\qquad\forall x\in\mathbb{Z}_{\ge-1}\\
+\end{align*}
+\end{frame}
+
+\begin{frame}{例: 不偏推定量の最適化 2/2}
+\small
+%\begin{align*}
+% \emm{\expt{(\delta_0(X)+h(X))^2\mid p}}
+%&= \expt{(\mathbb{1}_{\{X=-1\}}+Xh(1))^2\mid p}\\
+%&= \expt{\mathbb{1}_{\{X=-1\}}+2\mathbb{1}_{\{X=-1\}}Xh(1) + X^2h(1)^2\mid p}\\
+%&= p -2ph(1) + \left(p + (1-p)\frac{p+p^2}{(1-p)^2}\right)h(1)^2\\
+%&= p -2ph(1) + \frac{2p}{1-p}h(1)^2
+%\end{align*}
+%よって$h(1) = \frac{1-p}2$のとき最小化される。最適な不偏推定量は$p$毎に違う。
+\begin{align*}
+&\emm{\expt{h(X)^2\mid\theta}+2\expt{\delta_0(X) h(X)\mid\theta}}\\
+&=\expt{(\emm{h(1)}X)^2\mid\theta} + 2\expt{\delta_0(X) \emm{h(1)}X\mid\theta}\\
+&=\expt{X^2\mid\theta}\emm{h(1)}^2 + 2\expt{\delta_0(X) X\mid\theta}\emm{h(1)}
+%&=\expt{(Xh(1))^2\mid\theta} + 2\expt{(\mathbb{1}_{\{X=-1\}}-p)Xh(1)\mid\theta}\\
+%&=\expt{X^2\mid\theta}h(1)^2 + 2\expt{(\mathbb{1}_{\{X=-1\}}-p)X\mid\theta}h(1)\\
+\end{align*}
+よって$\emm{h(1)} = -\frac{\expt{\delta_0(X)X\mid\theta}}{\expt{X^2\mid\theta}}=\frac{1-p}2$のとき最小化される。
+最適な不偏推定量は$p$毎に違う。
+
+\vspace{2em}
+%\begin{align*}
+ %\emm{\expt{(\delta_1(X)+h(X))^2\mid p}}
+%&= \expt{(\mathbb{1}_{\{X=0\}}+Xh(1))^2\mid p}\\
+%&= \expt{\mathbb{1}_{\{X=0\}}+2\mathbb{1}_{\{X=0\}}Xh(1) + X^2h(1)^2\mid p}\\
+%&= (1-p)^2 + \frac{2p}{1-p}h(1)^2
+%\end{align*}
+%よって$h(1) = 0$のとき最小化される。\emm{最適な不偏推定量は$p$によらず}$\delta_1(x)=\mathbb{1}_{\{x=0\}}$.
+同様に$\delta_1$について考えると$\emm{h(1)} = -\frac{\expt{\delta_1(X)X\mid\theta}}{\expt{X^2\mid\theta}}=0$のとき最小化される。
+\emm{最適な不偏推定量は$p$によらず}$\delta_1(x)=\mathbb{1}_{\{x=0\}}$.
+\end{frame}
+
+\begin{frame}{一様最小分散不偏推定量}
+\small
+\begin{definition}[一様最小分散不偏推定量 (uniform minimum variance unbiased (UMVU) estimator)]
+不偏推定量$\delta\colon\mathcal{X}\to\mathbb{R}$が任意の$\theta\in\Theta$について、最小の分散を持つとき\emm{一様最小分散不偏推定量}という。
+\begin{enumerate}
+\item (不偏推定量である) $\expt{\delta(X)\mid\theta}=g(\theta)$ for all $\theta\in\Theta$.
+\item (分散が最小である) $\var{\delta(X)\mid\theta}\le \var{\delta'(X)\mid\theta}$が任意の不偏推定量$\delta'\colon\mathcal{X}\to\mathbb{R}$と$\theta\in\Theta$について成り立つ。
+\end{enumerate}
+\end{definition}
+\begin{align*}
+\var{\delta(X)+ah(X)\mid\theta}
+&= \var{\delta(X)\mid\theta}+\var{ah(X)\mid\theta}+2\cov{\delta(X), ah(X)\mid\theta}\\
+&= \var{\delta(X)\mid\theta}+a^2\var{h(X)\mid\theta}+2a\cov{\delta(X), h(X)\mid\theta}
+\end{align*}
+よって$\delta$がUMVU推定量のとき、0の任意の不偏推定量$h$について$\cov{\delta(X), h(X)\mid\theta}=0$でなければならない。
+\end{frame}
+
+\begin{frame}{一様最小分散不偏推定量}
+\small
+\begin{theorem}
+
+\vspace{-2em}
+\begin{align*}
+\Delta&\coloneq\{\delta\colon\mathcal{X}\to\mathbb{R}\mid \expt{\delta(X)^2\mid\theta}<\infty \quad\forall\theta\in\Theta\}\\
+\mathcal{U}&\coloneq\{h\colon\mathcal{X}\to\mathbb{R}\mid \expt{h(X)\mid\theta}=0 \quad\forall\theta\in\Theta\} \cap\Delta
+\end{align*}
+とする。$\delta\in\Delta$について以下は同値
+\begin{enumerate}
+\item $\delta$はUMVU推定量。
+\item 任意の$h\in\mathcal{U}$と$\theta\in\Theta$について$\emm{\expt{\delta(X)h(X)\mid\theta}=0}$。
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+$1\implies 2$:
+$\delta$はUMVU推定量と仮定する。
+任意の$h\in\mathcal{U}$と$\theta\in\Theta$と$a\in\mathbb{R}$について
+\begin{align*}
+\var{\delta(X)\mid\theta}&\le\var{\delta(X)+ah(X)\mid\theta}\\
+ &= \var{\delta(X)\mid\theta}+\var{h(X)\mid\theta}a^2+2\expt{\delta(X)h(X)\mid\theta}a
+\end{align*}
+が成り立つので
+%($h(x)=0$のときとそうでないときで場合分けすると)
+、$\expt{\delta(X)h(X)\mid\theta}=0$。
+\end{proof}
+\end{frame}
+
+\begin{frame}{一様最小分散不偏推定量}
+\small
+\begin{theorem}
+
+\vspace{-2em}
+\begin{align*}
+\Delta&\coloneq\{\delta\colon\mathcal{X}\to\mathbb{R}\mid \expt{\delta(X)^2\mid\theta}<\infty \quad\forall\theta\in\Theta\}\\
+\mathcal{U}&\coloneq\{h\colon\mathcal{X}\to\mathbb{R}\mid \expt{h(X)\mid\theta}=0 \quad\forall\theta\in\Theta\} \cap\Delta
+\end{align*}
+とする。$\delta\in\Delta$について以下は同値
+\begin{enumerate}
+\item $\delta$はUMVU推定量。
+\item 任意の$h\in\mathcal{U}$と$\theta\in\Theta$について$\emm{\expt{\delta(X)h(X)\mid\theta}=0}$。
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+$2\implies 1$:
+任意の$h\in\mathcal{U}$と$\theta\in\Theta$について$\expt{\delta(X)h(X)\mid\theta}=0$ と仮定する。
+$\delta'\colon\mathcal{X}\to\mathbb{R}$を不偏推定量とする。$\var{\delta'(X)\mid\theta}=\infty$の場合は
+$\var{\delta(X)\mid\theta}\le\var{\delta'(X)\mid\theta}$である。
+$\delta'\in\Delta$の場合は$h\coloneq\delta'-\delta\in\mathcal{U}$。
+このとき任意の$\theta\in\Theta$について
+\begin{align*}
+\var{\delta'(X)\mid\theta} &= \var{\delta(X)+h(X)\mid\theta}\\
+&= \var{\delta(X)}+\expt{h(X)^2\mid\theta} + 2\expt{\delta(X)h(X)\mid\theta}\\
+&= \var{\delta(X)}+\expt{h(X)^2\mid\theta} \ge \var{\delta(X)}
+\end{align*}
+\end{proof}
 \end{frame}
 
 \begin{frame}{推定量の平均}
