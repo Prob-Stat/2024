@@ -175,13 +175,13 @@ $\delta_0\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とす�
 %\end{align*}
 %よって$h(1) = \frac{1-p}2$のとき最小化される。最適な不偏推定量は$p$毎に違う。
 \begin{align*}
-&\emm{\expt{h(X)^2\mid\theta}+2\expt{\delta_0(X) h(X)\mid\theta}}\\
-&=\expt{(\emm{h(1)}X)^2\mid\theta} + 2\expt{\delta_0(X) \emm{h(1)}X\mid\theta}\\
-&=\expt{X^2\mid\theta}\emm{h(1)}^2 + 2\expt{\delta_0(X) X\mid\theta}\emm{h(1)}
+&\emm{\expt{h(X)^2\mid p}+2\expt{\delta_0(X) h(X)\mid p}}\\
+&=\expt{(\emm{h(1)}X)^2\mid p} + 2\expt{\delta_0(X) \emm{h(1)}X\mid p}\\
+&=\expt{X^2\mid p}\emm{h(1)}^2 + 2\expt{\delta_0(X) X\mid p}\emm{h(1)}
 %&=\expt{(Xh(1))^2\mid\theta} + 2\expt{(\mathbb{1}_{\{X=-1\}}-p)Xh(1)\mid\theta}\\
 %&=\expt{X^2\mid\theta}h(1)^2 + 2\expt{(\mathbb{1}_{\{X=-1\}}-p)X\mid\theta}h(1)\\
 \end{align*}
-よって$\emm{h(1)} = -\frac{\expt{\delta_0(X)X\mid\theta}}{\expt{X^2\mid\theta}}=\frac{1-p}2$のとき最小化される。
+よって$\emm{h(1)} = -\frac{\expt{\delta_0(X)X\mid p}}{\expt{X^2\mid p}}=\frac{1-p}2$のとき最小化される。
 最適な不偏推定量は$p$毎に違う。
 
 \vspace{2em}
@@ -192,7 +192,7 @@ $\delta_0\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とす�
 %&= (1-p)^2 + \frac{2p}{1-p}h(1)^2
 %\end{align*}
 %よって$h(1) = 0$のとき最小化される。\emm{最適な不偏推定量は$p$によらず}$\delta_1(x)=\mathbb{1}_{\{x=0\}}$.
-同様に$\delta_1$について考えると$\emm{h(1)} = -\frac{\expt{\delta_1(X)X\mid\theta}}{\expt{X^2\mid\theta}}=0$のとき最小化される。
+同様に$\delta_1$について考えると$\emm{h(1)} = -\frac{\expt{\delta_1(X)X\mid p}}{\expt{X^2\mid p}}=0$のとき最小化される。
 \emm{最適な不偏推定量は$p$によらず}$\delta_1(x)=\mathbb{1}_{\{x=0\}}$.
 \end{frame}
 
@@ -205,12 +205,12 @@ $\delta_0\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とす�
 \item (分散が最小である) $\var{\delta(X)\mid\theta}\le \var{\delta'(X)\mid\theta}$が任意の不偏推定量$\delta'\colon\mathcal{X}\to\mathbb{R}$と$\theta\in\Theta$について成り立つ。
 \end{enumerate}
 \end{definition}
-\begin{align*}
-\var{\delta(X)+ah(X)\mid\theta}
-&= \var{\delta(X)\mid\theta}+\var{ah(X)\mid\theta}+2\cov{\delta(X), ah(X)\mid\theta}\\
-&= \var{\delta(X)\mid\theta}+a^2\var{h(X)\mid\theta}+2a\cov{\delta(X), h(X)\mid\theta}
-\end{align*}
-よって$\delta$がUMVU推定量のとき、0の任意の不偏推定量$h$について$\cov{\delta(X), h(X)\mid\theta}=0$でなければならない。
+%\begin{align*}
+%\var{\delta(X)+ah(X)\mid\theta}
+%&= \var{\delta(X)\mid\theta}+\var{ah(X)\mid\theta}+2\cov{\delta(X), ah(X)\mid\theta}\\
+%&= \var{\delta(X)\mid\theta}+a^2\var{h(X)\mid\theta}+2a\cov{\delta(X), h(X)\mid\theta}
+%\end{align*}
+%よって$\delta$がUMVU推定量のとき、0の任意の不偏推定量$h$について$\cov{\delta(X), h(X)\mid\theta}=0$でなければならない。
 \end{frame}
 
 \begin{frame}{一様最小分散不偏推定量}
@@ -224,20 +224,20 @@ $\delta_0\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とす�
 \end{align*}
 とする。$\delta\in\Delta$について以下は同値
 \begin{enumerate}
-\item $\delta$はUMVU推定量。
+\item $\delta$は$\expt{\delta(X)\mid\theta}$のUMVU推定量。
 \item 任意の$h\in\mathcal{U}$と$\theta\in\Theta$について$\emm{\expt{\delta(X)h(X)\mid\theta}=0}$。
 \end{enumerate}
 \end{theorem}
 \begin{proof}
 $1\implies 2$:
-$\delta$はUMVU推定量と仮定する。
+$\delta$は$\expt{\delta(X)\mid\theta}$のUMVU推定量と仮定する。
 任意の$h\in\mathcal{U}$と$\theta\in\Theta$と$a\in\mathbb{R}$について
 \begin{align*}
 \var{\delta(X)\mid\theta}&\le\var{\delta(X)+ah(X)\mid\theta}\\
  &= \var{\delta(X)\mid\theta}+\var{h(X)\mid\theta}a^2+2\expt{\delta(X)h(X)\mid\theta}a
 \end{align*}
 が成り立つので
-%($h(x)=0$のときとそうでないときで場合分けすると)
+($h(x)=0$のときとそうでないときで場合分けすると)
 、$\expt{\delta(X)h(X)\mid\theta}=0$。
 \end{proof}
 \end{frame}
@@ -253,14 +253,15 @@ $\delta$はUMVU推定量と仮定する。
 \end{align*}
 とする。$\delta\in\Delta$について以下は同値
 \begin{enumerate}
-\item $\delta$はUMVU推定量。
+\item $\delta$は$\expt{\delta(X)\mid\theta}$のUMVU推定量。
 \item 任意の$h\in\mathcal{U}$と$\theta\in\Theta$について$\emm{\expt{\delta(X)h(X)\mid\theta}=0}$。
 \end{enumerate}
 \end{theorem}
 \begin{proof}
 $2\implies 1$:
 任意の$h\in\mathcal{U}$と$\theta\in\Theta$について$\expt{\delta(X)h(X)\mid\theta}=0$ と仮定する。
-$\delta'\colon\mathcal{X}\to\mathbb{R}$を不偏推定量とする。$\var{\delta'(X)\mid\theta}=\infty$の場合は
+$\delta'\colon\mathcal{X}\to\mathbb{R}$を$\expt{\delta(X)\mid\theta}$の不偏推定量とする。
+$\var{\delta'(X)\mid\theta}=\infty$の場合は
 $\var{\delta(X)\mid\theta}\le\var{\delta'(X)\mid\theta}$である。
 $\delta'\in\Delta$の場合は$h\coloneq\delta'-\delta\in\mathcal{U}$。
 このとき任意の$\theta\in\Theta$について
@@ -275,23 +276,23 @@ $\delta'\in\Delta$の場合は$h\coloneq\delta'-\delta\in\mathcal{U}$。
 \begin{frame}{推定量の平均}
 \footnotesize
 \begin{lemma}
-$\widehat{\theta}_1,\,\widehat{\theta}_2,\dotsc,\widehat{\theta}_n\colon A\to\Theta$が不偏推定量のとき、
+$\delta_1,\,\delta_2,\dotsc,\delta_n\colon \mathcal{X}\to\Theta$が$g(\theta)$の不偏推定量のとき、
 \begin{align*}
-\widehat{\theta}^* &\coloneq \frac1n\sum_{k=1}^n\widehat{\theta}_k
+\delta^* &\coloneq \frac1n\sum_{k=1}^n\delta_k
 \end{align*}
-は不偏推定量で
+は$g(\theta)$の不偏推定量で
 \begin{align*}
-\var{\widehat{\theta}^*(X)\mid\theta} &\le\frac1n\sum_{k=1}^n\var{\widehat{\theta}_k(X)\mid\theta}
+\var{\delta^*(X)\mid\theta} &\le\frac1n\sum_{k=1}^n\var{\delta_k(X)\mid\theta}
 \qquad\forall\theta\in\Theta.
 \end{align*}
 \end{lemma}
 \begin{proof}
-$\widehat{\theta}^*$が不偏推定量であることは期待値の線形性から明らか。
+$\delta^*$が不偏推定量であることは期待値の線形性から明らか。
 \begin{align*}
-\var{\widehat{\theta}^*(X)\mid\theta} &=
-\expt{\left(\frac1n\sum_{k=1}^n\widehat{\theta}_k(X) - \theta\right)^2\mid\theta}\\
+\var{\delta^*(X)\mid\theta} &=
+\expt{\left(\frac1n\sum_{k=1}^n\delta_k(X) - g(\theta)\right)^2\mid\theta}\\
 &\le
-\frac1n\sum_{k=1}^n\expt{\left(\widehat{\theta}_k(X) - \theta\right)^2\mid\theta}\quad\text{(イェンセンの不等式)}\qedhere
+\frac1n\sum_{k=1}^n\expt{\left(\delta_k(X) - g(\theta)\right)^2\mid\theta}\quad\text{(イェンセンの不等式)}\qedhere
 %\frac1{n^2} \left(\sum_{k=1}^n \var{\widehat{\theta}_k(X)\mid\theta} + 2\sum_{k<\ell} \cov{\widehat{\theta}_k,\,\widehat{\theta}_\ell}\right)
 \end{align*}
 \end{proof}
@@ -303,7 +304,7 @@ $\widehat{\theta}^*$が不偏推定量であることは期待値の線形性か
 p(\symbf{x}\mid \theta) &= \prod_{k=1}^N p(x_k\mid \theta).
 \end{align*}
 \begin{lemma}[対称な不偏推定量]
-任意の不偏推定量$\widehat{\theta}\colon A^N\to\Theta$について、ある対称な不偏推定量$\widehat{\theta}^*$が存在して
+任意の不偏推定量$\widehat{\theta}\colon \mathcal{X}^N\to\Theta$について、ある対称な不偏推定量$\widehat{\theta}^*$が存在して
 \begin{align*}
 \var{\widehat{\theta}^*(\symbf{X})\mid\theta} &\le \var{\widehat{\theta}(\symbf{X})\mid\theta}
 \qquad\forall\theta\in\Theta.
@@ -317,6 +318,103 @@ p(\symbf{x}\mid \theta) &= \prod_{k=1}^N p(x_k\mid \theta).
 \end{proof}
 \end{frame}
 
+\begin{frame}{コーシー--シュワルツの不等式}
+\small
+\begin{lemma}
+任意の確率変数$X$と$Y$について
+\begin{align*}
+|\expt{XY}|&\le\sqrt{\expt{X^2}\expt{Y^2}}.
+\end{align*}
+\end{lemma}
+\begin{proof}
+任意の$a\in\mathbb{R}$について
+\begin{align*}
+0&\le\expt{(X+aY)^2}\\
+&\le\expt{X^2}+\expt{Y^2}a^2+2\expt{XY}a
+\end{align*}
+$\expt{Y^2}=0$のとき、$\Pr(Y=0)=1$で不等式は成り立つ。
+$\expt{Y^2}>0$とする。
+上の式に$a=-\frac{\expt{XY}}{\expt{Y^2}}$を代入すると、
+\begin{align*}
+0&\le \expt{X^2} - \frac{\expt{XY}^2}{\expt{Y^2}}
+\end{align*}
+よって不等式は得られた。
+\end{proof}
+\end{frame}
+
+\begin{frame}{共分散の不等式}
+\small
+\begin{corollary}
+任意の確率変数$X$と$Y$について
+\begin{align*}
+|\cov{X,\,Y}|&\le\sqrt{\var{X}\var{Y}}.
+\end{align*}
+\end{corollary}
+\begin{proof}
+$A= X - \expt{X}$,
+$B= Y - \expt{Y}$について、コーシー--シュワルツの不等式より
+\begin{align*}
+&|\expt{AB}|\le\sqrt{\expt{A^2}\expt{B^2}}\\
+\iff&|\cov{X,\,Y}|\le\sqrt{\var{X}\var{Y}}.
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{不偏推定量の分散の下界}
+不偏推定量$\delta\colon\mathcal{X}\to\mathbb{R}$の分散の下界を導出したい。
+
+\vspace{1em}
+任意の$\psi\colon\mathcal{X}\times\Theta\to\mathbb{R}$について
+\begin{align*}
+\var{\delta(X)\mid\theta}&\ge\frac{\cov{\delta(X),\,\psi(X,\,\theta)\mid\theta}^2}{\var{\psi(X,\,\theta)\mid\theta}}.
+\end{align*}
+
+\begin{align*}
+\psi(x,\,\theta)&=\frac{\partial p(x\mid\theta)}{\partial\theta}\frac1{p(x\mid\theta)}
+\end{align*}
+とおくと、
+\begin{align*}
+\expt{\psi(X,\,\theta)\mid\theta}&= \int \frac{\partial p(x\mid\theta)}{\partial\theta}\mathrm{d}x\\
+&= \frac{\partial }{\partial\theta}\int p(x\mid\theta)\mathrm{d}x=0
+\end{align*}
+\end{frame}
+
+\begin{frame}{フィッシャー情報量}
+\small
+\begin{definition}[フィッシャー情報量]
+\vspace{-1em}
+\begin{align*}
+I(\theta) &\coloneq \expt{\left(\frac{\partial \log p(X\mid\theta)}{\partial\theta}\right)^2\mid\theta}.
+%&= -\expt{\frac{\partial^2}{\partial\theta^2}\log p(X\mid\theta)\mid\theta}.
+%&= \expt{\left(\frac{1}{p(X\mid\theta)}\frac{\partial p(X\mid\theta)}{\partial\theta}\right)^2\mid\theta}\\
+%&= \int p(x\mid\theta)\left(\frac{1}{p(x\mid\theta)}\frac{\partial p(x\mid\theta)}{\partial\theta}\right)^2\mathrm{d}x\\
+%&= \int \frac{1}{p(x\mid\theta)}\left(\frac{\partial p(x\mid\theta)}{\partial\theta}\right)^2\mathrm{d}x
+\end{align*}
+\end{definition}
+\begin{align*}
+\var{\delta(X)\mid\theta}&\ge\frac{\cov{\delta(X),\,\psi(X,\,\theta)\mid\theta}^2}{\var{\psi(X,\,\theta)\mid\theta}}\\
+&\ge\frac{\expt{\delta(X)\psi(X,\,\theta)\mid\theta}^2}{I(\theta)}.
+\end{align*}
+\begin{align*}
+\expt{\delta(X)\psi(X,\,\theta)\mid\theta}&=
+\int p(x\mid\theta) \delta(x)\frac{\partial p(x\mid\theta)}{\partial\theta}\frac1{p(x\mid\theta)}\mathrm{d}x\\
+&=
+\frac{\partial}{\partial\theta}\int p(x\mid\theta) \delta(x)\mathrm{d}x\\
+&=
+\frac{\partial}{\partial\theta}g(\theta)=g'(\theta).
+\end{align*}
+\end{frame}
+
+\begin{frame}{クラメール--ラオの不等式}
+\begin{theorem}[クラメール--ラオの不等式]
+$\delta\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とする。
+\begin{align*}
+\var{\delta(X)\mid\theta} &\ge \frac{g'(\theta)^2}{I(\theta)}
+\end{align*}
+\end{theorem}
+\end{frame}
+
+\if0
 \begin{frame}{加法的ノイズのモデル}
 \footnotesize
 \begin{align*}
@@ -364,6 +462,7 @@ $n=2$のとき、
 \end{align*}
 が成り立つ。
 \end{frame}
+\fi
 
 \begin{frame}{課題}
 \small
