@@ -371,11 +371,12 @@ $B= Y - \expt{Y}$について、コーシー--シュワルツの不等式より
 
 \begin{align*}
 \psi(x,\,\theta)&=\frac{\partial p(x\mid\theta)}{\partial\theta}\frac1{p(x\mid\theta)}
+=\frac{\partial\log p(x\mid\theta)}{\partial\theta}
 \end{align*}
 とおくと、
 \begin{align*}
 \expt{\psi(X,\,\theta)\mid\theta}&= \int \frac{\partial p(x\mid\theta)}{\partial\theta}\mathrm{d}x\\
-&= \frac{\partial }{\partial\theta}\int p(x\mid\theta)\mathrm{d}x=0
+&= \frac{\partial }{\partial\theta}\int p(x\mid\theta)\mathrm{d}x=0.
 \end{align*}
 \end{frame}
 
@@ -409,7 +410,7 @@ I(\theta) &\coloneq \expt{\left(\frac{\partial \log p(X\mid\theta)}{\partial\the
 \begin{theorem}[クラメール--ラオの不等式]
 $\delta\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とする。
 \begin{align*}
-\var{\delta(X)\mid\theta} &\ge \frac{g'(\theta)^2}{I(\theta)}
+\var{\delta(X)\mid\theta} &\ge \frac{g'(\theta)^2}{I(\theta)}.
 \end{align*}
 \end{theorem}
 \end{frame}
