@@ -368,12 +368,13 @@ $B= Y - \expt{Y}$について、コーシー--シュワルツの不等式より
 \begin{align*}
 \var{\delta(X)\mid\theta}&\ge\frac{\cov{\delta(X),\,\psi(X,\,\theta)\mid\theta}^2}{\var{\psi(X,\,\theta)\mid\theta}}.
 \end{align*}
-
+ここで
 \begin{align*}
-\psi(x,\,\theta)&=\frac{\partial p(x\mid\theta)}{\partial\theta}\frac1{p(x\mid\theta)}
-=\frac{\partial\log p(x\mid\theta)}{\partial\theta}
+\psi(x,\,\theta)&
+=\emm{\frac{\partial\log p(x\mid\theta)}{\partial\theta}}
+=\frac{\partial p(x\mid\theta)}{\partial\theta}\frac1{p(x\mid\theta)}
 \end{align*}
-とおくと、
+とおく(離散の場合は$p(x\mid\theta)$は確率質量関数としての尤度関数に置き換える)と、
 \begin{align*}
 \expt{\psi(X,\,\theta)\mid\theta}&= \int \frac{\partial p(x\mid\theta)}{\partial\theta}\mathrm{d}x\\
 &= \frac{\partial }{\partial\theta}\int p(x\mid\theta)\mathrm{d}x=0.
