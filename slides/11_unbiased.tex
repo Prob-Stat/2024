@@ -317,7 +317,7 @@ $\delta'\in\Delta$の場合は$h\coloneq\delta'-\delta\in\mathcal{U}$。
 \begin{lemma}
 $\delta_1,\,\delta_2,\dotsc,\delta_n\colon \mathcal{X}\to\Theta$が$g(\theta)$の不偏推定量のとき、
 \begin{align*}
-\delta^* &\coloneq \frac1n\sum_{k=1}^n\delta_k
+\delta^* &\coloneq \emm{\frac1n\sum_{k=1}^n\delta_k}
 \end{align*}
 は$g(\theta)$の不偏推定量で
 \begin{align*}
@@ -343,15 +343,15 @@ $\delta^*$が不偏推定量であることは期待値の線形性から明ら�
 p(\symbf{x}\mid \theta) &= \prod_{k=1}^N p(x_k\mid \theta).
 \end{align*}
 \begin{lemma}[対称な不偏推定量]
-任意の不偏推定量$\widehat{\theta}\colon \mathcal{X}^N\to\Theta$について、ある対称な不偏推定量$\widehat{\theta}^*$が存在して
+任意の不偏推定量$\delta\colon \mathcal{X}^N\to\Theta$について、ある\emm{対称な}不偏推定量$\delta^*$が存在して
 \begin{align*}
-\var{\widehat{\theta}^*(\symbf{X})\mid\theta} &\le \var{\widehat{\theta}(\symbf{X})\mid\theta}
+\var{\delta^*(\symbf{X})\mid\theta} &\le \var{\delta(\symbf{X})\mid\theta}
 \qquad\forall\theta\in\Theta.
 \end{align*}
 \end{lemma}
 \begin{proof}
 \begin{align*}
-\widehat{\theta}^*(x_1,\dotsc,x_N) &\coloneq \frac1{N!} \sum_{\sigma\in S_N} \widehat{\theta}\left(x_{\sigma(1)},\dotsc,x_{\sigma(N)}\right)
+\delta^*(x_1,\dotsc,x_N) &\coloneq \frac1{N!} \sum_{\sigma\in S_N} \delta\left(x_{\sigma(1)},\dotsc,x_{\sigma(N)}\right)
 \end{align*}
 と定義すればよい。
 \end{proof}
@@ -448,7 +448,7 @@ I(\theta) &\coloneq \expt{\left(\frac{\partial \log p(X\mid\theta)}{\partial\the
 
 \begin{frame}{クラメール--ラオの不等式}
 \begin{theorem}[クラメール--ラオの不等式]
-$\delta\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とする。
+$\delta\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の任意の不偏推定量とするとき以下が成り立つ。
 \begin{align*}
 \var{\delta(X)\mid\theta} &\ge \frac{g'(\theta)^2}{I(\theta)}.
 \end{align*}
@@ -507,19 +507,20 @@ $n=2$のとき、
 
 \begin{frame}{課題}
 \small
-パラメータ$\theta\in(0,1)$について、二項分布$\mathrm{Binom}(N,\,\theta)$に従う確率変数$X$
+パラメータ$\theta\in(0,1)$について、$X_1,\dotsc,X_n$が独立なベルヌーイ分布$\mathrm{Bernoulli}(\theta)$に従うものとする。
 \begin{align*}
-\Pr(X=k\mid\theta)&=\binom{N}{k}\theta^k(1-\theta)^{N-k}
+\Pr(X=x_1,\dotsc,X_N=x_N\mid\theta)&=\theta^{x_1+\dotsb+x_N}(1-\theta)^{N-(x_1+\dotsb+x_N)}
 \end{align*}
-から$g(\theta)$を推定する問題を考える。
+$\symbf{X}$から$g(\theta)$を推定する問題を考える。
+$T(\symbf{x})=\frac1N\sum_kx_k$とする。
 以下の問に答えよ。
 
 \vspace{1em}
 \begin{enumerate}
 \setlength{\itemsep}{2em}
-\item フィッシャー情報量$I(\theta)$をもとめよ。
-\item $g(\theta)=\frac1N\expt{X\mid\theta}=\theta$の不偏推定量$\delta(x)=\frac{x}{N}$の分散とクラメール--ラオの下界を導出せよ。
-\item $g(\theta)=\frac1N\var{X\mid\theta}=\theta(1-\theta)$の不偏推定量$\delta(x)=\frac{x(N-x)}{N(N-1)}$の分散とクラメール--ラオの下界を導出せよ。
+\item $\symbf{X}$のフィッシャー情報量$I(\theta)$をもとめよ。
+\item $g(\theta)=\expt{X\mid\theta}=\theta$の不偏推定量$\delta(\symbf{x})=T(\symbf{x})$の分散とクラメール--ラオの下界を導出せよ。
+\item $g(\theta)=\var{X\mid\theta}=\theta(1-\theta)$の不偏推定量である不偏分散$\delta(\symbf{x})=\frac1{N-1}\sum_k(x_k-T(\symbf{x}))^2$を$T(\symbf{x})$の関数として表せ。$g(\theta)$の不偏推定量の分散に対するクラメール--ラオの下界を導出せよ。
 \end{enumerate}
 \end{frame}
 
