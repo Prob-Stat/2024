@@ -425,7 +425,7 @@ $B= Y - \expt{Y}$について、コーシー--シュワルツの不等式より
 \begin{definition}[フィッシャー情報量]
 \vspace{-1em}
 \begin{align*}
-I(\theta) &\coloneq \expt{\left(\frac{\partial \log p(X\mid\theta)}{\partial\theta}\right)^2\mid\theta}.
+I(\theta) &\coloneq \emm{\expt{\left(\frac{\partial \log p(X\mid\theta)}{\partial\theta}\right)^2\mid\theta}}.
 %&= -\expt{\frac{\partial^2}{\partial\theta^2}\log p(X\mid\theta)\mid\theta}.
 %&= \expt{\left(\frac{1}{p(X\mid\theta)}\frac{\partial p(X\mid\theta)}{\partial\theta}\right)^2\mid\theta}\\
 %&= \int p(x\mid\theta)\left(\frac{1}{p(x\mid\theta)}\frac{\partial p(x\mid\theta)}{\partial\theta}\right)^2\mathrm{d}x\\
@@ -450,7 +450,7 @@ I(\theta) &\coloneq \expt{\left(\frac{\partial \log p(X\mid\theta)}{\partial\the
 \begin{theorem}[クラメール--ラオの不等式]
 $\delta\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の任意の不偏推定量とするとき以下が成り立つ。
 \begin{align*}
-\var{\delta(X)\mid\theta} &\ge \frac{g'(\theta)^2}{I(\theta)}.
+\var{\delta(X)\mid\theta} &\ge \emm{\frac{g'(\theta)^2}{I(\theta)}}.
 \end{align*}
 \end{theorem}
 \end{frame}
@@ -507,9 +507,10 @@ $n=2$のとき、
 
 \begin{frame}{課題}
 \small
-パラメータ$\theta\in(0,1)$について、$X_1,\dotsc,X_n$が独立なベルヌーイ分布$\mathrm{Bernoulli}(\theta)$に従うものとする。
+パラメータ$\theta\in(0,1)$について、$X_1,\dotsc,X_n$が独立なベルヌーイ分布$\mathrm{Ber}(\theta)$に従うものとする。
+つまり、以下が成り立つ。
 \begin{align*}
-\Pr(X=x_1,\dotsc,X_N=x_N\mid\theta)&=\theta^{x_1+\dotsb+x_N}(1-\theta)^{N-(x_1+\dotsb+x_N)}
+\Pr(X=x_1,\dotsc,X_N=x_N\mid\theta)&=\theta^{x_1+\dotsb+x_N}(1-\theta)^{N-(x_1+\dotsb+x_N)}.
 \end{align*}
 $\symbf{X}$から$g(\theta)$を推定する問題を考える。
 $T(\symbf{x})=\frac1N\sum_kx_k$とする。
@@ -520,7 +521,7 @@ $T(\symbf{x})=\frac1N\sum_kx_k$とする。
 \setlength{\itemsep}{2em}
 \item $\symbf{X}$のフィッシャー情報量$I(\theta)$をもとめよ。
 \item $g(\theta)=\expt{X\mid\theta}=\theta$の不偏推定量$\delta(\symbf{x})=T(\symbf{x})$の分散とクラメール--ラオの下界を導出せよ。
-\item $g(\theta)=\var{X\mid\theta}=\theta(1-\theta)$の不偏推定量である不偏分散$\delta(\symbf{x})=\frac1{N-1}\sum_k(x_k-T(\symbf{x}))^2$を$T(\symbf{x})$の関数として表せ。$g(\theta)$の不偏推定量の分散に対するクラメール--ラオの下界を導出せよ。
+\item $g(\theta)=\var{X\mid\theta}=\theta(1-\theta)$の不偏推定量である不偏分散$\delta(\symbf{x})=\frac1{N-1}\sum_k(x_k-T(\symbf{x}))^2$を$T(\symbf{x})$の関数として表せ。また、$g(\theta)$の不偏推定量の分散に対するクラメール--ラオの下界を導出せよ。
 \end{enumerate}
 \end{frame}
 
