@@ -90,6 +90,45 @@
 \end{definition}
 \end{frame}
 
+\begin{frame}{標本平均}
+\small
+$g(\theta) = \expt{X\mid\theta}$とすると、$\delta(X)=X$は不偏推定量。
+独立に$N$個サンプルする場合を考える。
+\begin{align*}
+p(\symbf{x}\mid \theta) &= \prod_{k=1}^N p(x_k\mid \theta).
+\end{align*}
+\begin{align*}
+\delta(\symbf{X}) &= \frac1N\sum_k X_k\qquad\text{(\emm{標本平均})}
+\end{align*}
+これも不偏推定量。分散は改善する。
+\begin{align*}
+\var{\frac1N\sum_kX_k\mid\theta}&=
+\frac1{N^2}\var{\sum_kX_k\mid\theta}=
+\frac1N\var{X\mid\theta}.
+\end{align*}
+\end{frame}
+
+\begin{frame}{標本分散、不偏分散}
+\scriptsize
+$g(\theta) = \var{X\mid\theta}$とする。
+\begin{align*}
+\delta(\symbf{X}) &= \frac1N\sum_k\left(X_k-\frac1N\sum_\ell X_\ell\right)^2\qquad\text{(\emm{標本分散})}
+\end{align*}
+\begin{align*}
+\expt{\delta(\symbf{X})\mid\theta}&=\sum_k\expt{\frac1N\left(X_k-\frac1N\sum_\ell X_\ell\right)^2\mid\theta}\\
+&=\frac1N\sum_k\expt{\left(X_k\emm{-\expt{X\mid\theta}+\expt{X\mid\theta}}-\frac1N\sum_\ell X_\ell\right)^2\mid\theta}\\
+&=\frac1N\sum_k\expt{\left(X_k-\expt{X\mid\theta}\right)^2\mid\theta}+\expt{\left(\expt{X\mid\theta}-\frac1N\sum_\ell X_\ell\right)^2\mid\theta}\\
+&\qquad + \frac2N\sum_k\expt{(X_k-\expt{X\mid\theta})\left(\expt{X\mid\theta}-\frac1N\sum_\ell X_\ell\right)\mid\theta}\\
+&=\var{X\mid\theta}-\expt{\left(\expt{X\mid\theta}-\frac1N\sum_\ell X_\ell\right)^2\mid\theta}\\
+&=\var{X\mid\theta}-\var{\frac1N\sum_\ell X_\ell\mid\theta}=\emm{\frac{N-1}N}\var{X\mid\theta}.
+\end{align*}
+
+\vspace{-1.0em}
+\begin{align*}
+\delta(\symbf{X}) &= \emm{\frac1{N-1}}\sum_k\left(X_k-\frac1N\sum_\ell X_\ell\right)^2\qquad\text{(\emm{不偏分散})}
+\end{align*}
+\end{frame}
+
 \begin{frame}{不偏推定量は存在するとは限らない}
 パラメータ$\theta\in(0,1)$について、
 $X\sim\mathrm{Binom}(N, \theta)$、$g(\theta) = 1/\theta$とする。
@@ -234,7 +273,7 @@ $\delta$は$\expt{\delta(X)\mid\theta}$のUMVU推定量と仮定する。
 任意の$h\in\mathcal{U}$と$\theta\in\Theta$と$a\in\mathbb{R}$について
 \begin{align*}
 \var{\delta(X)\mid\theta}&\le\var{\delta(X)+ah(X)\mid\theta}\\
- &= \var{\delta(X)\mid\theta}+\var{h(X)\mid\theta}a^2+2\expt{\delta(X)h(X)\mid\theta}a
+ &= \var{\delta(X)\mid\theta}+\expt{h(X)^2\mid\theta}a^2+2\expt{\delta(X)h(X)\mid\theta}a
 \end{align*}
 が成り立つので
 ($h(x)=0$のときとそうでないときで場合分けすると)
@@ -368,16 +407,16 @@ $B= Y - \expt{Y}$について、コーシー--シュワルツの不等式より
 \begin{align*}
 \var{\delta(X)\mid\theta}&\ge\frac{\cov{\delta(X),\,\psi(X,\,\theta)\mid\theta}^2}{\var{\psi(X,\,\theta)\mid\theta}}.
 \end{align*}
-ここで
+ここで$p(x\mid\theta)$が$\theta$で微分可能なとき
 \begin{align*}
 \psi(x,\,\theta)&
 =\emm{\frac{\partial\log p(x\mid\theta)}{\partial\theta}}
-=\frac{\partial p(x\mid\theta)}{\partial\theta}\frac1{p(x\mid\theta)}
+=\frac1{p(x\mid\theta)}\frac{\partial p(x\mid\theta)}{\partial\theta}
 \end{align*}
 とおく(離散の場合は$p(x\mid\theta)$は確率質量関数としての尤度関数に置き換える)と、
 \begin{align*}
 \expt{\psi(X,\,\theta)\mid\theta}&= \int \frac{\partial p(x\mid\theta)}{\partial\theta}\mathrm{d}x\\
-&= \frac{\partial }{\partial\theta}\int p(x\mid\theta)\mathrm{d}x=0.
+&= \frac{\partial }{\partial\theta}\int p(x\mid\theta)\mathrm{d}x=0.\qquad\text{(微分と積分の交換)}
 \end{align*}
 \end{frame}
 
@@ -399,9 +438,9 @@ I(\theta) &\coloneq \expt{\left(\frac{\partial \log p(X\mid\theta)}{\partial\the
 \end{align*}
 \begin{align*}
 \expt{\delta(X)\psi(X,\,\theta)\mid\theta}&=
-\int p(x\mid\theta) \delta(x)\frac{\partial p(x\mid\theta)}{\partial\theta}\frac1{p(x\mid\theta)}\mathrm{d}x\\
+\int p(x\mid\theta) \delta(x)\frac1{p(x\mid\theta)}\frac{\partial p(x\mid\theta)}{\partial\theta}\mathrm{d}x\\
 &=
-\frac{\partial}{\partial\theta}\int p(x\mid\theta) \delta(x)\mathrm{d}x\\
+\frac{\partial}{\partial\theta}\int p(x\mid\theta) \delta(x)\mathrm{d}x\qquad\text{(微分と積分の交換)}\\
 &=
 \frac{\partial}{\partial\theta}g(\theta)=g'(\theta).
 \end{align*}
@@ -468,22 +507,19 @@ $n=2$のとき、
 
 \begin{frame}{課題}
 \small
+パラメータ$\theta\in(0,1)$について、二項分布$\mathrm{Binom}(N,\,\theta)$に従う確率変数$X$
+\begin{align*}
+\Pr(X=k\mid\theta)&=\binom{N}{k}\theta^k(1-\theta)^{N-k}
+\end{align*}
+から$g(\theta)$を推定する問題を考える。
 以下の問に答えよ。
+
+\vspace{1em}
 \begin{enumerate}
-\setlength{\itemsep}{1em}
-\item 
-\begin{align*}
-p(\symbf{x}\mid\theta)&= \frac1{\sqrt{(2\pi)^N}}\mathrm{e}^{-\sum_{k=1}^N\frac{(x_k-\theta)^2}2}
-\end{align*}
-のとき、以下の$T\colon\mathbb{R}^N\to\mathbb{R}$が十分統計量かどうか示せ。結論だけでなく理由も示すこと。
-\begin{align*}
-T(\symbf{x})&= \sum_{k=1}^N x_k.
-\end{align*}
-\item
-\begin{align*}
-\Pr(X_1=x_1,\dotsc,X_N=x_N\mid\lambda)&= \frac1{\prod_{k=1}^N x_k!}\lambda^{\sum_{k=1}^N x_k} \mathrm{e}^{-N\lambda}
-\end{align*}
-のとき、$\lambda$の推定関数$\delta(\symbf{x})=x_1$と十分統計量$T(\symbf{x})=\sum_{k=1}^Nx_k$を用いてラオ--ブラックウェルの定理に基づいて、よりよい推定関数$\eta\circ T$をもとめよ。
+\setlength{\itemsep}{2em}
+\item フィッシャー情報量$I(\theta)$をもとめよ。
+\item $g(\theta)=\frac1N\expt{X\mid\theta}=\theta$の不偏推定量$\delta(x)=\frac{x}{N}$の分散とクラメール--ラオの下界を導出せよ。
+\item $g(\theta)=\frac1N\var{X\mid\theta}=\theta(1-\theta)$の不偏推定量$\delta(x)=\frac{x(N-x)}{N(N-1)}$の分散とクラメール--ラオの下界を導出せよ。
 \end{enumerate}
 \end{frame}
 
