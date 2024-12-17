@@ -85,7 +85,8 @@
 \begin{definition}[不偏推定量]
 推定量$\delta\colon \mathcal{X}\to\mathbb{R}$が以下を満たすとき、$g(\theta)$の\emm{不偏推定量}であるという。
 \begin{align*}
-\mathrm{Bias}_g(\delta\mid\theta) &= 0 \qquad\forall \theta\in\Theta.
+%\mathrm{Bias}_g(\delta\mid\theta) &= 0 \qquad\forall \theta\in\Theta.
+\expt{\delta(X)\mid\theta} &= g(\theta)\qquad\forall \theta\in\Theta.
 \end{align*}
 \end{definition}
 \end{frame}
@@ -131,11 +132,10 @@ $g(\theta) = \var{X\mid\theta}$とする。
 
 \begin{frame}{不偏推定量は存在するとは限らない}
 パラメータ$\theta\in(0,1)$について、
-$X\sim\mathrm{Binom}(N, \theta)$、$g(\theta) = 1/\theta$とする。
-$\delta\colon \mathbb{Z}_{\ge 0}\to \mathbb{R}$を不偏推定量とすると、
+$X\sim\mathrm{Ber}(\theta)$、$g(\theta) = 1/\theta$とする。
+$\delta\colon \{0,1\}\to \mathbb{R}$を不偏推定量とすると、
 \begin{align*}
-\frac1\theta &= \sum_{x=0}^N \delta(x) \Pr(X = x)\\
-&= \sum_{x=0}^N \delta(x) \binom{N}{x} \theta^x(1-\theta)^{N-x}
+\frac1\theta &= \expt{\delta(X)\mid\theta} = (1-\theta)\delta(0) + \theta \delta(1)
 \end{align*}
 $\theta\to 0$の極限で左辺は$+\infty$に発散する。一方で右辺は$\delta(0)$に収束する。
 よって\emm{$\delta$をどのように定めても不偏推定量にはならない}。
@@ -182,12 +182,12 @@ $\delta_0\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とす�
 
 \begin{frame}{例: 不偏推定量の最適化 1/2}
 \small
-パラメータ$p\in(0,1)$について、
+パラメータ$\theta\in(0,1)$について、
 \begin{align*}
-\Pr(X=-1\mid p) &= p\\
-\Pr(X=x\mid p) &= p^x (1-p)^2 \qquad\forall x\in\mathbb{Z}_{\ge 0}
+\Pr(X=-1\mid \theta) &= \theta\\
+\Pr(X=x\mid \theta) &= \theta^x (1-\theta)^2 \qquad\forall x\in\mathbb{Z}_{\ge 0}
 \end{align*}
-とする(確率$p$で$-1$、確率$1-p$で幾何分布$\mathrm{Geo}(p)$)。このとき、$\emm{p}$と$\emm{(1-p)^2}$の不偏推定量をそれぞれ
+とする(確率$\theta$で$-1$、確率$1-\theta$で幾何分布$\mathrm{Geo}(\theta)$)。このとき、$\emm{\theta}$と$\emm{(1-\theta)^2}$の不偏推定量をそれぞれ
 \begin{align*}
 \delta_0(x) &=\mathbb{1}_{\{x = -1\}}\\
 \delta_1(x) &=\mathbb{1}_{\{x = 0\}}
@@ -195,11 +195,11 @@ $\delta_0\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とす�
 とする。
 また、$h\colon\mathbb{Z}_{\ge -1}\to\mathbb{R}$を$0$の不偏推定量とすると、
 \begin{align*}
-&ph(-1) + \sum_{x\ge 0} h(x) p^x (1-p)^2 = 0\qquad\forall p\in(0,1)\\
+&\theta h(-1) + \sum_{x\ge 0} h(x) \theta^x (1-\theta)^2 = 0\qquad\forall \theta\in(0,1)\\
 %&h(0) + (h(-1) + h(1) - 2h(0))p + \sum_{x\ge 2} (h(x)-2h(x-1)+h(x-2)) p^x = 0\qquad\forall p\in(0,1)\\
-\iff&h(0) + \sum_{x\ge 1} (h(x)-2h(x-1)+h(x-2)) p^x = 0\qquad\forall p\in(0,1)\\
+\iff&h(0) + \sum_{x\ge 1} (h(x)-2h(x-1)+h(x-2)) \theta^x = 0\qquad\forall \theta\in(0,1)\\
 \iff&h(0)=0,\qquad h(x)-2h(x-1)+h(x-2) = 0\qquad\forall x\in\mathbb{Z}_{\ge1}\\
-\iff&h(x)=xh(1)\qquad\forall x\in\mathbb{Z}_{\ge-1}\\
+\iff&\emm{h(x)=xh(1)}\qquad\forall x\in\mathbb{Z}_{\ge-1}\\
 \end{align*}
 \end{frame}
 
@@ -214,14 +214,14 @@ $\delta_0\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とす�
 %\end{align*}
 %よって$h(1) = \frac{1-p}2$のとき最小化される。最適な不偏推定量は$p$毎に違う。
 \begin{align*}
-&\emm{\expt{h(X)^2\mid p}+2\expt{\delta_0(X) h(X)\mid p}}\\
-&=\expt{(\emm{h(1)}X)^2\mid p} + 2\expt{\delta_0(X) \emm{h(1)}X\mid p}\\
-&=\expt{X^2\mid p}\emm{h(1)}^2 + 2\expt{\delta_0(X) X\mid p}\emm{h(1)}
+&\emm{\expt{h(X)^2\mid \theta}+2\expt{\delta_0(X) h(X)\mid \theta}}\\
+&=\expt{(\emm{h(1)}X)^2\mid \theta} + 2\expt{\delta_0(X) \emm{h(1)}X\mid \theta}\\
+&=\expt{X^2\mid \theta}\emm{h(1)}^2 + 2\expt{\delta_0(X) X\mid \theta}\emm{h(1)}
 %&=\expt{(Xh(1))^2\mid\theta} + 2\expt{(\mathbb{1}_{\{X=-1\}}-p)Xh(1)\mid\theta}\\
 %&=\expt{X^2\mid\theta}h(1)^2 + 2\expt{(\mathbb{1}_{\{X=-1\}}-p)X\mid\theta}h(1)\\
 \end{align*}
-よって$\emm{h(1)} = -\frac{\expt{\delta_0(X)X\mid p}}{\expt{X^2\mid p}}=\frac{1-p}2$のとき最小化される。
-最適な不偏推定量は$p$毎に違う。
+よって$\emm{h(1)} = -\frac{\expt{\delta_0(X)X\mid \theta}}{\expt{X^2\mid \theta}}=\frac{1-\theta}2$のとき最小化される。
+\emm{最適な不偏推定量は$\theta$毎に違う}。
 
 \vspace{2em}
 %\begin{align*}
@@ -231,17 +231,21 @@ $\delta_0\colon\mathcal{X}\to\mathbb{R}$を$g(\theta)$の不偏推定量とす�
 %&= (1-p)^2 + \frac{2p}{1-p}h(1)^2
 %\end{align*}
 %よって$h(1) = 0$のとき最小化される。\emm{最適な不偏推定量は$p$によらず}$\delta_1(x)=\mathbb{1}_{\{x=0\}}$.
-同様に$\delta_1$について考えると$\emm{h(1)} = -\frac{\expt{\delta_1(X)X\mid p}}{\expt{X^2\mid p}}=0$のとき最小化される。
-\emm{最適な不偏推定量は$p$によらず}$\delta_1(x)=\mathbb{1}_{\{x=0\}}$.
+同様に$\delta_1$について考えると$\emm{h(1)} = -\frac{\expt{\delta_1(X)X\mid \theta}}{\expt{X^2\mid \theta}}=0$のとき最小化される。
+\emm{最適な不偏推定量は$\theta$によらず}$\delta_1(x)=\mathbb{1}_{\{x=0\}}$.
 \end{frame}
 
 \begin{frame}{一様最小分散不偏推定量}
 \small
 \begin{definition}[一様最小分散不偏推定量 (uniform minimum variance unbiased (UMVU) estimator)]
-不偏推定量$\delta\colon\mathcal{X}\to\mathbb{R}$が任意の$\theta\in\Theta$について、最小の分散を持つとき\emm{一様最小分散不偏推定量}という。
+不偏推定量$\delta\colon\mathcal{X}\to\mathbb{R}$が
+%任意の$\theta\in\Theta$について、最小の分散を持つとき
+以下の条件を満たすとき\emm{一様最小分散不偏推定量}という。
 \begin{enumerate}
 \item (不偏推定量である) $\expt{\delta(X)\mid\theta}=g(\theta)$ for all $\theta\in\Theta$.
-\item (分散が最小である) $\var{\delta(X)\mid\theta}\le \var{\delta'(X)\mid\theta}$が任意の不偏推定量$\delta'\colon\mathcal{X}\to\mathbb{R}$と$\theta\in\Theta$について成り立つ。
+\item (分散が最小である) 
+\emm{任意の不偏推定量}$\delta'\colon\mathcal{X}\to\mathbb{R}$と$\theta\in\Theta$について
+$\var{\delta(X)\mid\theta}\le \var{\delta'(X)\mid\theta}$が成り立つ。
 \end{enumerate}
 \end{definition}
 %\begin{align*}
@@ -343,7 +347,7 @@ $\delta^*$が不偏推定量であることは期待値の線形性から明ら�
 p(\symbf{x}\mid \theta) &= \prod_{k=1}^N p(x_k\mid \theta).
 \end{align*}
 \begin{lemma}[対称な不偏推定量]
-任意の不偏推定量$\delta\colon \mathcal{X}^N\to\Theta$について、ある\emm{対称な}不偏推定量$\delta^*$が存在して
+任意の不偏推定量$\delta\colon \mathcal{X}^N\to\Theta$について、ある($x_1,\dotsc,x_n$について)\emm{対称な}不偏推定量$\delta^*$が存在して
 \begin{align*}
 \var{\delta^*(\symbf{X})\mid\theta} &\le \var{\delta(\symbf{X})\mid\theta}
 \qquad\forall\theta\in\Theta.
@@ -403,17 +407,17 @@ $B= Y - \expt{Y}$について、コーシー--シュワルツの不等式より
 不偏推定量$\delta\colon\mathcal{X}\to\mathbb{R}$の分散の下界を導出したい。
 
 \vspace{1em}
-任意の$\psi\colon\mathcal{X}\times\Theta\to\mathbb{R}$について
+任意の$\emm{\psi\colon\mathcal{X}\times\Theta\to\mathbb{R}}$について
 \begin{align*}
 \var{\delta(X)\mid\theta}&\ge\frac{\cov{\delta(X),\,\psi(X,\,\theta)\mid\theta}^2}{\var{\psi(X,\,\theta)\mid\theta}}.
 \end{align*}
-ここで$p(x\mid\theta)$が$\theta$で微分可能なとき
+ここで$p(x\mid\theta)$が\emm{$\theta$で微分可能}なとき
 \begin{align*}
 \psi(x,\,\theta)&
 =\emm{\frac{\partial\log p(x\mid\theta)}{\partial\theta}}
 =\frac1{p(x\mid\theta)}\frac{\partial p(x\mid\theta)}{\partial\theta}
 \end{align*}
-とおく(離散の場合は$p(x\mid\theta)$は確率質量関数としての尤度関数に置き換える)と、
+とおく(離散の場合は$p(x\mid\theta)$は\emm{確率質量関数}としての尤度関数に置き換える)と、
 \begin{align*}
 \expt{\psi(X,\,\theta)\mid\theta}&= \int \frac{\partial p(x\mid\theta)}{\partial\theta}\mathrm{d}x\\
 &= \frac{\partial }{\partial\theta}\int p(x\mid\theta)\mathrm{d}x=0.\qquad\text{(微分と積分の交換)}
@@ -434,7 +438,7 @@ I(\theta) &\coloneq \emm{\expt{\left(\frac{\partial \log p(X\mid\theta)}{\partia
 \end{definition}
 \begin{align*}
 \var{\delta(X)\mid\theta}&\ge\frac{\cov{\delta(X),\,\psi(X,\,\theta)\mid\theta}^2}{\var{\psi(X,\,\theta)\mid\theta}}\\
-&\ge\frac{\expt{\delta(X)\psi(X,\,\theta)\mid\theta}^2}{I(\theta)}.
+&=\frac{\expt{\delta(X)\psi(X,\,\theta)\mid\theta}^2}{\emm{I(\theta)}}.
 \end{align*}
 \begin{align*}
 \expt{\delta(X)\psi(X,\,\theta)\mid\theta}&=
