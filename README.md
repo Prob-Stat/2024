@@ -12,8 +12,8 @@
 * 12/3 仮説検定 [slide](./slides/09_testing.pdf)
 * 12/10 点推定、十分統計量 [slide](./slides/10_estimate.pdf)
 * 12/17 点推定、不偏推定量 [slide](./slides/11_unbiased.pdf)
-* 12/24 
+* 12/24 振り返り
 * 1/14 
 * 1/21 
 * 1/28 
-* 2/4 
+* 2/4 期末試験
