@@ -1,0 +1,158 @@
+%\documentclass[a4paper,twoside,onecolumn,openany,article]{memoir}
+%\documentclass[a4paper]{article}
+\documentclass[lualatex,ja=standard,a4paper]{bxjsarticle}
+%\usepackage[a4paper, hmargin=1in, vmargin={1in, 1.4in}]{geometry}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage{nicematrix}
+\usepackage[inline]{enumitem}
+%\usepackage{enumerate}
+%\defaultfontfeatures{Ligatures=TeX}
+
+\usepackage{luatexja-fontspec}
+
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{Inconsolata}
+
+\setmainjfont{Noto Sans CJK JP}
+\setsansjfont{Noto Sans CJK JP}
+\setmonojfont{Noto Sans Mono CJK JP}
+
+
+%\usepackage{sfmath}
+
+
+
+
+
+%\usepackage[mathrm=sym]{unicode-math}
+%%\setmainfont[SlantedFont={Latin Modern Roman Slanted},SlantedFeatures={Color=000000},
+%%  SmallCapsFont={TeX Gyre Termes},SmallCapsFeatures={Letters=SmallCaps}]{XITS}
+%\setmathfont[math-style=TeX,sans-style=upright]{XITS Math}
+%\setmathfont[math-style=ISO,sans-style=upright]{Fira Math}
+%\setmathfont{NotoSansMath-Regular.ttf}
+%\setmathfont{DejaVu Math}
+%\setmathfont[range={\mathcal,\mathbfcal}]{Latin Modern Math}
+%\setmathfont{Latin Modern Math}
+
+
+\newtheorem{theorem}{定理}
+\theoremstyle{definition}
+\newtheorem{definition}{定義}
+\newtheorem{problem}{問題}
+\theoremstyle{remark}
+\newtheorem{remark}{\textbf{余談}}
+
+
+
+\title{確率・統計基礎\\
+期末試験}
+\author{森~立平}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\vspace{1em}
+{\noindent\large\bfseries 問1}
+
+\vspace{1em}
+以下の確率質量関数および確率密度関数を持つ確率変数$X$の期待値と分散をもとめよ。
+
+\vspace{1em}
+%\begin{enumerate*}[label=(\arabic*),itemjoin={\hspace{20pt}}]
+%\begin{enumerate*}[label=(\arabic*)]
+\begin{enumerate}[label=(\arabic*)]
+\setlength{\itemsep}{1em}
+\item
+$\Pr(X=0)=1-p,\,\Pr(X=1)=p$ for $p\in[0,1]$.
+\item
+$\Pr(X=0)=\frac12,\,\Pr(X=1)=\frac13,\,\Pr(X=2)=\frac{5}{12}$.
+\end{enumerate}
+
+\vspace{1em}
+{\noindent\large\bfseries 問2}
+
+\vspace{1em}
+\begin{align*}
+\Pr(X = k) &= \mathrm{e}^{-\lambda} \frac{\lambda^k}{k!}
+\end{align*}
+とする。
+\vspace{1em}
+\begin{enumerate}[label=(\arabic*)]
+\setlength{\itemsep}{1em}
+\item $X$のキュムラント母関数$K_X(t)$をもとめよ。
+\item $X$のキュムラント母関数のルジャンドル変換$I_X(a) = \min_t\{ta - K_X(t)\}$をもとめよ。
+\item $X_1,\dotsc,X_N$ を$X$と独立同分布の確率変数とする。
+実数$a$について、以下の値をクラメールの定理を用いてもとめよ。
+\end{enumerate}
+\begin{align*}
+\lim_{N\to\infty}\frac1N\log\Pr\left(\frac{X_1+\dotsb+X_N}{N} \ge a\right).
+\end{align*}
+
+
+\vspace{1em}
+{\noindent\large\bfseries 問3}
+
+\vspace{1em}
+$A=\{0,1,2\},\,B=\{0, 1\}$とし、
+\begin{align*}
+\Pr(S = 0) &= 1/4&
+\Pr(S = 1) &= 3/4\\
+\Pr(X=0\mid S=0) &= 1/6&
+\Pr(X=1\mid S=0) &= 2/6&
+\Pr(X=2\mid S=0) &= 3/6\\
+\Pr(X=0\mid S=1) &= 3/6&
+\Pr(X=1\mid S=1) &= 1/6&
+\Pr(X=2\mid S=1) &= 2/6
+\end{align*}
+とするとき、以下の問に答えよ。
+\vspace{1em}
+\begin{enumerate}[label=(\arabic*)]
+\setlength{\itemsep}{1em}
+\item $X$から$S$を最大事後確率推定する関数$E_{\mathrm{MAP}}\colon A\to B$と最尤推定する関数$E_{\mathrm{ML}}\colon A\to B$をもとめよ。
+%事後確率や尤度が等しい場合ものが複数ある場合は一様に選ぶことにせよ。
+\item $X$から$S$を最大事後確率推定した場合の平均誤り確率をもとめよ。
+\item $X$から$S$を最尤推定した場合の平均誤り確率をもとめよ。
+\end{enumerate}
+
+
+\vspace{1em}
+%\newpage
+{\noindent\large\bfseries 問4}
+
+\vspace{1em}
+$A=\{0,\,1\},\, B=\left\{p_0=\frac12,\,p_1=\frac13\right\}$とし、$k\in\{0,\,1\}$について
+\begin{align*}
+\Pr(X = 0 \mid S = p_k) &= 1-p_k&
+\Pr(X = 1 \mid S = p_k) &= p_k
+\end{align*}
+とする。
+このとき、 $\eta> 0,\,\kappa\in[0,1]$について、以下の尤度比検定関数$E(x)$で仮説検定することを考える。
+\begin{align*}
+E(x)&=
+\begin{cases}
+\vspace{.5em}
+0&\text{if } \frac{\Pr(X = x\mid S = p_0)}{\Pr(X = x\mid S = p_1)} > \eta\\\vspace{.5em}
+1&\text{if } \frac{\Pr(X = x\mid S = p_0)}{\Pr(X = x\mid S = p_1)} < \eta\\
+\kappa&\text{otherwise.}
+\end{cases}
+\end{align*}
+以下の問に答えよ。
+\begin{enumerate}
+\setlength{\itemsep}{1em}
+\item $\eta=1$のとき$\alpha_E$, $\beta_E$をもとめよ。
+\item 一般の$\eta>0$と$\kappa\in[0,1]$について、誤り確率$\alpha_E$, $\beta_E$をもとめよ。$\eta$の値で場合分けしてもと
+めること。
+\item 任意の検定関数$E\colon A\to[0,1]$で実現可能な$(\alpha_E,\, \beta_E)$の範囲を図示せよ。
+\end{enumerate}
+
+
+\end{document}
