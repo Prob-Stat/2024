@@ -81,15 +81,17 @@ $\Pr(X=0)=\frac12,\,\Pr(X=1)=\frac13,\,\Pr(X=2)=\frac{5}{12}$.
 {\noindent\large\bfseries 問2}
 
 \vspace{1em}
+正の実数$\lambda>0$について、確率変数$X$がポアソン分布にしたがうとする。
+つまり
 \begin{align*}
-\Pr(X = k) &= \mathrm{e}^{-\lambda} \frac{\lambda^k}{k!}
+\Pr(X = k) &=  \frac{\lambda^k\mathrm{e}^{-\lambda}}{k!}
 \end{align*}
-とする。
+である。
 \vspace{1em}
 \begin{enumerate}[label=(\arabic*)]
 \setlength{\itemsep}{1em}
-\item $X$のキュムラント母関数$K_X(t)$をもとめよ。
-\item $X$のキュムラント母関数のルジャンドル変換$I_X(a) = \min_t\{ta - K_X(t)\}$をもとめよ。
+\item $X$のキュムラント母関数$K_X(t)=\log\mathbb{E}[\mathrm{e}^{tX}]$をもとめよ。
+\item $X$のキュムラント母関数のルジャンドル変換$I_X(a) = \sup_{t\in\mathbb{R}}\{at - K_X(t)\}$をもとめよ。
 \item $X_1,\dotsc,X_N$ を$X$と独立同分布の確率変数とする。
 実数$a$について、以下の値をクラメールの定理を用いてもとめよ。
 \end{enumerate}
@@ -98,7 +100,8 @@ $\Pr(X=0)=\frac12,\,\Pr(X=1)=\frac13,\,\Pr(X=2)=\frac{5}{12}$.
 \end{align*}
 
 
-\vspace{1em}
+\newpage
+%\vspace{1em}
 {\noindent\large\bfseries 問3}
 
 %\vspace{1em}
