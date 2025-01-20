@@ -14,6 +14,6 @@
 * 12/17 点推定、不偏推定量 [slide](./slides/11_unbiased.pdf)
 * 12/24 振り返り
 * 1/14 休講
-* 1/21 模擬期末試験 [pdf](./docs/examp.pdf)
+* 1/21 模擬期末試験 [pdf](./docs/exam.pdf)
 * 1/28 
 * 2/4 期末試験
